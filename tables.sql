@@ -109,7 +109,7 @@ CREATE TABLE users(
 );
 
 -- Tabela criada para criar os níveis de acesso ao sistema
-CREATE TABLE rolePlans(
+CREATE TABLE role_plans(
 	id SERIAL PRIMARY KEY,
 	planName VARCHAR UNIQUE NOT NULL,
 	creationDate TIMESTAMPTZ NOT NULL DEFAULT NOW()		
@@ -118,7 +118,7 @@ CREATE TABLE rolePlans(
 -- Tabela criada para associar o usuário a uma nível de acesso em uma determinada entidade, por exemplo ele é "Registrador de Contrato" na Credora 1 e ele é "Visualizador" na Credora 2
 CREATE TABLE accounts(
 	id SERIAL PRIMARY KEY,
-	rolePlanId INT4 NOT NULL REFERENCES rolePlans(id) ON DELETE RESTRICT,
+	rolePlanId INT4 NOT NULL REFERENCES role_plans(id) ON DELETE RESTRICT,
 	userId INT4 NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
 	entityId INT4 NOT NULL REFERENCES entities(id) ON DELETE RESTRICT,
 	creationDate TIMESTAMPTZ NOT NULL DEFAULT NOW()		
