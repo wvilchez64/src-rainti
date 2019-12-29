@@ -111,7 +111,7 @@ CREATE TABLE users(
 -- Tabela criada para criar os níveis de acesso ao sistema
 CREATE TABLE rolePlans(
 	id SERIAL PRIMARY KEY,
-	planName VARCHAR,
+	planName VARCHAR UNIQUE NOT NULL,
 	creationDate TIMESTAMPTZ NOT NULL DEFAULT NOW()		
 );
 
