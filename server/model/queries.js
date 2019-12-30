@@ -1,7 +1,7 @@
 const Pool = require('pg').Pool
 const crypto = require('crypto')
 
-const jsonData = require('./config.json.js');
+const jsonData = require('./config.json.js.js');
 
 const pool = new Pool({  
   user: jsonData.user,
