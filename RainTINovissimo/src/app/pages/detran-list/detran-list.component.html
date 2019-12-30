@@ -1,0 +1,118 @@
+<div class="uk-container">
+    <nav uk-navbar>
+        <div class="uk-navbar-left">
+            <ul class="uk-navbar-nav">
+                <li class="uk-active"><strong>Lista de Detran disponíveis</strong></li>
+            </ul>
+        </div>
+        <div class="uk-navbar-right">
+            <ul class="uk-navbar-nav">
+                <li class="uk-active">
+                    <a [routerLink]="['/detranregister']">
+                        <span  class="uk-icon uk-margin-small-right" uk-icon="icon: plus" ></span>
+                        Adicionar
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="uk-container">
+<div class="uk-overflow-auto">
+    <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
+        <thead>
+            <tr>
+                <th class="uk-table-shrink"></th>
+                <th class="uk-width-small">Estado</th>
+                <th class="uk-width-small">CNPJ</th>
+                <th class="uk-width-small">Responsável</th>
+                <th class="uk-width-small">Telefone</th>
+                <th class="uk-width-small">E-mail</th>
+                <th class="uk-width-small">Obs</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input class="uk-checkbox" type="checkbox"></td>
+                <td class="uk-table-link">
+                <a class="uk-link-reset">São Paulo</a>
+                </td>
+                <td class="uk-text-truncate">123.456.789.10000</td>
+                <td class="uk-text-nowrap">Mario Pereira</td>
+                <td class="uk-text-nowrap">(11)4589-7070</td>
+                <td class="uk-text-nowrap">Mario.Pereira@detranSP.com.br</td>
+                <td class="uk-text-nowrap">Responsável até 2021</td>
+                <td class="uk-text-nowrap "> <span uk-icon="icon: trash; ratio: 5"></span>
+            </tr>
+           
+            <tr>
+                <td><input class="uk-checkbox" type="checkbox"></td>
+                <td class="uk-table-link">
+                <a class="uk-link-reset">Pernambuco</a>
+                </td>
+                <td class="uk-text-truncate">123.456.789.10000</td>
+                <td class="uk-text-nowrap">Maria Pereira</td>
+                <td class="uk-text-nowrap">(11)4127-7070</td>
+                <td class="uk-text-nowrap">Maria.Pereira@detranPE.com.br</td>
+                <td class="uk-text-nowrap">Responsável até 2027</td>
+                <td class="uk-text-nowrap" uk-icon="icon: trash; ratio: 5">
+            </tr>
+
+            <tr>
+                <td><input class="uk-checkbox" type="checkbox"></td>
+                <td class="uk-table-link">
+                <a class="uk-link-reset">Bahia</a>
+                </td>
+                <td class="uk-text-truncate">123.456.789.10000</td>
+                <td class="uk-text-nowrap">Pedro Silva</td>
+                <td class="uk-text-nowrap">(11)4585-7070</td>
+                <td class="uk-text-nowrap">Pedro.Silva@detranBA.com.br</td>
+                <td class="uk-text-nowrap">Responsável até 2022</td>
+                <td class="uk-text-nowrap" uk-icon="icon: trash; ratio: 5">
+            </tr>
+
+            <tr>
+                <td><input class="uk-checkbox" type="checkbox"></td>
+                <td class="uk-table-link">
+                <a class="uk-link-reset">Rio de Janeiro</a>
+                </td>
+                <td class="uk-text-truncate">123.456.789.10000</td>
+                <td class="uk-text-nowrap">João Pereira</td>
+                <td class="uk-text-nowrap">(11)4176-7070</td>
+                <td class="uk-text-nowrap">Joao.Pereira@detranRJ.com.br</td>
+                <td class="uk-text-nowrap">Responsável até 2023</td>
+                <td class="uk-text-nowrap" uk-icon="icon: trash; ratio: 5">
+            </tr>
+
+            <tr>
+                <td><input class="uk-checkbox" type="checkbox"></td>
+                <td class="uk-table-link">
+                <a class="uk-link-reset">Espirito Santo</a>
+                </td>
+                <td class="uk-text-truncate">123.456.789.10000</td>
+                <td class="uk-text-nowrap">Moises Pereira</td>
+                <td class="uk-text-nowrap">(11)4333-7070</td>
+                <td class="uk-text-nowrap">Moises.Pereira@detranES.com.br</td>
+                <td class="uk-text-nowrap">Responsável até 2024</td>
+                <td class="uk-text-nowrap" uk-icon="icon: trash; ratio: 5">
+            </tr>
+
+            <tr>
+                <td><input class="uk-checkbox" type="checkbox"></td>
+                <td class="uk-table-link">
+                <a class="uk-link-reset">Acre</a>
+                </td>
+                <td class="uk-text-truncate">123.456.789.10000</td>
+                <td class="uk-text-nowrap">Dorivaldo Pereira</td>
+                <td class="uk-text-nowrap">(11)4578-7070</td>
+                <td class="uk-text-nowrap">Dorivaldo.Pereira@detranAC.com.br</td>
+                <td class="uk-text-nowrap">Responsável até 2015</td>
+                <td class="uk-text-nowrap" uk-icon="icon: trash; ratio: 5">
+            </tr>
+
+
+        </tbody>
+    </table>
+</div>
+</div>
