@@ -8,16 +8,237 @@
         <div class="uk-navbar-right">
             <ul class="uk-navbar-nav">
                 <li class="uk-active">
-                    <a [routerLink]="['/detranregister']">
-                        <span  class="uk-icon uk-margin-small-right" uk-icon="icon: plus" ></span>
+                <p><br>
+                    <button class="uk-button uk-button-text" (click)="AddDetran('AddOrEditDetran')">
+                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: plus" ></span>
                         Adicionar
-                    </a>
+                    </button>
+                </p>
                 </li>
             </ul>
         </div>
     </nav>
 </div>
+
 <div class="uk-container">
+    <div uk-grid>
+      <div class="uk-width-1-3">
+        <div class="uk-card uk-card-default">
+         <div class="uk-card-body">
+             
+                <h3 class="uk-card-title">São Paulo</h3>
+                    <p>Mario da Silva<br>
+                        Mario.Silva@DetranSP.com.br<br>
+                        (11)4589-7070<br>
+                    </p>
+            <p>
+                <button (click)="ConsultDetran('AddOrEditDetran')" class="uk-button uk-button-default">
+                  <span class="uk-icon uk-margin-small-right" uk-icon="plus-circle"></span>
+                </button>
+                <button  (click)="EditDetran('AddOrEditDetran')"  class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: pencil"></span>
+                </button>
+                <button class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: trash"></span>
+                </button>
+            </p>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="uk-width-1-3">
+        <div class="uk-card uk-card-default">
+         <div class="uk-card-body">
+             
+                <h3 class="uk-card-title">Rio de Janeiro</h3>
+                    <p>João Pereira<br>
+                        joao.pereira@DetranRJ.com.br<br>
+                        (25)4527-7070<br>
+                    </p>
+            <p>
+                <button (click)="ConsultDetran('AddOrEditDetran')" class="uk-button uk-button-default">
+                  <span class="uk-icon uk-margin-small-right" uk-icon="plus-circle"></span>
+                </button>
+                <button  (click)="EditDetran('AddOrEditDetran')"  class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: pencil"></span>
+                </button>
+                <button class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: trash"></span>
+                </button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="uk-width-1-3">
+        <div class="uk-card uk-card-default">
+         <div class="uk-card-body">
+                <h3 class="uk-card-title">Pernambuco</h3>
+                    <p>Pedro Rosa<br>
+                        Pedro.Rosa@DetranPE.com.br<br>
+                        (11)4579-7070<br>
+                    </p>
+            
+             <p>    <button (click)="ConsultDetran('AddOrEditDetran')" class="uk-button uk-button-default">
+                        <span class="uk-icon uk-margin-small-right" uk-icon="plus-circle"></span>
+                    </button>
+                    <button  (click)="EditDetran('AddOrEditDetran')"  class="uk-button uk-button-default">
+                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: pencil"></span>
+                    </button>
+                    <button class="uk-button uk-button-default">
+                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: trash"></span>
+                    </button>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="uk-width-1-3">
+        <div class="uk-card uk-card-default">
+         <div class="uk-card-body">
+             
+                <h3 class="uk-card-title">Acre</h3>
+                    <p>Adão da Silva<br>
+                        Adao.Silva@DetranAC.com.br<br>
+                        (10)4576-7070<br>
+                    </p>
+           
+            <p>   <button (click)="ConsultDetran('AddOrEditDetran')" class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="plus-circle"></span>
+                </button>
+                <button  (click)="EditDetran('AddOrEditDetran')"  class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: pencil"></span>
+                </button>
+                <button class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: trash"></span>
+                </button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="uk-width-1-3">
+        <div class="uk-card uk-card-default">
+         <div class="uk-card-body">
+             
+                <h3 class="uk-card-title">Espirito Santo</h3>
+                    <p>Moises da Luz<br>
+                        moises.luz@DetranES.com.br<br>
+                        (16)4589-7070<br>
+                    </p>
+            <p>
+                <button (click)="ConsultDetran('AddOrEditDetran')" class="uk-button uk-button-default">
+                  <span class="uk-icon uk-margin-small-right" uk-icon="plus-circle"></span>
+                </button>
+                <button  (click)="EditDetran('AddOrEditDetran')"  class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: pencil"></span>
+                </button>
+                <button class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: trash"></span>
+                </button>
+            </p>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="uk-width-1-3">
+        <div class="uk-card uk-card-default">
+         <div class="uk-card-body">
+             
+                <h3 class="uk-card-title">Bahia</h3>
+                    <p>Josnildo Perasilva<br>
+                        josnildo.perasilva@DetranBA.com.br<br>
+                        (18)4565-7070<br>
+                    </p>
+            <p>
+                <button (click)="ConsultDetran('AddOrEditDetran')" class="uk-button uk-button-default">
+                  <span class="uk-icon uk-margin-small-right" uk-icon="plus-circle"></span>
+                </button>
+                <button  (click)="EditDetran('AddOrEditDetran')"  class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: pencil"></span>
+                </button>
+                <button class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: trash"></span>
+                </button>
+            </p>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="uk-width-1-3">
+        <div class="uk-card uk-card-default">
+         <div class="uk-card-body">
+             
+                <h3 class="uk-card-title">Amazonas</h3>
+                    <p>Rosa Flores<br>
+                        Rosa.Flores@DetranAM.com.br<br>
+                        (19)4568-7070<br>
+                    </p>
+            <p>
+                <button (click)="ConsultDetran('AddOrEditDetran')" class="uk-button uk-button-default">
+                  <span class="uk-icon uk-margin-small-right" uk-icon="plus-circle"></span>
+                </button>
+                <button  (click)="EditDetran('AddOrEditDetran')"  class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: pencil"></span>
+                </button>
+                <button class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: trash"></span>
+                </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uk-position-cover uk-overlay uk-overlay-default uk-flex uk-flex-center uk-flex-middle" *ngIf="mode=='AddOrEditDetran'">
+    <div uk-grid>
+      <div class="uk-width-1">
+        <div class="uk-card uk-card-default">
+         <div class="uk-card-body uk-fl">
+            <h3 class="uk-card-title">{{DetranTitle}}</h3>
+             
+                    <div class="uk-margin">
+
+                        <input class="uk-input uk-form-large" type="text" placeholder="Estado" [disabled]="DetranDisable ? true : false" > 
+
+                    </div>
+                    <div class="uk-margin">
+
+                        <input class="uk-input uk-form-large" type="text" placeholder="CNPJ" [disabled]="DetranDisable ? true : false">
+
+                    </div>
+                    <div class="uk-margin">
+
+                        <input class="uk-input uk-form-large" type="text" placeholder="Responsável" [disabled]="DetranDisable ? true : false">
+
+                    </div>
+                    <div class="uk-margin">
+
+                        <input class="uk-input uk-form-large" type="text" placeholder="Telefone" [disabled]="DetranDisable ? true : false">
+
+                    </div>
+                    <div class="uk-margin">
+
+                        <input class="uk-input uk-form-large" type="email" placeholder="Email" [disabled]="DetranDisable ? true : false">
+
+
+                    </div>
+
+            <p>
+              <button (click)="ListDetran('')"  class="uk-button uk-button-default">
+              <span class="uk-icon uk-margin-small-right" uk-icon="icon: close"></span>
+                </button>
+                <button (click)="ListDetran('')"  class="uk-button uk-button-default">
+                    <span class="uk-icon uk-margin-small-right" uk-icon="icon: check"></span>
+                </button>
+            </p>
+          </div>
+        </div>
+      </div>
+
+
+
+<!-- <div class="uk-container">
 <div class="uk-overflow-auto">
     <table class="uk-table uk-table-hover uk-table-middle uk-table-divider">
         <thead>
@@ -115,4 +336,4 @@
         </tbody>
     </table>
 </div>
-</div>
+</div> -->
