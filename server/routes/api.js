@@ -7,6 +7,7 @@ router.get('/', (req, res)=>{
     res.send('From API route')
 })
 
+router.get('/entities', queries.getDetrans)
 router.post('/register', queries.createUser)
 router.post('/login', queries.loginUser)
 
