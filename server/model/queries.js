@@ -1,8 +1,8 @@
 const Pool = require('pg').Pool
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
-
 const jsonData = require('./config.json');
+var randomize = require('randomatic');
 
 const pool = new Pool({  
   user: jsonData.user,
@@ -11,6 +11,55 @@ const pool = new Pool({
   password: jsonData.password,
   port: jsonData.port,
 })
+
+
+const resetPassword = (req, res) =>{
+  let userData = req.body
+
+  let hash = crypto.createHash('md5').update(userData.password).digest("hex")
+
+  console.log(userData.password)
+  console.log(userData.userName)
+  console.log(userData.resetCode)
+  pool.query('update users set passwordmd5 = $1 where username = $2 and resetcode = $3',[hash, userData.userName, userData.resetCode],
+   (error, result) => {
+    if (error) {
+      throw error
+    }else{      
+      if(result.rowCount == 0){
+        res.status(400).send('Dados inválidos')
+      }else{
+        res.status(200).json(result.affectedRows)
+      }
+      
+    }    
+  })
+}
+
+const recoverPassword = (req, res) =>{
+  let userData = req.body
+
+  pool.query('select email from users where email = $1 or username = $1',[userData.email],
+   (error, email) => {
+    if (error) {
+      throw error
+    }
+    if(email.rowCount == 0){
+      res.status(401).json(email.rows)
+    }else{
+      res.status(200).json(email.rows)
+      pool.query('update users set resetcode = $1 where username = $2 or email = $2 ',[randomize('Aa0',6), userData.email],
+        (error,result) =>{
+          if(error){
+            throw error
+          }
+          res.status(200)
+        }
+      )
+    }
+    
+  })
+}
 
 const getEntitiesTypes = (req, res) =>{
   pool.query('select description as name from entity_type',
@@ -70,4 +119,4 @@ const loginUser = (req, res) => {
     })
 }
 
-module.exports = { createUser, loginUser, getDetrans, getEntitiesTypes }
+module.exports = { createUser, loginUser, getDetrans, getEntitiesTypes, recoverPassword, resetPassword}
