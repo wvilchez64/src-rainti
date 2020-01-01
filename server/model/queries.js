@@ -12,6 +12,16 @@ const pool = new Pool({
   port: jsonData.port,
 })
 
+const getEntitiesTypes = (req, res) =>{
+  pool.query('select description as name from entity_type',
+   (error, types) => {
+    if (error) {
+      throw error
+    }
+    res.status(200).json(types.rows)
+  })
+}
+
 const getDetrans = (req, res) =>{
   pool.query('select  dd.identity as id, et.description as cnpj, max(case when dd.datacodeid = 1 then dd.description end) as name,   max(case when dd.datacodeid = 2 then dd.description end) as tel,  max(case when dd.datacodeid = 3 then dd.description end) as email from data_detran dd, states st, states_relationship sr, entities et where dd."identity" = sr."identity" and st.id = sr.idstate and dd."identity" = et.id group by dd.identity, et.description order by dd.identity',
    (error, storedDetrans) => {
@@ -60,4 +70,4 @@ const loginUser = (req, res) => {
     })
 }
 
-module.exports = { createUser, loginUser, getDetrans }
+module.exports = { createUser, loginUser, getDetrans, getEntitiesTypes }

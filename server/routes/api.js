@@ -8,6 +8,7 @@ router.get('/', (req, res)=>{
 })
 
 router.get('/entities', queries.getDetrans)
+router.get('/entities-types', queries.getEntitiesTypes)
 router.post('/register', queries.createUser)
 router.post('/login', queries.loginUser)
 
