@@ -45,7 +45,7 @@ const recoverPassword = (req, res) =>{
     if(email.rowCount == 0){
       res.status(401).json(email.rows)
     }else{
-      res.status(200).json({code: random})
+      res.status(200).json({code: random, email: userData.email})
       pool.query('update users set resetcode = $1 where username = $2 or email = $2 ',[random, userData.email])
     }
     
