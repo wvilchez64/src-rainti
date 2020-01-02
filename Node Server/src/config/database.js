@@ -15,7 +15,7 @@ var conString = conString.concat(
     sqlInit.sqlDatabase
 );
 
-var config = process.env.ELEPHANTSQL_URL || conString;
+var config = conString;
 
 const client = new pgSql.Client(
     config

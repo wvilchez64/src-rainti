@@ -1,38 +1,25 @@
-class Data_CodeDao {
+class EntitiesDao {
 
     constructor(client) {
         this._client = client;
     }
 
-    data_codeInsert(description){
-        const cmd = "insert into data_code(description, creationdate) values('" + description + "', now());";
+    entitiesInsert(description, status, datacodeid, entitytypeid){
+        const cmd = "insert into entities(description, status, datacodeid, entitytypeid, creationdate) values('" + 
+                  description + "', " + status + ", " + datacodeid + ", " + entitytypeid + ", now());";
         return new Promise((resolve, reject) => {
             this._client
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
                 }
-                return resolve("data_code Inserted");
+                return resolve("entities Inserted");
             });
         });
     }
 
-    data_codeSelectId(id){
-        const cmd = "select * from data_code where id = " + id + ";";
-        return new Promise((resolve, reject) => {
-            this._client
-            .query(cmd, (error, result) => {
-                if (error) {
-                    return reject(error);
-                }
-                return resolve(result.rows);
-            });
-        });
-    }
-
-
-    data_codeSelectDescription(description){
-        const cmd = "select * from data_code where description = '" + description + "';";
+    entitiesSelectId(id){
+        const cmd = "select * from entities where id = " + id + ";";
         return new Promise((resolve, reject) => {
             this._client
             .query(cmd, (error, result) => {
@@ -44,21 +31,35 @@ class Data_CodeDao {
         });
     }
 
-    data_codeUpdate(id, description){
-        const cmd = "update data_code a set description = '" + description + "' where a.id = " + id + ";";
+    entitiesSelectDescription(description){
+        const cmd = "select * from entities where description = '" + description + "';";
         return new Promise((resolve, reject) => {
             this._client
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
                 }
-                return resolve("data_code Updated");
+                return resolve(result.rows);
             });
         });
     }
 
-    data_codeSelectAll(){
-        const cmd = "select * from data_code order by id;";
+    entitiesUpdate(id, description, status, datacodeid, entitytypeid){
+		const cmd = "update entities a set description = '" + description + "', status = " + status + ", " +
+					"datacodeid = " + datacodeid + ", entitytypeid = " + entitytypeid + " where a.id = " + id + ";";
+        return new Promise((resolve, reject) => {
+            this._client
+            .query(cmd, (error, result) => {
+                if (error) {
+                    return reject(error);
+                }
+                return resolve("entities Updated");
+            });
+        });
+    }
+
+    entitiesSelectAll(){
+        const cmd = "select * from entities order by id;";
         return new Promise((resolve, reject) => {
             this._client
             .query(cmd, (error, result) => {
@@ -70,4 +71,4 @@ class Data_CodeDao {
         });
     }
 }    
-module.exports = Data_CodeDao;
+module.exports = EntitiesDao;

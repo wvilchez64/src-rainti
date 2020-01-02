@@ -2,7 +2,7 @@ module.exports = {
   sqlInit: { 
     "sqlServer": "localhost",
     "sqlPort": "5432",
-    "sqlDatabase": "RainTi",
+    "sqlDatabase": "postgres",
     "sqlUser": "postgres",
     "sqlPassword": "Mariana03"
   },
