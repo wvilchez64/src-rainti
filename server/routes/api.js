@@ -1,16 +1,18 @@
 const express =  require('express')
 const queries = require('../model/queries')
+const email = require('../model/mailing')
 
 const router = express.Router()
 
-router.get('/', (req, res)=>{
-    res.send('From API route')
-})
-
-router.post('/reset-password', queries.resetPassword)
-router.post('/recover-password', queries.recoverPassword)
+// GETS
 router.get('/entities', queries.getDetrans)
 router.get('/entities-types', queries.getEntitiesTypes)
+router.get('/', (req, res)=>{res.send('From API route')})
+
+// POSTs
+router.post('/send-email', email.sendEmail)
+router.post('/reset-password', queries.resetPassword)
+router.post('/recover-password', queries.recoverPassword)
 router.post('/register', queries.createUser)
 router.post('/login', queries.loginUser)
 

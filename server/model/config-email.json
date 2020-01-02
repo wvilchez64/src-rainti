@@ -1,0 +1,8 @@
+{
+    "emailFrom": "no-reply@rainti.com.br",
+    "password": "nr@dev@2020",
+    "userName": "no-reply",
+    "host": "smtp.office365.com",
+    "port": 587,
+    "secure": false
+}
