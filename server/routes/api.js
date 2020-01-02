@@ -5,8 +5,8 @@ const email = require('../model/mailing')
 const router = express.Router()
 
 // GETS
-router.get('/entities', verifyToken, queries.getDetrans)
-router.get('/entities-types', verifyToken, queries.getEntitiesTypes)
+router.get('/entities', queries.getDetrans)
+router.get('/entities-types', queries.getEntitiesTypes)
 router.get('/', (req, res)=>{res.send('From API route')})
 
 // POSTs
