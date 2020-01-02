@@ -1,50 +1,43 @@
 const nodemailer = require("nodemailer");
 
 // async..await is not allowed in global scope, must use a wrapper
-async function emailSender(configHost, configPort, configSecure, userName, emailFrom, password, emailTo, subjectContent, body) {
+async function emailSender(user, callback){//(configHost, configPort, configSecure, userName, emailFrom, password, emailTo, subjectContent, body)  {
   
-  console.log(configHost+', ' +configPort+', '+ configSecure+', '+ userName+', '+ emailFrom+', '+ password+', '+ emailTo+', '+ subjectContent+', '+ body)
+  console.log(user.host+', ' +user.port+', '+ user.secure+', '+ user.userName+', '+ user.emailFrom+', '+ user.password+', '+ user.emailTo+', '+ user.subjectContent+', '+ user.bodyContent)
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    host: configHost,
-    port: configPort,
-    secure: configSecure, // true for 465, false for other ports
+    host: user.host,
+    port: user.port,
+    secure: user.secure, // true for 465, false for other ports
     auth: {
-      user: emailFrom,
-      pass: password//  password
+      user: user.emailFrom,
+      pass: user.password//  password
     }
   });
+  
+  let mailOptions = {
+    from: '"'+user.userName+'" <'+user.emailFrom+'>',//'"'+userName+'" <'+email+'>', // sender address
+    to: user.emailTo, // list of receivers
+    subject: user.subjectContent, // Subject line
+    text: user.bodyContent, // plain text body
+    html: "<b>"+user.bodyContent+"</b>" // html body
+  };
 
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: '"'+userName+'" <'+emailFrom+'>',//'"'+userName+'" <'+email+'>', // sender address
-    to: emailTo, // list of receivers
-    subject: subjectContent, // Subject line
-    text: body, // plain text body
-    html: "<b>"+body+"</b>" // html body
-  });
+  let info = await transporter.sendMail(mailOptions);
 
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  callback(info)
   
 }
 
+sendEmail = (req, res) =>{
 
-const sendEmail = (req, res) =>{
-  let userData = req.body
+  let userData = req.body  
 
-  emailSender(userData.host, 
-              userData.port, 
-              userData.segure, 
-              userData.userName, 
-              userData.emailFrom, 
-              userData.password, 
-              userData.emailTo, 
-              userData.subjectContent, 
-              userData.bodyContent)
+    emailSender(userData, info => {
+      console.log(`The mail has beed send 😃 and the id is ${info.messageId}`);
+      res.send(info);
+    }); 
 
 }
-//sendEmail().catch(console.error);
-
 
 module.exports = {sendEmail} 
