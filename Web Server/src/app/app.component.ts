@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent   implements OnInit {
-  title = 'ngApp';
+  title = 'Web Server';
 
 
     entityTypes: Array<any> = []

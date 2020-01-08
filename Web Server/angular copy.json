@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngApp": {
+    "Web Server": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ngApp",
+            "outputPath": "dist/Web Server",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -63,18 +63,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ngApp:build"
+            "browserTarget": "Web Server:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ngApp:build:production"
+              "browserTarget": "Web Server:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ngApp:build"
+            "browserTarget": "Web Server:build"
           }
         },
         "test": {
@@ -111,15 +111,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ngApp:serve"
+            "devServerTarget": "Web Server:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ngApp:serve:production"
+              "devServerTarget": "Web Server:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "ngApp"
+  "defaultProject": "Web Server"
 }
