@@ -71,6 +71,22 @@ const getDetrans = (req, res) =>{
     res.status(200).json(storedDetrans.rows)
   })
 }
+
+const getDetranById = (req, res) =>{
+  
+  const id = parseInt(req.params.id)
+
+  pool.query('select  dd.identity as id, et.description as cnpj, max(case when dd.datacodeid = 1 then dd.description end) as name,   max(case when dd.datacodeid = 2 then dd.description end) as phone,  max(case when dd.datacodeid = 3 then dd.description end) as email from data_detran dd, states st, states_relationship sr, entities et where dd."identity" = sr."identity" and st.id = sr.idstate and dd."identity" = et.id  and et.id = $1 group by dd.identity, et.description order by dd.identity',
+  [id],
+   (error, storedDetrans) => {
+    if (error) {
+      console.log(error)
+    }
+    console.log(storedDetrans.rows)
+    res.status(200).json(storedDetrans.rows)
+  })
+}
+
 const getStates = (req, res) =>{
   pool.query('select description from states',
    (error, storedStates) => {
@@ -141,4 +157,4 @@ const loginUser = (req, res) => {
     })
 }
 
-module.exports = { createUser, loginUser, getDetrans, getEntitiesTypes, recoverPassword, resetPassword, createDetran, getStates}
+module.exports = { createUser, loginUser, getDetrans, getDetranById, getEntitiesTypes, recoverPassword, resetPassword, createDetran, getStates}

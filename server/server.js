@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const port = 3000
+const host = '127.0.0.1'
 const api = require('./routes/api')
 const app = express()
 
@@ -16,6 +17,6 @@ app.get('/', function(req,res){
     res.send('Hello Server')
 })
 
-app.listen(port, function(){
-    console.log('Server is running on localhost:'+port)
-})
+app.listen(port, host, function(){
+    console.log('Server is running on '+host+':'+port)
+}) 
