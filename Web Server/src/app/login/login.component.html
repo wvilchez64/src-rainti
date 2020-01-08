@@ -1,0 +1,34 @@
+<div class="py-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <span class="anchor" id="formLogin"></span>
+            <div class="card">
+                <article class="card-body">
+                <a href="/register" class="float-right btn btn-outline-primary">Cadastre-se</a>
+                <h4 class="card-title mb-4 mt-1">Entrar</h4>
+                     <form>                        
+                    <div class="form-group">
+                        <label>Usuário</label>
+                        <input type="text" [(ngModel)]="loginUserData.userName" name="userName" class="form-control rounded-0" required>
+                    </div> <!-- form-group// -->
+                    <div class="form-group">
+                        <a class="float-right" href="/recuperar-senha">Recuperar senha</a>
+                        <label>Senha</label>
+                        <input type="password" [(ngModel)]="loginUserData.password" name="password" class="form-control rounded-0" required>
+                    </div> <!-- form-group// --> 
+                    <div class="form-group"> 
+                    <div class="checkbox">
+                      <label> <input type="checkbox"> Salvar senha </label>
+                    </div> <!-- checkbox .// -->
+                    </div> <!-- form-group// -->  
+                    <div class="form-group">
+                        <button type="button" (click)="loginUser()" class="btn btn-primary btn-block">Entrar</button>
+                    </div> <!-- form-group// -->                                                           
+                </form>
+                </article>
+                </div> <!-- card.// -->
+        </div>
+    </div>
+</div>
+    
+
