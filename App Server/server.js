@@ -1,9 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const jsonDataServer = require ('./config/config-server.json')
 
-const port = 3000
-const host = '127.0.0.1'
+const port = jsonDataServer.port
+const host = jsonDataServer.host
+
 const api = require('./routes/api')
 const app = express()
 
