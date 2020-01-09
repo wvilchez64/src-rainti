@@ -1,0 +1,81 @@
+<div class="py-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <span class="anchor" id="detranAdd"></span>
+            <!-- form card login -->
+            <div class="card shadow">
+                  <div class="card-body">
+                    <h4 class="card-title mb-4 mt-1">Cadastro de Detran</h4>
+                    <form class="form" #registerForm="ngForm">
+                        <div class="form-group">
+                            <label for="uname1">Estado</label>
+                            <select class="custom-select" 
+                            #topic="ngModel" [class.is-invalid]="topicHasError && topic.touched" name="topic" 
+                            [(ngModel)]="userData.topic" (change)="validateTopic(topic.value)" (blur)="validateTopic(topic.value)">
+                            
+                                <option value="default">--Escolha um Estado</option>
+                                <option *ngFor="let state of _states">{{ state.description }}</option>
+                            </select>
+                            <small class="text-danger" [class.d-none]="!topicHasError || topic.untouched">Escolha um Estado</small>
+                        </div>    
+                        <div class="form-group">
+                            <label for="uname1">Nome</label>
+                            <input type="text" [(ngModel)]="userData.userName" name="userName" class="form-control rounded-0" 
+                            [class.is-invalid]="userName.invalid && userName.touched" #userName="ngModel" required >
+                                    <div class="md-errors-spacer" [hidden]="userName.valid || userName.untouched">
+                                        <small  class="text-danger"*ngIf="userName.errors && userName.errors.required">
+                                            Nome obrigatório
+                                        </small>
+                                    </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="uname1">CNPJ</label>
+                            <input type="text" [(ngModel)]="userData.cnpj" name="cnpj" class="form-control rounded-0" 
+                            pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$" placeHolder="(Ex.: 12.123.123/0001-12)"
+                            [class.is-invalid]="cnpj.invalid && cnpj.touched" #cnpj="ngModel" required >
+                                    <div class="md-errors-spacer" [hidden]="cnpj.valid || cnpj.untouched">
+                                        <small  class="text-danger"*ngIf="cnpj.errors && cnpj.errors.required">
+                                            CNPJ obrigatório 
+                                        </small>
+                                        <small  class="text-danger" *ngIf="cnpj.errors && cnpj.errors.pattern">
+                                            CNPJ inválido (Ex.: 12.123.123/0001-12)
+                                        </small>
+                                    </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="uname1">Telefone</label>
+                            <input type="text" [(ngModel)]="userData.phone" name="phone" class="form-control rounded-0" 
+                            [class.is-invalid]="phone.invalid && phone.touched" #phone="ngModel" required >
+                            <div class="md-errors-spacer" [hidden]="phone.valid || phone.untouched">
+                                <small  class="text-danger"*ngIf="phone.errors && phone.errors.required">
+                                    Telefone obrigatório
+                                </small>
+                            </div>
+                        </div>                          
+                        <div class="form-group">
+                            <label for="uname1">E-mail</label>
+                            <input type="text" [(ngModel)]="userData.email" name="email"  class="form-control rounded-0" 
+                            [class.is-invalid]="email.invalid && email.touched" #email="ngModel" required >
+                            <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
+                                <small  class="text-danger"*ngIf="email.errors && email.errors.required">
+                                    E-mail obrigatório
+                                </small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">                           
+                            <button type="submit" [disabled]="registerForm.form.invalid || topicHasError" (click)="createDetran()" class="btn btn-primary btn-block">Confirmar</button>                
+                        </div>     
+                        <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
+                            {{_errorMessage}}
+                        </div>                                  
+                       
+                    </form>
+                  </div>
+            </div>
+            <!-- /form card login -->
+        </div>
+    </div>
+</div>
+    
+

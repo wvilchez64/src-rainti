@@ -1,0 +1,49 @@
+<div class="py-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <span class="anchor" id="formLogin"></span>
+            <div class="card shadow">
+                <article class="card-body">
+                    <a href="/register" class="float-right btn btn-outline-primary">Cadastre-se</a>
+                    <h4 class="card-title mb-4 mt-1">Entrar</h4>
+                    <form #loginForm="ngForm">                        
+                        <div class="form-group">
+                            <label>Usuário</label>
+                            <input  type="text" [(ngModel)]="loginUserData.userName" name="userName" class="form-control rounded-0"  
+                            #user="ngModel" [class.is-invalid]="user.invalid && user.touched" required>
+                            <div class="md-errors-spacer" [hidden]="user.valid || user.untouched">
+                                <small class="text-danger"  *ngIf="user.errors && user.errors.required">
+                                    Nome de usuário obrigatório
+                                </small>
+                            </div>
+                        </div> <!-- form-group// -->
+                        <div class="form-group">
+                            <a class="float-right" href="/recuperar-senha">Recuperar senha</a>
+                            <label>Senha</label>
+                            <input  type="password" [(ngModel)]="loginUserData.password" name="password" class="form-control rounded-0"  
+                            #password="ngModel" [class.is-invalid]="password.invalid && password.touched" required>
+                            <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
+                                <small class="text-danger"  *ngIf="password.errors && password.errors.required">
+                                    Senha obrigatória
+                                </small>
+                            </div>
+                        </div> <!-- form-group// --> 
+                        <div class="form-group"> 
+                        <div class="checkbox">
+                        <label> <input type="checkbox"> Salvar senha </label>
+                        </div> <!-- checkbox .// -->
+                        </div> <!-- form-group// -->  
+                        <div class="form-group">
+                            <button [disabled]="loginForm.form.invalid" type="button" (click)="loginUser()" class="btn btn-primary btn-block">Entrar</button>
+                        </div> <!-- form-group// -->                                                           
+                    </form>
+                    <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
+                        {{_errorMessage}}
+                    </div>
+                </article>
+                </div> <!-- card.// -->
+        </div>
+    </div>
+</div>
+    
+

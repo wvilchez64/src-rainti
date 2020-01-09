@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow fixed-top" >
+    
+  <a class="navbar-brand" href="/principal"><img src="../assets/images/logo.png" class="img-reponsive"></a>
+    
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse"  id="navbarSupportedContent">
+    <ul class="nav navbar-nav mr-auto" >
+      <div class= "row justify-content-lg align-items-center" *ngIf="_authService.loggedIn()">
+        <a class="nav-link px-5" routerLink="/principal" routerLinkActive="active">Principal</a>
+        <li class="dropdown" >
+          <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Entidades
+          <span class="caret"></span></a>
+            <ul class="dropdown-menu"  >
+              <li *ngFor="let entityType of entityTypes"> 
+                <a class="nav-link px-2 text-dark" routerLink="/{{entityType.name.toLocaleLowerCase()}}" routerLinkActive="active" >{{entityType.name}}</a>
+              </li>
+            </ul>
+        </li>
+        <a class="nav-link px-5" routerLink="/registrar-contrato" routerLinkActive="active">Registrar Contrato</a>        
+        <a class="nav-link p-x5" routerLink="/ajuda" routerLinkActive="active">Ajuda</a>
+      </div>   
+    </ul>   
+    <ul class="nav navbar-nav navbar-right">
+        <a class="nav-link" style="cursor:pointer" *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Logout</a>
+    </ul> 
+  </div>
+</nav>  
+
+<div class="container" style="padding: 80px 0px 0px 0px">
+  
+  <router-outlet></router-outlet>  
+  <footer>
+    <p  class="text-xs-center text-center text-dark" >© 2020 - <b>RainTI</b>. Todos os direitos reservados.</p>
+  </footer>          
+</div>

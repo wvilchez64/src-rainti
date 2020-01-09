@@ -1,0 +1,45 @@
+<div class="py-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <span class="anchor" id="formLogin"></span>
+            <!-- form card login -->
+            <div class="card shadow">
+                  <div class="card-body">
+                    <h4 class="card-title mb-4 mt-1">Detran</h4>
+                    <form class="form">
+                        <div class="form-group">
+                            <label for="uname1">Nome</label>
+                            <input type="text" [(ngModel)]="detranData.name" name="name" class="form-control rounded-0 "  required>
+                        </div>
+                        <div class="form-group">
+                            <label for="uname1">CNPJ</label>
+                            <input type="text" [(ngModel)]="detranData.cnpj" name="cnpj" class="form-control rounded-0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="uname1">Telefone</label>
+                            <input type="text" [(ngModel)]="detranData.phone" name="phone"  class="form-control rounded-0" required>
+                        </div>                          
+                        <div class="form-group">
+                            <label for="uname1">E-mail</label>
+                            <input type="text" [(ngModel)]="detranData.email" name="email"  class="form-control rounded-0" required>
+                        </div>    
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="submit" (click)="updateDetran()" class="btn btn-primary btn-block">Alterar</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="submit" (click)="deleteDetran()" class="btn btn-danger btn-block">Excluir</button>
+                                </div>  
+                            </div>                            
+                        </div>                                       
+                       
+                    </form>
+                  </div>
+            </div>
+            <!-- /form card login -->
+        </div>
+    </div>
+</div>
+    
+
