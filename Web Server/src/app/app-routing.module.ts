@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './system-access/login/login.component';
+import { RegisterComponent } from './system-access/register/register.component';
 import { AuthGuard } from './auth.guard';
-import { DetranMainComponent } from './detran/detran-main/detran-main.component';
-import { CreditorGroupComponent } from './creditor-group/creditor-group.component';
-import { CreditorComponent } from './creditor/creditor.component';
-import { RegistrarComponent } from './registrar/registrar.component';
+import { DetranMainComponent } from './entities/detran/detran-main/detran-main.component';
+import { CreditorGroupComponent } from './entities/creditor-group/creditor-group.component';
+import { CreditorComponent } from './entities/creditor/creditor.component';
+import { RegistrarComponent } from './entities/registrar/registrar.component';
 import { HomeComponent } from './home/home.component';
 import { HelpComponent } from './help/help.component';
 import { ContractRegisterComponent } from './contract-register/contract-register.component';
-import { PasswordRecoverComponent } from './password-recover/password-recover.component';
-import { DetranDetailComponent } from './detran/detran-detail/detran-detail.component';
-import { DetranContactsComponent } from './detran/detran-contacts/detran-contacts.component';
-import { PasswordRecoverSuccessComponent } from './password-recover-success/password-recover-success.component';
-import { PasswordRecoverFailedComponent } from './password-recover-failed/password-recover-failed.component';
-import { PasswordResetComponent } from './password-reset/password-reset.component';
-import { DetranAddComponent } from './detran/detran-add/detran-add.component';
-import { DetranContactAddComponent } from './detran/detran-contact-add/detran-contact-add.component';
+import { PasswordRecoverComponent } from './system-access/password-recover/password-recover.component';
+import { DetranDetailComponent } from './entities/detran/detran-detail/detran-detail.component';
+import { DetranContactsComponent } from './entities/detran/detran-contacts/detran-contacts.component';
+import { PasswordRecoverSuccessComponent } from './system-access/password-recover-success/password-recover-success.component';
+import { PasswordRecoverFailedComponent } from './system-access/password-recover-failed/password-recover-failed.component';
+import { PasswordResetComponent } from './system-access/password-reset/password-reset.component';
+import { DetranAddComponent } from './entities/detran/detran-add/detran-add.component';
+import { DetranContactAddComponent } from './entities/detran/detran-contact-add/detran-contact-add.component';
 
 const routes: Routes = [
   {

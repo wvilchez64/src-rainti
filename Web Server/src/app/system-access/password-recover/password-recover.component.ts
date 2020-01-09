@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-password-recover',
@@ -41,7 +41,7 @@ export class PasswordRecoverComponent implements OnInit {
   }
 
   sendEmail(){
-    var emailConfig = require('../../assets/configs/config-email-noreply.json')
+    var emailConfig = require('../../../assets/configs/config-email-noreply.json')
 
     let emailData = {
       host: emailConfig.host, 

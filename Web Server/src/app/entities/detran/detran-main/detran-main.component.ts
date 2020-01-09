@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EntitiesService } from '../../entities.service';
+import { EntitiesService } from '../../entities-services/entities.service';
 
 @Component({
   selector: 'app-detran',

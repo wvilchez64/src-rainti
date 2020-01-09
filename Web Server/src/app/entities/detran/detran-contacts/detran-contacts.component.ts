@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DetranContactsService } from '../../detran-contacts.service';
+import { DetranContactsService } from '../detran-services/detran-contacts.service';
 
 @Component({
   selector: 'app-detran-contacts',

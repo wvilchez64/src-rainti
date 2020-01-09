@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class DetranContactsService {
 
-  private _appServerConfig = require('../assets/configs/config-app-server.json')
+  private _appServerConfig = require('../../../../assets/configs/config-app-server.json')
   
   private _detranContactsUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/detran-contacts"
 
