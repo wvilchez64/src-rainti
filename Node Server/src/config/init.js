@@ -18,7 +18,7 @@ var corsOptions = {
 }
 app.use(cors(corsOptions));
 
-app.set('port', process.env.PORT);
+app.set('port', process.env.PORT || setup.node.port);
 
 const bodyParser = require('body-parser'); 
 
