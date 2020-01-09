@@ -14,7 +14,6 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
-import { DetranComponent } from './detran/detran.component';
 import { FilterPipe } from './filter.pipe';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
@@ -22,22 +21,22 @@ import { CreditorComponent } from './creditor/creditor.component';
 import { CreditorGroupComponent } from './creditor-group/creditor-group.component';
 import { ContractRegisterComponent } from './contract-register/contract-register.component';
 import { RegistrarComponent } from './registrar/registrar.component';
-import { DetranContactsComponent } from './detran-contacts/detran-contacts.component';
+import { DetranContactsComponent } from './detran/detran-contacts/detran-contacts.component';
 import { PasswordRecoverComponent } from './password-recover/password-recover.component';
-import { DetranDetailComponent } from './detran-detail/detran-detail.component';
+import { DetranDetailComponent } from './detran/detran-detail/detran-detail.component';
 import { PasswordRecoverSuccessComponent } from './password-recover-success/password-recover-success.component';
 import { PasswordRecoverFailedComponent } from './password-recover-failed/password-recover-failed.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { ConfirmEqualValidator } from '../custom/confirm-equal-validator';
-import { DetranAddComponent } from './detran-add/detran-add.component';
-import { DetranContactAddComponent } from './detran-contact-add/detran-contact-add.component';
+import { DetranAddComponent } from './detran/detran-add/detran-add.component';
+import { DetranContactAddComponent } from './detran/detran-contact-add/detran-contact-add.component';
+import { DetranMainComponent } from './detran/detran-main/detran-main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    DetranComponent,
     FilterPipe,
     HelpComponent,
     HomeComponent,
@@ -53,7 +52,8 @@ import { DetranContactAddComponent } from './detran-contact-add/detran-contact-a
     PasswordResetComponent,
     ConfirmEqualValidator,
     DetranAddComponent,
-    DetranContactAddComponent
+    DetranContactAddComponent,
+    DetranMainComponent,
   ],
   imports: [
     BrowserModule,

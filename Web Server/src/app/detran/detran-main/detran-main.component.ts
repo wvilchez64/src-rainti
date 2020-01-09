@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EntitiesService } from '../entities.service';
+import { EntitiesService } from '../../entities.service';
 
 @Component({
   selector: 'app-detran',
-  templateUrl: './detran.component.html',
-  styleUrls: ['./detran.component.css']
+  templateUrl: './detran-main.component.html',
+  styleUrls: ['./detran-main.component.css']
 })
-export class DetranComponent implements OnInit {
+export class DetranMainComponent implements OnInit {
 
   entities: Array<any> = []
   searchText: ''

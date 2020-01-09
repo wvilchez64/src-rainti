@@ -12,7 +12,7 @@ export class AppComponent    implements OnInit {
 
     entityTypes: Array<any> = []    
 
-    constructor(private _entitiesService: EntitiesService, private _authService: AuthService) { 
+    constructor(private _entitiesService: EntitiesService, public _authService: AuthService) { 
         
     }
   

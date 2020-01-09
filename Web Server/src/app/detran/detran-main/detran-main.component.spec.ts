@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DetranComponent } from './detran.component';
+import { DetranMainComponent } from './detran-main.component';
 
-describe('EntitiesComponent', () => {
-  let component: DetranComponent;
-  let fixture: ComponentFixture<DetranComponent>;
+describe('DetranMainComponent', () => {
+  let component: DetranMainComponent;
+  let fixture: ComponentFixture<DetranMainComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetranComponent ]
+      declarations: [ DetranMainComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DetranComponent);
+    fixture = TestBed.createComponent(DetranMainComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

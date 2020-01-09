@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './auth.guard';
-import { DetranComponent } from './detran/detran.component';
+import { DetranMainComponent } from './detran/detran-main/detran-main.component';
 import { CreditorGroupComponent } from './creditor-group/creditor-group.component';
 import { CreditorComponent } from './creditor/creditor.component';
 import { RegistrarComponent } from './registrar/registrar.component';
@@ -11,13 +11,13 @@ import { HomeComponent } from './home/home.component';
 import { HelpComponent } from './help/help.component';
 import { ContractRegisterComponent } from './contract-register/contract-register.component';
 import { PasswordRecoverComponent } from './password-recover/password-recover.component';
-import { DetranDetailComponent } from './detran-detail/detran-detail.component';
-import { DetranContactsComponent } from './detran-contacts/detran-contacts.component';
+import { DetranDetailComponent } from './detran/detran-detail/detran-detail.component';
+import { DetranContactsComponent } from './detran/detran-contacts/detran-contacts.component';
 import { PasswordRecoverSuccessComponent } from './password-recover-success/password-recover-success.component';
 import { PasswordRecoverFailedComponent } from './password-recover-failed/password-recover-failed.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
-import { DetranAddComponent } from './detran-add/detran-add.component';
-import { DetranContactAddComponent } from './detran-contact-add/detran-contact-add.component';
+import { DetranAddComponent } from './detran/detran-add/detran-add.component';
+import { DetranContactAddComponent } from './detran/detran-contact-add/detran-contact-add.component';
 
 const routes: Routes = [
   {
@@ -51,7 +51,7 @@ const routes: Routes = [
   },
   {
     path: 'detran',
-    component: DetranComponent,
+    component: DetranMainComponent,
     canActivate: [AuthGuard],
   },
   {        
