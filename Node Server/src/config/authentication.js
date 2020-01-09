@@ -2,7 +2,7 @@ const uuid = require('uuid/v4');
 const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const UserDao = require(setup.paths.infra + 'UserDao.js');
+const UsersDao = require(setup.paths.infra + 'UsersDao.js');
 const client = require(setup.paths.config + 'database.js');
 const crypto = require('crypto');
 
@@ -14,11 +14,11 @@ module.exports = (app) => {
             passwordField: 'password'
         },
         (email, password, done) => {
-            const userDao = new UserDao(client);
+            const usersDao = new UsersDao(client);
             const pw = crypto.createHash('md5').update(password).digest("hex")
-            userDao.userLogin(email)
+            usersDao.usersLogin(email)
                 .then(user => {
-                    if (!user || pw != user[0].passwordmd5)
+                    if (!user || pw != user.passwordmd5)
                     {
                         return done(null, false, {
                             error: 'User name not found or incorrect password!'
@@ -36,13 +36,20 @@ module.exports = (app) => {
 
     passport.serializeUser((user, done) => {
         const userSession = {
-            name: user.fullName,
-            email: user.email
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email,
+            username: user.username,
+            token: user.resetcode
         };
         done(null, userSession);
     });
 
-    passport.deserializeUser((userSession, done) => {     
+    passport.deserializeUser((userSession, done) => {
+        done(null, userSession);        
+    });
+
+    passport.deserializeUser((userSession, done) => {
         done(null, userSession);        
     });
 
@@ -53,6 +60,7 @@ module.exports = (app) => {
         },
         resave: false,
         saveUninitialized: false
+        //cookie: { secure: true } // this line
     }));
 
     app.use(passport.initialize());

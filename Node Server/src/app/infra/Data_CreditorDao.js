@@ -1,95 +1,94 @@
-class Data_DetranDao {
+class Data_CreditorDao {
 
-    constructor(pool) {
-        this._pool = pool;
+    constructor(client) {
+        this._client = client;
     }
 
-    data_detranInsert(description, identity, datacodeid){
-        const cmd = "insert into data_detran(description, identity, datacodeid, creationdate) values('" + 
-        description + "', " + identity + ", " + datacodeid + ", now());";
+    data_creditorInsert(description){
+        const cmd = "insert into data_creditor(description, creationdate) values('" + description + "', now());";
         return new Promise((resolve, reject) => {
-            this._pool
+            this._client
             .query(cmd, (error, result) => {
                 if (error) {
-                    return reject(error.stack);
+                    return reject(error);
                 }
-                return resolve("data_detran Inserted");
+                return resolve("data_creditor Inserted");
             });
         });
     }
 
-    data_detranSelectId(id){
+    data_creditorSelectId(id){
         const cmd = "select a.id, a.description, " +
                     "a.identity, b.description as entity_description, " +
                     "a.datacodeid, c.description as datacode_description, " +
                     "a.creationdate " +
-                    "from data_detran a " +
+                    "from data_creditor a " +
                     "inner join entities b on a.identity = b.id " +
                     "inner join data_code c on a.datacodeid = c.id " +
                     "where a.id = " + id + ";";
         return new Promise((resolve, reject) => {
-            this._pool
+            this._client
             .query(cmd, (error, result) => {
                 if (error) {
-                    return reject(error.stack);
+                    return reject(error);
                 }
                 return resolve(result.rows);
             });
         });
     }
 
-    data_detranSelectDescp(description){
+
+    data_creditorSelectDescp(description){
         const cmd = "select a.id, a.description, " +
                     "a.identity, b.description as entity_description, " +
                     "a.datacodeid, c.description as datacode_description, " +
                     "a.creationdate " +
-                    "from data_detran a " +
+                    "from data_creditor a " +
                     "inner join entities b on a.identity = b.id " +
                     "inner join data_code c on a.datacodeid = c.id " +
                     "where a.description = '" + description + "';";
         return new Promise((resolve, reject) => {
-            this._pool
+            this._client
             .query(cmd, (error, result) => {
                 if (error) {
-                    return reject(error.stack);
+                    return reject(error);
                 }
                 return resolve(result.rows);
             });
         });
     }
 
-    data_detranUpdate(id, description, identity, datacodeid){
-        const cmd = "update data_detran a set description = '" + description + "', identity = " + identity + ", " +
-        "datacodeid = " + datacodeid + " where a.id = " + id + ";";
+    data_creditorUpdate(id, description){
+        const cmd = "update data_creditor a set description = '" + description + "' where a.id = " + id + ";";
         return new Promise((resolve, reject) => {
-            this._pool
+            this._client
             .query(cmd, (error, result) => {
                 if (error) {
-                    return reject(error.stack);
+                    return reject(error);
                 }
-                return resolve("data_detran Updated");
+                return resolve("data_creditor Updated");
             });
         });
     }
 
-    data_detranSelectAll(){
+    data_creditorSelectAll(){
         const cmd = "select a.id, a.description, " +
                     "a.identity, b.description as entity_description, " +
                     "a.datacodeid, c.description as datacode_description, " +
                     "a.creationdate " +
-                    "from data_detran a " +
+                    "from data_creditor a " +
                     "inner join entities b on a.identity = b.id " +
                     "inner join data_code c on a.datacodeid = c.id " +
                     "order by a.id;";
         return new Promise((resolve, reject) => {
-            this._pool
+            this._client
             .query(cmd, (error, result) => {
                 if (error) {
-                    return reject(error.stack);
+                    return reject(error);
                 }
                 return resolve(result.rows);
             });
         });
     }
 }    
-module.exports = Data_DetranDao;
+module.exports = Data_CreditorDao;

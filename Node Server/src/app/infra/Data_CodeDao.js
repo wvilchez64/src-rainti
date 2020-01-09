@@ -1,13 +1,13 @@
 class Data_CodeDao {
 
-    constructor(client) {
-        this._client = client;
+    constructor(pool) {
+        this._pool = pool;
     }
 
     data_codeInsert(description){
         const cmd = "insert into data_code(description, creationdate) values('" + description + "', now());";
         return new Promise((resolve, reject) => {
-            this._client
+            this._pool
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
@@ -20,7 +20,7 @@ class Data_CodeDao {
     data_codeSelectId(id){
         const cmd = "select * from data_code where id = " + id + ";";
         return new Promise((resolve, reject) => {
-            this._client
+            this._pool
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
@@ -31,10 +31,10 @@ class Data_CodeDao {
     }
 
 
-    data_codeSelectDescription(description){
+    data_codeSelectDescp(description){
         const cmd = "select * from data_code where description = '" + description + "';";
         return new Promise((resolve, reject) => {
-            this._client
+            this._pool
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
@@ -47,7 +47,7 @@ class Data_CodeDao {
     data_codeUpdate(id, description){
         const cmd = "update data_code a set description = '" + description + "' where a.id = " + id + ";";
         return new Promise((resolve, reject) => {
-            this._client
+            this._pool
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
@@ -60,7 +60,7 @@ class Data_CodeDao {
     data_codeSelectAll(){
         const cmd = "select * from data_code order by id;";
         return new Promise((resolve, reject) => {
-            this._client
+            this._pool
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);

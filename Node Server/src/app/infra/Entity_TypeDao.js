@@ -1,13 +1,13 @@
 class Entity_TypeDao {
 
-    constructor(client) {
-        this._client = client;
+    constructor(pool) {
+        this._pool = pool;
     }
 
     entity_typeInsert(description){
         const cmd = "insert into entity_type(description, creationdate) values('" + description + "', now());";
         return new Promise((resolve, reject) => {
-            this._client
+            this._pool
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
@@ -20,7 +20,7 @@ class Entity_TypeDao {
     entity_typeSelectId(id){
         const cmd = "select * from entity_type where id = " + id + ";";
         return new Promise((resolve, reject) => {
-            this._client
+            this._pool
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
@@ -30,10 +30,10 @@ class Entity_TypeDao {
         });
     }
 
-    entity_typeSelectDescription(description){
+    entity_typeSelectDescp(description){
         const cmd = "select * from entity_type where description = '" + description + "';";
         return new Promise((resolve, reject) => {
-            this._client
+            this._pool
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
@@ -46,7 +46,7 @@ class Entity_TypeDao {
     entity_typeUpdate(id, description){
         const cmd = "update entity_type a set description = '" + description + "' where a.id = " + id + ";";
         return new Promise((resolve, reject) => {
-            this._client
+            this._pool
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
@@ -59,7 +59,7 @@ class Entity_TypeDao {
     entity_typeSelectAll(){
         const cmd = "select * from entity_type order by id;";
         return new Promise((resolve, reject) => {
-            this._client
+            this._pool
             .query(cmd, (error, result) => {
                 if (error) {
                     return reject(error);
