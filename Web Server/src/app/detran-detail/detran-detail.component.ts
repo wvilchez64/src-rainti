@@ -27,7 +27,7 @@ export class DetranDetailComponent implements OnInit {
         this.entitiesService.getDetran(params.get('id'))
         .subscribe(
           res => {
-            this.detranData = res
+            this.detranData = res[0]
             console.log(res)
           },
           err => {

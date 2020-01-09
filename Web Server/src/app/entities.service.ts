@@ -15,7 +15,6 @@ export class EntitiesService {
   constructor(private http: HttpClient) {  }
 
    getDetrans(){
-     console.log(this._entitiesUrl)
     return this.http.get<any>(this._entitiesUrl)
    }
 
