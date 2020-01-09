@@ -102,10 +102,11 @@ CREATE TABLE users(
 	id SERIAL PRIMARY KEY,
 	firstName VARCHAR NOT NULL,
 	lastName VARCHAR NOT NULL,
-	email VARCHAR NOT NULL,
+	email VARCHAR UNIQUE NOT NULL,
 	userName VARCHAR UNIQUE NOT NULL,
 	passwordMd5 VARCHAR NOT NULL,
-	creationDate TIMESTAMPTZ NOT NULL DEFAULT NOW()	
+	creationDate TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	resetCode VARCHAR	
 );
 
 -- Tabela criada para criar os níveis de acesso ao sistema
