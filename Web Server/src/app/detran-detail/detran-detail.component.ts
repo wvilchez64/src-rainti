@@ -24,12 +24,18 @@ export class DetranDetailComponent implements OnInit {
     this.route.paramMap
     .subscribe(
       params => {
-        this.entitiesService.getDetran(params.get('id'))   
-    },
-      res => {
-        this.detranData = res
-        console.log(res)
+        this.entitiesService.getDetran(params.get('id'))
+        .subscribe(
+          res => {
+            this.detranData = res
+            console.log(res)
+          },
+          err => {
+            console.log(err)
+          }
+        )   
     }
+      
     );
   }
 

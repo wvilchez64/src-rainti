@@ -10,10 +10,9 @@ import { AuthService } from './auth.service';
 export class AppComponent    implements OnInit {
     title = 'SRC - Sistema de Registro de Contrato';
 
-    entityTypes: Array<any> = []
-    _authService: AuthService
+    entityTypes: Array<any> = []    
 
-    constructor(private _entitiesService: EntitiesService) { 
+    constructor(private _entitiesService: EntitiesService, private _authService: AuthService) { 
         
     }
   

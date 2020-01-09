@@ -9,13 +9,15 @@ import { throwError } from 'rxjs'
 })
 export class AuthService {
 
-  private _registerUrl = "http://localhost:3000/api/register"
-  private _loginUrl = "http://localhost:3000/api/login"
-  private _recoverPasswordUrl = "http://localhost:3000/api/recover-password"
-  private _resetPasswordUrl = "http://localhost:3000/api/reset-password"
-  private _sendEmailUrl = "http://localhost:3000/api/send-email"
-  private _createDetranUrl = "http://localhost:3000/api/create-detran"
-  private _statesUrl = "http://localhost:3000/api/states"
+  private _appServerConfig = require('../assets/configs/config-app-server.json')
+
+  private _registerUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/register"
+  private _loginUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/login"
+  private _recoverPasswordUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/recover-password"
+  private _resetPasswordUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/reset-password"
+  private _sendEmailUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/send-email"
+  private _createDetranUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/create-detran"
+  private _statesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/states"
   
   constructor(private http: HttpClient, private _router: Router) {}
 

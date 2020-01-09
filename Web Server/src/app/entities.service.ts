@@ -6,13 +6,16 @@ import { HttpClient} from '@angular/common/http'
 })
 export class EntitiesService {
 
-  private _entitiesUrl = "http://localhost:3000/api/entities"
-  private _entitiyUrl = "http://localhost:3000/api/entity/"
-  private _entitiesTypesUrl = "http://localhost:3000/api/entities-types"
+  private _appServerConfig = require('../assets/configs/config-app-server.json')
+  
+  private _entitiesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/entities"
+  private _entitiyUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/entity/"
+  private _entitiesTypesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/entities-types"
   
   constructor(private http: HttpClient) {  }
 
    getDetrans(){
+     console.log(this._entitiesUrl)
     return this.http.get<any>(this._entitiesUrl)
    }
 
