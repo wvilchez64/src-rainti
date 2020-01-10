@@ -119,8 +119,8 @@ const getDetranContactById = (req, res) =>{
 
 const createDetran = (req, res) => {
   let userData = req.body  
-  console.log(userData)
-  /* pool.query('insert into entities (description, status, datacodeid, entitytypeid) values ($1, true, 5, 1);',
+
+  pool.query('insert into entities (description, status, datacodeid, entitytypeid) values ($1, true, 5, 1);',
     [userData.cnpj],
     (error, registeredDetran) => {
       if (error) {
@@ -138,7 +138,7 @@ const createDetran = (req, res) => {
         res.status(200).json({response: "Detran adicionado"})       
       }
 
-    }) */
+    })
 }
 
 const updateDetranById = (req, res) =>{
