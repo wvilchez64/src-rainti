@@ -63,7 +63,7 @@ const getEntitiesTypes = (req, res) =>{
 }
 
 const getDetrans = (req, res) =>{
-  pool.query('select  dd.identity as id, et.description as cnpj, max(case when dd.datacodeid = 1 then dd.description end) as name,   max(case when dd.datacodeid = 2 then dd.description end) as tel,  max(case when dd.datacodeid = 3 then dd.description end) as email from data_detran dd, states st, states_relationship sr, entities et where dd."identity" = sr."identity" and st.id = sr.idstate and dd."identity" = et.id group by dd.identity, et.description order by dd.identity',
+  pool.query('select  dd.identity as id, et.description as cnpj, max(case when dd.datacodeid = 1 then dd.description end) as name,   max(case when dd.datacodeid = 2 then dd.description end) as tel,  max(case when dd.datacodeid = 3 then dd.description end) as email from data_detran dd, states st, states_relationship sr, entities et where dd."identity" = sr."identity" and st.id = sr.idstate and dd."identity" = et.id  and et.status = true group by dd.identity, et.description order by dd.identity',
    (error, storedDetrans) => {
     if (error) {
       console.log(error)
@@ -120,13 +120,17 @@ const getDetranContactById = (req, res) =>{
 const createDetran = (req, res) => {
   let userData = req.body  
 
-  pool.query('insert into entities (description, status, datacodeid, entitytypeid) values ($1, true, 5, 1);',
+  pool.query('select * from entities where description = $1 and status = true',
     [userData.cnpj],
-    (error, registeredDetran) => {
+    (error, activeDetran) => {
       if (error) {
-        res.status(401).send('CNPJ já cadastrado')
+        res.status(400).send('Erro ao buscar detran')
         //throw error        
-      } else {             
+      } else if(activeDetran.rows > 0){
+        res.status(401).send('CNPJ já cadastrado')
+      }else{          
+        pool.query('insert into entities (description, status, datacodeid, entitytypeid) values ($1, true, 5, 1);',
+        [userData.cnpj])   
         pool.query('insert into data_detran (description, identity, datacodeid) values ($1, (select id from entities where description = $2), 1 )',
         [userData.userName,userData.cnpj])
         pool.query('insert into data_detran (description, identity, datacodeid) values ($1, (select id from entities where description = $2), 2 )',
