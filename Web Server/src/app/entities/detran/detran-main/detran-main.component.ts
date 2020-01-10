@@ -31,7 +31,7 @@ export class DetranMainComponent implements OnInit {
     this._detranAddService.getStates()
     .subscribe(      
       res => {
-        if(res.count == 0){
+        if(res.length == 0){
           console.log("Todos os Detrans já cadastrados")
         }else{
           this._router.navigate(['/detran-adicionar'])
