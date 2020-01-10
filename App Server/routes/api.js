@@ -5,12 +5,16 @@ const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
-// GETS
+// GETs
 router.get('/entities',  queries.getDetrans)
 router.get('/entity/:id',  queries.getDetranById)
 router.get('/states',  queries.getStates)
 router.get('/entities-types', queries.getEntitiesTypes)
 router.get('/', (req, res)=>{res.send('From API route')})
+
+// PUTs
+
+router.put('/entity/:id',  queries.updateDetranById)
 
 // POSTs
 router.post('/send-email', email.sendEmail)

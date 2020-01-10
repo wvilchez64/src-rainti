@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { EntitiesService } from '../../entities-services/entities.service';
+import { DetranMainService } from '../detran-services/detran-main.service';
 
 @Component({
   selector: 'app-detran',
@@ -12,13 +12,13 @@ export class DetranMainComponent implements OnInit {
   entities: Array<any> = []
   searchText: ''
   name: ''
-  constructor(private _entitiesService: EntitiesService,
+  constructor(private _detranService: DetranMainService,
     private _router: Router) { 
       
     }
 
   ngOnInit() {
-    this._entitiesService.getDetrans()
+    this._detranService.getDetrans()
     .subscribe(      
       res => this.entities = res,
       err => console.log(err)

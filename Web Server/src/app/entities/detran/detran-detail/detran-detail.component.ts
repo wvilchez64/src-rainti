@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EntitiesService } from '../../entities-services/entities.service';
+import { DetranDetailService } from '../detran-services/detran-detail.service';
 
 @Component({
   selector: 'app-detran-detail',
@@ -17,14 +17,14 @@ export class DetranDetailComponent implements OnInit {
   }
 
   constructor(private route: ActivatedRoute,
-    private entitiesService: EntitiesService ) { }
+    private _detranDetail: DetranDetailService ) { }
 
   ngOnInit() {
     
     this.route.paramMap
     .subscribe(
       params => {
-        this.entitiesService.getDetran(params.get('id'))
+        this._detranDetail.getDetran(params.get('id'))
         .subscribe(
           res => {
             this.detranData = res[0]
@@ -39,6 +39,21 @@ export class DetranDetailComponent implements OnInit {
   }
 
   updateDetran(){
+    this.route.paramMap
+    .subscribe(
+      params => {
+        this._detranDetail.updateDetran(this.detranData, params.get('id'))
+        .subscribe(
+          res => {
+            this.detranData = res[0]
+          },
+          err => {
+            console.log(err)
+          }
+        )   
+    }
+      
+    );
 
   }
 
