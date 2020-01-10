@@ -123,11 +123,11 @@ const createDetran = (req, res) => {
   pool.query('select * from entities where description = $1 and status = true',
     [userData.cnpj],
     (error, activeDetran) => {
-      console.log(activeDetran.rows)
+      console.log(activeDetran.rowCount)
       if (error) {
         res.status(400).send('Erro ao buscar detran')
         //throw error        
-      } else if(activeDetran.rows > 0){
+      } else if(activeDetran.rowCount > 0){
         res.status(401).send('CNPJ já cadastrado')
       }else{          
         /* pool.query('insert into entities (description, status, datacodeid, entitytypeid) values ($1, true, 5, 1);',
@@ -158,7 +158,7 @@ const updateDetranById = (req, res) =>{
       if (error) {
         res.status(401).send('Falha ao atualizar registro')
         //throw error        
-      } else if(registeredDetran.rows == 0){
+      } else if(registeredDetran.rowCount == 0){
         res.status(201).send('Registro não encontrado')
       }else{             
         pool.query('update data_detran set description = $1 where identity = $2 and datacodeid = 1',
