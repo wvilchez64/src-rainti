@@ -11,6 +11,7 @@ router.get('/entity/:id',  queries.getDetranById)
 router.get('/states',  queries.getStates)
 router.get('/states-detran-add',  queries.getStatesForDetranAdd)
 router.get('/entities-types', queries.getEntitiesTypes)
+router.get('/creditors', queries.getCreditors)
 router.get('/', (req, res)=>{res.send('From API route')})
 
 // PUTs

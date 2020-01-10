@@ -31,6 +31,8 @@ import { ConfirmEqualValidator } from '../custom/confirm-equal-validator';
 import { DetranAddComponent } from './entities/detran/detran-add/detran-add.component';
 import { DetranContactAddComponent } from './entities/detran/detran-contact-add/detran-contact-add.component';
 import { DetranMainComponent } from './entities/detran/detran-main/detran-main.component';
+import { CreditorDetailComponent } from './entities/creditor/creditor-detail/creditor-detail.component';
+import { CreditorContactsComponent } from './entities/creditor/creditor-contacts/creditor-contacts.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { DetranMainComponent } from './entities/detran/detran-main/detran-main.c
     DetranAddComponent,
     DetranContactAddComponent,
     DetranMainComponent,
+    CreditorDetailComponent,
+    CreditorContactsComponent,
   ],
   imports: [
     BrowserModule,

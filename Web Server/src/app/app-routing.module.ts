@@ -18,6 +18,8 @@ import { PasswordRecoverFailedComponent } from './system-access/password-recover
 import { PasswordResetComponent } from './system-access/password-reset/password-reset.component';
 import { DetranAddComponent } from './entities/detran/detran-add/detran-add.component';
 import { DetranContactAddComponent } from './entities/detran/detran-contact-add/detran-contact-add.component';
+import { CreditorDetailComponent } from './entities/creditor/creditor-detail/creditor-detail.component';
+import { CreditorContactsComponent } from './entities/creditor/creditor-contacts/creditor-contacts.component';
 
 const routes: Routes = [
   {
@@ -77,6 +79,16 @@ const routes: Routes = [
   {
     path: 'credora',
     component: CreditorComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'credor-detalhe/:id',
+    component: CreditorDetailComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'credor-contatos/:id',
+    component: CreditorContactsComponent,
     canActivate: [AuthGuard]
   },
   {

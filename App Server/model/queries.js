@@ -236,6 +236,20 @@ const loginUser = (req, res) => {
     })
 }
 
+const getCreditors = (req, res) => {  
+
+  pool.query('select * from entities where entitytypeid = 2','', (error, queryResult) => {
+      if (error) {
+        console.log(error)
+      }else if (queryResult.rowCount == 0){
+        res.status(401).send('Nenhuma credora cadastrada')
+      }else{
+        res.status(200).json(queryResult.rows)
+      }
+      
+    })
+}
+
 module.exports = { 
   createUser, 
   loginUser, 
@@ -250,4 +264,5 @@ module.exports = {
   recoverPassword, 
   resetPassword, 
   createDetran, 
+  getCreditors,
   }
