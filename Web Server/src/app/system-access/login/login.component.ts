@@ -26,6 +26,8 @@ export class LoginComponent implements OnInit {
 
   loginUser(){
 
+    this.stop()
+
     // Setting configs of watching tims is setted in seconds
     this.userIdle.setConfigValues({idle: 600/* 1 hour*/, timeout: 1, ping:120})
     

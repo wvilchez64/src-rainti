@@ -140,8 +140,10 @@ const createDetran = (req, res) => {
 }
 
 const updateDetranById = (req, res) =>{
+
+  res.status(200).send('OK')
   
-  const id = parseInt(req.params.id)
+  /* const id = parseInt(req.params.id)
 
   pool.query('select  dd.identity as id, et.description as cnpj, max(case when dd.datacodeid = 1 then dd.description end) as name,   max(case when dd.datacodeid = 2 then dd.description end) as phone,  max(case when dd.datacodeid = 3 then dd.description end) as email from data_detran dd, states st, states_relationship sr, entities et where dd."identity" = sr."identity" and st.id = sr.idstate and dd."identity" = et.id  and et.id = $1 group by dd.identity, et.description order by dd.identity',
   [id],
@@ -151,7 +153,7 @@ const updateDetranById = (req, res) =>{
     }
     console.log(storedDetrans.rows)
     res.status(200).json(storedDetrans.rows)
-  })
+  }) */
 }
 
 const getStates = (req, res) =>{
