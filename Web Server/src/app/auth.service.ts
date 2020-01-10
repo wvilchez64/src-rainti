@@ -16,8 +16,6 @@ export class AuthService {
   private _recoverPasswordUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/recover-password"
   private _resetPasswordUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/reset-password"
   private _sendEmailUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/send-email"
-  private _createDetranUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/create-detran"
-  private _statesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/states"
   
   constructor(private http: HttpClient, private _router: Router) {}
 
@@ -27,10 +25,6 @@ export class AuthService {
 
   resetUser(user){
     return this.http.post<any>(this._resetPasswordUrl, user)
-  }
-
-  createDetran(user){
-    return this.http.post<any>(this._createDetranUrl, user)
   }
   
   loginUser(user){
@@ -53,10 +47,6 @@ export class AuthService {
  
   getToken(){
     return localStorage.getItem('token')
-  }
-
-  getStates(){
-    return this.http.get<any>(this._statesUrl)
   }
 
   recoverPassword(user){

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../../auth.service';
 import { Router } from '@angular/router';
+import { DetranAddService } from '../detran-services/detran-add.service';
 
 @Component({
   selector: 'app-detran-add',
@@ -20,7 +20,7 @@ export class DetranAddComponent implements OnInit {
   _states : Array<any> = [] 
   topicHasError = true;
 
-  constructor(private _auth: AuthService,
+  constructor(private _detranAddService: DetranAddService,
     private _router: Router) {       
       
     }
@@ -34,7 +34,7 @@ export class DetranAddComponent implements OnInit {
     }
 
   ngOnInit() {
-    this._auth.getStates()
+    this._detranAddService.getStates()
     .subscribe(
       res => {
         console.log(res)
@@ -46,7 +46,7 @@ export class DetranAddComponent implements OnInit {
   }
 
   createDetran(){
-    this._auth.createDetran(this.userData)
+    this._detranAddService.createDetran(this.userData)
       .subscribe(
         res => {
           console.log(res)

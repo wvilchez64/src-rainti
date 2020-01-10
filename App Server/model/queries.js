@@ -119,8 +119,8 @@ const getDetranContactById = (req, res) =>{
 
 const createDetran = (req, res) => {
   let userData = req.body  
-
-  pool.query('insert into entities (description, status, datacodeid, entitytypeid) values ($1, true, 5, 1);',
+  console.log(userData)
+  /* pool.query('insert into entities (description, status, datacodeid, entitytypeid) values ($1, true, 5, 1);',
     [userData.cnpj],
     (error, registeredDetran) => {
       if (error) {
@@ -133,10 +133,12 @@ const createDetran = (req, res) => {
         [userData.phone,userData.cnpj])
         pool.query('insert into data_detran (description, identity, datacodeid) values ($1, (select id from entities where description = $2), 3 )',
         [userData.email,userData.cnpj])
+        pool.query('insert into states_relationship (idstate, identity) values ((select id from states where description = $1), (select id from entities where description = $2))',
+        [userData.topic,userData.cnpj])
         res.status(200).json({response: "Detran adicionado"})       
       }
 
-    })
+    }) */
 }
 
 const updateDetranById = (req, res) =>{
