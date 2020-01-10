@@ -186,7 +186,7 @@ const getStates = (req, res) =>{
 }
 
 const getStatesForDetranAdd = (req, res) =>{
-  pool.query('select description from states',
+  pool.query('select description from statesselect description from states where id not in (select st.id from states st, states_relationship sr, entities et where et.id = sr.identity and st.id = sr.idstate and status = true)',
    (error, storedStates) => {
     if (error) {
       console.log(error)
