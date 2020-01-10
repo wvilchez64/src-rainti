@@ -45,7 +45,7 @@ export class DetranDetailComponent implements OnInit {
         this._detranDetail.updateDetran(this.detranData, params.get('id'))
         .subscribe(
           res => {
-            this.detranData = res[0]
+            console.log(res)
           },
           err => {
             console.log(err)
