@@ -122,15 +122,14 @@ const createDetran = (req, res) => {
 
   pool.query('select * from entities where description = $1 and status = true',
     [userData.cnpj],
-    (error, activeDetran) => {
-      console.log(activeDetran.rowCount)
+    (error, activeDetran) => {    
       if (error) {
         res.status(400).send('Erro ao buscar detran')
         //throw error        
       } else if(activeDetran.rowCount > 0){
         res.status(401).send('CNPJ já cadastrado')
       }else{          
-        /* pool.query('insert into entities (description, status, datacodeid, entitytypeid) values ($1, true, 5, 1);',
+        pool.query('insert into entities (description, status, datacodeid, entitytypeid) values ($1, true, 5, 1);',
         [userData.cnpj])   
         pool.query('insert into data_detran (description, identity, datacodeid) values ($1, (select id from entities where description = $2), 1 )',
         [userData.userName,userData.cnpj])
@@ -139,7 +138,7 @@ const createDetran = (req, res) => {
         pool.query('insert into data_detran (description, identity, datacodeid) values ($1, (select id from entities where description = $2), 3 )',
         [userData.email,userData.cnpj])
         pool.query('insert into states_relationship (idstate, identity) values ((select id from states where description = $1), (select id from entities where description = $2))',
-        [userData.topic,userData.cnpj]) */
+        [userData.topic,userData.cnpj]) 
         res.status(200).json({response: "Detran adicionado"})       
       }
 
@@ -186,6 +185,15 @@ const getStates = (req, res) =>{
   })
 }
 
+const getStatesForDetranAdd = (req, res) =>{
+  pool.query('select description from states',
+   (error, storedStates) => {
+    if (error) {
+      console.log(error)
+    }
+    res.status(200).json(storedStates.rows)
+  })
+}
 
 
 const createUser = (req, res) => {
@@ -234,10 +242,12 @@ module.exports = {
   getDetrans, 
   getDetranById, 
   getDetranContactById, 
-  getDetranContacts, 
+  getDetranContacts,
+  getStates,
+  getStatesForDetranAdd, 
   updateDetranById,
   getEntitiesTypes, 
   recoverPassword, 
   resetPassword, 
   createDetran, 
-  getStates}
+  }

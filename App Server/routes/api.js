@@ -9,6 +9,7 @@ const router = express.Router()
 router.get('/entities',  queries.getDetrans)
 router.get('/entity/:id',  queries.getDetranById)
 router.get('/states',  queries.getStates)
+router.get('/states-detran-add',  queries.getStatesForDetranAdd)
 router.get('/entities-types', queries.getEntitiesTypes)
 router.get('/', (req, res)=>{res.send('From API route')})
 

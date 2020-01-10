@@ -9,7 +9,7 @@ export class DetranAddService {
   private _appServerConfig = require('../../../../assets/configs/config-app-server.json')
 
   private _createDetranUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/create-detran"
-  private _statesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/states"
+  private _statesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/states-detran-add"
 
   constructor(private http: HttpClient,) { }
 
