@@ -10,8 +10,8 @@ const app = express()
 
 // SYSTEM ACCESS
 app.use('/login', login)
-app.use('/password-recover', recover)
-app.use('/password-reset', reset)
+app.use('/recover-password', recover)
+app.use('/reser-password', reset)
 app.use('/register-user', register)
 
 // COMMON

@@ -9,7 +9,7 @@ import { throwError } from 'rxjs'
 })
 export class AuthService {
 
-  private _appServerConfig = require('../assets/configs/config-app-server.json')
+  private _appServerConfig = require('../../../assets/configs/config-app-server.json')
 
   private _registerUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/register-user/register"
   private _loginUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/login/access"
