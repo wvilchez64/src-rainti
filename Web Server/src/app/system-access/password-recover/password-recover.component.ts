@@ -29,7 +29,7 @@ export class PasswordRecoverComponent implements OnInit {
     .subscribe(
       res => {
         this.resetCode = res.code
-        this.sendEmail()          
+        this.sendEmail(res.emailTo)          
         console.log(res)
         this._router.navigate(['/recuperar-senha-enviado'])  
       },
@@ -40,7 +40,7 @@ export class PasswordRecoverComponent implements OnInit {
       )
   }
 
-  sendEmail(){
+  sendEmail(emailTo){
     var emailConfig = require('../../../assets/configs/config-email-noreply.json')
 
     let emailData = {
@@ -50,7 +50,7 @@ export class PasswordRecoverComponent implements OnInit {
       userName: emailConfig.userName,
       emailFrom: emailConfig.emailFrom,
       password: emailConfig.password,
-      emailTo: this.recoverPasswordData.email,
+      emailTo: emailTo,
       subjectContent: "[NÃO RESPONDA] - RainTI recuperar senha",
       bodyContent: "Para recuperar sua senha acesse: http://localhost:4200/recuperar-senha-reset, informe seu usário e o código a seguir: "+this.resetCode
     }
