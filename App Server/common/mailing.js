@@ -36,7 +36,7 @@ sendEmail = (req, res) =>{
     emailSender(userData, info => {
       console.log(`The mail has beed send 😃 and the id is ${info.messageId}`);
       res.send(info);
-    }); 
+    }).catch(error => console.log(error)); 
 
 }
 
