@@ -1,5 +1,5 @@
 const express =  require('express')
-const queries = require('../model/system-access/login/queries')
+const queries = require('../../../model/system-access/login/queries')
 
 const router = express.Router()
 

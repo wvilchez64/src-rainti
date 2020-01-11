@@ -1,7 +1,7 @@
 const Pool = require('pg').Pool
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
-const jsonData = require('../config/config-database.json');
+const jsonData = require('../../../config/config-database.json');
 var randomize = require('randomatic');
 
 const pool = new Pool({  

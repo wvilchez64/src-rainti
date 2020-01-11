@@ -1,5 +1,5 @@
 const express =  require('express')
-const queries = require('../model/queries')
+const queries = require('../../../model/queries')
 const jwt = require('jsonwebtoken')
 
 const router = express.Router()

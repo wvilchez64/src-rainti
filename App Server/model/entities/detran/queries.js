@@ -1,5 +1,5 @@
 const Pool = require('pg').Pool
-const jsonData = require('../config/config-database.json');
+const jsonData = require('../../config/config-database.json');
 
 const pool = new Pool({  
   user: jsonData.user,

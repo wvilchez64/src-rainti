@@ -1,7 +1,7 @@
 const Pool = require('pg').Pool
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
-const jsonData = require('../config/config-database.json');
+const jsonData = require('../../../config/config-database.json');
 
 const pool = new Pool({  
   user: jsonData.user,

@@ -1,5 +1,5 @@
 const Pool = require('pg').Pool
-const jsonData = require('../config/config-database.json');
+const jsonData = require('../../../config/config-database.json');
 var randomize = require('randomatic');
 
 const pool = new Pool({  

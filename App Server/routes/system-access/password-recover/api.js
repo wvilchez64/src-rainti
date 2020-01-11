@@ -1,5 +1,5 @@
 const express =  require('express')
-const queries = require('../model/system-access/password-recover/queries')
+const queries = require('../../../model/system-access/password-recover/queries')
 
 const router = express.Router()
 
