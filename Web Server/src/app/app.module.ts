@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './system-access/register/register.component';
 import { LoginComponent } from './system-access/login/login.component';
 
-import { AuthService } from './auth.service';
+import { AuthService } from './system-access/system-access-services/auth.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
 import { FilterPipe } from './filter.pipe';
