@@ -1,8 +1,9 @@
 const express =  require('express')
 const queries = require('../model/system-access/login/queries')
+const login = require ('./system-access/login/api')
 
-const router = express.Router()
+const app = express()
 
-router.post('/access', queries.loginUser)
+app.use('/login', login)
 
 module.exports = router

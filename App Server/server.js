@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const jsonDataServer = require ('./config/config-server.json')
+const api = require ('./routes/api-routes')
 
 const port = jsonDataServer.port
 const host = jsonDataServer.host
@@ -12,7 +13,7 @@ app.use(cors())
 
 app.use(bodyParser.json())
 
-//app.use('/api',api)
+app.use('/api',api)
 
 app.get('/', function(req,res){
     res.send('Hello Server')
