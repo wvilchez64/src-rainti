@@ -8,7 +8,7 @@ export class DetranMainService {
   
   private _appServerConfig = require('../../../../assets/configs/config-app-server.json')
   
-  private _entitiesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/entities"
+  private _entitiesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/detran/detrans"
   
 
   constructor(private http: HttpClient) {  }

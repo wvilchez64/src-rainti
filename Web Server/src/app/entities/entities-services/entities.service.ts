@@ -8,7 +8,7 @@ export class EntitiesService {
 
   private _appServerConfig = require('../../../assets/configs/config-app-server.json')
   
-  private _entitiesTypesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/entities-types"
+  private _entitiesTypesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/common/entities-types"
   
   constructor(private http: HttpClient) {  }
    

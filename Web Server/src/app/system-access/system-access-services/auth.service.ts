@@ -11,11 +11,11 @@ export class AuthService {
 
   private _appServerConfig = require('../assets/configs/config-app-server.json')
 
-  private _registerUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/register"
+  private _registerUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/register-user/register"
   private _loginUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/login/access"
-  private _recoverPasswordUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/recover-password"
-  private _resetPasswordUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/reset-password"
-  private _sendEmailUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/send-email"
+  private _recoverPasswordUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/recover-password/recover"
+  private _resetPasswordUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/reset-password/reset"
+  private _sendEmailUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/common/send-email"
   
   constructor(private http: HttpClient, private _router: Router) {}
 

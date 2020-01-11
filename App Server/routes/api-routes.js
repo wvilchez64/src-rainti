@@ -12,7 +12,7 @@ const app = express()
 app.use('/login', login)
 app.use('/password-recover', recover)
 app.use('/password-reset', reset)
-app.use('/register', register)
+app.use('/register-user', register)
 
 // COMMON
 app.use('/common', common)
