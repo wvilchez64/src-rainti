@@ -29,7 +29,7 @@ export class PasswordRecoverComponent implements OnInit {
     .subscribe(
       res => {
         this.resetCode = res.code
-        this.sendEmail(res.emailTo)          
+        this.sendEmail(res.emailTo[0].email)          
         console.log(res)
         this._router.navigate(['/recuperar-senha-enviado'])  
       },
