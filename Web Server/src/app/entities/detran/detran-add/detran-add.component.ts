@@ -7,18 +7,21 @@ import { DetranAddService } from '../detran-services/detran-add.service';
   templateUrl: './detran-add.component.html',
   styleUrls: ['./detran-add.component.css']
 })
-export class DetranAddComponent implements OnInit {
+export class DetranAddComponent implements OnInit {  
   
+ 
   userData = {
     userName : '',
     cnpj : '',
     phone : '',
     email : '',
-    topic : ''
+    topic : '',
+    dddModel : ''
   }
   _errorMessage = ''
   _states : Array<any> = [] 
-  topicHasError = true;
+  topicHasError = true
+  dddHasError = true
 
   constructor(private _detranAddService: DetranAddService,
     private _router: Router) {       

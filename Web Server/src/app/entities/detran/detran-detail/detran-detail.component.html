@@ -21,7 +21,17 @@
                         </div>                          
                         <div class="form-group">
                             <label for="uname1">E-mail</label>
-                            <input type="text" [(ngModel)]="detranData.email" name="email"  class="form-control rounded-0" required>
+                            <input #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="text" 
+                            [(ngModel)]="detranData.email" name="email" class="form-control rounded-0" 
+                            [class.is-invalid]="email.invalid && email.touched" required>
+                            <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
+                                <small  class="text-danger"*ngIf="email.errors && email.errors.required">
+                                    e-mail obrigatório
+                                </small>
+                                <small  class="text-danger" *ngIf="email.errors && email.errors.pattern">
+                                    e-mail inválido
+                                </small>
+                            </div>
                         </div>    
                         <div class="form-group">
                             <div class="row">

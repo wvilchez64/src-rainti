@@ -13,7 +13,7 @@ const pool = new Pool({
 })
 
 
-const resetPassword = (req, res) =>{
+/* const resetPassword = (req, res) =>{
 
   let userData = req.body
 
@@ -51,7 +51,7 @@ const recoverPassword = (req, res) =>{
     
   })
 }
-
+ */
 const getEntitiesTypes = (req, res) =>{
   pool.query('select description as name from entity_type',
    (error, types) => {
@@ -196,7 +196,7 @@ const getStatesForDetranAdd = (req, res) =>{
 }
 
 
-const createUser = (req, res) => {
+/* const createUser = (req, res) => {
   let userData = req.body
   
   let hash = crypto.createHash('md5').update(userData.password).digest("hex")
@@ -213,11 +213,11 @@ const createUser = (req, res) => {
       }
 
     })
-}
+} */
 
 
 
-const loginUser = (req, res) => {
+/* const loginUser = (req, res) => {
   let userData = req.body
 
   let hash = crypto.createHash('md5').update(userData.password).digest("hex")
@@ -234,7 +234,7 @@ const loginUser = (req, res) => {
       }
       
     })
-}
+} */
 
 const getCreditors = (req, res) => {  
 

@@ -11,6 +11,7 @@ export class DetranAddService {
   private _createDetranUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/create-detran"
   private _statesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/states-detran-add"
 
+
   constructor(private http: HttpClient,) { }
 
   getStates(){
@@ -20,4 +21,5 @@ export class DetranAddService {
   createDetran(user){
     return this.http.post<any>(this._createDetranUrl, user)
   }
+  
 }

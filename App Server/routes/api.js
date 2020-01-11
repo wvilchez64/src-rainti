@@ -21,10 +21,10 @@ router.put('/entity/:id',  queries.updateDetranById)
 // POSTs
 router.post('/send-email', email.sendEmail)
 router.post('/create-detran', verifyToken, queries.createDetran)
-router.post('/reset-password', queries.resetPassword)
-router.post('/recover-password', queries.recoverPassword)
-router.post('/register', queries.createUser)
-router.post('/login', queries.loginUser)
+//router.post('/reset-password', queries.resetPassword)
+//router.post('/recover-password', queries.recoverPassword)
+//router.post('/register', queries.createUser)
+//router.post('/login', queries.loginUser)
 
 function verifyToken(req, res, next){
     if(!req.headers.authorization){

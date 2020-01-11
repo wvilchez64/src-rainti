@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CreditorMainService } from './creditor-services/creditor-main.service';
+import { CreditorAddService } from './creditor-services/creditor-add.service';
 
 @Component({
   selector: 'app-creditor',
@@ -12,8 +13,9 @@ export class CreditorComponent implements OnInit {
   creditors: Array<any> = []
   searchText: ''
   name: ''
-  
+
   constructor(private _creditorService: CreditorMainService,
+    private _creditorAddService: CreditorAddService,
     ) { 
       
     }
@@ -30,19 +32,8 @@ export class CreditorComponent implements OnInit {
     ) 
   }
 
-  addDetran(){
-    this._detranAddService.getStates()
-    .subscribe(      
-      res => {
-        if(res.length == 0){
-          console.log("Todos os Detrans já cadastrados")
-        }else{
-          this._router.navigate(['/detran-adicionar'])
-        }
-        
-      },
-      err => console.log(err)
-    ) 
+  addCreditor(){
+   
   }
 
 

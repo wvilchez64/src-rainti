@@ -16,6 +16,13 @@ export class DetranDetailComponent implements OnInit {
     email: '',
   }
 
+  detranDataOld = {
+    name: '',
+    cnpj: '',
+    phone: '',
+    email: '',
+  }
+
   constructor(private route: ActivatedRoute,
     private _detranDetail: DetranDetailService ) { }
 
@@ -28,6 +35,7 @@ export class DetranDetailComponent implements OnInit {
         .subscribe(
           res => {
             this.detranData = res[0]
+            this.detranDataOld = res[0]
           },
           err => {
             console.log(err)
@@ -36,6 +44,11 @@ export class DetranDetailComponent implements OnInit {
     }
       
     );
+  }
+
+  detranDataSender = {
+    old : this.detranDataOld,
+    new : this.detranData,
   }
 
   updateDetran(){
