@@ -6,14 +6,13 @@ const jsonDataServer = require ('./config/config-server.json')
 const port = jsonDataServer.port
 const host = jsonDataServer.host
 
-const api = require('./routes/api')
 const app = express()
 
 app.use(cors())
 
 app.use(bodyParser.json())
 
-app.use('/api',api)
+//app.use('/api',api)
 
 app.get('/', function(req,res){
     res.send('Hello Server')
