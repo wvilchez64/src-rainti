@@ -113,6 +113,7 @@ CREATE TABLE users(
 CREATE TABLE role_plans(
 	id SERIAL PRIMARY KEY,
 	planName VARCHAR UNIQUE NOT NULL,
+	entityid INT4 NOT NULL REFERENCES entities(id) ON DELETE RESTRICT,
 	creationDate TIMESTAMPTZ NOT NULL DEFAULT NOW()		
 );
 
@@ -125,3 +126,11 @@ CREATE TABLE accounts(
 	creationDate TIMESTAMPTZ NOT NULL DEFAULT NOW()		
 );
 
+-- Tabela criada para registrar os logs de mudança no sistema
+CREATE TABLE src_log(
+	id SERIAL PRIMARY KEY,
+	userId INT4 NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+	tableName VARCHAR NOT NULL,
+	description VARCHAR NOT NULL,
+	creationDate TIMESTAMPTZ NOT NULL DEFAULT NOW()		
+)

@@ -8,11 +8,11 @@ export class DetranContactsService {
 
   private _appServerConfig = require('../../../../assets/configs/config-app-server.json')
   
-  private _detranContactsUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/detran/detran-contacts"
+  private _detranContactsUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/detran/detran-contacts/"
 
   constructor(private http: HttpClient) { }
 
-  getDetranContacts(){
-    return this.http.get<any>(this._detranContactsUrl)
+  getDetranContacts(id){
+    return this.http.get<any>(this._detranContactsUrl+id)
   }
 }

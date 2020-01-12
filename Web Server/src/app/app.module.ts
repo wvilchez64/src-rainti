@@ -14,7 +14,7 @@ import { LoginComponent } from './system-access/login/login.component';
 import { AuthService } from './system-access/system-access-services/auth.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
-import { FilterPipe } from './filter.pipe';
+import { FilterPipe } from './filter-name.pipe';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
 import { CreditorComponent } from './entities/creditor/creditor.component';
@@ -33,6 +33,7 @@ import { DetranContactAddComponent } from './entities/detran/detran-contact-add/
 import { DetranMainComponent } from './entities/detran/detran-main/detran-main.component';
 import { CreditorDetailComponent } from './entities/creditor/creditor-detail/creditor-detail.component';
 import { CreditorContactsComponent } from './entities/creditor/creditor-contacts/creditor-contacts.component';
+import { DetranContactDetailComponent } from './entities/detran/detran-contact-detail/detran-contact-detail.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { CreditorContactsComponent } from './entities/creditor/creditor-contacts
     DetranMainComponent,
     CreditorDetailComponent,
     CreditorContactsComponent,
+    DetranContactDetailComponent,
   ],
   imports: [
     BrowserModule,

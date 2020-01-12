@@ -5,9 +5,9 @@
             <!-- form card login -->
             <div class="card shadow">
                 <div class="card-body">
-                    <h4 class="card-title mb-4 mt-1">Cadastrar Contato</h4>
+                    <h4 class="card-title mb-4 mt-1">Editar Contato</h4>
                     <hr/>
-                    <form class="form" #registerForm="ngForm" []>                          
+                    <form class="form" #registerForm="ngForm">                          
                         <div class="form-group">
                             <label for="uname1">Nome</label>
                             <input type="text" [(ngModel)]="userData.name" name="name" class="form-control rounded-0" 
@@ -24,13 +24,13 @@
                                     <label for="uname1">DDD</label>
                                     <input type="text" pattern="^([1-9]{2})"
                                     placeHolder="11"
-                                    [(ngModel)]="userData.dddModel" name="dddModel" class="form-control rounded-0" 
-                                    [class.is-invalid]="dddModel.invalid && dddModel.touched" #dddModel="ngModel" required >
-                                    <div class="md-errors-spacer" [hidden]="dddModel.valid || dddModel.untouched">
-                                        <small  class="text-danger"*ngIf="dddModel.errors && dddModel.errors.required">
+                                    [(ngModel)]="userData.dddmodel" name="dddmodel" class="form-control rounded-0" 
+                                    [class.is-invalid]="dddmodel.invalid && dddmodel.touched" #dddmodel="ngModel" required >
+                                    <div class="md-errors-spacer" [hidden]="dddmodel.valid || dddmodel.untouched">
+                                        <small  class="text-danger"*ngIf="dddmodel.errors && dddmodel.errors.required">
                                             DDD obrigatório
                                         </small>
-                                        <small  class="text-danger"*ngIf="(dddModel.errors && dddModel.errors.pattern) || ddHasError">
+                                        <small  class="text-danger"*ngIf="(dddmodel.errors && dddmodel.errors.pattern) || ddHasError">
                                             DDD inválido
                                         </small>
                                    </div>
@@ -70,27 +70,29 @@
                         </div>
                         <div class="form-group">
                             <label for="uname1">Informações adicionais</label>
-                            <input type="text" [(ngModel)]="userData.additionalInfo" name="additionalInfo" class="form-control rounded-0" 
-                            [class.is-invalid]="additionalInfo.invalid && additionalInfo.touched" #additionalInfo="ngModel" >
+                            <input type="text" [(ngModel)]="userData.additionalinfo" name="additionalinfo" class="form-control rounded-0" 
+                            [class.is-invalid]="additionalinfo.invalid && additionalinfo.touched" #additionalinfo="ngModel" >
                         </div>
                         <hr/>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <button type="submit" [disabled]="registerForm.form.invalid" (click)="addDetranContact()" class="btn btn-rainti btn-block ">Adicionar</button>                
+                                <div class="col-sm-4">
+                                    <button type="submit" [disabled]="registerForm.form.invalid" (click)="updateDetranContactById()" class="btn btn-rainti btn-block ">Alterar</button>                
+                                </div> 
+                                <div class="col-sm-4">
+                                    <button type="submit"  (click)="deleteDetranContactById()" class="btn btn-danger btn-block ">Excluir</button>                
                                 </div>  
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <button type="submit" (click)="backToDetranContacts()" class="btn btn-info btn-block">Voltar</button>
                                 </div>  
                             </div>                            
                         </div>                             
                         <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
                             {{_errorMessage}}
-                        </div> 
-                        <div class="alert alert-primary text-center text-primary" *ngIf="_createdMessage">
-                            {{_createdMessage}}
                         </div>                                  
-                       
+                        <div class="alert alert-primary text-center text-primary" *ngIf="_updatedMessage">
+                            {{_updatedMessage}}
+                        </div>  
                     </form>
                 </div>
             </div>

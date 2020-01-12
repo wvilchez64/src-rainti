@@ -19,9 +19,11 @@ const loginUser = (req, res) => {
   pool.query('select * from users where username = $1 and passwordmd5 = $2',[userData.userName, hash], (error, loggedUser) => {
       if (error) {
         console.log(error)
+        res.status(400).send('Erro ao acessar os dados do usuário')
       }else if (loggedUser.rowCount == 0){
         res.status(401).send('Acesso negado! Usuário ou senha inválidos.')
-      }else{
+      }else{  
+
         let payload = { subject: loggedUser.userName }
         let token = jwt.sign(payload, 'secretKey')
         res.status(200).json({token})
@@ -29,7 +31,6 @@ const loginUser = (req, res) => {
       
     })
 }
-
 module.exports = { 
   loginUser, 
   }

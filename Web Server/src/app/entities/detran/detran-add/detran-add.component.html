@@ -5,7 +5,8 @@
             <!-- form card login -->
             <div class="card shadow">
                   <div class="card-body">
-                    <h4 class="card-title mb-4 mt-1">Cadastro de Detran</h4>
+                    <h4 class="card-title mb-4 mt-1">Cadastrar de Detran</h4>
+                    <hr/>
                     <form class="form" #registerForm="ngForm">
                         <div class="form-group">
                             <label for="uname1">Estado</label>
@@ -91,13 +92,23 @@
                                 </small>
                             </div>
                         </div>
-                        
-                        <div class="form-group">                           
-                            <button type="submit" [disabled]="registerForm.form.invalid || topicHasError" (click)="createDetran()" class="btn btn-primary btn-block">Confirmar</button>                
-                        </div>     
+                        <hr/>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="submit" [disabled]="registerForm.form.invalid || topicHasError" (click)="createDetran()" class="btn btn-rainti btn-block ">Confirmar</button>                
+                                </div>  
+                                <div class="col-sm-6">
+                                    <button type="submit" (click)="backToDetran()" class="btn btn-info btn-block">Voltar</button>
+                                </div>  
+                            </div>                            
+                        </div>                             
                         <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
                             {{_errorMessage}}
-                        </div>                                  
+                        </div> 
+                        <div class="alert alert-primary text-center text-primary" *ngIf="_createdMessage">
+                            {{_createdMessage}}
+                        </div>                                 
                        
                     </form>
                   </div>

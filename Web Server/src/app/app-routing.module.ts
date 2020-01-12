@@ -20,6 +20,7 @@ import { DetranAddComponent } from './entities/detran/detran-add/detran-add.comp
 import { DetranContactAddComponent } from './entities/detran/detran-contact-add/detran-contact-add.component';
 import { CreditorDetailComponent } from './entities/creditor/creditor-detail/creditor-detail.component';
 import { CreditorContactsComponent } from './entities/creditor/creditor-contacts/creditor-contacts.component';
+import { DetranContactDetailComponent } from './entities/detran/detran-contact-detail/detran-contact-detail.component';
 
 const routes: Routes = [
   {
@@ -67,12 +68,18 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'detran-detalhe-contato/:id',
+    component: DetranContactDetailComponent,
+    canActivate: [AuthGuard]
+  },
+  
+  {
     path: 'detran-adicionar',
     component: DetranAddComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'detran-adicionar-contato',
+    path: 'detran-adicionar-contato/:id',
     component: DetranContactAddComponent,
     canActivate: [AuthGuard]
   },

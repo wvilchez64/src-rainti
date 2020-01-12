@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+.bg-rainti { background-color : #0090D5}
+
+.btn-rainti{color:#fff;background-color:#0090D5;border-color:#0090D5}
+.btn-rainti:hover{color:#fff;background-color:#0069d9;border-color:#0062cc}
+.btn-rainti.focus,.btn-rainti:focus{color:#fff;background-color:#0069d9;border-color:#0062cc;box-shadow:0 0 0 .2rem rgba(38,143,255,.5)}
+.btn-rainti.disabled,.btn-rainti:disabled{color:#fff;background-color:#0090D5;border-color:#0090D5}
+.btn-rainti:not(:disabled):not(.disabled).active,.btn-rainti:not(:disabled):not(.disabled):active,.show>.btn-rainti.dropdown-toggle{color:#fff;background-color:#0062cc;border-color:#005cbf}
+.btn-rainti:not(:disabled):not(.disabled).active:focus,.btn-rainti:not(:disabled):not(.disabled):active:focus,.show>.btn-rainti.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(38,143,255,.5)}
+
