@@ -38,6 +38,7 @@ export class DetranContactAddComponent implements OnInit {
           res => {
             console.log(res)
             this._createdMessage = 'Contato '+this.userData.name+' adicionado com sucesso!'
+            
             // Reset form to add another contact
             //this.userData = {name: '',dddModel: '',phone: '',email: '',additionalInfo: '',}               
           },

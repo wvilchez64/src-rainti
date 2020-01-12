@@ -56,6 +56,7 @@ export class DetranAddComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res)
+          this.ngOnInit()
           this._createdMessage = 'Detran '+this.userData.userName+' cadastrado com sucesso!'
           // Reset form to add another Detran
           //this.userData = {userName : '', cnpj : '', phone : '', email : '', topic : '', dddModel : '' } 
