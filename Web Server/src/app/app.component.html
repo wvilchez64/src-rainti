@@ -11,7 +11,7 @@
       <div class= "row justify-content-lg align-items-center" *ngIf="_authService.loggedIn()">
         <a class="nav-link px-5" routerLink="/principal" routerLinkActive="active">Principal</a>
         <li class="dropdown" >
-          <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Entidades
+          <a class="nav-link px-5" class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Entidades
           <span class="caret"></span></a>
             <ul class="dropdown-menu"  >
               <li *ngFor="let entityType of entityTypes"> 
@@ -19,7 +19,19 @@
               </li>
             </ul>
         </li>
-        <a class="nav-link px-5" routerLink="/registrar-contrato" routerLinkActive="active">Registrar Contrato</a>        
+        <a class="nav-link px-3" routerLink="/registrar-contrato" routerLinkActive="active">Registrar Contrato</a>
+        
+        <li class="dropdown px-2">
+          <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Administração
+          <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link px-2 text-dark" routerLink="/user-main" routerLinkActive="active" >Usuários</a>
+                <a class="nav-link px-2 text-dark" routerLink="/group-main" routerLinkActive="active" >Grupos</a>
+              </li>
+            </ul>
+        </li>
+
         <a class="nav-link p-x5" routerLink="/ajuda" routerLinkActive="active">Ajuda</a>
       </div>   
     </ul>   

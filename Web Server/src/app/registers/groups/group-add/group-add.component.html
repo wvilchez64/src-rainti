@@ -1,0 +1,50 @@
+<div class="py-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <span class="anchor" id="formLogin"></span>
+            <!-- form card login -->
+            <div class="card shadow">
+                  <div class="card-body">
+                    <h4 class="card-title mb-4 mt-1">Cadastro de grupos</h4>
+                    
+                    <form class="form" #registerForm="ngForm">
+                        <div class="form-group">
+                                    <label for="uname1">Nome do grupo</label>
+                                    <input type="text" [(ngModel)]="groupData.planname" name="planname"  class="form-control rounded-0" 
+                                    [class.is-invalid]="planname.invalid && planname.touched" #planname="ngModel" required >
+                                    <div class="md-errors-spacer" [hidden]="planname.valid || planname.untouched">
+                                        <small  class="text-danger"*ngIf="planname.errors && planname.errors.required">
+                                            nome do grupo obrigatório
+                                        </small>
+                                    </div>
+                        </div>
+
+                        <div class="form-group">
+                                <label for="uname1">Entidade</label>
+                                <select class="custom-select" #groupEntities="ngModel" [class.is-invalid]="topicHasError && groupEntities.touched"
+                                name="groupEntities" [(ngModel)]="groupData.groupEntities" (change)="validateTopic(groupEntities.value)" (blur)="validateTopic(groupEntities.value)">                            
+                                    <option value="default">--Escolha uma Entidade</option>
+                                    <option *ngFor="let entities of _entities">{{ entities.description }}</option>
+                                </select>
+                                <small class="text-danger" [class.d-none]="!topicHasError || groupEntities.untouched">Escolha uma entidade</small>
+                        </div>
+                        
+                        <div class="form-group">
+							<label for="uname1">Escolha as funcionalidades</label><br>
+								<div class="custom-control custom-checkbox custom-control-inline" *ngFor="let features of _features">
+								  <input  type="checkbox" class="custom-control-input" id="{{ features.description }}">
+								  <label class="custom-control-label" for="{{ features.description }}">{{ features.description }}</label>
+                                </div>
+                        </div>
+
+                        <button class="btn btn-secondary btn-lg mr-3" style="width: 48%" routerLink="/group-main">Cancelar</button>
+                        <button [disabled]="registerForm.form.invalid" type="submit" (click)="createGroup()" class="btn btn-primary btn-lg" style="width: 48%">Salvar</button>
+                    </form>
+                  </div>
+            </div>
+            <!-- /form card login -->
+        </div>
+    </div>
+</div>
+    
+

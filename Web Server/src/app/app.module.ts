@@ -8,7 +8,6 @@ import { UserIdleModule } from 'angular-user-idle';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegisterComponent } from './system-access/register/register.component';
 import { LoginComponent } from './system-access/login/login.component';
 
 import { AuthService } from './system-access/system-access-services/auth.service';
@@ -34,11 +33,14 @@ import { DetranMainComponent } from './entities/detran/detran-main/detran-main.c
 import { CreditorDetailComponent } from './entities/creditor/creditor-detail/creditor-detail.component';
 import { CreditorContactsComponent } from './entities/creditor/creditor-contacts/creditor-contacts.component';
 import { DetranContactDetailComponent } from './entities/detran/detran-contact-detail/detran-contact-detail.component';
+import { GroupAddComponent } from './registers/groups/group-add/group-add.component';
+import { GroupMainComponent } from './registers/groups/group-main/group-main.component';
+import { UserAddComponent } from './registers/user/user-add/user-add.component';
+import { UserMainComponent } from './registers/user/user-main/user-main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent,
     LoginComponent,
     FilterPipe,
     HelpComponent,
@@ -60,6 +62,10 @@ import { DetranContactDetailComponent } from './entities/detran/detran-contact-d
     CreditorDetailComponent,
     CreditorContactsComponent,
     DetranContactDetailComponent,
+    GroupAddComponent,
+    GroupMainComponent,
+    UserAddComponent,
+    UserMainComponent,
   ],
   imports: [
     BrowserModule,
