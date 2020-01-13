@@ -39,9 +39,8 @@ const createDetran = (req, res) => {
   let userData = req.body
 
   ;(async () => {
-    // note: we don't try/catch this because if connecting throws an exception
-    // we don't need to dispose of the client (it will be undefined)
-    const client = await pool.connect()
+    
+      const client = await pool.connect()
     try {
       await client.query('BEGIN')
       const selectResponse = await client.query('select * from entities where description = $1 and status = true', 
