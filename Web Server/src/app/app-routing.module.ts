@@ -59,9 +59,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
     },
 
-
-
-
   {
     path: 'recuperar-senha',
     component: PasswordRecoverComponent,
