@@ -11,7 +11,7 @@
       <div class= "row justify-content-lg align-items-center" *ngIf="_authService.loggedIn()">
         <a class="nav-link px-5" routerLink="/principal" routerLinkActive="active">Principal</a>
         <li class="dropdown" >
-          <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Entidades
+          <a class="nav-link px-5" class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Entidades
           <span class="caret"></span></a>
             <ul class="dropdown-menu"  >
               <li *ngFor="let entityType of entityTypes"> 
@@ -19,7 +19,19 @@
               </li>
             </ul>
         </li>
-        <a class="nav-link px-5" routerLink="/registrar-contrato" routerLinkActive="active">Registrar Contrato</a>        
+        <a class="nav-link px-3" routerLink="/registrar-contrato" routerLinkActive="active">Registrar Contrato</a>
+        
+        <li class="dropdown px-2">
+          <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Administração
+          <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link px-2 text-dark" routerLink="/user-main" routerLinkActive="active" >Usuários</a>
+                <a class="nav-link px-2 text-dark" routerLink="/group-main" routerLinkActive="active" >Grupos</a>
+              </li>
+            </ul>
+        </li>
+
         <a class="nav-link p-x5" routerLink="/ajuda" routerLinkActive="active">Ajuda</a>
       </div>   
     </ul>   
@@ -29,10 +41,14 @@
   </div>
 </nav>  
 
-<div class="container" style="padding: 80px 0px 0px 0px">
+<nav class="navbar-sm fixed-bottom navbar-dark bg-rainti shadow-lg" >
+    <div class="col" >
+      <h6  class="text-center text-light font-weight-lighter" >© 2020 - RainTI Tecnologia e Sistemas de Informação LTDA <br> Rua Paulino Corado, 20, Jardim Santa Teresa - Jundiaí/SP - Todos os direitos reservados.</h6>
+    </div> 
+</nav>
+
+<div class="container" style="padding: 80px 0px 80px 0px">
   
   <router-outlet></router-outlet>  
-  <footer>
-    <p  class="text-xs-center text-center text-dark" >© 2020 - <b>RainTI</b>. Todos os direitos reservados.</p>
-  </footer>          
+           
 </div>

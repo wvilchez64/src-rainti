@@ -6,7 +6,7 @@
       <form class="form-inline ">
         <div class="row align-items-center mb-1">    
           <div class="col">
-            <button type="button" class="btn btn-outline-primary btn-md btn-block" (click)="addDetran()">Adicionar</button>
+            <button type="button" class="btn btn-rainti btn-md btn-block" (click)="addDetran()">Adicionar</button>
           </div>        
           <div class="col">
             <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -23,13 +23,13 @@
             <h5 class="card-title ">{{entity.name}}</h5>
             <hr/>
             <p class="card-text"><b>CNPJ:</b> {{entity.cnpj}}</p>
-            <p class="card-text"><b>tel.:</b> {{entity.tel}}</p>
+            <p class="card-text"><b>tel.:</b> ({{entity.dddmodel}}) {{entity.tel}}</p>
             <p class="card-text"><b>e-mail:</b> {{entity.email}}</p>          
           </div>
           <div class="card-footer text-muted">
             <div class="row align-items-center mb-1">    
               <div class="col">
-                <button type="button" class="btn btn-primary btn-md btn-block" routerLink="/detran-detalhe/{{entity.id}}" routerLinkActive="active" >Editar</button>
+                <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/detran-detalhe/{{entity.id}}" routerLinkActive="active" >Editar</button>
               </div>        
               <div class="col">
                 <button type="button" class="btn btn-info btn-md btn-block" routerLink="/detran-contatos/{{entity.id}}" routerLinkActive="active">Contatos</button>

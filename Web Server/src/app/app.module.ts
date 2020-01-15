@@ -8,13 +8,12 @@ import { UserIdleModule } from 'angular-user-idle';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RegisterComponent } from './system-access/register/register.component';
 import { LoginComponent } from './system-access/login/login.component';
 
 import { AuthService } from './system-access/system-access-services/auth.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
-import { FilterPipe } from './filter.pipe';
+import { FilterPipe } from './filter-name.pipe';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
 import { ContractRegisterComponent } from './contract-register/contract-register.component';
@@ -43,11 +42,15 @@ import { CreditorGroupAddComponent } from './entities/creditor-group/creditor-gr
 import { CreditorGroupContactsComponent } from './entities/creditor-group/creditor-group-contacts/creditor-group-contacts.component';
 import { CreditorGroupContactAddComponent } from './entities/creditor-group/creditor-group-contact-add/creditor-group-contact-add.component';
 import { CreditorGroupContactDetailComponent } from './entities/creditor-group/creditor-group-contact-detail/creditor-group-contact-detail.component';
+import { DetranContactDetailComponent } from './entities/detran/detran-contact-detail/detran-contact-detail.component';
+import { GroupAddComponent } from './registers/groups/group-add/group-add.component';
+import { GroupMainComponent } from './registers/groups/group-main/group-main.component';
+import { UserAddComponent } from './registers/user/user-add/user-add.component';
+import { UserMainComponent } from './registers/user/user-main/user-main.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegisterComponent,
     LoginComponent,
     FilterPipe,
     HelpComponent,
@@ -78,6 +81,11 @@ import { CreditorGroupContactDetailComponent } from './entities/creditor-group/c
     CreditorGroupContactsComponent,
     CreditorGroupContactAddComponent,
     CreditorGroupContactDetailComponent,
+    DetranContactDetailComponent,
+    GroupAddComponent,
+    GroupMainComponent,
+    UserAddComponent,
+    UserMainComponent,
   ],
   imports: [
     BrowserModule,

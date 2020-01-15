@@ -5,7 +5,7 @@
     <div class="col-md-auto">
       <div class="row align-items-center mb-1">    
         <div class="col">
-          <button type="button" class="btn btn-outline-primary btn-md btn-block" routerLink="/detran-adicionar-contato" routerLinkActive="active">Adicionar</button>
+          <button type="button" class="btn btn-rainti btn-md btn-block" (click)="addDetranContact()">Adicionar</button>
         </div>        
         <div class="col">
           <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -20,13 +20,14 @@
           <div class="card-body ">
             <h5 class="card-title ">{{detranContact.name}}</h5>
             <hr/>
-            <p class="card-text">Tel.: {{detranContact.tel}}</p>
-            <p class="card-text">e-mail: {{detranContact.email}}</p>          
+            <p class="card-text"><b>Tel.:</b> {{detranContact.tel}}</p>
+            <p class="card-text"><b>e-mail:</b> {{detranContact.email}}</p>          
+            <p class="card-text" *ngIf="detranContact.additionalinfo"><b>Info. adicionais:</b> {{detranContact.additionalinfo}}</p>         
           </div>
           <div class="card-footer text-muted">
             <div class="row align-items-center mb-1">    
               <div class="col">
-                <button type="button" class="btn btn-outline-primary btn-md btn-block" routerLink="/detran-detalhe" routerLinkActive="active" >Editar</button>
+                <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/detran-detalhe-contato/{{detranContact.id}}" routerLinkActive="active" >Editar</button>
               </div>                    
             </div>         
           </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetranAddService } from '../detran-services/detran-add.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-detran-add',
@@ -19,12 +20,14 @@ export class DetranAddComponent implements OnInit {
     dddModel : ''
   }
   _errorMessage = ''
+  _createdMessage = ''
   _states : Array<any> = [] 
   topicHasError = true
   dddHasError = true
 
   constructor(private _detranAddService: DetranAddService,
-    private _router: Router) {       
+    private _router: Router,
+    private _location: Location) {       
       
     }
 
@@ -53,12 +56,18 @@ export class DetranAddComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res)
-          this._router.navigate(['/detran'])
+          this.ngOnInit()
+          this._createdMessage = 'Detran '+this.userData.userName+' cadastrado com sucesso!'
+          // Reset form to add another Detran
+          //this.userData = {userName : '', cnpj : '', phone : '', email : '', topic : '', dddModel : '' } 
         },
         error => {console.log(error)
                   this._errorMessage = error.error }
-        )  
-    
+        )      
+  }
+
+  backToDetran(){
+    this._location.back()
   }
 
 }

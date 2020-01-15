@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './system-access/login/login.component';
-import { RegisterComponent } from './system-access/register/register.component';
 import { AuthGuard } from './auth.guard';
 import { DetranMainComponent } from './entities/detran/detran-main/detran-main.component';
 import { RegistrarComponent } from './entities/registrar/registrar.component';
@@ -28,6 +27,11 @@ import { CreditorGroupAddComponent } from './entities/creditor-group/creditor-gr
 import { CreditorGroupContactsComponent } from './entities/creditor-group/creditor-group-contacts/creditor-group-contacts.component';
 import { CreditorGroupContactDetailComponent } from './entities/creditor-group/creditor-group-contact-detail/creditor-group-contact-detail.component';
 import { CreditorGroupContactAddComponent } from './entities/creditor-group/creditor-group-contact-add/creditor-group-contact-add.component';
+import { DetranContactDetailComponent } from './entities/detran/detran-contact-detail/detran-contact-detail.component';
+import { UserAddComponent } from './registers/user/user-add/user-add.component';
+import { UserMainComponent } from './registers/user/user-main/user-main.component';
+import { GroupAddComponent } from './registers/groups/group-add/group-add.component';
+import { GroupMainComponent } from './registers/groups/group-main/group-main.component';
 
 const routes: Routes = [
   {
@@ -40,9 +44,29 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'register',
-    component: RegisterComponent
+    path: 'user-add',
+    component: UserAddComponent,
+    canActivate: [AuthGuard]
   },
+
+  {
+    path: 'user-main',
+    component: UserMainComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
+  path: 'group-main',
+  component: GroupMainComponent,
+  canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'group-add',
+    component: GroupAddComponent,
+    canActivate: [AuthGuard]
+    },
+
   {
     path: 'recuperar-senha',
     component: PasswordRecoverComponent,
@@ -92,11 +116,14 @@ const routes: Routes = [
   {
     path: 'credor-detalhe/:id',
     component: CreditorDetailComponent,
+    path: 'detran-detalhe-contato/:id',
+    component: DetranContactDetailComponent,
     canActivate: [AuthGuard]
   },
+  
   {
-    path: 'credor-contatos/:id',
-    component: CreditorContactsComponent,
+    path: 'detran-adicionar',
+    component: DetranAddComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -142,6 +169,8 @@ const routes: Routes = [
   {
     path: 'gestor-adicionar-contato/:id',
     component: CreditorGroupContactAddComponent,
+    path: 'detran-adicionar-contato/:id',
+    component: DetranContactAddComponent,
     canActivate: [AuthGuard]
   },
   {

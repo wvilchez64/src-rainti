@@ -4,7 +4,7 @@
             <span class="anchor" id="formLogin"></span>
             <div class="card shadow">
                 <article class="card-body">
-                    <a routerLink="/register" routerLinkActive="active" class="float-right btn btn-outline-primary">Cadastre-se</a>
+                    <!-- <a routerLink="/register" routerLinkActive="active" class="float-right btn btn-outline-primary">Cadastre-se</a> -->
                     <h4 class="card-title mb-4 mt-1">Entrar</h4>
                     <form #loginForm="ngForm">                        
                         <div class="form-group">
@@ -34,7 +34,7 @@
                         </div> <!-- checkbox .// -->
                         </div> <!-- form-group// -->  
                         <div class="form-group">
-                            <button [disabled]="loginForm.form.invalid" type="button" (click)="loginUser()" class="btn btn-primary btn-block">Entrar</button>
+                            <button [disabled]="loginForm.form.invalid" type="button" (click)="loginUser()" class="btn btn-rainti btn-block">Entrar</button>
                         </div> <!-- form-group// -->                                                           
                     </form>
                     <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">

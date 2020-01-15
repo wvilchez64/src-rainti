@@ -10,6 +10,7 @@ export class DetranDetailService {
 
   private _entitiyUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/detran/detrans/"
   private _entitiyUpdateUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/detran/update-detran/"
+  private _entitiyDeleteUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/detran/delete-detran/"
 
   constructor(private http: HttpClient) {  }
 
@@ -19,5 +20,9 @@ export class DetranDetailService {
 
    updateDetran(user, id){
     return this.http.put<any>(this._entitiyUpdateUrl+id, user)
+   }
+
+   deleteDetran(user, id){
+    return this.http.delete<any>(this._entitiyDeleteUrl+id, user)
    }
 }
