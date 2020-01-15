@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './system-access/login/login.component';
 import { AuthGuard } from './auth.guard';
 import { DetranMainComponent } from './entities/detran/detran-main/detran-main.component';
-import { RegistrarComponent } from './entities/registrar/registrar.component';
+import { RegistrarComponent } from './entities/registrar/registrar.component'; 
 import { HomeComponent } from './home/home.component';
 import { HelpComponent } from './help/help.component';
 import { ContractRegisterComponent } from './contract-register/contract-register.component';
@@ -127,6 +127,11 @@ const routes: Routes = [
   {
     path: 'detran-adicionar',
     component: DetranAddComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'credor-contatos/:id',
+    component: CreditorContactsComponent,
     canActivate: [AuthGuard]
   },
   {
