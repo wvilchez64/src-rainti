@@ -5,7 +5,7 @@
     <div class="col-md-auto">
       <div class="row align-items-center mb-1">    
         <div class="col">
-          <button type="button" class="btn btn-rainti btn-md btn-block" (click)="addCreditorContact()">Adicionar</button>
+          <button type="button" class="btn btn-rainti btn-md btn-block" (click)="addCreditorGroupContact()">Adicionar</button>
         </div>        
         <div class="col">
           <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -15,19 +15,19 @@
   </div>
   <hr/>
   <div class="row mt-2">    
-      <div class="col-md-4 mb-4" *ngFor="let creditorContact of creditorContacts | filter: name : searchText"> 
+      <div class="col-md-4 mb-4" *ngFor="let creditorGroupContact of creditorGroupContacts | filter: name : searchText"> 
         <div class="card text-center shadow rounded">
           <div class="card-body ">
-            <h5 class="card-title ">{{creditorContact.name}}</h5>
+            <h5 class="card-title ">{{creditorGroupContact.name}}</h5>
             <hr/>
-            <p class="card-text"><b>Tel.:</b> {{creditorContact.tel}}</p>
-            <p class="card-text"><b>e-mail:</b> {{creditorContact.email}}</p>          
-            <p class="card-text" *ngIf="creditorContact.additionalinfo"><b>Info. adicionais:</b> {{creditorContact.additionalinfo}}</p>         
+            <p class="card-text"><b>Tel.:</b> {{creditorGroupContact.tel}}</p>
+            <p class="card-text"><b>e-mail:</b> {{creditorGroupContact.email}}</p>          
+            <p class="card-text" *ngIf="creditorGroupContact.additionalinfo"><b>Info. adicionais:</b> {{creditorGroupContact.additionalinfo}}</p>         
           </div>
           <div class="card-footer text-muted">
             <div class="row align-items-center mb-1">    
               <div class="col">
-                <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/credor-detalhe-contato/{{creditorContact.id}}" routerLinkActive="active" >Editar</button>
+                <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/credor-detalhe-contato/{{creditorGroupContact.id}}" routerLinkActive="active" >Editar</button>
               </div>                    
             </div>         
           </div>

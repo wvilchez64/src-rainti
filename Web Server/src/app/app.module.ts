@@ -17,8 +17,6 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { FilterPipe } from './filter.pipe';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
-import { CreditorComponent } from './entities/creditor/creditor.component';
-import { CreditorGroupComponent } from './entities/creditor-group/creditor-group.component';
 import { ContractRegisterComponent } from './contract-register/contract-register.component';
 import { RegistrarComponent } from './entities/registrar/registrar.component';
 import { DetranContactsComponent } from './entities/detran/detran-contacts/detran-contacts.component';
@@ -31,8 +29,20 @@ import { ConfirmEqualValidator } from '../custom/confirm-equal-validator';
 import { DetranAddComponent } from './entities/detran/detran-add/detran-add.component';
 import { DetranContactAddComponent } from './entities/detran/detran-contact-add/detran-contact-add.component';
 import { DetranMainComponent } from './entities/detran/detran-main/detran-main.component';
+
+import { CreditorMainComponent } from './entities/creditor/creditor-main/creditor-main.component';
 import { CreditorDetailComponent } from './entities/creditor/creditor-detail/creditor-detail.component';
+import { CreditorAddComponent } from './entities/creditor/creditor-add/creditor-add.component';
 import { CreditorContactsComponent } from './entities/creditor/creditor-contacts/creditor-contacts.component';
+import { CreditorContactAddComponent } from './entities/creditor/creditor-contact-add/creditor-contact-add.component';
+import { CreditorContactDetailComponent } from './entities/creditor/creditor-contact-detail/creditor-contact-detail.component';
+
+import { CreditorGroupMainComponent } from './entities/creditor-group/creditor-group-main/creditor-group-main.component';
+import { CreditorGroupDetailComponent } from './entities/creditor-group/creditor-group-detail/creditor-group-detail.component';
+import { CreditorGroupAddComponent } from './entities/creditor-group/creditor-group-add/creditor-group-add.component';
+import { CreditorGroupContactsComponent } from './entities/creditor-group/creditor-group-contacts/creditor-group-contacts.component';
+import { CreditorGroupContactAddComponent } from './entities/creditor-group/creditor-group-contact-add/creditor-group-contact-add.component';
+import { CreditorGroupContactDetailComponent } from './entities/creditor-group/creditor-group-contact-detail/creditor-group-contact-detail.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +52,6 @@ import { CreditorContactsComponent } from './entities/creditor/creditor-contacts
     FilterPipe,
     HelpComponent,
     HomeComponent,
-    CreditorComponent,
-    CreditorGroupComponent,
     ContractRegisterComponent,
     RegistrarComponent,
     DetranContactsComponent,
@@ -56,8 +64,20 @@ import { CreditorContactsComponent } from './entities/creditor/creditor-contacts
     DetranAddComponent,
     DetranContactAddComponent,
     DetranMainComponent,
+
+    CreditorMainComponent,
+    CreditorAddComponent,
     CreditorDetailComponent,
     CreditorContactsComponent,
+    CreditorContactAddComponent,
+    CreditorContactDetailComponent,
+
+    CreditorGroupMainComponent,
+    CreditorGroupAddComponent,
+    CreditorGroupDetailComponent,
+    CreditorGroupContactsComponent,
+    CreditorGroupContactAddComponent,
+    CreditorGroupContactDetailComponent,
   ],
   imports: [
     BrowserModule,

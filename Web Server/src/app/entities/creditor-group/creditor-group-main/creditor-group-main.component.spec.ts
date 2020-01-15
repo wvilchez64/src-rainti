@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreditorComponent } from './creditor.component';
+import { CreditorGroupMainComponent } from './creditor-group-main.component';
 
-describe('CreditorComponent', () => {
-  let component: CreditorComponent;
-  let fixture: ComponentFixture<CreditorComponent>;
+describe('CreditorGroupMainComponent', () => {
+  let component: CreditorGroupMainComponent;
+  let fixture: ComponentFixture<CreditorGroupMainComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreditorComponent ]
+      declarations: [ CreditorGroupMainComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreditorComponent);
+    fixture = TestBed.createComponent(CreditorGroupMainComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

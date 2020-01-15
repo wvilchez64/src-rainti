@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CreditorDetailService } from '../creditor-services/creditor-detail.service';
-import { CreditorAddService } from '../creditor-services/creditor-add.service';
+import { CreditorGroupDetailService } from '../creditor-group-services/creditor-group-detail.service';
+import { CreditorGroupAddService } from '../creditor-group-services/creditor-group-add.service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-creditor-detail',
-  templateUrl: './creditor-detail.component.html',
-  styleUrls: ['./creditor-detail.component.css']
+  selector: 'app-creditor-group-detail',
+  templateUrl: './creditor-group-detail.component.html',
+  styleUrls: ['./creditor-group-detail.component.css']
 })
-export class CreditorDetailComponent implements OnInit {
+export class CreditorGroupDetailComponent implements OnInit {
 
-  creditorData = {
+  creditorGroupData = {
     businessname: '',
     fantasyname: '',
     cnpj: '',
@@ -31,7 +31,7 @@ export class CreditorDetailComponent implements OnInit {
     status: true,
   }
 
-  creditorDataOld = {
+  creditorGroupDataOld = {
     businessname: '',
     fantasyname: '',
     cnpj: '',
@@ -58,8 +58,8 @@ export class CreditorDetailComponent implements OnInit {
   dddHasError = true
 
   constructor(private route: ActivatedRoute,
-    private _creditorDetail: CreditorDetailService,
-    private _creditorAddService: CreditorAddService,
+    private _creditorGroupDetail: CreditorGroupDetailService,
+    private _creditorGroupAddService: CreditorGroupAddService,
     private _location: Location ) { }
 
   validateTopic(value) {
@@ -73,7 +73,7 @@ export class CreditorDetailComponent implements OnInit {
 
   ngOnInit() {
     
-    this._creditorAddService.getStates()
+    this._creditorGroupAddService.getStates()
     .subscribe(
       res => {
         this._states = res
@@ -85,11 +85,11 @@ export class CreditorDetailComponent implements OnInit {
     this.route.paramMap
     .subscribe(
       params => {
-        this._creditorDetail.getCreditor(params.get('id'))
+        this._creditorGroupDetail.getCreditorGroup(params.get('id'))
         .subscribe(
           res => {
-            this.creditorData = res[0]
-            this.creditorDataOld = res[0]          
+            this.creditorGroupData = res[0]
+            this.creditorGroupDataOld = res[0]          
           },
           err => {
             console.log(err)
@@ -100,20 +100,20 @@ export class CreditorDetailComponent implements OnInit {
     );
   }
 
-  creditorDataSender = {
-    old : this.creditorDataOld,
-    new : this.creditorData,
+  creditorGroupDataSender = {
+    old : this.creditorGroupDataOld,
+    new : this.creditorGroupData,
   }
 
-  updateCreditor(){
+  updateCreditorGroup(){
 
     this.route.paramMap
     .subscribe(
       params => {
-        this._creditorDetail.updateCreditor(this.creditorData, params.get('id'))
+        this._creditorGroupDetail.updateCreditorGroup(this.creditorGroupData, params.get('id'))
         .subscribe(
           res => {
-            this._registerUpdated = 'Credora atualizada com sucesso.'
+            this._registerUpdated = 'Gestora atualizada com sucesso.'
             console.log(res)
           },
           err => {
@@ -125,15 +125,15 @@ export class CreditorDetailComponent implements OnInit {
 
   }
 
-  deleteCreditor(){
+  deleteCreditorGroup(){
      this.route.paramMap
      .subscribe(
        params => {
-         this._creditorDetail.deleteCreditor(this.creditorData, params.get('id'))
+         this._creditorGroupDetail.deleteCreditorGroup(this.creditorGroupData, params.get('id'))
          .subscribe(
            res => {
              console.log(res)
-             this.backToCreditor()
+             this.backToCreditorGroup()
            },
           err => {
              console.log(err)
@@ -143,7 +143,7 @@ export class CreditorDetailComponent implements OnInit {
      );
    }
 
-  backToCreditor(){
+  backToCreditorGroup(){
     this._location.back()
   }
 

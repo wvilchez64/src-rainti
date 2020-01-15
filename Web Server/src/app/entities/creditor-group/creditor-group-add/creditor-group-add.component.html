@@ -1,16 +1,16 @@
 <div class="py-5">
     <div class="row">
         <div class="col-md-6 mx-auto">
-            <span class="anchor" id="creditorDetail"></span>
+            <span class="anchor" id="creditorGroupAdd"></span>
             <!-- form card login -->
             <div class="card shadow">
                   <div class="card-body">
-                    <h4 class="card-title mb-4 mt-1">Editar da Credora</h4>
+                    <h4 class="card-title mb-4 mt-1">Cadastro de Gestora</h4>
                     <hr/>
                     <form class="form" #registerForm="ngForm">
                         <div class="form-group">
                             <label for="uname1">Razão Social</label>
-                            <input type="text" [(ngModel)]="creditorData.businessname" name="businessName" class="form-control rounded-0" 
+                            <input type="text" [(ngModel)]="creditorGroupData.businessname" name="businessName" class="form-control rounded-0" 
                             [class.is-invalid]="businessName.invalid && businessName.touched" #businessName="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="businessName.valid || businessName.untouched">
                                         <small  class="text-danger"*ngIf="businessName.errors && businessName.errors.required">
@@ -20,7 +20,7 @@
                         </div>
                         <div class="form-group">
                             <label for="uname1">Nome Fantasia</label>
-                            <input type="text" [(ngModel)]="creditorData.fantasyname" name="fantasyName" class="form-control rounded-0" 
+                            <input type="text" [(ngModel)]="creditorGroupData.fantasyname" name="fantasyName" class="form-control rounded-0" 
                             [class.is-invalid]="fantasyName.invalid && fantasyName.touched" #fantasyName="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="fantasyName.valid || fantasyName.untouched">
                                         <small  class="text-danger"*ngIf="fantasyName.errors && fantasyName.errors.required">
@@ -30,7 +30,7 @@
                         </div>
                         <div class="form-group">
                             <label for="uname1">CNPJ</label>
-                            <input type="text" [(ngModel)]="creditorData.cnpj" name="cnpj" class="form-control rounded-0" 
+                            <input type="text" [(ngModel)]="creditorGroupData.cnpj" name="cnpj" class="form-control rounded-0" 
                             pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$" placeHolder="12.123.123/0001-12"
                             [class.is-invalid]="cnpj.invalid && cnpj.touched" #cnpj="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="cnpj.valid || cnpj.untouched">
@@ -42,13 +42,13 @@
                                         </small>
                                     </div>
                         </div>     
-						<div class="form-group">                            
+                        <div class="form-group">                            
                             <div class="row">
                                 <div class="col-3">
                                     <label for="uname1">DDD</label>
                                     <input type="text" pattern="^([1-9]{2})"
                                     placeHolder="11"
-                                    [(ngModel)]="creditorData.dddModel" name="dddModel" class="form-control rounded-0" 
+                                    [(ngModel)]="creditorGroupData.dddmodel" name="dddModel" class="form-control rounded-0" 
                                     [class.is-invalid]="dddModel.invalid && dddModel.touched" #dddModel="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="dddModel.valid || dddModel.untouched">
                                         <small  class="text-danger"*ngIf="dddModel.errors && dddModel.errors.required">
@@ -57,14 +57,14 @@
                                         <small  class="text-danger"*ngIf="(dddModel.errors && dddModel.errors.pattern) || ddHasError">
                                             DDD inválido
                                         </small>
-                                   </div>
-                                  
+                                    </div>
+                                    
                                 </div>
                                 <div class="col">
                                     <label for="uname1">Telefone</label>
                                     <input type="text" pattern="^([1-9]{1}[0-9]{3}|[1-9]{1}[0-9]{4})(-)([0-9]{4})"
                                     placeHolder="1234-5678 ou 12345-6789"
-                                    [(ngModel)]="creditorData.phone" name="phone" class="form-control rounded-0" 
+                                    [(ngModel)]="creditorGroupData.phone" name="phone" class="form-control rounded-0" 
                                     [class.is-invalid]="phone.invalid && phone.touched" #phone="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="phone.valid || phone.untouched">
                                         <small  class="text-danger"*ngIf="phone.errors && phone.errors.required">
@@ -73,7 +73,7 @@
                                         <small  class="text-danger"*ngIf="phone.errors && phone.errors.pattern">
                                             Formato inválido (Ex.: 1234-5678 ou 12345-6789) 
                                         </small>
-                                   </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>                          
@@ -81,7 +81,7 @@
                             <label for="uname1">E-mail</label>
                             <input #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="text" 
                             placeHolder="example@example.com"
-                            [(ngModel)]="creditorData.email" name="email" class="form-control rounded-0" 
+                            [(ngModel)]="creditorGroupData.email" name="email" class="form-control rounded-0" 
                             [class.is-invalid]="email.invalid && email.touched" required>
                             <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
                                 <small  class="text-danger"*ngIf="email.errors && email.errors.required">
@@ -92,9 +92,9 @@
                                 </small>
                             </div>
                         </div>		
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Logradouro</label>
-                            <input type="text" [(ngModel)]="creditorData.address" name="address" class="form-control rounded-0" 
+                            <input type="text" [(ngModel)]="creditorGroupData.address" name="address" class="form-control rounded-0" 
                             [class.is-invalid]="address.invalid && address.touched" #address="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="address.valid || address.untouched">
                                         <small  class="text-danger"*ngIf="address.errors && address.errors.required">
@@ -102,9 +102,9 @@
                                         </small>
                                     </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Número Do Logradouro</label>
-                            <input type="text" [(ngModel)]="creditorData.streetnumber" name="streetNumber" class="form-control rounded-0" 
+                            <input type="text" [(ngModel)]="creditorGroupData.streetnumber" name="streetNumber" class="form-control rounded-0" 
                             [class.is-invalid]="streetNumber.invalid && streetNumber.touched" #streetNumber="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="streetNumber.valid || streetNumber.untouched">
                                         <small  class="text-danger"*ngIf="streetNumber.errors && streetNumber.errors.required">
@@ -112,9 +112,9 @@
                                         </small>
                                     </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Complemento Endereço</label>
-                            <input type="text" [(ngModel)]="creditorData.addresscomplement" name="addressComplement" class="form-control rounded-0" 
+                            <input type="text" [(ngModel)]="creditorGroupData.addresscomplement" name="addressComplement" class="form-control rounded-0" 
                             [class.is-invalid]="addressComplement.invalid && addressComplement.touched" #addressComplement="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="addressComplement.valid || addressComplement.untouched">
                                         <small  class="text-danger"*ngIf="addressComplement.errors && addressComplement.errors.required">
@@ -122,9 +122,9 @@
                                         </small>
                                     </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Bairro</label>
-                            <input type="text" [(ngModel)]="creditorData.district" name="district" class="form-control rounded-0" 
+                            <input type="text" [(ngModel)]="creditorGroupData.district" name="district" class="form-control rounded-0" 
                             [class.is-invalid]="district.invalid && district.touched" #district="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="district.valid || district.untouched">
                                         <small  class="text-danger"*ngIf="district.errors && district.errors.required">
@@ -132,9 +132,9 @@
                                         </small>
                                     </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Municipio</label>
-                            <input type="text" [(ngModel)]="creditorData.county" name="county" class="form-control rounded-0" 
+                            <input type="text" [(ngModel)]="creditorGroupData.county" name="county" class="form-control rounded-0" 
                             [class.is-invalid]="county.invalid && county.touched" #county="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="county.valid || county.untouched">
                                         <small  class="text-danger"*ngIf="county.errors && county.errors.required">
@@ -142,19 +142,19 @@
                                         </small>
                                     </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Estado</label>
                             <select class="custom-select" 
                             #topic="ngModel" [class.is-invalid]="topicHasError && topic.touched" name="topic" 
-                            [(ngModel)]="creditorData.topic" (change)="validateTopic(topic.value)" (blur)="validateTopic(topic.value)">                            
-                                <option value="default"> {{creditorData.topic }}</option>
+                            [(ngModel)]="creditorGroupData.topic" (change)="validateTopic(topic.value)" (blur)="validateTopic(topic.value)">                            
+                                <option value="default">--Escolha um Estado</option>
                                 <option *ngFor="let state of _states">{{ state.description }}</option>
                             </select>
                             <small class="text-danger" [class.d-none]="!topicHasError || topic.untouched">Escolha um Estado</small>
                         </div>    
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Cep</label>
-                            <input type="text" [(ngModel)]="creditorData.zipcode" name="zipCode" class="form-control rounded-0" 
+                            <input type="text" [(ngModel)]="creditorGroupData.zipcode" name="zipCode" class="form-control rounded-0" 
                             pattern="^([0-9]{5})(-)([0-9]{3})$" placeHolder="12345-678"
                             [class.is-invalid]="zipCode.invalid && zipCode.touched" #zipCode="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="zipCode.valid || zipCode.untouched">
@@ -168,7 +168,7 @@
                         </div>
                         <div class="form-group">
                             <label for="uname1">Contrato</label>
-                            <input type="text" [(ngModel)]="creditorData.contract" name="contract" class="form-control rounded-0" 
+                            <input type="text" [(ngModel)]="creditorGroupData.contract" name="contract" class="form-control rounded-0" 
                             pattern="^.{6,}$" placeHolder="A1B23C"
                             [class.is-invalid]="contract.invalid && contract.touched" #contract="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="contract.valid || contract.untouched">
@@ -182,8 +182,8 @@
                         </div>
                         <div class="form-group">
                             <label for="uname1">Data Inicio</label>
-                            <input type="date" [(ngModel)]="creditorData.startdate" name="startDate" class="form-control rounded-0" 
-							[class.is-invalid]="startDate.invalid && startDate.touched" #startDate="ngModel" required >
+                            <input type="date" [(ngModel)]="creditorGroupData.startdate" name="startDate" class="form-control rounded-0" 
+                            [class.is-invalid]="startDate.invalid && startDate.touched" #startDate="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="startDate.valid || startDate.untouched">
                                         <small  class="text-danger"*ngIf="startDate.errors && startDate.errors.required">
                                             Data Inicio inválida 
@@ -192,34 +192,31 @@
                         </div>	
                         <div class="form-group">
                             <label for="uname1">Data Final</label>
-                            <input type="date" [(ngModel)]="creditorData.enddate" name="endDate" class="form-control rounded-0" 
-							[class.is-invalid]="endDate.invalid && endDate.touched" #endDate="ngModel" required >
+                            <input type="date" [(ngModel)]="creditorGroupData.enddate" name="endDate" class="form-control rounded-0" 
+                            [class.is-invalid]="endDate.invalid && endDate.touched" #endDate="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="endDate.valid || endDate.untouched">
                                         <small  class="text-danger"*ngIf="endDate.errors && endDate.errors.required">
                                             Data Final inválida 
                                         </small>
                                     </div>
                         </div>	
-                        <hr/> 
+                        <hr/>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <button type="submit" (click)="updateCreditor()" class="btn btn-rainti btn-block">Alterar</button>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button type="submit" (click)="deleteCreditor()" class="btn btn-danger btn-block">Excluir</button>
+                                <div class="col-sm-6">
+                                    <button type="submit" [disabled]="registerForm.form.invalid || topicHasError" (click)="createCreditorGroup()" class="btn btn-rainti btn-block ">Confirmar</button>                
                                 </div>  
-                                <div class="col-sm-4">
-                                    <button type="submit" (click)="backToCreditor()" class="btn btn-info btn-block">Voltar</button>
+                                <div class="col-sm-6">
+                                    <button type="submit" (click)="backToCreditorGroup()" class="btn btn-info btn-block">Voltar</button>
                                 </div>  
                             </div>                            
-                        </div>                               
+                        </div>                             
                         <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
                             {{_errorMessage}}
                         </div> 
-                        <div class="alert alert-primary text-center text-primary" *ngIf="_registerUpdated">
-                            {{_registerUpdated}}
-                        </div>                                    
+                        <div class="alert alert-primary text-center text-primary" *ngIf="_createdMessage">
+                            {{_createdMessage}}
+                        </div>                                
                        
                     </form>
                   </div>
@@ -229,5 +226,6 @@
     </div>
 </div>
     
+
 
 

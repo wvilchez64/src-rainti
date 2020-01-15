@@ -5,6 +5,9 @@ const reset = require ('./system-access/password-reset/api')
 const register = require ('./system-access/register/api')
 const common = require ('./common/api')
 const detran = require ('./entities/detran/api')
+const creditor = require ('./entities/creditor/api')
+const creditorGroup = require ('./entities/creditor-group/api')
+
 
 const app = express()
 
@@ -16,9 +19,12 @@ app.use('/register-user', register)
 
 // COMMON
 app.use('/common', common)
-
+ 
 // ENTITIES
 app.use('/detran', detran )
+app.use('/creditor', creditor )
+app.use('/creditor-group', creditorGroup )
+
 
 
 module.exports = app

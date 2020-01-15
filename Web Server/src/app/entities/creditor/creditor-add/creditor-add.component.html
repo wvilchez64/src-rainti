@@ -1,11 +1,11 @@
 <div class="py-5">
     <div class="row">
         <div class="col-md-6 mx-auto">
-            <span class="anchor" id="creditorDetail"></span>
+            <span class="anchor" id="creditorAdd"></span>
             <!-- form card login -->
             <div class="card shadow">
                   <div class="card-body">
-                    <h4 class="card-title mb-4 mt-1">Editar da Credora</h4>
+                    <h4 class="card-title mb-4 mt-1">Cadastro de Credora</h4>
                     <hr/>
                     <form class="form" #registerForm="ngForm">
                         <div class="form-group">
@@ -42,13 +42,13 @@
                                         </small>
                                     </div>
                         </div>     
-						<div class="form-group">                            
+                        <div class="form-group">                            
                             <div class="row">
                                 <div class="col-3">
                                     <label for="uname1">DDD</label>
                                     <input type="text" pattern="^([1-9]{2})"
                                     placeHolder="11"
-                                    [(ngModel)]="creditorData.dddModel" name="dddModel" class="form-control rounded-0" 
+                                    [(ngModel)]="creditorData.dddmodel" name="dddModel" class="form-control rounded-0" 
                                     [class.is-invalid]="dddModel.invalid && dddModel.touched" #dddModel="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="dddModel.valid || dddModel.untouched">
                                         <small  class="text-danger"*ngIf="dddModel.errors && dddModel.errors.required">
@@ -57,8 +57,8 @@
                                         <small  class="text-danger"*ngIf="(dddModel.errors && dddModel.errors.pattern) || ddHasError">
                                             DDD inválido
                                         </small>
-                                   </div>
-                                  
+                                    </div>
+                                    
                                 </div>
                                 <div class="col">
                                     <label for="uname1">Telefone</label>
@@ -73,7 +73,7 @@
                                         <small  class="text-danger"*ngIf="phone.errors && phone.errors.pattern">
                                             Formato inválido (Ex.: 1234-5678 ou 12345-6789) 
                                         </small>
-                                   </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>                          
@@ -92,7 +92,7 @@
                                 </small>
                             </div>
                         </div>		
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Logradouro</label>
                             <input type="text" [(ngModel)]="creditorData.address" name="address" class="form-control rounded-0" 
                             [class.is-invalid]="address.invalid && address.touched" #address="ngModel" required >
@@ -102,7 +102,7 @@
                                         </small>
                                     </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Número Do Logradouro</label>
                             <input type="text" [(ngModel)]="creditorData.streetnumber" name="streetNumber" class="form-control rounded-0" 
                             [class.is-invalid]="streetNumber.invalid && streetNumber.touched" #streetNumber="ngModel" required >
@@ -112,7 +112,7 @@
                                         </small>
                                     </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Complemento Endereço</label>
                             <input type="text" [(ngModel)]="creditorData.addresscomplement" name="addressComplement" class="form-control rounded-0" 
                             [class.is-invalid]="addressComplement.invalid && addressComplement.touched" #addressComplement="ngModel" required >
@@ -122,7 +122,7 @@
                                         </small>
                                     </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Bairro</label>
                             <input type="text" [(ngModel)]="creditorData.district" name="district" class="form-control rounded-0" 
                             [class.is-invalid]="district.invalid && district.touched" #district="ngModel" required >
@@ -132,7 +132,7 @@
                                         </small>
                                     </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Municipio</label>
                             <input type="text" [(ngModel)]="creditorData.county" name="county" class="form-control rounded-0" 
                             [class.is-invalid]="county.invalid && county.touched" #county="ngModel" required >
@@ -142,17 +142,17 @@
                                         </small>
                                     </div>
                         </div>
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Estado</label>
                             <select class="custom-select" 
                             #topic="ngModel" [class.is-invalid]="topicHasError && topic.touched" name="topic" 
                             [(ngModel)]="creditorData.topic" (change)="validateTopic(topic.value)" (blur)="validateTopic(topic.value)">                            
-                                <option value="default"> {{creditorData.topic }}</option>
+                                <option value="default">--Escolha um Estado</option>
                                 <option *ngFor="let state of _states">{{ state.description }}</option>
                             </select>
                             <small class="text-danger" [class.d-none]="!topicHasError || topic.untouched">Escolha um Estado</small>
                         </div>    
-						<div class="form-group">
+                        <div class="form-group">
                             <label for="uname1">Cep</label>
                             <input type="text" [(ngModel)]="creditorData.zipcode" name="zipCode" class="form-control rounded-0" 
                             pattern="^([0-9]{5})(-)([0-9]{3})$" placeHolder="12345-678"
@@ -183,7 +183,7 @@
                         <div class="form-group">
                             <label for="uname1">Data Inicio</label>
                             <input type="date" [(ngModel)]="creditorData.startdate" name="startDate" class="form-control rounded-0" 
-							[class.is-invalid]="startDate.invalid && startDate.touched" #startDate="ngModel" required >
+                            [class.is-invalid]="startDate.invalid && startDate.touched" #startDate="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="startDate.valid || startDate.untouched">
                                         <small  class="text-danger"*ngIf="startDate.errors && startDate.errors.required">
                                             Data Inicio inválida 
@@ -193,33 +193,30 @@
                         <div class="form-group">
                             <label for="uname1">Data Final</label>
                             <input type="date" [(ngModel)]="creditorData.enddate" name="endDate" class="form-control rounded-0" 
-							[class.is-invalid]="endDate.invalid && endDate.touched" #endDate="ngModel" required >
+                            [class.is-invalid]="endDate.invalid && endDate.touched" #endDate="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="endDate.valid || endDate.untouched">
                                         <small  class="text-danger"*ngIf="endDate.errors && endDate.errors.required">
                                             Data Final inválida 
                                         </small>
                                     </div>
                         </div>	
-                        <hr/> 
+                        <hr/>
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <button type="submit" (click)="updateCreditor()" class="btn btn-rainti btn-block">Alterar</button>
-                                </div>
-                                <div class="col-sm-4">
-                                    <button type="submit" (click)="deleteCreditor()" class="btn btn-danger btn-block">Excluir</button>
+                                <div class="col-sm-6">
+                                    <button type="submit" [disabled]="registerForm.form.invalid || topicHasError" (click)="createCreditor()" class="btn btn-rainti btn-block ">Confirmar</button>                
                                 </div>  
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <button type="submit" (click)="backToCreditor()" class="btn btn-info btn-block">Voltar</button>
                                 </div>  
                             </div>                            
-                        </div>                               
+                        </div>                             
                         <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
                             {{_errorMessage}}
                         </div> 
-                        <div class="alert alert-primary text-center text-primary" *ngIf="_registerUpdated">
-                            {{_registerUpdated}}
-                        </div>                                    
+                        <div class="alert alert-primary text-center text-primary" *ngIf="_createdMessage">
+                            {{_createdMessage}}
+                        </div>                                
                        
                     </form>
                   </div>
