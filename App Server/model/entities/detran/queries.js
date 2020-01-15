@@ -122,6 +122,8 @@ const createDetran = (req, res) => {
 const updateDetranById = (req, res) =>{
 
   let userData = req.body
+
+  console.log(userData)
   
   const id = parseInt(req.params.id)
 
@@ -141,7 +143,7 @@ const updateDetranById = (req, res) =>{
         pool.query('update data_detran set description = $1 where identity = $2 and datacodeid = 3',
         [userData.email,id])
         pool.query('update data_detran set description = $1 where identity = $2 and datacodeid = 7',
-        [userData.dddModel,id])
+        [userData.dddmodel,id])
         pool.query('update entities set description = $1 where id = $2',
         [userData.cnpj,id])
         res.status(200).json({response: "Detran alterado com sucesso"})       
@@ -172,11 +174,12 @@ const deleteDetranById = (req, res) =>{
 }
 
 const getStatesForDetranAdd = (req, res) =>{
-  pool.query('select description from states where id not in (select st.id from states st, states_relationship sr, entities et where et.id = sr.identity and st.id = sr.idstate and status = true)',
+  pool.query('select description from states where id not in (select st.id from states st, states_relationship sr, entities et where et.id = sr.identity and et.entitytypeid = 1 and st.id = sr.idstate and status = true)',
    (error, storedStates) => {
     if (error) {
       console.log(error)
     }
+    console.log(storedStates.rows)
     res.status(200).json(storedStates.rows)
   })
 }
