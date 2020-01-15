@@ -14,7 +14,7 @@ export class GroupAddService {
 
   constructor(private http: HttpClient,) { }
 
-  getFeatures(){
+  getUserGroupFeatures(){
     return this.http.get<any>(this._featuresUrl)
   }
 

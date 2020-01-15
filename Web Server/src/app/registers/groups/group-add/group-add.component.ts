@@ -36,9 +36,9 @@ export class GroupAddComponent implements OnInit {
       }
     }
 
-
     ngOnInit() {
-      this._groupAddService.getFeatures()
+
+      this._groupAddService.getUserGroupFeatures()
       .subscribe(
         res => {
           console.log(res)

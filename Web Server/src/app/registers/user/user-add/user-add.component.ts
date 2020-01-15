@@ -11,12 +11,13 @@ import { UserAddService } from '../user-services/user-add.service';
 export class UserAddComponent implements OnInit {
 
     registerUserData = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    userName: '',
-    password: '',
-    confirmedPassword: '',
+    firstName: 'Allan',
+    lastName: 'Finco', 
+    userName: 'allan.finco',
+    dddModel: '11',
+    phone: '1234-5678',
+    cpf: '369.844.728-22',
+    email: 'allan.finco@rainti.com.br',
     userGroup: '',
     userEntities: '',
 
@@ -27,6 +28,8 @@ export class UserAddComponent implements OnInit {
   _entities : Array<any> = [] 
   topicHasError = true
   dddHasError = true
+
+  _activeTab = 'user-data'
 
   constructor(private _userAddService: UserAddService,
     private _router: Router) { }
@@ -63,8 +66,15 @@ export class UserAddComponent implements OnInit {
           )
     }
 
-  CreateUser(){
-    this._userAddService.createUser(this.registerUserData)
+
+  nextTab(tab){
+    this._activeTab = tab
+  }
+
+  saveUser(){
+
+   
+   /*  this._userAddService.createUser(this.registerUserData)
       .subscribe(
         res => {
           console.log(res)
@@ -72,6 +82,22 @@ export class UserAddComponent implements OnInit {
         },
         error => console.log(error) 
         )  
-    
+    */
+  }
+  
+  createUser(){
+    /*  this._userAddService.createUser(this.registerUserData)
+       .subscribe(
+         res => {
+           console.log(res)
+           this._router.navigate(['/user-main'])
+         },
+         error => console.log(error) 
+         )  
+     */
+   } 
+
+  backToUsers(){
+
   }
 }

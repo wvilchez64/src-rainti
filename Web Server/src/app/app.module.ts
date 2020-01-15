@@ -16,8 +16,6 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { FilterPipe } from './filter-name.pipe';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
-import { CreditorComponent } from './entities/creditor/creditor.component';
-import { CreditorGroupComponent } from './entities/creditor-group/creditor-group.component';
 import { ContractRegisterComponent } from './contract-register/contract-register.component';
 import { RegistrarComponent } from './entities/registrar/registrar.component';
 import { DetranContactsComponent } from './entities/detran/detran-contacts/detran-contacts.component';
@@ -30,8 +28,6 @@ import { ConfirmEqualValidator } from '../custom/confirm-equal-validator';
 import { DetranAddComponent } from './entities/detran/detran-add/detran-add.component';
 import { DetranContactAddComponent } from './entities/detran/detran-contact-add/detran-contact-add.component';
 import { DetranMainComponent } from './entities/detran/detran-main/detran-main.component';
-import { CreditorDetailComponent } from './entities/creditor/creditor-detail/creditor-detail.component';
-import { CreditorContactsComponent } from './entities/creditor/creditor-contacts/creditor-contacts.component';
 import { DetranContactDetailComponent } from './entities/detran/detran-contact-detail/detran-contact-detail.component';
 import { GroupAddComponent } from './registers/groups/group-add/group-add.component';
 import { GroupMainComponent } from './registers/groups/group-main/group-main.component';
@@ -45,8 +41,6 @@ import { UserMainComponent } from './registers/user/user-main/user-main.componen
     FilterPipe,
     HelpComponent,
     HomeComponent,
-    CreditorComponent,
-    CreditorGroupComponent,
     ContractRegisterComponent,
     RegistrarComponent,
     DetranContactsComponent,
@@ -59,8 +53,6 @@ import { UserMainComponent } from './registers/user/user-main/user-main.componen
     DetranAddComponent,
     DetranContactAddComponent,
     DetranMainComponent,
-    CreditorDetailComponent,
-    CreditorContactsComponent,
     DetranContactDetailComponent,
     GroupAddComponent,
     GroupMainComponent,

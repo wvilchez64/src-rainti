@@ -45,7 +45,7 @@ const getUser = (req, res) =>{
 
 // Exibindo os grupos existentes na criação de usuários
 const getGroupsForUsersAdd = (req, res) =>{
-  pool.query('select planname from role_plans',
+  pool.query('select planname, id from role_plans',
    (error, storedShowGroupsForUsers) => {
     if (error) {
       console.log(error)
@@ -56,8 +56,8 @@ const getGroupsForUsersAdd = (req, res) =>{
 }
 
 // Exibindo as entidades existentes na criação de usuários
-const getEntitiesForUsersAdd = (req, res) =>{
-  pool.query('select description from entity_type',
+const getUserEntities = (req, res) =>{
+  pool.query('select description, id from entity_type',
    (error, storedShowEntitiesForUsers) => {
     if (error) {
       console.log(error)
@@ -96,8 +96,8 @@ const getGroup = (req, res) =>{
 }
 
 // Exibindo as features existentes na criação de grupos
-const getFeaturesForGroup = (req, res) =>{
-  pool.query('select description from features',
+const getUserGroupFeatures = (req, res) =>{
+  pool.query('select description as name, id from features',
    (error, storedShowFeaturesForGroup) => {
     if (error) {
       console.log(error)
@@ -113,7 +113,7 @@ module.exports = {
   getGroup,
   createGroup,
   getGroupsForUsersAdd,
-  getEntitiesForUsersAdd,
-  getFeaturesForGroup,
+  getUserEntities,
+  getUserGroupFeatures,
   
   }

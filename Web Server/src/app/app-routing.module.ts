@@ -3,8 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './system-access/login/login.component';
 import { AuthGuard } from './auth.guard';
 import { DetranMainComponent } from './entities/detran/detran-main/detran-main.component';
-import { CreditorGroupComponent } from './entities/creditor-group/creditor-group.component';
-import { CreditorComponent } from './entities/creditor/creditor.component';
 import { RegistrarComponent } from './entities/registrar/registrar.component';
 import { HomeComponent } from './home/home.component';
 import { HelpComponent } from './help/help.component';
@@ -17,8 +15,6 @@ import { PasswordRecoverFailedComponent } from './system-access/password-recover
 import { PasswordResetComponent } from './system-access/password-reset/password-reset.component';
 import { DetranAddComponent } from './entities/detran/detran-add/detran-add.component';
 import { DetranContactAddComponent } from './entities/detran/detran-contact-add/detran-contact-add.component';
-import { CreditorDetailComponent } from './entities/creditor/creditor-detail/creditor-detail.component';
-import { CreditorContactsComponent } from './entities/creditor/creditor-contacts/creditor-contacts.component';
 import { DetranContactDetailComponent } from './entities/detran/detran-contact-detail/detran-contact-detail.component';
 import { UserAddComponent } from './registers/user/user-add/user-add.component';
 import { UserMainComponent } from './registers/user/user-main/user-main.component';
@@ -104,26 +100,6 @@ const routes: Routes = [
   {
     path: 'detran-adicionar-contato/:id',
     component: DetranContactAddComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'credora',
-    component: CreditorComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'credor-detalhe/:id',
-    component: CreditorDetailComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'credor-contatos/:id',
-    component: CreditorContactsComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'gestora',
-    component: CreditorGroupComponent,
     canActivate: [AuthGuard]
   },
   {
