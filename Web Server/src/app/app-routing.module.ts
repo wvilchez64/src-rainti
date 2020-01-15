@@ -116,6 +116,9 @@ const routes: Routes = [
   {
     path: 'credor-detalhe/:id',
     component: CreditorDetailComponent,
+    canActivate : [AuthGuard],
+  },
+  {
     path: 'detran-detalhe-contato/:id',
     component: DetranContactDetailComponent,
     canActivate: [AuthGuard]
@@ -169,6 +172,9 @@ const routes: Routes = [
   {
     path: 'gestor-adicionar-contato/:id',
     component: CreditorGroupContactAddComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'detran-adicionar-contato/:id',
     component: DetranContactAddComponent,
     canActivate: [AuthGuard]
