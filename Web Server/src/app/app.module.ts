@@ -48,6 +48,7 @@ import { GroupMainComponent } from './registers/groups/group-main/group-main.com
 import { UserAddComponent } from './registers/user/user-add/user-add.component';
 import { UserMainComponent } from './registers/user/user-main/user-main.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,11 +95,9 @@ import { UserMainComponent } from './registers/user/user-main/user-main.componen
     AppRoutingModule,
     UserIdleModule, 
   ],
-  providers: [AuthService, AuthGuard, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-  }],
+  providers: [AuthService, AuthGuard, 
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

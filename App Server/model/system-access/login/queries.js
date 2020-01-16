@@ -23,9 +23,7 @@ const loginUser = (req, res) => {
       }else if (loggedUser.rowCount == 0){
         res.status(401).send('Acesso negado! Usuário ou senha inválidos.')
       }else{  
-
-        let payload = { subject: loggedUser.userName }
-        let token = jwt.sign(payload, 'secretKey')
+        let token = jwt.sign({ subject: loggedUser.rows[0].username }, 'secretKey')
         res.status(200).json({token})
       }
       

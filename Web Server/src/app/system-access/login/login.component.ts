@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     private userIdle: UserIdleService) { }
 
   ngOnInit() {
-    
+    this.stop()
   }
 
   loginUser(){
@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
         res => {
          // console.log(res)
           localStorage.setItem('token',res.token)
-          this._router.navigate(['/principal'])
+          this._router.navigate(['/registrar-contrato'])
         },
         error => {
           this._errorMessage = error.error 

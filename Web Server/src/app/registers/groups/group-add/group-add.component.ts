@@ -11,7 +11,7 @@ import { UserAddService } from '../../user/user-services/user-add.service';
 })
 export class GroupAddComponent implements OnInit {
 
-    groupData = {
+  groupData = {
     planname : '',
     entityid : '',
     features: '',
@@ -51,7 +51,7 @@ export class GroupAddComponent implements OnInit {
         this._userAddService.getUserEntities()
         .subscribe(
           res => {
-            console.log(res)
+            console.log(res) 
             this._entities = res
           },
           error => {console.log(error)
@@ -64,7 +64,7 @@ export class GroupAddComponent implements OnInit {
     .subscribe(
       res => {
         console.log(res)
-        this._router.navigate(['/group-main'])
+        //this._router.navigate(['/group-main'])
       },
       error => console.log(error) 
       )

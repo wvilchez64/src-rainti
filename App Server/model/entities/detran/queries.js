@@ -29,7 +29,7 @@ const getDetranById = (req, res) =>{
     if (error) {
       console.log(error)
     }
-    console.log(storedDetrans.rows)
+    //console.log(storedDetrans.rows)
     res.status(200).json(storedDetrans.rows)
   })
 }
@@ -123,7 +123,7 @@ const updateDetranById = (req, res) =>{
 
   let userData = req.body
 
-  console.log(userData)
+  //console.log(userData)
   
   const id = parseInt(req.params.id)
 
@@ -179,7 +179,7 @@ const getStatesForDetranAdd = (req, res) =>{
     if (error) {
       console.log(error)
     }
-    console.log(storedStates.rows)
+    //console.log(storedStates.rows)
     res.status(200).json(storedStates.rows)
   })
 }

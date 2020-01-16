@@ -57,11 +57,12 @@ const getGroupsForUsersAdd = (req, res) =>{
 
 // Exibindo as entidades existentes na criação de usuários
 const getUserEntities = (req, res) =>{
-  pool.query('select description, id from entity_type',
+  pool.query('select  dd.identity as id, max(case when dd.datacodeid = 9 then dd.description end) as name  from data_creditor dd, states st, states_relationship sr, entities et where dd."identity" = sr."identity" and st.id = sr.idstate and dd."identity" = et.id  and et.status = true group by dd.identity order by 2',
    (error, storedShowEntitiesForUsers) => {
     if (error) {
       console.log(error)
     }else{
+    console.log(storedShowEntitiesForUsers.rows)
     res.status(200).json(storedShowEntitiesForUsers.rows)
     }
   })
