@@ -8,7 +8,7 @@ export class GroupMainService {
 
   private _appServerConfig = require('../../../../assets/configs/config-app-server.json')
   
-  private _groupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/group-main"
+  private _groupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration//show-user-groups"
   
 
   constructor(private http: HttpClient) {  }

@@ -92,17 +92,6 @@ const createGroup = (req, res) => {
     })
 }
 
-// Exibição de grupos
-const getGroup = (req, res) =>{
-  pool.query('select planname as name, entityid as entidade, status as status from role_plans',
-   (error, storedGroup) => {
-    if (error) {
-      console.log(error)
-    }else{
-    res.status(200).json(storedGroup.rows)
-    }
-  })
-}
 
 // Exibindo as features existentes na criação de grupos
 const getUserGroupFeatures = (req, res) =>{

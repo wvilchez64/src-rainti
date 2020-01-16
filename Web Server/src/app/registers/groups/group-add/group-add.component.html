@@ -27,8 +27,8 @@
                                     <div class="border-bottom">
                                             <label for="uname1">Entidade(s)</label>                                               
                                     </div>                                            
-                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px;"required>                                            
-                                        <div class="col" *ngFor="let entities of _entities ">
+                                    <div class="btn-group btn-group-toggle btn-group-vertical"  data-toggle="buttons" style="padding-top: 10px;"required>                                            
+                                        <div class="col" *ngFor="let entities of _entities "[style.height.px]="150">
                                             <label class="btn btn-outline-rainti" >
                                                 <input type="checkbox" name="profileOptions" id="{{entities.name}}.{{entities.id}}" autocomplete="off"> {{ entities.name }}
                                             </label>

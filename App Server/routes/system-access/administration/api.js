@@ -11,7 +11,6 @@ router.get('/show-user-groups', verifyToken, queries.getGroupsForUsersAdd)
 router.get('/show-user-entities', verifyToken, queries.getUserEntities)
 
 // Criação e exibição de grupos e features
-router.get('/group-main', verifyToken, queries.getGroup)
 router.post('/group-add', verifyToken, queries.createGroup)
 router.get('/show-features-group', verifyToken, queries.getUserGroupFeatures)
 
