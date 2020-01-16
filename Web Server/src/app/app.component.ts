@@ -12,6 +12,8 @@ export class AppComponent    implements OnInit {
 
     entityTypes: Array<any> = []    
 
+    detranAllowed = ''
+
     constructor(private _entitiesService: EntitiesService, public _authService: AuthService) { 
         
     }
