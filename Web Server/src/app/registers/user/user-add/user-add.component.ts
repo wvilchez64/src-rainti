@@ -34,16 +34,6 @@ export class UserAddComponent implements OnInit {
   constructor(private _userAddService: UserAddService,
     private _router: Router) { }
 
-
-    validateTopic(value) {
-      if (value === 'default') {
-        this.topicHasError = true;
-      } else {
-        this.topicHasError = false;
-      }
-    }
-
-
     ngOnInit() {
       this._userAddService.getUserGroups()
       .subscribe(
@@ -51,19 +41,9 @@ export class UserAddComponent implements OnInit {
           console.log(res)
           this._groups = res
         },
-        error => {console.log(error)
+        error => {  console.log(error)
                   this._errorMessage = error.error }
         )
-
-        this._userAddService.getUserEntities()
-        .subscribe(
-          res => {
-            console.log(res)
-            this._entities = res
-          },
-          error => {console.log(error)
-                    this._errorMessage = error.error }
-          )
     }
 
 

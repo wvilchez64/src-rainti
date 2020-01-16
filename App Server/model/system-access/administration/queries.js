@@ -3,6 +3,7 @@ const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 const jsonData = require('../../../config/config-database.json')
 var randomize = require('randomatic');
+const jwtToken = require('../../../routes/common/functions')
 
 const pool = new Pool({  
   user: jsonData.user,
@@ -45,7 +46,14 @@ const getUser = (req, res) =>{
 
 // Exibindo os grupos existentes na criação de usuários
 const getGroupsForUsersAdd = (req, res) =>{
-  pool.query('select planname, id from role_plans',
+
+  let token = jwtToken.verifyToken( req, res)
+
+  console.log(token.subject.userId+' ' + req.body)
+
+ 
+  pool.query('select p.description as name from plan p, role_plans rp, accounts acc where acc.roleplanid = rp.id and rp.planid = p.id and acc.userid = $1', 
+      [token.subject.userId],
    (error, storedShowGroupsForUsers) => {
     if (error) {
       console.log(error)

@@ -135,34 +135,16 @@
                             <form class="form" #profileForm="ngForm" ></form>
                                 <div class="form-group">
                                     <div>
-                                        <h5>Selecione o Grupo e a Entidade</h5>                                                                 
-                                    </div>                                    
-                                    <div class="row">                                                                       
-                                        <div class="col-sm-6 border-right">  
-                                            <div class="border-bottom">                                        
-                                                <label for="uname1">Grupos</label>
-                                            </div>                                       
-                                            <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px;" required>                                            
-                                                <div class="col " *ngFor="let group of _groups">
-                                                    <label class="btn btn-outline-rainti" >
-                                                        <input type="radio" name="groupOptions" id="{{ group.planname }}.{{ group.id}}" autocomplete="off"> {{ group.planname }}
-                                                    </label>
-                                                </div>
-                                            </div>                                 
-                                        </div>                                    
-                                        <div class="col-sm-6 ">                                        
-                                            <div class="border-bottom">
-                                                 <label for="uname1">Entidades</label>                                               
-                                            </div>                                            
-                                            <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px;"required>                                            
-                                                <div class="col" *ngFor="let entities of _entities ">
-                                                    <label class="btn btn-outline-rainti" >
-                                                        <input type="checkbox" name="profileOptions" id="{{entities.name}}.{{entities.id}}" autocomplete="off"> {{ entities.name }}
-                                                    </label>
-                                                </div>
-                                            </div>                                      
+                                        <h5>Selecione o Grupo de Acesso</h5>                                                                 
+                                    </div>                                        
+                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px;" required>                                            
+                                        <div class="col " *ngFor="let group of _groups">
+                                            <label class="btn btn-outline-rainti" >
+                                                <input type="radio" name="groupOptions" id="{{ group.id}}" autocomplete="off"> {{ group.name }}
+                                            </label>
                                         </div>
                                     </div> 
+                                    
                                 </div>  
                                 <hr/>
                                 <div class="form-group">
