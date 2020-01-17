@@ -1,0 +1,695 @@
+<div class="py-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <span class="anchor" id="formLogin"></span>
+            <!-- form card login -->
+            <div class="card shadow">
+                  <div class="card-body">
+                    <h4 class="card-title mb-4 mt-1">Registro de contrato</h4>
+                        <form class="form" #registerForm="ngForm">
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-credor-tab" data-toggle="tab" href="#nav-credor" role="tab" aria-controls="nav-home" aria-selected="true">Credor</a>
+                                <a class="nav-item nav-link" id="nav-comprador-tab" data-toggle="tab" href="#nav-comprador" role="tab" aria-controls="nav-profile" aria-selected="false">Comprador</a>
+                                <a class="nav-item nav-link" id="nav-veiculo-tab" data-toggle="tab" href="#nav-veiculo" role="tab" aria-controls="nav-contact" aria-selected="false">Veículo</a>
+                                <a class="nav-item nav-link" id="nav-garantidor-tab" data-toggle="tab" href="#nav-garantidor" role="tab" aria-controls="nav-contact" aria-selected="false">Garantidor</a>
+                                <a class="nav-item nav-link" id="nav-contrato-tab" data-toggle="tab" href="#nav-contrato" role="tab" aria-controls="nav-contact" aria-selected="false">Contrato </a>
+                                </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-credor" role="tabpanel" aria-labelledby="nav-credor-tab"> <br>
+                                    <div class="form-group">
+                                        <div class="row">
+                                                <div class="col-xl">
+                                                    <label for="uname1">Credora</label>
+                                                    <select class="custom-select" #creditor="ngModel" [class.is-invalid]="topicHasError && creditor.touched"
+                                                    name="creditor" [(ngModel)]="contractData.creditor" (change)="validateTopic(creditor.value)" (blur)="validateTopic(creditor.value)">                            
+                                                        <option value="default">--Escolha uma credora</option>
+                                                        <option *ngFor="let creditor of _creditor">{{ contractData.creditor }}</option>
+                                                    </select>
+                                                    <small class="text-danger" [class.d-none]="!topicHasError || creditor.untouched">Escolha uma credora</small>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6"> 
+                                                <button class="btn btn-info btn-block" routerLink="/contratos">Cancelar</button>
+                                            </div>
+                                            <div class="col-sm-6">      
+                                                <button class="btn btn-rainti btn-block"> Próximo </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="tab-pane fade" id="nav-comprador" role="tabpanel" aria-labelledby="nav-comprador-tab"><br>
+                                <div class="form-group col-xl">
+                                    <div class="row">
+                                        <label for="uname1">Nome completo do comprador</label>
+                                        <input type="text" [(ngModel)]="contractData.buyername" name="buyername"  class="form-control rounded-0" 
+                                        [class.is-invalid]="buyername.invalid && buyername.touched" #buyername="ngModel" required >
+                                        <div class="md-errors-spacer" [hidden]="buyername.valid || buyername.untouched">
+                                            <small  class="text-danger"*ngIf="buyername.errors && buyername.errors.required">
+                                                Nome completo do comprador obrigatório
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>        
+                                <div class="form-group col-xl">
+                                    <div class="row">
+                                        <label for="uname1">E-mail</label>
+                                        <input #buyerEmail="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="text" 
+                                        [(ngModel)]="contractData.buyerEmail" name="buyerEmail" class="form-control rounded-0" 
+                                        [class.is-invalid]="buyerEmail.invalid && buyerEmail.touched" required>
+                                        <div class="md-errors-spacer" [hidden]="buyerEmail.valid || buyerEmail.untouched">
+                                            <small  class="text-danger"*ngIf="buyerEmail.errors && buyerEmail.errors.required">
+                                                e-mail obrigatório
+                                            </small>
+                                            <small  class="text-danger" *ngIf="buyerEmail.errors && buyerEmail.errors.pattern">
+                                                e-mail inválido
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-xl" align="center">                                        
+                                        <label for="uname1">Tipo de pessoa</label>
+                                    </div>   
+                                    <div class="border">                               
+                                        <div class="col-xl" align="center">                                                                                  
+                                            <div style="padding-top: 10px;" class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" (click)="markAsActive('cpf')" checked>
+                                                <label class="custom-control-label" for="customRadioInline1">CPF</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" (click)="markAsActive('cnpj')">
+                                                <label class="custom-control-label" for="customRadioInline2">CNPJ</label>
+                                            </div>                                        
+                                        </div>
+                                        <div *ngIf="cpfcnpjActive=='cpf'" align="left" style="margin-left: 10px; padding: 10px;">
+                                                <input type="text" name="cpf" [cpf]="cpf" placeholder="Insira o CPF" 
+                                                [(ngModel)]="cpf" [class.is-invalid]="cpfInput.invalid && cpfInput.touched" #cpfInput="ngModel" required>
+                                                <div class="md-errors-spacer text-danger" [hidden]="cpfInput.valid || cpfInput.untouched" *ngIf="cpfInput?.errors?.required">CPF obrigatório</div>
+                                                <div class="text-danger" *ngIf="cpfInput?.errors?.cpf">CPF inválido!</div>
+                                        </div>
+                                        <div *ngIf="cpfcnpjActive=='cnpj'" align="right" style="margin-right: 10px; padding: 10px;">
+                                            <input  type="text" name="cnpj" [cnpj]="cnpj" placeholder="Insira o CNPJ"
+                                            [(ngModel)]="cnpj" [class.is-invalid]="cnpj.invalid && cnpj.touched" #cnpjInput="ngModel" required >
+                                            <div class="md-errors-spacer text-danger" [hidden]="cnpjInput.valid || cnpjInput.untouched" *ngIf="cnpjInput?.errors?.required">CNPJ obrigatório</div>
+                                            <div class="text-danger" *ngIf="cnpjInput?.errors?.cnpj">CNPJ Inválido</div>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label for="uname1">DDD</label>
+                                            <input type="text" pattern="^([1-9]{2})"
+                                            placeHolder="11"
+                                            [(ngModel)]="contractData.buyerDddModel" name="buyerDddModel" class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerDddModel.invalid && buyerDddModel.touched" #buyerDddModel="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerDddModel.valid || buyerDddModel.untouched">
+                                                <small  class="text-danger"*ngIf="buyerDddModel.errors && buyerDddModel.errors.required">
+                                                    DDD obrigatório
+                                                </small>
+                                                <small  class="text-danger"*ngIf="(buyerDddModel.errors && buyerDddModel.errors.pattern) || ddHasError">
+                                                    DDD inválido
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label for="uname1">Telefone</label>
+                                            <input type="text" pattern="^([1-9]{1}[0-9]{3}|[1-9]{1}[0-9]{4})(-)([0-9]{4})"
+                                            placeHolder="1234-5678 ou 12345-6789"
+                                            [(ngModel)]="contractData.buyerPhone" name="buyerPhone" class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerPhone.invalid && buyerPhone.touched" #buyerPhone="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerPhone.valid || buyerPhone.untouched">
+                                                <small  class="text-danger"*ngIf="buyerPhone.errors && buyerPhone.errors.required">
+                                                    Telefone obrigatório
+                                                </small>
+                                                <small  class="text-danger"*ngIf="buyerPhone.errors && buyerPhone.errors.pattern">
+                                                    Formato inválido (Ex.: 1234-5678 ou 12345-6789) 
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <label for="uname1">DDD</label>
+                                            <input type="text" pattern="^([1-9]{2})"
+                                            placeHolder="11"
+                                            [(ngModel)]="contractData.buyerDddMobile" name="buyerDddMobile" class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerDddMobile.invalid && buyerDddMobile.touched" #buyerDddMobile="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerDddMobile.valid || buyerDddMobile.untouched">
+                                                <small  class="text-danger"*ngIf="buyerDddMobile.errors && buyerDddMobile.errors.required">
+                                                    DDD obrigatório
+                                                </small>
+                                                <small  class="text-danger"*ngIf="(buyerDddMobile.errors && buyerDddMobile.errors.pattern) || ddHasError">
+                                                    DDD inválido
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label for="uname1">Celular</label>
+                                            <input type="text" pattern="^([1-9]{1}[0-9]{3}|[1-9]{1}[0-9]{4})(-)([0-9]{4})"
+                                            placeHolder="1234-5678 ou 12345-6789"
+                                            [(ngModel)]="contractData.buyerMobilePhone" name="buyerMobilePhone" class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerMobilePhone.invalid && buyerMobilePhone.touched" #buyerMobilePhone="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerMobilePhone.valid || buyerMobilePhone.untouched">
+                                                <small  class="text-danger"*ngIf="buyerMobilePhone.errors && buyerMobilePhone.errors.required">
+                                                    Celular obrigatório
+                                                </small>
+                                                <small  class="text-danger"*ngIf="buyerMobilePhone.errors && buyerMobilePhone.errors.pattern">
+                                                    Formato inválido (Ex.: 1234-5678 ou 12345-6789) 
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="uname1">CEP</label>
+                                            <input type="text" [(ngModel)]="contractData.buyerZipCode" name="buyerZipCode"  class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerZipCode.invalid && buyerZipCode.touched" #buyerZipCode="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerZipCode.valid || buyerZipCode.untouched">
+                                                <small  class="text-danger"*ngIf="buyerZipCode.errors && buyerZipCode.errors.required">
+                                                    CEP obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Bairro</label>
+                                            <input type="text" [(ngModel)]="contractData.buyerNeighborhood" name="buyerNeighborhood"  class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerNeighborhood.invalid && buyerNeighborhood.touched" #buyerNeighborhood="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerNeighborhood.valid || buyerNeighborhood.untouched">
+                                                <small  class="text-danger"*ngIf="buyerNeighborhood.errors && buyerNeighborhood.errors.required">
+                                                    Bairro obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Logradouro</label>
+                                            <input type="text" [(ngModel)]="contractData.buyerAddress" name="buyerAddress"  class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerAddress.invalid && buyerAddress.touched" #buyerAddress="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerAddress.valid || buyerAddress.untouched">
+                                                <small  class="text-danger"*ngIf="buyerAddress.errors && buyerAddress.errors.required">
+                                                    Logradouro obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="uname1">Número</label>
+                                            <input type="text" [(ngModel)]="contractData.buyerHouseNumber" name="buyerHouseNumber"  class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerHouseNumber.invalid && buyerHouseNumber.touched" #buyerHouseNumber="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerHouseNumber.valid || buyerHouseNumber.untouched">
+                                                <small  class="text-danger"*ngIf="buyerHouseNumber.errors && buyerHouseNumber.errors.required">
+                                                    Número da residência obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="uname1">Estado</label>
+                                            <input type="text" [(ngModel)]="contractData.buyerState" name="buyerState"  class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerState.invalid && buyerState.touched" #buyerState="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerState.valid || buyerState.untouched">
+                                                <small  class="text-danger"*ngIf="buyerState.errors && buyerState.errors.required">
+                                                    Estado obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Município</label>
+                                            <input type="text" [(ngModel)]="contractData.buyerDistrict" name="buyerDistrict"  class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerDistrict.invalid && buyerDistrict.touched" #buyerDistrict="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerDistrict.valid || buyerDistrict.untouched">
+                                                <small  class="text-danger"*ngIf="buyerDistrict.errors && buyerDistrict.errors.required">
+                                                    Município obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Complemento</label>
+                                            <input type="text" [(ngModel)]="contractData.buyerComplement" name="buyerComplement"  class="form-control rounded-0" 
+                                            [class.is-invalid]="buyerComplement.invalid && buyerComplement.touched" #buyerComplement="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="buyerComplement.valid || buyerComplement.untouched">
+                                                <small  class="text-danger"*ngIf="buyerComplement.errors && buyerComplement.errors.required">
+                                                    Complemento obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>            
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6"> 
+                                            <button class="btn btn-info btn-block" routerLink="/contratos">Anterior</button>
+                                        </div>
+                                        <div class="col-sm-6">      
+                                            <button class="btn btn-rainti btn-block" >Próximo </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="nav-veiculo" role="tabpanel" aria-labelledby="nav-veiculo-tab"><br>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Chassi</label>
+                                            <input type="text"
+                                            [(ngModel)]="contractData.chassi" name="chassi"  class="form-control rounded-0" 
+                                            [class.is-invalid]="chassi.invalid && chassi.touched" #chassi="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="chassi.valid || chassi.untouched">
+                                                <small  class="text-danger"*ngIf="chassi.errors && chassi.errors.required">
+                                                    Chassi obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Confirme o chassi</label>
+                                            <input type="text" [(ngModel)]="contractData.chassiConfirmation" name="chassiConfirmation" class="form-control rounded-0" 
+                                            [class.is-invalid]="chassiConfirmation.invalid && chassiConfirmation.touched" #chassiConfirmation="ngModel" 
+                                            appConfirmEqualValidator="chassi"required >
+                                            <div class="md-errors-spacer" [hidden]="chassiConfirmation.valid || chassiConfirmation.untouched">
+                                                <small  class="text-danger"*ngIf="chassiConfirmation.errors && chassiConfirmation.errors.required">
+                                                    confirmação de chassi obrigatório
+                                                </small>
+                                            </div>
+                                            <div class="md-errors-spacer" [hidden]="chassiConfirmation.valid || chassiConfirmation.untouched">
+                                                <small  class="text-danger"*ngIf="chassiConfirmation.errors && chassiConfirmation.errors?.notEqual">
+                                                    confirmação de chassi incorreto
+                                                </small>
+                                            </div>
+                                        </div>  
+                                    </div>                            
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">               
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Chassi Remarcado</label>
+                                            <select class="custom-select" #remarkedChassi="ngModel" [class.is-invalid]="topicHasError && remarkedChassi.touched"
+                                                name="remarkedChassi" [(ngModel)]="contractData.remarkedChassi" (change)="validateTopic(remarkedChassi.value)" (blur)="validateTopic(remarkedChassi.value)">                            
+                                                <option value="default">--Escolha uma opção</option>
+                                                <option *ngFor="let remarkedChassi of _remarkedChassi">{{ contractData.remarkedChassi }}</option>
+                                            </select>
+                                            <small class="text-danger" [class.d-none]="!topicHasError || remarkedChassi.untouched">Escolha uma opção</small>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label for="uname1">Placa </label>
+                                            <input type="text" [(ngModel)]="contractData.plate" name="plate"  class="form-control rounded-0" 
+                                            [class.is-invalid]="plate.invalid && plate.touched" #plate="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="plate.valid || plate.untouched">
+                                                <small  class="text-danger"*ngIf="plate.errors && plate.errors.required">
+                                                    Placa obrigatória
+                                                </small>
+                                            </div>
+                                        </div> 
+                                        <div class="col-sm-3">
+                                            <label for="uname1">UF da placa</label>
+                                            <select class="custom-select" #plateUf="ngModel" [class.is-invalid]="topicHasError && plateUf.touched"
+                                                name="plateUf" [(ngModel)]="contractData.plateUf" (change)="validateTopic(plateUf.value)" (blur)="validateTopic(plateUf.value)">                            
+                                                <option value="default">--Escolha uma UF</option>
+                                                <option *ngFor="let plateUf of _plateUf">{{ contractData.plateUf }}</option>
+                                            </select>
+                                            <small class="text-danger" [class.d-none]="!topicHasError || plateUf.untouched">Escolha uma UF</small>
+                                        </div>   
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Renavan</label>
+                                            <input type="text" [(ngModel)]="contractData.renavam" name="renavam"  class="form-control rounded-0" 
+                                            [class.is-invalid]="renavam.invalid && renavam.touched" #renavam="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="renavam.valid || renavam.untouched">
+                                                <small  class="text-danger"*ngIf="renavam.errors && renavam.errors.required">
+                                                    Renavan obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Gravame</label>
+                                            <input type="text" [(ngModel)]="contractData.gravame" name="gravame"  class="form-control rounded-0" 
+                                            [class.is-invalid]="gravame.invalid && gravame.touched" #gravame="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="gravame.valid || gravame.untouched">
+                                                <small  class="text-danger"*ngIf="gravame.errors && gravame.errors.required">
+                                                    Gravame obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Espécie</label>
+                                            <select class="custom-select" #specie="ngModel" [class.is-invalid]="topicHasError && specie.touched"
+                                                name="specie" [(ngModel)]="contractData.specie" (change)="validateTopic(specie.value)" (blur)="validateTopic(specie.value)">                            
+                                                <option value="default">--Escolha uma espécie</option>
+                                                <option *ngFor="let specie of _specie">{{ contractData.specie }}</option>
+                                            </select>
+                                            <small class="text-danger" [class.d-none]="!topicHasError || specie.untouched">Escolha uma espécie</small>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Ano de Fabricação</label>
+                                            <input type="date" [(ngModel)]="contractData.fabriactionYear" name="fabriactionYear" class="form-control rounded-0" 
+                                            [class.is-invalid]="fabriactionYear.invalid && fabriactionYear.touched" #fabriactionYear="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="fabriactionYear.valid || fabriactionYear.untouched">
+                                                <small  class="text-danger"*ngIf="fabriactionYear.errors && fabriactionYear.errors.required">
+                                                    Ano de Fabricação inválida 
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Ano do modelo</label>
+                                            <input type="date" [(ngModel)]="contractData.modelYear" name="modelYear" class="form-control rounded-0" 
+                                            [class.is-invalid]="modelYear.invalid && modelYear.touched" #modelYear="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="modelYear.valid || modelYear.untouched">
+                                                <small  class="text-danger"*ngIf="modelYear.errors && modelYear.errors.required">
+                                                    Ano do modelo inválido 
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Marca </label>
+                                            <select class="custom-select" #brand="ngModel" [class.is-invalid]="topicHasError && brand.touched"
+                                                name="brand" [(ngModel)]="contractData.brand" (change)="validateTopic(brand.value)" (blur)="validateTopic(brand.value)">                            
+                                                <option value="default">--Escolha uma marca </option>
+                                                <option *ngFor="let brand of _brand">{{ contractData.brand }}</option>
+                                            </select>
+                                            <small class="text-danger" [class.d-none]="!topicHasError || brand.untouched">Escolha uma marca </small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Modelo  </label>
+                                            <select class="custom-select" #model="ngModel" [class.is-invalid]="topicHasError && model.touched"
+                                                name="model" [(ngModel)]="contractData.model" (change)="validateTopic(model.value)" (blur)="validateTopic(model.value)">                            
+                                                <option value="default">--Escolha um modelo  </option>
+                                                <option *ngFor="let model of _model">{{ contractData.model }}</option>
+                                            </select>
+                                            <small class="text-danger" [class.d-none]="!topicHasError || model.untouched">Escolha um modelo </small>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Cor</label>
+                                            <input type="text" [(ngModel)]="contractData.color" name="color"  class="form-control rounded-0" 
+                                            [class.is-invalid]="color.invalid && color.touched" #color="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="color.valid || color.untouched">
+                                                <small  class="text-danger"*ngIf="color.errors && color.errors.required">
+                                                    Cor obrigatório
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6"> 
+                                            <button class="btn btn-info btn-block" routerLink="/contratos">Anterior</button>
+                                        </div>
+                                        <div class="col-sm-6">      
+                                            <button class="btn btn-rainti btn-block" >Próximo </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade " id="nav-garantidor" role="tabpanel" aria-labelledby="nav-garantidor-tab"><br>
+                                <div class="form-group col-xl">
+                                    <div class="row">
+                                        <label for="uname1">Nome do Garantidor</label>
+                                        <input type="text" [(ngModel)]="contractData.responsible" name="responsible"  class="form-control rounded-0" 
+                                        [class.is-invalid]="responsible.invalid && responsible.touched" #responsible="ngModel" required >
+                                        <div class="md-errors-spacer" [hidden]="responsible.valid || responsible.untouched">
+                                            <small  class="text-danger"*ngIf="responsible.errors && responsible.errors.required">
+                                                Nome do garantidor obrigatório
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <div class="col-xl" align="center">                                        
+                                        <label for="uname1">Tipo de pessoa</label>
+                                    </div>   
+                                    <div class="border">                               
+                                        <div class="col-xl" align="center">                                                                                  
+                                            <div style="padding-top: 10px;" class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="customRadioInline3" name="customRadioInline3" class="custom-control-input" (click)="markAsActive('cpf')" checked>
+                                                <label class="custom-control-label" for="customRadioInline3">CPF</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="customRadioInline4" name="customRadioInline3" class="custom-control-input" (click)="markAsActive('cnpj')">
+                                                <label class="custom-control-label" for="customRadioInline4">CNPJ</label>
+                                            </div>                                        
+                                        </div>
+                                        <div *ngIf="cpfcnpjActive=='cpf'" align="left" style="margin-left: 10px; padding: 10px;">
+                                                <input type="text" name="cpf" [cpf]="cpf" placeholder="Insira o CPF" 
+                                                [(ngModel)]="cpf" [class.is-invalid]="cpfInput.invalid && cpfInput.touched" #cpfInput="ngModel" required>
+                                                <div class="md-errors-spacer" [hidden]="cpfInput.valid || cpfInput.untouched" *ngIf="cpfInput?.errors?.required">CPF obrigatório</div>
+                                                <div *ngIf="cpfInput?.errors?.cpf">CPF inválido!</div>
+                                        </div>
+                                        <div *ngIf="cpfcnpjActive=='cnpj'" align="right" style="margin-right: 10px; padding: 10px;">
+                                            <input  type="text" name="cnpj" [cnpj]="cnpj" placeholder="Insira o CNPJ"
+                                            [(ngModel)]="cnpj" [class.is-invalid]="cnpjInput.invalid && cnpjInput.touched" #cnpjInput="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="cnpjInput.valid || cnpjInput.untouched" *ngIf="cnpjInput?.errors?.required">CNPJ obrigatório</div>
+                                            <div *ngIf="cnpjInput?.errors?.cnpj">CNPJ Inválido</div>
+                                        </div>    
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6"> 
+                                            <button class="btn btn-info btn-block" routerLink="/contratos">Anterior</button>
+                                        </div>
+                                        <div class="col-sm-6">      
+                                            <button class="btn btn-rainti btn-block" >Próximo </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="tab-pane fade" id="nav-contrato" role="tabpanel" aria-labelledby="nav-contrato-tab"><br>
+                                    <div class="form-group">
+                                        <div class="row">               
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Tipo de financiamento e contrato</label>
+                                                <select class="custom-select" #financingType="ngModel" [class.is-invalid]="topicHasError && userGroup.touched"
+                                                name="financingType" [(ngModel)]="contractData.financingType" (change)="validateTopic(financingType.value)" (blur)="validateTopic(financingType.value)">                            
+                                                    <option value="default">--Escolha um financiamento e contrato</option>
+                                                    <option *ngFor="let financingType of _financingType">{{ contractData.financingType }}</option>
+                                                </select>
+                                                <small class="text-danger" [class.d-none]="!topicHasError || financingType.untouched">Escolha um tipo de financiamento e contrato</small>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Forma de contrato</label>
+                                                <select class="custom-select" #contractForm="ngModel" [class.is-invalid]="topicHasError && contractForm.touched"
+                                                name="contractForm" [(ngModel)]="contractData.contractForm" (change)="validateTopic(contractForm.value)" (blur)="validateTopic(contractForm.value)">                            
+                                                    <option value="default">--Escolha forma de contrato</option>
+                                                    <option *ngFor="let contractForm of _contractForm">{{ entities.description }}</option>
+                                                </select>
+                                                <small class="text-danger" [class.d-none]="!topicHasError || contractForm.untouched">Escolha forma de contrato</small>
+                                            </div>
+                                        </div> 
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Número do contrato físico</label>
+                                                <input type="number" [(ngModel)]="contractData.physicalContractNumber" name="physicalContractNumber"  class="form-control rounded-0" 
+                                                [class.is-invalid]="physicalContractNumber.invalid && physicalContractNumber.touched" #physicalContractNumber="ngModel" required >
+                                                <div class="md-errors-spacer" [hidden]="physicalContractNumber.valid || physicalContractNumber.untouched">
+                                                    <small  class="text-danger"*ngIf="physicalContractNumber.errors && physicalContractNumber.errors.required">
+                                                        Número do contrato físico obrigatório
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Valor total da divida</label>
+                                                <input currencyMask [(ngModel)]="contractData.TotalDebtAmount" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"name="TotalDebtAmount"  class="form-control rounded-0" 
+                                                [class.is-invalid]="TotalDebtAmount.invalid && TotalDebtAmount.touched" #TotalDebtAmount="ngModel" required >
+                                                <div class="md-errors-spacer" [hidden]="TotalDebtAmount.valid || TotalDebtAmount.untouched">
+                                                    <small  class="text-danger"*ngIf="TotalDebtAmount.errors && TotalDebtAmount.errors.required">
+                                                        Valor total da divida obrigatório
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Valo do Registro de Contrato</label>
+                                                <input currencyMask [(ngModel)]="contractData.contractRegistrationAmount" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" name="contractRegistrationAmount"  class="form-control rounded-0" 
+                                                [class.is-invalid]="contractRegistrationAmount.invalid && contractRegistrationAmount.touched" #contractRegistrationAmount="ngModel" required >
+                                                <div class="md-errors-spacer" [hidden]="contractRegistrationAmount.valid || contractRegistrationAmount.untouched">
+                                                    <small  class="text-danger"*ngIf="contractRegistrationAmount.errors && contractRegistrationAmount.errors.required">
+                                                        Valo do Registro de Contrato obrigatório
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Valor do IOF</label>
+                                                <input currencyMask [(ngModel)]="contractData.iofAmount" [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }" name="iofAmount"  class="form-control rounded-0" 
+                                                [class.is-invalid]="iofAmount.invalid && iofAmount.touched" #iofAmount="ngModel" required >
+                                                <div class="md-errors-spacer" [hidden]="iofAmount.valid || iofAmount.untouched">
+                                                    <small  class="text-danger"*ngIf="iofAmount.errors && iofAmount.errors.required">
+                                                        Valor do IOF obrigatório
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Bairro</label>
+                                                <input type="text" [(ngModel)]="contractData.contractNeighborhood" name="contractNeighborhood"  class="form-control rounded-0" 
+                                                [class.is-invalid]="contractNeighborhood.invalid && contractNeighborhood.touched" #contractNeighborhood="ngModel" required >
+                                                <div class="md-errors-spacer" [hidden]="contractNeighborhood.valid || contractNeighborhood.untouched">
+                                                    <small  class="text-danger"*ngIf="contractNeighborhood.errors && contractNeighborhood.errors.required">
+                                                        Bairro obrigatório
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Município</label>
+                                                <input type="text" [(ngModel)]="contractData.contractDistrict" name="contractDistrict"  class="form-control rounded-0" 
+                                                [class.is-invalid]="contractDistrict.invalid && contractDistrict.touched" #contractDistrict="ngModel" required >
+                                                <div class="md-errors-spacer" [hidden]="contractDistrict.valid || contractDistrict.untouched">
+                                                    <small  class="text-danger"*ngIf="contractDistrict.errors && contractDistrict.errors.required">
+                                                        Município obrigatório
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Logradouro</label>
+                                                <input type="text" [(ngModel)]="contractData.contractAddress" name="contractAddress"  class="form-control rounded-0" 
+                                                [class.is-invalid]="contractAddress.invalid && contractAddress.touched" #contractAddress="ngModel" required >
+                                                <div class="md-errors-spacer" [hidden]="contractAddress.valid || contractAddress.untouched">
+                                                    <small  class="text-danger"*ngIf="contractAddress.errors && contractAddress.errors.required">
+                                                        Logradouro obrigatório
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <label for="uname1">Número</label>
+                                                <input type="text" [(ngModel)]="contractData.contractHouseNumber" name="contractHouseNumber"  class="form-control rounded-0" 
+                                                [class.is-invalid]="contractHouseNumber.invalid && contractHouseNumber.touched" #contractHouseNumber="ngModel" required >
+                                                <div class="md-errors-spacer" [hidden]="contractHouseNumber.valid || contractHouseNumber.untouched">
+                                                    <small  class="text-danger"*ngIf="contractHouseNumber.errors && contractHouseNumber.errors.required">
+                                                        Número da residência obrigatório
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-3">
+                                                <label for="uname1">Estado</label>
+                                                <input type="text" [(ngModel)]="contractData.contractState" name="contractState"  class="form-control rounded-0" 
+                                                [class.is-invalid]="contractState.invalid && contractState.touched" #contractState="ngModel" required >
+                                                <div class="md-errors-spacer" [hidden]="contractState.valid || contractState.untouched">
+                                                    <small  class="text-danger"*ngIf="contractState.errors && contractState.errors.required">
+                                                        Estado obrigatório
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Data do pagamento</label>
+                                                <input type="date" [(ngModel)]="contractData.startdate" name="startDate" class="form-control rounded-0" 
+                                                [class.is-invalid]="startDate.invalid && startDate.touched" #startDate="ngModel" required >
+                                                        <div class="md-errors-spacer" [hidden]="startDate.valid || startDate.untouched">
+                                                            <small  class="text-danger"*ngIf="startDate.errors && startDate.errors.required">
+                                                                Data do pagamento inválida 
+                                                            </small>
+                                                        </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Taxa de Juros ao mês</label>
+                                                <input type="number" [(ngModel)]="contractData.interestRatePerMonth" name="interestRatePerMonth"  class="form-control rounded-0" 
+                                                [class.is-invalid]="interestRatePerMonth.invalid && interestRatePerMonth.touched" #interestRatePerMonth="ngModel" required >
+                                                <div class="md-errors-spacer" [hidden]="interestRatePerMonth.valid || interestRatePerMonth.untouched">
+                                                    <small  class="text-danger"*ngIf="interestRatePerMonth.errors && interestRatePerMonth.errors.required">
+                                                        Taxa de Juros ao mês obrigatório
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Taxa de Juros de Multa</label>
+                                                <select class="custom-select" #interestRate="ngModel" [class.is-invalid]="topicHasError && interestRate.touched"
+                                                name="interestRate" [(ngModel)]="contractData.interestRate" (change)="validateTopic(interestRate.value)" (blur)="validateTopic(interestRate.value)">                            
+                                                    <option value="default">--Escolha uma taxa de Juros de Multa</option>
+                                                    <option *ngFor="let interestRate of _interestRate">{{ contractData.interestRate }}</option>
+                                                </select>
+                                                <small class="text-danger" [class.d-none]="!topicHasError || interestRate.untouched">Escolha uma taxa de Juros de Multa</small>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="uname1">Taxa de mora ao dia</label>
+                                                <select class="custom-select" #dailyInterestRate="ngModel" [class.is-invalid]="topicHasError && dailyInterestRate.touched"
+                                                name="dailyInterestRate" [(ngModel)]="contractData.dailyInterestRate" (change)="validateTopic(dailyInterestRate.value)" (blur)="validateTopic(dailyInterestRate.value)">                            
+                                                    <option value="default">--Escolha uma taxa de mora ao dia</option>
+                                                    <option *ngFor="let dailyInterestRate of _dailyInterestRate">{{ contractData.interestRatePerMonth }}</option>
+                                                </select>
+                                                <small class="text-danger" [class.d-none]="!topicHasError || dailyInterestRate.untouched">Escolha uma taxa de mora ao dia</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Indice</label>
+                                            <select class="custom-select" #contractIndex="ngModel" [class.is-invalid]="topicHasError && contractIndex.touched"
+                                            name="contractIndex" [(ngModel)]="contractData.contractIndex" (change)="validateTopic(contractIndex.value)" (blur)="validateTopic(contractIndex.value)">                            
+                                                <option value="default">--Escolha um indice</option>
+                                                <option *ngFor="let contractIndex of _contractIndex">{{ contractData.contractIndex }}</option>
+                                            </select>
+                                            <small class="text-danger" [class.d-none]="!topicHasError || contractIndex.untouched">Escolha um indice</small>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label for="uname1">Data Liberação de Crédito</label>
+                                            <input type="date" [(ngModel)]="contractData.creditReleaseDate" name="creditReleaseDate" class="form-control rounded-0" 
+                                                [class.is-invalid]="creditReleaseDate.invalid && creditReleaseDate.touched" #creditReleaseDate="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="creditReleaseDate.valid || creditReleaseDate.untouched">
+                                                <small  class="text-danger"*ngIf="creditReleaseDate.errors && creditReleaseDate.errors.required">
+                                                    Data Liberação de Crédito inválida 
+                                                </small>
+                                            </div>
+                                        </div>   
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6"> 
+                                            <button class="btn btn-info btn-block" routerLink="/contratos">Anterior</button>
+                                        </div>
+                                        <div class="col-sm-6">      
+                                            <button class="btn btn-rainti btn-block" >Confirma </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </form>                
+            </div>
+            <!-- /form card login -->
+        </div>
+    </div>
+</div>
+
+
