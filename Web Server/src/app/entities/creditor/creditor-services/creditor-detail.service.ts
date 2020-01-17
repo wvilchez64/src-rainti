@@ -11,12 +11,22 @@ export class CreditorDetailService {
   private _entitiyUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/creditor/creditors/"
   private _entitiyUpdateUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/creditor/update-creditor/"
   private _entitiyDeleteUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/creditor/delete-creditor/"
-
+  private _detransUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/creditor/get-detrans"
+  private _creditorsGroupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/creditor/get-creditors-group"
+  
   constructor(private http: HttpClient) {  }
 
   getCreditor(id){
     return this.http.get<any>(this._entitiyUrl+id)
    }
+
+  getDetrans(){
+    return this.http.get<any>(this._detransUrl)
+  }
+
+  getCreditorsGroup(){
+    return this.http.get<any>(this._creditorsGroupUrl)
+  }
 
    updateCreditor(user, id){
     return this.http.put<any>(this._entitiyUpdateUrl+id, user)

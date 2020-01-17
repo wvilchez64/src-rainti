@@ -30,6 +30,8 @@ export class CreditorAddComponent implements OnInit {
   }
   _errorMessage = ''
   _states : Array<any> = [] 
+  _detrans : Array<any> = []
+  _creditorsgroup : Array<any> = [] 
   topicHasError = true
   dddHasError = true
 
@@ -37,7 +39,7 @@ export class CreditorAddComponent implements OnInit {
     private _router: Router,
     private _location: Location) { }
 
-    
+
   validateTopic(value) {
       if (value === 'default') {
         this.topicHasError = true;
@@ -55,6 +57,24 @@ export class CreditorAddComponent implements OnInit {
       error => {console.log(error)
                 this._errorMessage = error.error }
       )
+      this._creditorAddService.getDetrans()
+      .subscribe(
+        res => {
+          console.log(res)
+          this._detrans = res
+        },
+        error => {console.log(error)
+                  this._errorMessage = error.error }
+        )
+      this._creditorAddService.getCreditorsGroup()
+      .subscribe(
+        res => {
+          console.log(res)
+          this._creditorsgroup = res;   
+        },
+        error => {console.log(error)
+                  this._errorMessage = error.error }
+        )  
   }
 
   createCreditor(){

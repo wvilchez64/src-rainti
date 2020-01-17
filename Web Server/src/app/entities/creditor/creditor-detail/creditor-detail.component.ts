@@ -54,6 +54,8 @@ export class CreditorDetailComponent implements OnInit {
   _registerUpdated = ''
   _errorMessage = ''
   _states : Array<any> = []
+  _detrans : Array<any> = []
+  _creditorsgroup : Array<any> = [] 
   topicHasError = true
   dddHasError = true
 
@@ -95,6 +97,24 @@ export class CreditorDetailComponent implements OnInit {
             console.log(err)
           }
         )   
+        this._creditorAddService.getDetrans()
+        .subscribe(
+          res => {
+            console.log(res)
+            this._detrans = res
+          },
+          error => {console.log(error)
+                    this._errorMessage = error.error }
+          )
+        this._creditorAddService.getCreditorsGroup()
+        .subscribe(
+          res => {
+            console.log(res)
+            this._creditorsgroup = res;   
+          },
+          error => {console.log(error)
+                    this._errorMessage = error.error }
+          )  
     }
       
     );
@@ -103,6 +123,30 @@ export class CreditorDetailComponent implements OnInit {
   creditorDataSender = {
     old : this.creditorDataOld,
     new : this.creditorData,
+  }
+
+  
+  checkAllOptions() {
+    this._creditorsgroup.forEach(val => { val.checked = true });
+  }
+
+  uncheckAllOptions() {
+    this._creditorsgroup.forEach(val => { val.checked = false });
+  }
+
+  uncheckOthersOptions(id) {
+    console.log(id)
+
+    var action = false;
+    this._creditorsgroup.forEach(val => {
+      action = false;
+      if (val.id == id) {
+        action = true;
+      }  
+      val.checked = action
+    })
+
+    console.log('after', this._creditorsgroup);
   }
 
   updateCreditor(){
