@@ -52,7 +52,7 @@ const getGroupsForUsersAdd = (req, res) =>{
   console.log(token.subject.userId+' ' + req.body)
 
  
-  pool.query('select p.description as name from plan p, role_plans rp, accounts acc where acc.roleplanid = rp.id and rp.planid = p.id and acc.userid = $1', 
+  pool.query('select rp.id, p.description as name, dd.description as entityname from plan p, role_plans rp, accounts acc, data_detran dd where acc.roleplanid = rp.id and rp.planid = p.id and acc.userid = $1 and dd.identity = rp.entityid and dd.datacodeid = 1 ', 
       [token.subject.userId],
    (error, storedShowGroupsForUsers) => {
     if (error) {
@@ -108,7 +108,6 @@ const getUserGroupFeatures = (req, res) =>{
 module.exports = { 
   createUser,
   getUser,
-  getGroup,
   createGroup,
   getGroupsForUsersAdd,
   getUserEntities,

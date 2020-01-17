@@ -80,4 +80,10 @@ export class UserAddComponent implements OnInit {
   backToUsers(){
 
   }
+  CheckAllOptions() {
+    if (this._groups.every(val => val.checked == true))
+      this._groups.forEach(val => { val.checked = false });
+    else
+      this._groups.forEach(val => { val.checked = true });
+  }
 }
