@@ -62,7 +62,8 @@
       </div>   
     </ul>   
     <ul class="nav navbar-nav navbar-right">
-        <a class="nav-link" style="cursor:pointer" *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Logout</a>
+        <a class="nav-link" style="cursor:pointer" *ngIf="_authService.loggedIn()" >Perfil</a>
+        <a class="nav-link" style="cursor:pointer" *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Sair</a>
     </ul> 
   </div>
 </nav>  
