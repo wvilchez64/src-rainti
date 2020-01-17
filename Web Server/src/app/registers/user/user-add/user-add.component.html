@@ -1,6 +1,6 @@
 <div class="py-5">
     <div class="row">
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-8 mx-auto">
             <span class="anchor" id="formLogin"></span>
             <!-- form card login -->
             <div class="card shadow">
@@ -135,40 +135,25 @@
                             <form class="form" #profileForm="ngForm" ></form>
                                 <div class="form-group">
                                     <div>
-                                        <h5>Selecione o Grupo e a Entidade</h5>                                                                 
-                                    </div>                                    
-                                    <div class="row">                                                                       
-                                        <div class="col-sm-6 border-right">  
-                                            <div class="border-bottom">                                        
-                                                <label for="uname1">Grupos</label>
-                                            </div>                                       
-                                            <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px;" required>                                            
-                                                <div class="col " *ngFor="let group of _groups">
-                                                    <label class="btn btn-outline-rainti" >
-                                                        <input type="radio" name="groupOptions" id="{{ group.planname }}.{{ group.id}}" autocomplete="off"> {{ group.planname }}
-                                                    </label>
-                                                </div>
-                                            </div>                                 
-                                        </div>                                    
-                                        <div class="col-sm-6 ">                                        
-                                            <div class="border-bottom">
-                                                 <label for="uname1">Entidades</label>                                               
-                                            </div>                                            
-                                            <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px;"required>                                            
-                                                <div class="col" *ngFor="let entities of _entities ">
-                                                    <label class="btn btn-outline-rainti" >
-                                                        <input type="checkbox" name="profileOptions" id="{{entities.description}}.{{entities.id}}" autocomplete="off"> {{ entities.description }}
-                                                    </label>
-                                                </div>
-                                            </div>                                      
+                                        <h5>Selecione o Grupo de Acesso</h5>                                                                 
+                                    </div>                                        
+                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px;" required>                                            
+                                        <button type="button" (click)="CheckAllOptions()">Toggle</button>
+                                        <div class="col-lg" *ngFor="let group of _groups">
+                                            
+                                            <label class="btn btn-outline-rainti"  >
+                                                <input  class="btn btn-outline-rainti" type="checkbox" [(ngModel)]="group.checked" value="group.value" name="groupOptions"  id="{{group.id}}" autocomplete="off"> {{ group.name }}
+                                            </label>
+                                            <label class="px-2">{{group.entityname}}</label>
                                         </div>
                                     </div> 
+                                    
                                 </div>  
                                 <hr/>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6">                   
-                                            <button type="submit" (click)="backToUsers()" class="btn btn-info btn-block">Voltar</button>
+                                            <button type="submit" (click)="backToUsers()" class="btn btn-info btn-block float-right">Voltar</button>
                                         </div>  
                                         <div class="col-sm-6">                                        
                                             <button type="submit" [disabled]="profileForm.form.invalid" (click)="createUser()" class="btn btn-rainti btn-block ">Finalizar</button>                

@@ -16,7 +16,6 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { FilterPipe } from './filter-name.pipe';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
-import { ContractRegisterComponent } from './contract-register/contract-register.component';
 import { RegistrarComponent } from './entities/registrar/registrar.component';
 import { DetranContactsComponent } from './entities/detran/detran-contacts/detran-contacts.component';
 import { PasswordRecoverComponent } from './system-access/password-recover/password-recover.component';
@@ -47,6 +46,11 @@ import { GroupAddComponent } from './registers/groups/group-add/group-add.compon
 import { GroupMainComponent } from './registers/groups/group-main/group-main.component';
 import { UserAddComponent } from './registers/user/user-add/user-add.component';
 import { UserMainComponent } from './registers/user/user-main/user-main.component';
+import { ContractAddComponent } from './contract/contract-add/contract-add.component';
+import { ContractMainComponent } from './contract/contract-main/contract-main.component';
+import { CpfCnpjModule } from 'ng2-cpf-cnpj';
+import { CurrencyMaskModule } from "ng2-currency-mask";
+
 
 @NgModule({
   declarations: [
@@ -55,7 +59,6 @@ import { UserMainComponent } from './registers/user/user-main/user-main.componen
     FilterPipe,
     HelpComponent,
     HomeComponent,
-    ContractRegisterComponent,
     RegistrarComponent,
     DetranContactsComponent,
     PasswordRecoverComponent,
@@ -86,19 +89,23 @@ import { UserMainComponent } from './registers/user/user-main/user-main.componen
     GroupMainComponent,
     UserAddComponent,
     UserMainComponent,
+
+    ContractAddComponent,
+    ContractMainComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    UserIdleModule, 
+    UserIdleModule,
+    CpfCnpjModule,
+    CurrencyMaskModule,
+
   ],
-  providers: [AuthService, AuthGuard, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-  }],
+  providers: [AuthService, AuthGuard, 
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

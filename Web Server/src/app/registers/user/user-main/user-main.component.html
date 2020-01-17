@@ -16,26 +16,47 @@
     </div>
   </div>
   <hr/>
-  <div class="row mt-2">    
-      <div class="col-md-4 mb-4" *ngFor="let users of user | filter: fristname : searchText"> 
+  <div class="row">    
+    <div class="col-md-4 mb-4" *ngFor="let users of user | filter: fristname : searchText"> 
+      <div class="card text shadow rounded">
+        <img src="../../../../assets/images/profile.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{users.name}} {{users.lastname}}</h5>
+          <hr/>
+          <p class="card-text"><b>usuário: </b> {{users.username}} </p>
+          <p class="card-text"><b>e-mail: </b> {{users.email}}</p>          
+        </div>
+        <div class="card-footer text-muted">
+          <div class="row align-items-center mb-1">    
+            <div class="col">
+              <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/usuario-detalhe" routerLinkActive="active" >Editar</button>
+            </div>        
+            <div class="col">
+              <button type="button" class="btn btn-info btn-md btn-block" (click)="deleteUser()">Contatos</button>
+            </div>            
+          </div>         
+        </div>
+      </div>
+    </div>
+      <!-- <div class="col-md-4 mb-4" *ngFor="let users of user | filter: fristname : searchText"> 
         <div class="card text-center shadow rounded">
           <div class="card-body ">
             <h5 class="card-title ">{{users.name}} {{users.lastname}}</h5>
             <hr/>
-            <p class="card-text"><b>usuário:</b> {{users.username}}</p>
-            <p class="card-text"><b>e-mail:</b> {{users.email}}</p>          
+            <p class="card-text"><b>usuário: </b> {{users.username}}</p>
+            <p class="card-text"><b>e-mail: </b> {{users.email}}</p>          
           </div>
           <div class="card-footer text-muted">
             <div class="row align-items-center mb-1">    
               <div class="col">
-                <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/user-main/" routerLinkActive="active" >Editar</button>
+                <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/usuario-detalhe" routerLinkActive="active" >Editar</button>
               </div>        
               <div class="col">
-                <button type="button" class="btn btn-info btn-md btn-block" routerLink="/user-main/" routerLinkActive="active">Desativar</button>
+                <button type="button" class="btn btn-info btn-md btn-block" (click)="deleteUser()">Contatos</button>
               </div>            
             </div>         
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   

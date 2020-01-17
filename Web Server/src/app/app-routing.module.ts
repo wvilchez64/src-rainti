@@ -6,7 +6,6 @@ import { DetranMainComponent } from './entities/detran/detran-main/detran-main.c
 import { RegistrarComponent } from './entities/registrar/registrar.component'; 
 import { HomeComponent } from './home/home.component';
 import { HelpComponent } from './help/help.component';
-import { ContractRegisterComponent } from './contract-register/contract-register.component';
 import { PasswordRecoverComponent } from './system-access/password-recover/password-recover.component';
 import { DetranDetailComponent } from './entities/detran/detran-detail/detran-detail.component';
 import { DetranContactsComponent } from './entities/detran/detran-contacts/detran-contacts.component';
@@ -32,6 +31,8 @@ import { UserAddComponent } from './registers/user/user-add/user-add.component';
 import { UserMainComponent } from './registers/user/user-main/user-main.component';
 import { GroupAddComponent } from './registers/groups/group-add/group-add.component';
 import { GroupMainComponent } from './registers/groups/group-main/group-main.component';
+import { ContractMainComponent } from './contract/contract-main/contract-main.component';
+import { ContractAddComponent } from './contract/contract-add/contract-add.component';
 
 const routes: Routes = [
   {
@@ -200,11 +201,17 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'registrar-contrato',
-    component: ContractRegisterComponent,
+    path: 'contratos',
+    component: ContractMainComponent,
     canActivate: [AuthGuard]
   },
   
+  {
+    path: 'registrar-contrato',
+    component: ContractAddComponent,
+    canActivate: [AuthGuard]
+  },
+
 ];
 
 @NgModule({

@@ -1,12 +1,12 @@
 <div class="row justify-content-lg align-items-center">
     <div class="col">
-      <h1>Gestora</h1>  
+      <h1>Contratos</h1>  
     </div>  
     <div class="col-md-auto">    
       <form class="form-inline ">
         <div class="row align-items-center mb-1">    
           <div class="col">
-            <button type="button" class="btn btn-outline-primary btn-md btn-block" (click)="addCreditorGroup()">Adicionar</button>
+            <button type="button" class="btn btn-outline-primary btn-md btn-block" routerLink="/registrar-contrato">Adicionar</button>
           </div>        
           <div class="col">
             <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -17,25 +17,26 @@
   </div>
   <hr/>
   <div class="row mt-2">    
-      <div class="col-md-4 mb-4" *ngFor="let entity of entities | filter: name : searchText"> 
+      <div class="col-md-4 mb-4" *ngFor="let users of user | filter: fristname : searchText"> 
         <div class="card text-center shadow rounded">
           <div class="card-body ">
-            <h5 class="card-title ">{{entity.businessname}}</h5>
+            <h5 class="card-title ">{{users.name}}</h5>
             <hr/>
-            <p class="card-text"><b>CNPJ:</b> {{entity.cnpj}}</p>
-            <p class="card-text"><b>tel.:</b> {{entity.phone}}</p>
-            <p class="card-text"><b>e-mail:</b> {{entity.email}}</p>          
+            <p class="card-text"><b>Last:</b> {{users.lastname}}</p>
+            <p class="card-text"><b>usuário:</b> {{users.username}}</p>
+            <p class="card-text"><b>e-mail:</b> {{users.email}}</p>          
           </div>
           <div class="card-footer text-muted">
             <div class="row align-items-center mb-1">    
               <div class="col">
-                <button type="button" class="btn btn-primary btn-md btn-block" routerLink="/gestor-detalhe/{{entity.id}}" routerLinkActive="active" >Editar</button>
+                <button type="button" class="btn btn-primary btn-md btn-block" routerLink="/contratos/" routerLinkActive="active" >Editar</button>
               </div>        
               <div class="col">
-                <button type="button" class="btn btn-info btn-md btn-block" routerLink="/gestor-contatos/{{entity.id}}" routerLinkActive="active">Contatos</button>
+                <button type="button" class="btn btn-info btn-md btn-block" routerLink="/contratos/" routerLinkActive="active">Desativar</button>
               </div>            
             </div>         
           </div>
         </div>
       </div>
     </div>
+  

@@ -3,6 +3,7 @@ const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 const jsonData = require('../../../config/config-database.json')
 var randomize = require('randomatic');
+const jwtToken = require('../../../routes/common/functions')
 
 const pool = new Pool({  
   user: jsonData.user,
@@ -45,7 +46,14 @@ const getUser = (req, res) =>{
 
 // Exibindo os grupos existentes na criação de usuários
 const getGroupsForUsersAdd = (req, res) =>{
-  pool.query('select planname, id from role_plans',
+
+  let token = jwtToken.verifyToken( req, res)
+
+  console.log(token.subject.userId+' ' + req.body)
+
+ 
+  pool.query('select rp.id, p.description as name, dd.description as entityname from plan p, role_plans rp, accounts acc, data_detran dd where acc.roleplanid = rp.id and rp.planid = p.id and acc.userid = $1 and dd.identity = rp.entityid and dd.datacodeid = 1 ', 
+      [token.subject.userId],
    (error, storedShowGroupsForUsers) => {
     if (error) {
       console.log(error)
@@ -57,11 +65,12 @@ const getGroupsForUsersAdd = (req, res) =>{
 
 // Exibindo as entidades existentes na criação de usuários
 const getUserEntities = (req, res) =>{
-  pool.query('select description, id from entity_type',
+  pool.query('select  dd.identity as id, max(case when dd.datacodeid = 9 then dd.description end) as name  from data_creditor dd, states st, states_relationship sr, entities et where dd."identity" = sr."identity" and st.id = sr.idstate and dd."identity" = et.id  and et.status = true group by dd.identity order by 2',
    (error, storedShowEntitiesForUsers) => {
     if (error) {
       console.log(error)
     }else{
+    console.log(storedShowEntitiesForUsers.rows)
     res.status(200).json(storedShowEntitiesForUsers.rows)
     }
   })
@@ -83,17 +92,6 @@ const createGroup = (req, res) => {
     })
 }
 
-// Exibição de grupos
-const getGroup = (req, res) =>{
-  pool.query('select planname as name, entityid as entidade, status as status from role_plans',
-   (error, storedGroup) => {
-    if (error) {
-      console.log(error)
-    }else{
-    res.status(200).json(storedGroup.rows)
-    }
-  })
-}
 
 // Exibindo as features existentes na criação de grupos
 const getUserGroupFeatures = (req, res) =>{
@@ -110,7 +108,6 @@ const getUserGroupFeatures = (req, res) =>{
 module.exports = { 
   createUser,
   getUser,
-  getGroup,
   createGroup,
   getGroupsForUsersAdd,
   getUserEntities,
