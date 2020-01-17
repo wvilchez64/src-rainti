@@ -21,6 +21,19 @@
                                     <div class="form-group">
                                         <div class="row">
                                                 <div class="col-xl">
+                                                    <label for="uname1">Detran</label>
+                                                    <select class="custom-select" #detran="ngModel" [class.is-invalid]="detranTopicHasError && detran.touched"
+                                                    name="detran" [(ngModel)]="contractData.detran" (change)="validateTopic(detran.value)" (blur)="validateTopic(detran.value)">                            
+                                                        <option value="default">--Escolha um Detran</option>
+                                                        <option *ngFor="let detran of _detrans">{{ contractData.creditor }}</option>
+                                                    </select>
+                                                    <small class="text-danger" [class.d-none]="!detranTopicHasError || detran.untouched">Escolha uma credora</small>
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                                <div class="col-xl">
                                                     <label for="uname1">Credora</label>
                                                     <select class="custom-select" #creditor="ngModel" [class.is-invalid]="topicHasError && creditor.touched"
                                                     name="creditor" [(ngModel)]="contractData.creditor" (change)="validateTopic(creditor.value)" (blur)="validateTopic(creditor.value)">                            

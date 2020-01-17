@@ -15,6 +15,9 @@ export class ContractAddComponent implements OnInit {
     // Credor
     creditor: '',
 
+    // Detran
+    detran: '',
+
     // Comprador
     buyerName: '',
     buyerEmail: '',
@@ -76,6 +79,7 @@ export class ContractAddComponent implements OnInit {
   }
 
   _creditor: Array<any>=[];
+  _detrans: Array<any>=[];
   _financingType: Array<any>=[];
   _contractForm: Array<any>=[];
   _interestRate: Array<any>=[];
@@ -99,6 +103,9 @@ export class ContractAddComponent implements OnInit {
     this.cpfcnpjActive = cpfcnpjActive;
 
 }
+
+validateTopic(){}
+
 markAsActiveConsumer(cpfcnpjActiveConsumer: string){
   this.cpfcnpjActiveConsumer = cpfcnpjActiveConsumer;
 
