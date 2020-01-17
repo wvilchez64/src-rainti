@@ -40,6 +40,53 @@ const getCreditor = (req, res) =>{
   })
 }
 
+
+const getCreditorsGroup = (req, res) =>{
+  const gestora = 3;
+  pool.query("select et.id as id, dc.description as description, false as checked " +
+             "from data_creditor dc " +
+             "inner join entities et " +
+             "on dc.identity = et.id " +
+             "inner join entity_type ty " +
+             "on et.entitytypeid = ty.id " +
+             "where et.status = true " +
+             "and dc.datacodeid = 8 " +
+             "and ty.id  = $1 " +
+             "group by et.id, dc.description " +
+             "order by et.id ",
+   [gestora],
+   (error, groupCreditors) => {
+    if (error) {
+      console.log(error)     
+    } else {
+      res.status(200).json(groupCreditors.rows)
+    }
+  })
+}
+
+const getDetrans = (req, res) =>{
+  const detran = 1;
+  pool.query("select et.id as id, dc.description as description " +
+             "from data_detran dc " +
+             "inner join entities et " +
+             "on dc.identity = et.id " +
+             "inner join entity_type ty " +
+             "on et.entitytypeid = ty.id " +
+             "where et.status = true " +
+             "and dc.datacodeid = 1 " +
+             "and ty.id  = $1 " +
+             "group by et.id, dc.description " +
+             "order by et.id ",
+   [detran],
+   (error, storedDetrans) => {
+    if (error) {
+      console.log(error)     
+    } else {
+      res.status(200).json(storedDetrans.rows)
+    }
+  })
+}
+
 const getCreditorById = (req, res) =>{
 
   const identity = parseInt(req.params.id)
@@ -409,5 +456,7 @@ module.exports = {
   getCreditorContactById,
   addCreditorContact,
   updateCreditorContactById,
-  deleteCreditorContactById
+  deleteCreditorContactById,
+  getCreditorsGroup,
+  getDetrans
   }

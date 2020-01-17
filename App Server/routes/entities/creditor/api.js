@@ -16,6 +16,9 @@ router.put('/creditor-contacts/update-contact/:id',  verifyToken, queries.update
 router.post('/add-creditor-contact/:id', verifyToken, queries.addCreditorContact)
 router.delete('/creditor-contacts/delete-contact/:id',  verifyToken, queries.deleteCreditorContactById)
 
+router.get('/get-detrans',  verifyToken, queries.getDetrans)
+router.get('/get-creditors-group',  verifyToken, queries.getCreditorsGroup)
+
 function verifyToken(req, res, next){
     if(!req.headers.authorization){
         return res.status(401).send('Unauthorized request')
