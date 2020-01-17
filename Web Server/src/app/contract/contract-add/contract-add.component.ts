@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contract-add.component.css']
 })
 export class ContractAddComponent implements OnInit {
+   public cpfcnpjActiveConsumer ='cpf';
    public cpfcnpjActive ='cpf';
 
   contractData = {
@@ -98,6 +99,9 @@ export class ContractAddComponent implements OnInit {
     this.cpfcnpjActive = cpfcnpjActive;
 
 }
+markAsActiveConsumer(cpfcnpjActiveConsumer: string){
+  this.cpfcnpjActiveConsumer = cpfcnpjActiveConsumer;
 
+}
 
 }
