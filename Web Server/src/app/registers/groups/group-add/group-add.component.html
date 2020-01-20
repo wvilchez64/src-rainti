@@ -1,6 +1,6 @@
 <div class="py-5">
     <div class="row">
-        <div class="col-md-12 mx-auto">
+        <div class="col-md-15 mx-auto">
             <span class="anchor" id="formLogin"></span>
             <!-- form card login -->
             <div class="card shadow">
@@ -9,8 +9,9 @@
                     <hr/>
                     <form class="form" #profileForm="ngForm">
                         <div class="form-group">
-                                    <label for="uname1">Nome do grupo</label>
+                                    <label for="uname1">Grupo</label>
                                     <input type="text" [(ngModel)]="groupData.planname" name="planname"  class="form-control rounded-0" 
+                                    placeholder="Digite o nome do grupo a ser criado"
                                     [class.is-invalid]="planname.invalid && planname.touched" #planname="ngModel" required >
                                     <div class="md-errors-spacer" [hidden]="planname.valid || planname.untouched">
                                         <small  class="text-danger"*ngIf="planname.errors && planname.errors.required">
@@ -18,55 +19,78 @@
                                         </small>
                                     </div>
                         </div>                    
-                        <div class="form-group">
-                            <div>
-                                <h5>Selecione o Entidade(s) e a(s) Funcionalidade(s)</h5>                                                                 
-                            </div>                                    
+                        <div class="form-group">                                   
                             <div class="row">          
-                                <div class="col-md-3  border-right">                                        
-                                    <div class="border-bottom">
-                                            <label for="uname1">Entidade(s)</label>                                               
+                                <div class="col-md-12 ">                                        
+                                    <div class="form-inline border-bottom" style="padding-bottom: 10px;">
+                                            <div class="col-md-auto">
+                                                <label for="uname1">Entidade(s)</label>       
+                                            </div>
+                                            <div class="col-md-3">
+                                                <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
+                                            </div>                                                    
                                     </div>                                            
-                                    <div class="btn-group btn-group-toggle btn-group-vertical"  data-toggle="buttons" style="padding-top: 10px; overflow: auto; white-space: nowrap;" required>                                            
-                                        <div class="col" *ngFor="let entities of _entities ">
-                                            <label class="btn btn-outline-rainti" >
-                                                <input type="checkbox" name="profileOptions" id="{{entities.name}}.{{entities.id}}" autocomplete="off"> {{ entities.name }}
-                                            </label>
+                                    <div class="btn-group btn-group-toggle btn-group"  data-toggle="buttons" style="padding-top: 10px;" required> <!--style="padding-top: 10px; overflow: auto; white-space: nowrap;"-->
+                                        <div class="row">
+                                            <div class="col-md-auto" *ngFor="let entities of _entities | filter : name: searchText">
+                                                <label class="btn btn-outline-rainti" >
+                                                    <input type="checkbox" name="profileOptions" id="{{entities.name}}.{{entities.id}}" autocomplete="off"> {{ entities.name }}
+                                                </label>
+                                            </div>
                                         </div>
+                                        
                                     </div>                                      
-                                </div>                                                             
-                                <div class="col-md-9">  
-                                    <div class="border-bottom">                                        
-                                        <label for="uname1">Funcionalidade(s)</label>
-                                    </div>
+                                </div>                                                       
+                                
+                                <div class="col-md-12"style="padding-top: 10px; " >  
+                                    <div class="form-inline border-bottom " style="padding-bottom: 10px;">
+                                        <div class="col-md-auto">
+                                            <label for="uname1">Funcionalidade(s)</label>       
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextFunc" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
+                                        </div>                                                    
+                                    </div>                                            
                                                                            
-                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px; overflow: auto; white-space: nowrap;" required>                                            
+                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px; height: 180px;  overflow: auto; white-space: nowrap;" required>                                            
                                     
-                                        <div class="col-md-3 "  *ngFor="let feature of _features">
+                                        <div class="col-md-3 "  *ngFor="let feature of _features | filter : name : searchTextFunc">
                                             <label class="btn btn-outline-rainti"  >
                                                 <input type="checkbox" name="groupOptions" id="{{ feature.name }}.{{ feature.id}}" autocomplete="off"> {{ feature.name }}
                                             </label>
                                         </div>                                
                                         
                                     </div>                  
-                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px; overflow: auto; white-space: nowrap;" required>                                            
+                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px; height: 180px;  overflow: auto; white-space: nowrap;" required>                                            
                                     
-                                        <div class="col-md-3 "  *ngFor="let feature of _features">
+                                        <div class="col-md-3 "  *ngFor="let feature of _features | filter : name : searchTextFunc">
                                             <label class="btn btn-outline-rainti"  >
                                                 <input type="checkbox" name="groupOptions" id="{{ feature.name }}.{{ feature.id}}" autocomplete="off"> {{ feature.name }}
                                             </label>
                                         </div>                                
                                         
                                     </div>                  
-                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px; overflow: auto; white-space: nowrap;" required>                                            
+                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px; height: 180px;  overflow: auto; white-space: nowrap;" required>                                            
                                     
-                                        <div class="col-md-3 "  *ngFor="let feature of _features">
+                                        <div class="col-md-3 "  *ngFor="let feature of _features | filter : name : searchTextFunc">
                                             <label class="btn btn-outline-rainti"  >
                                                 <input type="checkbox" name="groupOptions" id="{{ feature.name }}.{{ feature.id}}" autocomplete="off"> {{ feature.name }}
                                             </label>
                                         </div>                                
                                         
-                                    </div>                                 
+                                    </div>  
+                                    <div style="padding-top: 10px; height: 180px; overflow: auto; white-space: nowrap;">
+                                        <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                            
+                                    
+                                            <div class="col-md-3 "  *ngFor="let feature of _features | filter : name : searchTextFunc">
+                                                <label class="btn btn-outline-rainti"  >
+                                                    <input type="checkbox" name="groupOptions" id="{{ feature.name }}.{{ feature.id}}" autocomplete="off"> {{ feature.name }}
+                                                </label>
+                                            </div>                                
+                                            
+                                        </div>                                 
+                                    </div>
+                                    
                                 </div>                                    
                                 
                             </div> 
