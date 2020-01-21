@@ -18,6 +18,8 @@ router.delete('/creditor-contacts/delete-contact/:id',  verifyToken, queries.del
 
 router.get('/get-detrans',  verifyToken, queries.getDetrans)
 router.get('/get-creditors-group',  verifyToken, queries.getCreditorsGroup)
+router.get('/get-detrans/:id',  verifyToken, queries.getDetransById)
+router.get('/get-creditors-group/:id',  verifyToken, queries.getCreditorsGroupById)
 
 function verifyToken(req, res, next){
     if(!req.headers.authorization){

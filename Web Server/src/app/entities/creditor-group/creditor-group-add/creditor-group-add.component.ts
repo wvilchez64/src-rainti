@@ -32,7 +32,8 @@ export class CreditorGroupAddComponent implements OnInit {
   _states : Array<any> = [] 
   topicHasError = true
   dddHasError = true
-
+  activeTab = "nav-home"
+  
   constructor(private _creditorGroupAddService: CreditorGroupAddService,
     private _router: Router,
     private _location: Location) { }
@@ -55,6 +56,10 @@ export class CreditorGroupAddComponent implements OnInit {
       error => {console.log(error)
                 this._errorMessage = error.error }
       )
+  }
+
+  nextTab(activeTab) {
+    this.activeTab = activeTab;
   }
 
   createCreditorGroup(){

@@ -10,8 +10,9 @@ import { CreditorMainService } from '../creditor-services/creditor-main.service'
 export class CreditorMainComponent implements OnInit {
 
   entities: Array<any> = []
-  searchText: ''
-  name: ''
+  searchText= ''
+  businessname= ''
+
   constructor(private _creditorMainService: CreditorMainService,
               private _router: Router){}   
 
@@ -23,8 +24,8 @@ export class CreditorMainComponent implements OnInit {
     ) 
   }
 
-  addCreditor(){
-      this._router.navigate(['/credor-adicionar'])
+ addCreditor(){
+    this._router.navigate(['/credor-adicionar'])
   }
 
 }

@@ -9,13 +9,14 @@
                     <hr/>
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Geral</a>
-                        <a class="nav-item nav-link" id="nav-address-tab" data-toggle="tab" href="#nav-address" role="tab" aria-controls="nav-address" aria-selected="false">Endereço</a>
-                        <a class="nav-item nav-link" id="nav-contract-tab" data-toggle="tab" href="#nav-contract" role="tab" aria-controls="nav-contract" aria-selected="false">Contrato</a>
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" [ngClass]="{'active':activeTab==='nav-home'}" (click)="nextTab('nav-home')" role="tab" aria-controls="nav-home" aria-selected="true">Geral</a>
+                        <a class="nav-item nav-link" id="nav-address-tab" data-toggle="tab" href="#nav-address" [ngClass]="{'active':activeTab==='nav-address'}" (click)="nextTab('nav-address')" role="tab" aria-controls="nav-address" aria-selected="false">Endereço</a>
+                        <a class="nav-item nav-link" id="nav-contract-tab" data-toggle="tab" href="#nav-contract" [ngClass]="{'active':activeTab==='nav-contract'}" (click)="nextTab('nav-contract')" role="tab" aria-controls="nav-contract" aria-selected="false">Contrato</a>
+
                         </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div [ngClass]="{'show active':activeTab==='nav-home'}" class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">    
                             <form class="form" #registerForm="ngForm">
                                 <div class="form-group">
                                     <label for="uname1">Razão Social</label>
@@ -107,7 +108,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <button type="submit" [disabled]="registerForm.form.invalid" (click)="createCreditorGroup()" class="btn btn-rainti btn-block ">Confirmar</button>                
+                                            <button type="submit" [ngClass]="{'active':activeTab==='nav-home'}" (click)="nextTab('nav-address')" class="btn btn-rainti btn-block ">Próximo</button>                
                                         </div>  
                                         <div class="col-sm-6">
                                             <button type="submit" (click)="backToCreditorGroup()" class="btn btn-info btn-block">Voltar</button>
@@ -116,7 +117,7 @@
                                 </div>                                         
                             </form>                
                         </div>
-                        <div class="tab-pane fade" id="nav-address" role="tabpanel" aria-labelledby="nav-address-tab">
+                        <div [ngClass]="{'show active':activeTab==='nav-address'}" class="tab-pane fade" id="nav-address" role="tabpanel" aria-labelledby="nav-address-tab">
                             <form class="form" #addressForm="ngForm">
                                 <div class="form-group">
                                     <label for="uname1">Logradouro</label>
@@ -207,7 +208,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <button type="submit" [disabled]="addressForm.form.invalid" (click)="createCreditorGroup()" class="btn btn-rainti btn-block ">Confirmar</button>                
+                                            <button type="submit" [ngClass]="{'active':activeTab==='nav-address'}" (click)="nextTab('nav-contract')" class="btn btn-rainti btn-block ">Próximo</button>                
                                         </div>  
                                         <div class="col-sm-6">
                                             <button type="submit" (click)="backToCreditorGroup()" class="btn btn-info btn-block">Voltar</button>
@@ -216,7 +217,7 @@
                                 </div>                              
                             </form>                
                         </div>
-                        <div class="tab-pane fade" id="nav-contract" role="tabpanel" aria-labelledby="nav-contract-tab">
+                        <div [ngClass]="{'show active':activeTab==='nav-contract'}" class="tab-pane fade" id="nav-contract" role="tabpanel" aria-labelledby="nav-contract-tab">
                             <form class="form" #contractForm="ngForm">
                                 <div class="form-group">
                                     <div class="row">

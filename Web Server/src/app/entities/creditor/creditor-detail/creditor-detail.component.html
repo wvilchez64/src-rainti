@@ -9,11 +9,11 @@
                     <hr/>
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-                        <a class="nav-item nav-link" id="nav-address-tab" data-toggle="tab" href="#nav-address" role="tab" aria-controls="nav-address" aria-selected="false">Address</a>
-                        <a class="nav-item nav-link" id="nav-contract-tab" data-toggle="tab" href="#nav-contract" role="tab" aria-controls="nav-contract" aria-selected="false">Contract</a>
-                        <a class="nav-item nav-link" id="nav-entities-tab" data-toggle="tab" href="#nav-entities" role="tab" aria-controls="nav-entities" aria-selected="false">Entidades</a>
-                    </div>
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Geral</a>
+                            <a class="nav-item nav-link" id="nav-address-tab" data-toggle="tab" href="#nav-address" role="tab" aria-controls="nav-address" aria-selected="false">Endereço</a>
+                            <a class="nav-item nav-link" id="nav-contract-tab" data-toggle="tab" href="#nav-contract" role="tab" aria-controls="nav-contract" aria-selected="false">Contrato</a>
+                            <a class="nav-item nav-link" id="nav-entities-tab" data-toggle="tab" href="#nav-entities" role="tab" aria-controls="nav-entities" aria-selected="false">Entidades</a>
+                        </div>
                     </nav>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
@@ -109,10 +109,10 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <button type="submit" [disabled]="registerForm.form.invalid" (click)="updateCreditor()" class="btn btn-rainti btn-block">Alterar</button>
+                                            <button type="submit" (click)="updateCreditor()" class="btn btn-rainti btn-block">Alterar</button>
                                         </div>
                                         <div class="col-sm-4">
-                                            <button type="submit" [disabled]="registerForm.form.invalid"(click)="deleteCreditor()" class="btn btn-danger btn-block">Excluir</button>
+                                            <button type="submit" (click)="deleteCreditor()" class="btn btn-danger btn-block">Desativar</button>
                                         </div>  
                                         <div class="col-sm-4">
                                             <button type="submit" (click)="backToCreditor()" class="btn btn-info btn-block">Voltar</button>
@@ -212,10 +212,10 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <button type="submit" [disabled]="addressForm.form.invalid" (click)="updateCreditor()" class="btn btn-rainti btn-block">Alterar</button>
+                                            <button type="submit" (click)="updateCreditor()" class="btn btn-rainti btn-block">Alterar</button>
                                         </div>
                                         <div class="col-sm-4">
-                                            <button type="submit" [disabled]="addressForm.form.invalid"(click)="deleteCreditor()" class="btn btn-danger btn-block">Excluir</button>
+                                            <button type="submit" (click)="deleteCreditor()" class="btn btn-danger btn-block">Desativar</button>
                                         </div>  
                                         <div class="col-sm-4">
                                             <button type="submit" (click)="backToCreditor()" class="btn btn-info btn-block">Voltar</button>
@@ -271,10 +271,10 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <button type="submit" [disabled]="contractForm.form.invalid" (click)="updateCreditor()" class="btn btn-rainti btn-block">Alterar</button>
+                                            <button type="submit" (click)="updateCreditor()" class="btn btn-rainti btn-block">Alterar</button>
                                         </div>
                                         <div class="col-sm-4">
-                                            <button type="submit" [disabled]="contractForm.form.invalid"(click)="deleteCreditor()" class="btn btn-danger btn-block">Excluir</button>
+                                            <button type="submit" (click)="deleteCreditor()" class="btn btn-danger btn-block">Desativar</button>
                                         </div>  
                                         <div class="col-sm-4">
                                             <button type="submit" (click)="backToCreditor()" class="btn btn-info btn-block">Voltar</button>
@@ -284,53 +284,64 @@
                             </form> 
                         </div>
                         <div class="tab-pane fade" id="nav-entities" role="tabpanel" aria-labelledby="nav-entities-tab">
-                            <form class="form" #entitiesForm="ngForm">                                 
-                                <div class="form-group">
-                                    <div>
-                                        <h5>Selecione os Detrans e a Gestora</h5>                                                                 
-                                    </div>                                    
-                                    <div class="row">                                                                       
-                                        <div class="col-sm-6">  
-                                            <div class="border-bottom">                                        
-                                                <label for="uname1">Detrans</label>
-                                            </div> 
-                                            <label>Selecionar Todos: <input type="checkbox" ng-model="leader"></label><br/>   
-                                            <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px;"required>                                            
-                                                <div class="col" *ngFor="let detran of _detrans ">
-                                                    <label class="btn btn-outline-rainti" >
-                                                        <input type="checkbox" name="detranOptions" id="{{detran.description}}.{{detran.id}}" autocomplete="off"> {{ detran.description }}
-                                                    </label>
-                                                </div>
-                                            </div>                                          
-                                        </div>                                    
-                                        <div class="col-sm-6  border-right">                                        
-                                            <div class="border-bottom">
-                                                 <label for="uname1">Gestoras</label>                                               
-                                            </div> 
-                                            <label>Limpar Todos: <input type="checkbox"></label><br/>
-                                            <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons" style="padding-top: 10px;">                                            
-                                                <div class="col" *ngFor="let creditorgroup of _creditorsgroup">
-                                                    <label class="btn btn-outline-rainti" >
-                                                        <input type="checkbox" [(ngModel)]="creditorgroup.checked" name="creditorgroupOptions" id="{{creditorgroup.description}}.{{creditorgroup.id}}" autocomplete="off" (click)="uncheckOthersOptions(creditorgroup.id)"> {{ creditorgroup.description }}
-                                                    </label>
-                                                </div>
-                                            </div> 											
-                                        </div>
-                                    </div> 
-                                </div>   
+                            <form class="form" #entitiesForm="ngForm"> 
+                                <nav>
+                                    <div class="nav nav-tabs2" id="nav-tab2" role="tablist2">
+                                        <a class="nav-item2 nav-link active" id="nav-detrans-tab" data-toggle="tab" href="#nav-detrans" role="tab" aria-controls="nav-detran" aria-selected="true">Detrans</a>
+                                        <a class="nav-item2 nav-link" id="nav-creditorsgroup-tab" data-toggle="tab" href="#nav-creditorsgroup" role="tab" aria-controls="nav-creditorsgroup" aria-selected="false">Gestoras</a>
+                                    </div>
+                                </nav>      
+                                <div class="tab-content" id="nav-tabContent2">
+                                    <div class="tab-pane fade show active" id="nav-detrans" role="tabpanel" aria-labelledby="nav-detrans-tab">
+                                        <form class="form" #detransForm="ngForm">
+                                            <div class="form-group">
+                                                <div>
+                                                    <h5>Selecione os Detrans</h5>                                                                 
+                                                </div>                                    
+                                                <label>Selecionar/Limpar Todos: <input type="checkbox" (click)="checkAllOptions()"></label><br/>   
+                                                <div class="container-rainti btn-group btn-group-toggle btn-group-vertical" style="padding-top: 10px;"required>                                            
+                                                    <div class="text-left" *ngFor="let detran of _detrans ">
+                                                        <label class="custom-control custom-checkbox" >
+                                                            <input type="checkbox" [checked]="detran.checked" name="detranOptions" id="{{detran.id}}" autocomplete="off" (change)="checkDetransChange($event)"> {{ detran.description }}
+                                                        </label>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </form>
+                                    </div>    
+                                    <div class="tab-pane fade" id="nav-creditorsgroup" role="tabpanel" aria-labelledby="nav-creditorsgroup-tab">
+                                        <form class="form" #creditorsgroupForm="ngForm">
+                                            <div class="form-group">
+                                                <div>
+                                                    <h5>Selecione a Gestora</h5>                                                                 
+                                                </div>                                    
+                                                <div>
+                                                    <button type="button" class="btn btn-primary" data-toggle="button" class="btn btn-primary btn-sm" data-toggle="button" aria-pressed="false" autocomplete="off" (click)="uncheckAllOptions()">Limpar</button>
+                                                </div>                                    
+                                                <div class="container-rainti btn-group btn-group-toggle btn-group-vertical" style="padding-top: 20px;">                                            
+                                                    <div class="text-left" *ngFor="let creditorgroup of _creditorsgroup">
+                                                        <label class="custom-control custom-checkbox" >
+                                                            <input type="checkbox" [checked]="creditorgroup.checked" name="creditorgroupOptions" id="{{creditorgroup.id}}" autocomplete="off" (change)="checkCreditorsGroupChange($event)"> {{ creditorgroup.description }}
+                                                        </label>
+                                                    </div>
+                                                </div> 	
+                                            </div>
+                                        </form>
+                                    </div>    
+                                </div>                          
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <button type="submit" [disabled]="entitiesForm.form.invalid" (click)="updateCreditor()" class="btn btn-rainti btn-block">Alterar</button>
+                                            <button type="submit" (click)="updateCreditor()" class="btn btn-rainti btn-block">Alterar</button>
                                         </div>
                                         <div class="col-sm-4">
-                                            <button type="submit" [disabled]="entitiesForm.form.invalid"(click)="deleteCreditor()" class="btn btn-danger btn-block">Excluir</button>
+                                            <button type="submit" (click)="deleteCreditor()" class="btn btn-danger btn-block">Desativar</button>
                                         </div>  
                                         <div class="col-sm-4">
                                             <button type="submit" (click)="backToCreditor()" class="btn btn-info btn-block">Voltar</button>
                                         </div>  
                                     </div>                            
-                                </div>  
+                                </div>     
                             </form>                
                         </div>
                     </div>
