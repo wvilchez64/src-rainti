@@ -342,7 +342,7 @@ const updateCreditorById = async function (req, res) {
  
     var i; 
     for (i = 0; i < userData.entities.length; i++) {
-      entities_relationshipValues = [identity, userData.entities[i].id]
+      entities_relationshipValues = [userData.entities[i].id, identity]
       await client.query(entities_relationshipSql, entities_relationshipValues);
     } 
 
