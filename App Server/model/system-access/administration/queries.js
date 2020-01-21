@@ -52,12 +52,38 @@ const getGroupsForUsersAdd = (req, res) =>{
   console.log(token.subject.userId+' ' + req.body)
 
  
-  pool.query('select rp.id, p.description as name, dd.description as entityname from plan p, role_plans rp, accounts acc, data_detran dd where acc.roleplanid = rp.id and rp.planid = p.id and acc.userid = $1 and dd.identity = rp.entityid and dd.datacodeid = 1 ', 
+  pool.query('select rp.id as id, '
+            +'	   p.description as name, '
+            +'	   dd.description as entityname '
+            +'from plan p, '
+            +'	   role_plans rp, '
+            +'	   accounts acc, '
+            +'	   data_detran dd '
+            +'where acc.roleplanid = rp.id '
+            +'and rp.planid = p.id '
+            +'and acc.userid = $1 '
+            +'and dd.identity = rp.entityid '
+            +'and dd.datacodeid = 1  '
+            +'union '
+            +'select rp.id as id, '
+            +'	   p.description as name, '
+            +'	   dd.description as entityname '
+            +'from plan p, '
+            +'	   role_plans rp, '
+            +'	   accounts acc, '
+            +'	   data_creditor dd '
+            +'where acc.roleplanid = rp.id '
+            +'and rp.planid = p.id '
+            +'and acc.userid = $1 '
+            +'and dd.identity = rp.entityid '
+            +'and dd.datacodeid = 9 '
+            +'order by 2', 
       [token.subject.userId],
    (error, storedShowGroupsForUsers) => {
     if (error) {
       console.log(error)
     }else{
+    console.log(JSON.stringify(storedShowGroupsForUsers.rows))
     res.status(200).json(storedShowGroupsForUsers.rows)
     }
   })
