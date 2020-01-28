@@ -172,14 +172,14 @@ export class CreditorDetailComponent implements OnInit {
 
   entitiesCheck() {
     this.entities = []
-    this._detrans.forEach(val => { 
+    this._detrans.forEach(val => {      
       if (val.checked) {
-        this.entities.push({id:val.id})
+        this.entities.push(val.id)
       }
     });
     this._creditorsgroup.forEach(val => { 
       if (val.checked) {
-        this.entities.push({id:val.id})
+        this.entities.push(val.id)
       }
     });
     this.creditorData.entities = this.entities;

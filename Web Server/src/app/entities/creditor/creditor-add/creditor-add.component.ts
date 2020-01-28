@@ -123,12 +123,12 @@ export class CreditorAddComponent implements OnInit {
     this.entities = []
     this._detrans.forEach(val => { 
       if (val.checked) {
-        this.entities.push({id:val.id})
+        this.entities.push(val.id)
       }
     });
     this._creditorsgroup.forEach(val => { 
       if (val.checked) {
-        this.entities.push({id:val.id})
+        this.entities.push(val.id)
       }
     });
     this.creditorData.entities = this.entities;
