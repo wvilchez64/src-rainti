@@ -53,6 +53,7 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 import { AuditHistoryComponent } from './reports/audit-history/audit-history.component';
 import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
 import { TransactionBillingComponent } from './reports/transaction-billing/transaction-billing.component';
+import {DataTablesModule} from 'angular-datatables';
 
 
 @NgModule({
@@ -108,6 +109,7 @@ import { TransactionBillingComponent } from './reports/transaction-billing/trans
     UserIdleModule,
     CpfCnpjModule,
     CurrencyMaskModule,
+    DataTablesModule,
 
   ],
   providers: [AuthService, AuthGuard, 
