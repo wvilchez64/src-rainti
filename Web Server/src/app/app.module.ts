@@ -50,6 +50,9 @@ import { ContractAddComponent } from './contract/contract-add/contract-add.compo
 import { ContractMainComponent } from './contract/contract-main/contract-main.component';
 import { CpfCnpjModule } from 'ng2-cpf-cnpj';
 import { CurrencyMaskModule } from "ng2-currency-mask";
+import { AuditHistoryComponent } from './reports/audit-history/audit-history.component';
+import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
+import { TransactionBillingComponent } from './reports/transaction-billing/transaction-billing.component';
 
 
 @NgModule({
@@ -92,6 +95,10 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 
     ContractAddComponent,
     ContractMainComponent,
+
+    AuditHistoryComponent,
+    FinancialTransactionComponent,
+    TransactionBillingComponent,
   ],
   imports: [
     BrowserModule,
