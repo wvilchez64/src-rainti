@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-contract-add',
   templateUrl: './contract-add.component.html',
   styleUrls: ['./contract-add.component.css']
 })
 export class ContractAddComponent implements OnInit {
-   public cpfcnpjActiveConsumer ='cpf';
-   public cpfcnpjActive ='cpf';
-
+  public _activeOCRN ='registro';
+  public _aditivo = false
+  public _registro = true
+  public _installmentValue = 0
+  public cpfcnpjActiveConsumer ='cpf';
+  public cpfcnpjActive ='cpf';
   contractData = {
 
     // Credor
@@ -58,24 +60,25 @@ export class ContractAddComponent implements OnInit {
     color: '',
 
     // Contrato
-    financingType:'',
-    contractForm: '',
+    originalCRN:'',
     physicalContractNumber: '',
-    TotalDebtAmount: '',
+    contractDate:'',
+    alienType:'',
+    restrictionNumber:'',
+    totalDebitAmount: '',
+    numberOfInstallments: '',
     contractRegistrationAmount: '',
     iofAmount: '',
-    paymentPlace: '',
-    payday: '',
     interestRatePerMonth:'',
     interestRate: '',
     dailyInterestRate:'',
     contractIndex: '',
+    paymentStartDate: '',
     creditReleaseDate:'',
-    contractNeighborhood: '',
-    contractAddress: '',
-    contractHouseNumber: '',
-    contractState: '',
-    contractDistrict: '',
+    creditReleaseState:'',
+    creditReleaseCity: '',
+    consortiumGroupNumber: '',
+    consortiumQuotaNumber: '',
   }
 
   _creditor: Array<any>=[];
@@ -88,11 +91,26 @@ export class ContractAddComponent implements OnInit {
   _plateUf:Array<any>=[];
   _brand:Array<any>=[];
   _model:Array<any>=[];
+  
+  _paymentEndDate: any
+  _creditReleaseState : Array<any> = [] 
+  //creditReleaseStateHasError = true
+  
 
+  activeTab = "nav-contrato"
 
   constructor() {
 
   }
+
+  // validateCreditReleaseState(value) {
+  //   if (value === 'default') {
+  //     this.creditReleaseStateHasError = true;
+  //   } else {
+  //     this.creditReleaseStateHasError = false;
+  //   }
+
+  // }
 
   ngOnInit() {
 
@@ -102,13 +120,31 @@ export class ContractAddComponent implements OnInit {
   markAsActive(cpfcnpjActive: string){
     this.cpfcnpjActive = cpfcnpjActive;
 
-}
+  }
 
-validateTopic(){}
+  getinstallmentValue(e) {
+    this._installmentValue = parseFloat(this.contractData.totalDebitAmount) / parseInt(this.contractData.numberOfInstallments)
+  }
 
-markAsActiveConsumer(cpfcnpjActiveConsumer: string){
-  this.cpfcnpjActiveConsumer = cpfcnpjActiveConsumer;
+  nextTab(activeTab) {
+    this.activeTab = activeTab;
+  }
 
-}
+  validateTopic(){}
+
+  markAsActiveConsumer(cpfcnpjActiveConsumer: string){
+    this.cpfcnpjActiveConsumer = cpfcnpjActiveConsumer;
+  }
+
+  markAsActiveOCRN(activeOCRN: string){
+  this._aditivo = false
+  this._registro = true
+  if  (activeOCRN == 'aditivo'){
+    } else {
+      this._aditivo = true
+      this._registro = false
+    }
+    this._activeOCRN = activeOCRN;  
+  }
 
 }
