@@ -50,10 +50,14 @@ import { ContractAddComponent } from './contract/contract-add/contract-add.compo
 import { ContractMainComponent } from './contract/contract-main/contract-main.component';
 import { CpfCnpjModule } from 'ng2-cpf-cnpj';
 import { CurrencyMaskModule } from "ng2-currency-mask";
-import { AuditHistoryComponent } from './reports/audit-history/audit-history.component';
 import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
 import { TransactionBillingComponent } from './reports/transaction-billing/transaction-billing.component';
 import {DataTablesModule} from 'angular-datatables';
+import { AuditUserDetailComponent } from './reports/audit-history/audit-user-detail/audit-user-detail.component';
+import { AuditGroupDetailComponent } from './reports/audit-history/audit-group-detail/audit-group-detail.component';
+import { AuditContractDetailComponent } from './reports/audit-history/audit-contract-detail/audit-contract-detail.component';
+import { AuditDetranDetailComponent } from './reports/audit-history/audit-detran-detail/audit-detran-detail.component';
+import { AuditCreditorDetailComponent } from './reports/audit-history/audit-creditor-detail/audit-creditor-detail.component';
 
 
 @NgModule({
@@ -97,9 +101,14 @@ import {DataTablesModule} from 'angular-datatables';
     ContractAddComponent,
     ContractMainComponent,
 
-    AuditHistoryComponent,
     FinancialTransactionComponent,
     TransactionBillingComponent,
+ 
+    AuditUserDetailComponent,
+    AuditGroupDetailComponent,
+    AuditContractDetailComponent,
+    AuditDetranDetailComponent,
+    AuditCreditorDetailComponent,
   ],
   imports: [
     BrowserModule,

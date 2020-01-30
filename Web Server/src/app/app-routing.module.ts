@@ -33,7 +33,6 @@ import { GroupAddComponent } from './registers/groups/group-add/group-add.compon
 import { GroupMainComponent } from './registers/groups/group-main/group-main.component';
 import { ContractMainComponent } from './contract/contract-main/contract-main.component';
 import { ContractAddComponent } from './contract/contract-add/contract-add.component';
-import { AuditHistoryComponent } from './reports/audit-history/audit-history.component';
 import { TransactionBillingComponent } from './reports/transaction-billing/transaction-billing.component';
 import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
 
@@ -212,11 +211,6 @@ const routes: Routes = [
   {
     path: 'registrar-contrato',
     component: ContractAddComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'historico-transacao',
-    component: AuditHistoryComponent,
     canActivate: [AuthGuard]
   },
 

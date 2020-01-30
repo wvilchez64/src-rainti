@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AuditHistoryComponent } from './audit-history.component';
+import { AuditDetranDetailComponent } from './audit-detran-detail.component';
 
-describe('AuditHistoryComponent', () => {
-  let component: AuditHistoryComponent;
-  let fixture: ComponentFixture<AuditHistoryComponent>;
+describe('AuditDetranDetailComponent', () => {
+  let component: AuditDetranDetailComponent;
+  let fixture: ComponentFixture<AuditDetranDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuditHistoryComponent ]
+      declarations: [ AuditDetranDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AuditHistoryComponent);
+    fixture = TestBed.createComponent(AuditDetranDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
