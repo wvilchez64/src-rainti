@@ -12,18 +12,17 @@ export class CreditorAddService {
   private _detransUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/creditor/get-detrans"
   private _creditorsGroupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/creditor/get-creditors-group"
 
-  constructor(private http: HttpClient,) { }
-
+  constructor(private http: HttpClient) {  }
+  
   getStates(){
     return this.http.get<any>(this._statesUrl)
   }
-
   getDetrans(){
     return this.http.get<any>(this._detransUrl)
   }
 
   getCreditorsGroup(){
-    return this.http.get<any>(this._creditorsGroupUrl)
+  return this.http.get<any>(this._creditorsGroupUrl)
   }
 
   createCreditor(user){

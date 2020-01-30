@@ -13,6 +13,7 @@ const pool = new Pool({
 const getCreditor = (req, res) =>{
   const credora = 2;
   pool.query("select  dc.identity as id, et.description as cnpj, " +
+             "max(case when dc.datacodeid = 8 then dc.description end) as name, " +   
              "max(case when dc.datacodeid = 8 then dc.description end) as businessname, " +   
              "max(case when dc.datacodeid = 2 then dc.description end) as phone, " +
              "max(case when dc.datacodeid = 3 then dc.description end) as email " +
@@ -43,18 +44,18 @@ const getCreditor = (req, res) =>{
 
 const getCreditorsGroup = (req, res) =>{
   const gestora = 3;
-  pool.query("select et.id as id, dc.description as description, false as checked " +
+  const razaoSocial = 8;
+  pool.query("select et.id as id, et.entitytypeid as entitytypeid, dc.description as description, false as checked " +
              "from data_creditor dc " +
              "inner join entities et " +
              "on dc.identity = et.id " +
              "inner join entity_type ty " +
              "on et.entitytypeid = ty.id " +
              "where et.status = true " +
-             "and dc.datacodeid = 8 " +
+             "and dc.datacodeid = $2 " +
              "and ty.id  = $1 " +
-             "group by et.id, dc.description " +
              "order by et.id ",
-   [gestora],
+   [gestora, razaoSocial],
    (error, groupCreditors) => {
     if (error) {
       console.log(error)     
@@ -66,18 +67,73 @@ const getCreditorsGroup = (req, res) =>{
 
 const getDetrans = (req, res) =>{
   const detran = 1;
-  pool.query("select et.id as id, dc.description as description " +
+  const nome = 1;
+  pool.query("select et.id as id, et.entitytypeid as entitytypeid, dc.description as description, false as checked " +
              "from data_detran dc " +
              "inner join entities et " +
              "on dc.identity = et.id " +
              "inner join entity_type ty " +
              "on et.entitytypeid = ty.id " +
              "where et.status = true " +
-             "and dc.datacodeid = 1 " +
+             "and dc.datacodeid = $2 " +
              "and ty.id  = $1 " +
-             "group by et.id, dc.description " +
              "order by et.id ",
-   [detran],
+   [detran, nome],
+   (error, storedDetrans) => {
+    if (error) {
+      console.log(error)     
+    } else {
+      res.status(200).json(storedDetrans.rows)
+    }
+  })
+}
+
+const getCreditorsGroupById = (req, res) =>{  
+  const identity = parseInt(req.params.id);
+  const gestora = 3;
+  const razaoSocial = 8;  
+  pool.query("select et.id as id, et.entitytypeid as entitytypeid, dc.description as description, case when er.firstentity is null then false else true end as checked " +
+             "from data_creditor dc " +
+             "inner join entities et " +
+             "on dc.identity = et.id " +
+             "inner join entity_type ty " +
+             "on et.entitytypeid = ty.id " +
+             "left join entities_relationship er " +
+			       "on er.firstentity = $1" +
+             "and er.secondentity = et.id " +
+             "where et.status = true " +
+             "and dc.datacodeid = $3 " +
+             "and ty.id  = $2 " +
+             "order by et.id ",
+   [identity, gestora, razaoSocial],
+   (error, groupCreditors) => {
+    if (error) {
+      console.log(error)     
+    } else {
+      res.status(200).json(groupCreditors.rows)
+    }
+  })
+}
+
+const getDetransById = (req, res) =>{
+  const identity = parseInt(req.params.id);
+  const detran = 1;
+  const nome = 1;
+
+  pool.query("select et.id as id, et.entitytypeid as entitytypeid, dc.description as description, case when er.firstentity is null then false else true end as checked " +
+             "from data_detran dc " +
+             "inner join entities et " +
+             "on dc.identity = et.id " +
+             "inner join entity_type ty " +
+             "on et.entitytypeid = ty.id " +
+             "left join entities_relationship er " +
+             "on er.firstentity = $1" +
+             "and er.secondentity = et.id " +
+             "where et.status = true " +
+             "and dc.datacodeid = $3 " +
+             "and ty.id  = $2 " +
+             "order by et.id ",
+   [identity, detran, nome],
    (error, storedDetrans) => {
     if (error) {
       console.log(error)     
@@ -125,6 +181,7 @@ const getCreditorById = (req, res) =>{
     }
   })
 }
+
 
 const createCreditor = async function (req, res) {
   let userData = req.body;  
@@ -190,6 +247,16 @@ const createCreditor = async function (req, res) {
     
     data_creditorValues = [userData.enddate, identity, 18];
     await client.query(data_creditorSql, data_creditorValues);
+
+    const entities_relationshipSql = "insert into entities_relationship (firstentity, secondentity) values ($1, $2)";
+    var entities_relationshipValues = [];
+    
+    var i; 
+    for (i = 0; i < userData.entities.length; i++) {
+       entities_relationshipValues = [identity, userData.entities[i].id]
+      await client.query(entities_relationshipSql, entities_relationshipValues);
+    } 
+         
     
     await client.query('COMMIT');
     res.status(200).json({response: "Credora adicionada"});
@@ -266,8 +333,22 @@ const updateCreditorById = async function (req, res) {
     data_creditorValues = [userData.enddate, identity, 18];
     await client.query(data_creditorSql, data_creditorValues);
 
+    var entities_relationshipSql = "delete from entities_relationship where firstentity = $1";
+    var entities_relationshipValues = [identity];
+    await client.query(entities_relationshipSql, entities_relationshipValues);
+
+    entities_relationshipSql = "insert into entities_relationship (firstentity, secondentity) values ($1, $2)";
+    entities_relationshipValues = [];
+ 
+    var i; 
+    for (i = 0; i < userData.entities.length; i++) {
+      entities_relationshipValues = [userData.entities[i].id, identity]
+      await client.query(entities_relationshipSql, entities_relationshipValues);
+    } 
+
     await client.query('COMMIT');
-    res.status(200).json({response: "Credora atualizada"});
+    res.status(200).json({
+      response: "Credora atualizada"});
   } catch (e) {
     await client.query('ROLLBACK');
     res.status(400).json({response: "Erro atualizando Credora"});
@@ -291,14 +372,13 @@ const getCreditorContacts = (req, res) => {
 
   const id = parseInt(req.params.id)
 
-  pool.query('select  '
-            +'	dc.idcontact as id,  	'
+  pool.query('select dc.idcontact as id, '
             +'	max(case when dc.datacodeid = 1 then dc.description end) as name,   '
             +'	max(case when dc.datacodeid = 7 then dc.description end) as dddModel,   '
             +'	max(case when dc.datacodeid = 2 then dc.description end) as tel,  '
             +'	max(case when dc.datacodeid = 3 then dc.description end) as email,   '
             +'	max(case when dc.datacodeid = 6 then dc.description end) as additionalInfo   '
-            +' from data_contact dc, states st, contact_relationship cr, entities et '
+            +' from data_contact dc, states st, contact_relationship cr, entities et'
             +' where dc.idcontact = cr.id    '
             +'  and et.status = true '
             +'  and et.id = cr.identity'
@@ -323,8 +403,7 @@ const getCreditorContacts = (req, res) => {
 const getCreditorContactById = (req, res) =>{
   const id = parseInt(req.params.id)
 
-  pool.query('select  '
-            +'	dc.idcontact as id,  	'
+  pool.query('select dc.idcontact as id,  	'
             +'	max(case when dc.datacodeid = 1 then dc.description end) as name,   '
             +'	max(case when dc.datacodeid = 7 then dc.description end) as dddModel,   '
             +'	max(case when dc.datacodeid = 2 then dc.description end) as phone,  '
@@ -458,5 +537,7 @@ module.exports = {
   updateCreditorContactById,
   deleteCreditorContactById,
   getCreditorsGroup,
-  getDetrans
+  getDetrans,
+  getDetransById,
+  getCreditorsGroupById
   }

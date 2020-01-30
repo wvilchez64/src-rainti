@@ -14,6 +14,7 @@ const getCreditorGroup = (req, res) =>{
   
   const gestora = 3
   pool.query("select  dc.identity as id, et.description as cnpj, " +
+             "max(case when dc.datacodeid = 8 then dc.description end) as name, " +   
              "max(case when dc.datacodeid = 8 then dc.description end) as businessname, " +   
              "max(case when dc.datacodeid = 2 then dc.description end) as phone, " +
              "max(case when dc.datacodeid = 3 then dc.description end) as email " +

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CreditorDetailService } from '../creditor-services/creditor-detail.service';
-import { CreditorAddService } from '../creditor-services/creditor-add.service';
 import { Location } from '@angular/common';
+import { R3TargetBinder } from '@angular/compiler';
 
 @Component({
   selector: 'app-creditor-detail',
@@ -29,6 +29,7 @@ export class CreditorDetailComponent implements OnInit {
     startdate: '',
     enddate: '',
     status: true,
+    entities: []
   }
 
   creditorDataOld = {
@@ -49,6 +50,7 @@ export class CreditorDetailComponent implements OnInit {
     startdate: '',
     enddate: '',
     status: true,
+    entities: []
   }
 
   _registerUpdated = ''
@@ -58,10 +60,10 @@ export class CreditorDetailComponent implements OnInit {
   _creditorsgroup : Array<any> = [] 
   topicHasError = true
   dddHasError = true
+  entities : Array<any> = [] 
 
   constructor(private route: ActivatedRoute,
     private _creditorDetail: CreditorDetailService,
-    private _creditorAddService: CreditorAddService,
     private _location: Location ) { }
 
   validateTopic(value) {
@@ -75,7 +77,7 @@ export class CreditorDetailComponent implements OnInit {
 
   ngOnInit() {
     
-    this._creditorAddService.getStates()
+    this._creditorDetail.getStates()
     .subscribe(
       res => {
         this._states = res
@@ -97,60 +99,94 @@ export class CreditorDetailComponent implements OnInit {
             console.log(err)
           }
         )   
-        this._creditorAddService.getDetrans()
+      }
+    )
+
+    this.route.paramMap
+    .subscribe(
+      params => {
+        this._creditorDetail.getDetrans(params.get('id'))
         .subscribe(
           res => {
-            console.log(res)
-            this._detrans = res
-          },
-          error => {console.log(error)
-                    this._errorMessage = error.error }
-          )
-        this._creditorAddService.getCreditorsGroup()
+              console.log(res)
+              this._detrans = res
+            },
+            error => {console.log(error)
+                      this._errorMessage = error.error 
+            }
+        )   
+      }
+    )
+    
+    this.route.paramMap
+    .subscribe(
+      params => {
+        this._creditorDetail.getCreditorsGroup(params.get('id'))
         .subscribe(
           res => {
             console.log(res)
             this._creditorsgroup = res;   
           },
           error => {console.log(error)
-                    this._errorMessage = error.error }
-          )  
-    }
-      
-    );
+                    this._errorMessage = error.error
+            }
+        )   
+      }
+    )
   }
+
 
   creditorDataSender = {
     old : this.creditorDataOld,
     new : this.creditorData,
   }
 
-  
   checkAllOptions() {
-    this._creditorsgroup.forEach(val => { val.checked = true });
+    if (this._detrans.every(val => val.checked == true))
+       this._detrans.forEach(val => { val.checked = false });
+    else
+      this._detrans.forEach(val => { val.checked = true });
   }
 
   uncheckAllOptions() {
     this._creditorsgroup.forEach(val => { val.checked = false });
   }
 
-  uncheckOthersOptions(id) {
-    console.log(id)
+  checkDetransChange(e) {
+    this._detrans.forEach(val => { 
+      if (e.target.id == val.id) {
+        val.checked = e.target.checked;
+      }; 
+    });
+  }
 
-    var action = false;
-    this._creditorsgroup.forEach(val => {
-      action = false;
-      if (val.id == id) {
-        action = true;
-      }  
-      val.checked = action
-    })
+  checkCreditorsGroupChange(e) {
+    this._creditorsgroup.forEach(val => { 
+      if (e.target.id == val.id) {
+        val.checked = e.target.checked;
+      } else {
+        val.checked = !e.target.checked;
+      }; 
+    });
+  }
 
-    console.log('after', this._creditorsgroup);
+  entitiesCheck() {
+    this.entities = []
+    this._detrans.forEach(val => {      
+      if (val.checked) {
+        this.entities.push(val.id)
+      }
+    });
+    this._creditorsgroup.forEach(val => { 
+      if (val.checked) {
+        this.entities.push(val.id)
+      }
+    });
+    this.creditorData.entities = this.entities;
   }
 
   updateCreditor(){
-
+    this.entitiesCheck()
     this.route.paramMap
     .subscribe(
       params => {
@@ -164,9 +200,8 @@ export class CreditorDetailComponent implements OnInit {
             console.log(err)
           }
         )   
-    }      
+      }        
     );
-
   }
 
   deleteCreditor(){

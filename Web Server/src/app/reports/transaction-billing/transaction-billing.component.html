@@ -1,0 +1,39 @@
+<table class="table table-hover" datatable [dtOptions]="dtOptions">
+    <thead>
+      <tr>
+        <th class="text-center" scope="col">Contrato</th>
+        <th class="text-center" scope="col">Gestora</th>
+        <th class="text-center" scope="col">Credora</th>
+        <th class="text-center" scope="col">Chassi</th>
+        <th class="text-center" scope="col">Detran</th>
+        <th class="text-center" scope="col">Taxa de registro</th>
+        <th class="text-center" scope="col">Data do registro</th>
+        <th class="text-center" scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+     <tr *ngFor="let group of data">
+           <td class="text-center">{{group.nContrato}}</td>
+           <td class="text-center">{{group.gestora}}</td>
+           <td class="text-center">{{group.credora}}</td>
+           <td class="text-center">{{group.chassi}}</td>
+           <td class="text-center">{{group.detran}}</td>
+           <td class="text-center">{{group.tRegistro}}</td>
+           <td class="text-center">{{group.dataRegistro}}</td>
+           <td class="text-center">{{group.status}}</td>
+       </tr>
+    </tbody>
+  </table>
+
+  <hr/>
+  <div class="row justify-content-lg align-items-center">
+    <div class="col">
+    </div>  
+    <div class="col-md-auto">    
+      <form class="form-inline ">
+        <div class="row align-items-center mb-1">    
+            <p class="font-weight-bold">Total R$: 1231232131232,000</p>  
+        </div>   
+      </form> 
+    </div>
+  </div>
