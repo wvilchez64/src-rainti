@@ -45,25 +45,25 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'user-add',
+    path: 'usuarios-adicionar',
     component: UserAddComponent,
     canActivate: [AuthGuard]
   },
 
   {
-    path: 'user-main',
+    path: 'usuarios',
     component: UserMainComponent,
     canActivate: [AuthGuard]
   },
 
   {
-  path: 'group-main',
+  path: 'grupos',
   component: GroupMainComponent,
   canActivate: [AuthGuard]
   },
 
   {
-    path: 'group-add',
+    path: 'grupos-adicionar',
     component: GroupAddComponent,
     canActivate: [AuthGuard]
     },

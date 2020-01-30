@@ -198,9 +198,9 @@ const getDetranContacts = (req, res) => {
             +' from data_contact dc, states st, contact_relationship cr, entities et '
             +' where dc.idcontact = cr.id    '
             +'  and et.status = true '
-            +'  and et.id = cr.identity'
-            +'  and et.id = $1'
-            +'  and cr.status = 1'
+            +'  and et.id = cr.identity '
+            +'  and et.id = $1 '
+            +'  and cr.status = 1 '
             +' group by dc.idcontact '
             +' order by dc.idcontact ',
             [id], 

@@ -17,8 +17,12 @@ export class GroupAddComponent implements OnInit {
     features: '',
   }
   _errorMessage = ''
-  _entities: Array<any> = [] 
-  _features : Array<any> = [] 
+  _entitiesDetran: Array<any> = []
+  _entitiesCreditor: Array<any> = [] 
+  _entitiesCreditorGroup: Array<any> = [] 
+  _entitiesAdmin: Array<any> = [] 
+  _entitiesRegistrar: Array<any> = []
+   
   topicHasError = true
   dddHasError = true
   getFetuares: Array<any> = [] 
@@ -38,21 +42,23 @@ export class GroupAddComponent implements OnInit {
 
     ngOnInit() {
 
-      this._groupAddService.getUserGroupFeatures()
-      .subscribe(
-        res => {
-          console.log(res)
-          this._features = res
-               },
-        error => {console.log(error)
-                  this._errorMessage = error.error }
-        )
-
-        this._userAddService.getUserEntities()
+        this._groupAddService.getUserGroupFeatures()
         .subscribe(
           res => {
             console.log(res) 
-            this._entities = res
+            res.forEach((data) => {              
+              if(data.entitytype == 'DETRAN'){ // Type Detran
+                this._entitiesDetran.push(data)
+              } else if(data.entitytype == 'CREDORA'){ // Type Creditor
+                this._entitiesCreditor.push(data)
+              } else if( data.entitytype == 'GESTORA'){ // Type Creditor Group
+                this._entitiesCreditorGroup.push(data)
+              } else if( data.entitytype == 'ADMIN'){ // Type Admin
+                this._entitiesAdmin.push(data)
+              }else if( data.entitytype == 'REGISTRADORA'){ // Type Registrar
+                this._entitiesRegistrar.push(data)
+              }
+            })
           },
           error => {console.log(error)
                     this._errorMessage = error.error }

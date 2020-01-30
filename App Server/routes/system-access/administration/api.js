@@ -4,15 +4,16 @@ const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
-// Criação e exibição de user, grupos e entidades para os usuários
-router.post('/user-add', verifyToken, queries.createUser)
+// GETs
+router.get('/user-group-features', verifyToken, queries.getUserGroupFeatures)
 router.get('/user-main', verifyToken, queries.getUser)
-router.get('/show-user-groups', verifyToken, queries.getGroupsForUsersAdd)
-router.get('/show-user-entities', verifyToken, queries.getUserEntities)
+router.get('/user-groups', verifyToken, queries.getGroupsForUsersAdd)
+router.get('/user-entities', verifyToken, queries.getUserEntities)
 
-// Criação e exibição de grupos e features
+// POSTs
 router.post('/group-add', verifyToken, queries.createGroup)
-router.get('/show-features-group', verifyToken, queries.getUserGroupFeatures)
+router.post('/user-add', verifyToken, queries.createUser)
+
 
 function verifyToken(req, res, next){
     if(!req.headers.authorization){

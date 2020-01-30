@@ -50,6 +50,10 @@ import { ContractAddComponent } from './contract/contract-add/contract-add.compo
 import { ContractMainComponent } from './contract/contract-main/contract-main.component';
 import { CpfCnpjModule } from 'ng2-cpf-cnpj';
 import { CurrencyMaskModule } from "ng2-currency-mask";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+
+
 
 
 @NgModule({
@@ -91,7 +95,8 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
     UserMainComponent,
 
     ContractAddComponent,
-    ContractMainComponent,
+    ContractMainComponent,    
+
   ],
   imports: [
     BrowserModule,
@@ -101,11 +106,12 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
     UserIdleModule,
     CpfCnpjModule,
     CurrencyMaskModule,
-
+    NgbModule
   ],
   providers: [AuthService, AuthGuard, 
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }
