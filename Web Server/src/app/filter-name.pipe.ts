@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FilterPipe implements PipeTransform {
   
-  transform(items: any[], filterField: string, searchText: string): any[] {
+  transform(items: any[], searchText: string): any[] {
 
     if (!items) {
       return [];

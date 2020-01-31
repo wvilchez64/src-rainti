@@ -12,6 +12,8 @@ export class GroupMainComponent implements OnInit {
   groupMain: Array<any> = []
   searchText: ''
   name: ''
+  _status: ''
+  userData = {id: ''} 
   constructor(private _groupService: GroupMainService) { 
       
     }
@@ -22,6 +24,19 @@ export class GroupMainComponent implements OnInit {
       res => this.groupMain = res,
       err => console.log(err)
     ) 
+  }
+
+  disableGroup(id){
+    this.userData.id = id
+    this._groupService.disableGroup(this.userData)
+    .subscribe(res =>{
+      console.log(res)
+      this.ngOnInit()
+    },
+    err => {
+      console.log(err)
+    })
+
   }
 }
 

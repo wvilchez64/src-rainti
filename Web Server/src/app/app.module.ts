@@ -62,6 +62,8 @@ import { AuditDetranDetailComponent } from './reports/audit-history/audit-detran
 import { AuditCreditorDetailComponent } from './reports/audit-history/audit-creditor-detail/audit-creditor-detail.component';
 import { FilterEntityNamePipe } from './filter-entity-name.pipe';
 import { FilterFeatureNamePipe } from './filter-feature-name.pipe';
+import { GroupsDetailComponent } from './registers/groups/groups-detail/groups-detail.component';
+import { FilterStatusPipe } from './filter-status.pipe';
 
 
 @NgModule({
@@ -115,6 +117,8 @@ import { FilterFeatureNamePipe } from './filter-feature-name.pipe';
     AuditCreditorDetailComponent,
     FilterEntityNamePipe,
     FilterFeatureNamePipe,
+    GroupsDetailComponent,
+    FilterStatusPipe,
   ],
   imports: [
     BrowserModule,

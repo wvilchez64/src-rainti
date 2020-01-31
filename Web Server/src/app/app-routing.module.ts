@@ -35,6 +35,7 @@ import { ContractMainComponent } from './contract/contract-main/contract-main.co
 import { ContractAddComponent } from './contract/contract-add/contract-add.component';
 import { TransactionBillingComponent } from './reports/transaction-billing/transaction-billing.component';
 import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
+import { GroupsDetailComponent } from './registers/groups/groups-detail/groups-detail.component';
 
 const routes: Routes = [
   {
@@ -67,6 +68,12 @@ const routes: Routes = [
   {
     path: 'grupos-adicionar',
     component: GroupAddComponent,
+    canActivate: [AuthGuard]
+    },
+
+  {
+    path: 'grupo-detalhe/:id',
+    component: GroupsDetailComponent,
     canActivate: [AuthGuard]
     },
 

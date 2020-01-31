@@ -5,7 +5,14 @@
   <div class="col-md-auto">    
     <form class="form-inline ">
       <div class="row align-items-center mb-1">    
-              
+        <div class="col">
+          <select class="custom-select" [(ngModel)]="status" name="myStatus" >                            
+              <option value="Default">Todos</option>
+              <option >Ativo</option>
+              <option >Inativo</option>
+          </select>
+                            
+        </div>  
         <div class="col">
           <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
         </div>            
@@ -15,20 +22,19 @@
 </div>
 <hr/>
 <div class="row mt-2">    
-    <div class="col-md-4 mb-4" *ngFor="let group of groupMain | filter: fristname : searchText"> 
+    <div class="col-md-4 mb-4" *ngFor="let group of groupMain | filter : searchText | filterStatus : status"> 
       <div class="card text-center shadow rounded">
         <div class="card-body ">
-          <h5 class="card-title ">{{group.name}}</h5>
-          <hr/>
-          <p class="card-text"><b>Entidade:</b> {{group.entityname}}</p>       
+          <h2 class="card-title ">{{group.name}}</h2>
+          <h5> Status: {{group.status}}</h5>          
         </div>
         <div class="card-footer text-muted">
           <div class="row align-items-center mb-1">    
             <div class="col">
-              <button type="button" class="btn btn-primary btn-md btn-block" routerLink="/group-main/" routerLinkActive="active" >Editar</button>
+              <button type="button" class="btn btn-primary btn-md btn-block" routerLink="/grupo-detalhe/{{group.id}}" routerLinkActive="active" >Editar</button>
             </div>        
             <div class="col">
-              <button type="button" class="btn btn-info btn-md btn-block" routerLink="/group-main/" routerLinkActive="active">Desativar</button>
+              <button type="button" class="btn btn-info btn-md btn-block" (click)="disableGroup(group.id)">Desativar</button>
             </div>            
           </div>         
         </div>

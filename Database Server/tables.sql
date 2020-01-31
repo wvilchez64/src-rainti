@@ -134,3 +134,11 @@ CREATE TABLE src_log(
 	description VARCHAR NOT NULL,
 	creationDate TIMESTAMPTZ NOT NULL DEFAULT NOW()		
 ) 
+
+-- Tabela criada para relacionar os usuários às entidades
+CREATE TABLE user_entities(
+	id SERIAL PRIMARY KEY,
+	userId INT4 NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+	entityId INT4 NOT NULL REFERENCES entities(id) ON DELETE RESTRICT,
+	creationDate TIMESTAMPTZ NOT NULL DEFAULT NOW()		
+) 

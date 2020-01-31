@@ -10,8 +10,8 @@ router.get('/user-group-entities', verifyToken, queries.getUserGroupEntities)
 router.get('/user-main', verifyToken, queries.getUser)
 router.get('/user-groups', verifyToken, queries.getGroupsForUsersAdd)
 
-
-
+// PUTs
+router.put('/user-groups-disable', verifyToken, queries.disableGroupById)
 
 function verifyToken(req, res, next){
     if(!req.headers.authorization){

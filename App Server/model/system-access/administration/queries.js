@@ -28,34 +28,16 @@ const getUser = (req, res) =>{
 const getGroupsForUsersAdd = (req, res) =>{
 
   let token = jwtToken.verifyToken( req, res)
+
+  const userId = token.subject.userId
  
-  pool.query('select rp.id as id, '
-            +'	   p.description as name, '
-            +'	   dd.description as entityname '
-            +'from plan p, '
-            +'	   role_plans rp, '
-            +'	   accounts acc, '
-            +'	   data_detran dd '
-            +'where acc.roleplanid = rp.id '
-            +'and rp.planid = p.id '
-            +'and acc.userid = $1 '
-            +'and dd.identity = rp.entityid '
-            +'and dd.datacodeid = 1  '
-            +'union '
-            +'select rp.id as id, '
-            +'	   p.description as name, '
-            +'	   dd.description as entityname '
-            +'from plan p, '
-            +'	   role_plans rp, '
-            +'	   accounts acc, '
-            +'	   data_creditor dd '
-            +'where acc.roleplanid = rp.id '
-            +'and rp.planid = p.id '
-            +'and acc.userid = $1 '
-            +'and dd.identity = rp.entityid '
-            +'and dd.datacodeid = 9 '
-            +'order by 2', 
-      [token.subject.userId],
+  pool.query('select g.id, g.description as name, case when g.status = 1 then \'Ativo\' else \'Inativo\' end as status '
+            +' from user_entities ue, groups_relationship gp, groups g '
+            +' where ue.userid = $1 '
+            +' and gp.entityid = ue.entityid  '
+            +' and gp.groupsid = g.id '
+            +' group by g.description, g.id', 
+      [userId],
    (error, storedShowGroupsForUsers) => {
     if (error) {
       console.log(error)
@@ -149,10 +131,28 @@ const getUserGroupEntities = (req, res) =>{
   })
 }
 
+const disableGroupById = (req, res) =>{
+
+  let userData = req.body
+  console.log("ID: "+userData[0])
+  
+  pool.query('update groups set status = 0 where id = $1 ',
+  [userData.id],
+   (error, storedShowFeaturesForGroup) => {
+    if (error) {
+      console.log(error)
+      res.status(500).json(error)
+    }else{
+    res.status(200).json('Registro atualizado com sucesso')
+    }
+  })
+}
+
 module.exports = { 
   getUser,
   getGroupsForUsersAdd,
   getUserGroupFeatures,
   getUserGroupEntities,
+  disableGroupById,
   
   }
