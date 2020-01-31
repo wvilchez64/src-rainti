@@ -6,13 +6,11 @@ const router = express.Router()
 
 // GETs
 router.get('/user-group-features', verifyToken, queries.getUserGroupFeatures)
+router.get('/user-group-entities', verifyToken, queries.getUserGroupEntities)
 router.get('/user-main', verifyToken, queries.getUser)
 router.get('/user-groups', verifyToken, queries.getGroupsForUsersAdd)
-router.get('/user-entities', verifyToken, queries.getUserEntities)
 
-// POSTs
-router.post('/group-add', verifyToken, queries.createGroup)
-router.post('/user-add', verifyToken, queries.createUser)
+
 
 
 function verifyToken(req, res, next){

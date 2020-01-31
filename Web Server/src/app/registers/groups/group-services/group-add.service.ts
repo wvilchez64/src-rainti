@@ -10,12 +10,17 @@ export class GroupAddService {
 
   private _createGroupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/group-add"
   private _userFeaturesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-group-features"
+  private _userEntitiesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-group-entities"
 
 
   constructor(private http: HttpClient,) { }
 
   getUserGroupFeatures(){
     return this.http.get<any>(this._userFeaturesUrl)
+  }
+
+  getUserGroupEntities(){
+    return this.http.get<any>(this._userEntitiesUrl)
   }
 
   createGroup(group){

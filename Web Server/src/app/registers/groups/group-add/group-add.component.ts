@@ -22,6 +22,12 @@ export class GroupAddComponent implements OnInit {
   _entitiesCreditorGroup: Array<any> = [] 
   _entitiesAdmin: Array<any> = [] 
   _entitiesRegistrar: Array<any> = []
+
+  _featuresDetran: Array<any> = []
+  _featuresCreditor: Array<any> = [] 
+  _featuresCreditorGroup: Array<any> = [] 
+  _featuresAdmin: Array<any> = [] 
+  _featuresRegistrar: Array<any> = []
    
   topicHasError = true
   dddHasError = true
@@ -48,22 +54,43 @@ export class GroupAddComponent implements OnInit {
             console.log(res) 
             res.forEach((data) => {              
               if(data.entitytype == 'DETRAN'){ // Type Detran
-                this._entitiesDetran.push(data)
-                
+                this._featuresDetran.push(data)
               } else if(data.entitytype == 'CREDORA'){ // Type Creditor
-                this._entitiesCreditor.push(data)
+                this._featuresCreditor.push(data)
               } else if( data.entitytype == 'GESTORA'){ // Type Creditor Group
-                this._entitiesCreditorGroup.push(data)
+                this._featuresCreditorGroup.push(data)
               } else if( data.entitytype == 'ADMIN'){ // Type Admin
-                this._entitiesAdmin.push(data)
+                this._featuresAdmin.push(data)
               }else if( data.entitytype == 'REGISTRADORA'){ // Type Registrar
-                this._entitiesRegistrar.push(data)
+                this._featuresRegistrar.push(data)
               }
             })
           },
           error => {console.log(error)
                     this._errorMessage = error.error }
-          )       
+          )     
+          
+          this._groupAddService.getUserGroupEntities()
+        .subscribe(
+          res => {
+            console.log(res) 
+            this._entitiesAdmin = res
+            this._entitiesAdmin.forEach((data) => {              
+              if(data.entitytype == 'DETRAN'){ // Type Detran
+                this._entitiesDetran.push(data)
+              } else if(data.entitytype == 'CREDORA'){ // Type Creditor
+                this._entitiesCreditor.push(data)
+              } else if( data.entitytype == 'GESTORA'){ // Type Creditor Group
+                this._entitiesCreditorGroup.push(data)
+              }else if( data.entitytype == 'REGISTRADORA'){ // Type Registrar
+                this._entitiesRegistrar.push(data)
+              }
+              
+            })
+          },
+          error => {console.log(error)
+                    this._errorMessage = error.error }
+          )   
 
   }             
     createGroup(){

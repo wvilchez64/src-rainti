@@ -12,25 +12,6 @@ const pool = new Pool({
   port: jsonData.port,
 })
 
-// Criação de usuários
-const createUser = (req, res) => {
-  let userData = req.body
-  
-  let hash = crypto.createHash('md5').update(userData.password).digest("hex")
-
-  pool.query('insert into users (firstname, lastname, email, username, passwordMd5) values ($1, $2, $3, $4, $5);',
-    [userData.firstName, userData.lastName, userData.email, userData.userName, hash],
-    (error, registeredUser) => {
-      if (error) {
-        console.log(error)
-        res.status(401).send('Usuário já cadastrado!')
-      } else {
-        res.status(200).json(registeredUser)
-      }
-
-    })
-}
-
 // Exibição de usuários
 const getUser = (req, res) =>{
   pool.query('select firstname as name, lastname as lastname, username as username,  email as email from users',
@@ -47,9 +28,6 @@ const getUser = (req, res) =>{
 const getGroupsForUsersAdd = (req, res) =>{
 
   let token = jwtToken.verifyToken( req, res)
-
-  console.log(token.subject.userId+' ' + req.body)
-
  
   pool.query('select rp.id as id, '
             +'	   p.description as name, '
@@ -88,34 +66,9 @@ const getGroupsForUsersAdd = (req, res) =>{
   })
 }
 
-// Exibindo as entidades existentes na criação de usuários
-const getUserEntities = (req, res) =>{
-  pool.query('select  dd.identity as id, max(case when dd.datacodeid = 9 then dd.description end) as name  from data_creditor dd, states st, states_relationship sr, entities et where dd."identity" = sr."identity" and st.id = sr.idstate and dd."identity" = et.id  and et.status = true group by dd.identity order by 2',
-   (error, storedShowEntitiesForUsers) => {
-    if (error) {
-      console.log(error)
-    }else{
-    console.log(storedShowEntitiesForUsers.rows)
-    res.status(200).json(storedShowEntitiesForUsers.rows)
-    }
-  })
-}
 
-// Criação de grupos
-const createGroup = (req, res) => {
-  let groupData = req.body
 
-  pool.query('insert into role_plans (planname, entityid, status) values ($1, $2, $3);',
-    [groupData.planname, groupData.entityid, groupData.status],
-    (error, registeredGroup) => {
-      if (error) {
-        console.log(error)
-        res.status(401).send('Grupo já cadastrado!')
-      } else {
-        res.status(200).json(registeredGroup)
-      }
-    })
-}
+
 
 
 // Exibindo as features existentes na criação de grupos
@@ -143,15 +96,63 @@ const getUserGroupFeatures = (req, res) =>{
   })
 }
 
+// Exibindo as features existentes na criação de grupos
+const getUserGroupEntities = (req, res) =>{
 
+  let token = jwtToken.verifyToken( req, res)
 
+  const userId = token.subject.userId
+
+  pool.query('select et.id as entityid, '
+  +' dd.description as entityname,  '
+  +' ey.description as entitytype  '
+  +' from  '
++' accounts acc, '
+   +' groups_relationship gp, '
+   +' data_detran dd, '
+   +' entities et, '
+   +' entity_type ey '
+   +' where acc.userid = $1 '
++' and acc.groupsid = gp.groupsid '
+ +' and (dd.identity = gp.entityid) '
+ +' and et.status = true '
+ +' and gp.entityid = et.id '
+ +' and dd.datacodeid = 1 '
+ +' and et.entitytypeid = ey.id '
+ +' and gp.status = 1 '
+ +' and acc.status = 1 '
+ +' union '
++' select et.id as entityid,  '
++' dd.description as entityname,  '
+  +' ey.description as entitytype  '
+  +' from  '
++' accounts acc, '
+   +' groups_relationship gp, '
+   +' data_creditor dd, '
+   +' entities et, '
+   +' entity_type ey '
+   +' where acc.userid = $1 '
++' and acc.groupsid = gp.groupsid '
+ +' and (dd.identity = gp.entityid) '
+ +' and et.status = true '
+ +' and gp.entityid = et.id '
+ +' and dd.datacodeid = 8 '
+ +' and et.entitytypeid = ey.id '
+ +' and gp.status = 1 '
+ +' and acc.status = 1',[userId],
+   (error, storedShowFeaturesForGroup) => {
+    if (error) {
+      console.log(error)
+    }else{
+    res.status(200).json(storedShowFeaturesForGroup.rows)
+    }
+  })
+}
 
 module.exports = { 
-  createUser,
   getUser,
-  createGroup,
   getGroupsForUsersAdd,
-  getUserEntities,
   getUserGroupFeatures,
+  getUserGroupEntities,
   
   }
