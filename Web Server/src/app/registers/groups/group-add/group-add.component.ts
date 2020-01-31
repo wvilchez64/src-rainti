@@ -49,6 +49,7 @@ export class GroupAddComponent implements OnInit {
             res.forEach((data) => {              
               if(data.entitytype == 'DETRAN'){ // Type Detran
                 this._entitiesDetran.push(data)
+                
               } else if(data.entitytype == 'CREDORA'){ // Type Creditor
                 this._entitiesCreditor.push(data)
               } else if( data.entitytype == 'GESTORA'){ // Type Creditor Group

@@ -6,6 +6,7 @@
             <div class="card shadow">
                   <div class="card-body">
                     <h4 class="card-title mb-4 mt-1">Cadastro de grupos</h4>
+                    
                     <hr/>
 
                     <nav>
@@ -21,7 +22,9 @@
                         <div class="tab-pane fade show active " id="group-detran" role="tabpanel" aria-labelledby="group-detran-tab" >
                             <form class="form" #profileForm="ngForm">
                                 <div class="form-group">
-                                            <label for="uname1">Grupo</label>
+                                    <div class="row">
+                                        <div  class="col">
+                                            <label >Grupo</label>
                                             <input type="text" [(ngModel)]="groupData.planname" name="planname"  class="form-control rounded-0" 
                                             placeholder="Digite o nome do grupo a ser criado"
                                             [class.is-invalid]="planname.invalid && planname.touched" #planname="ngModel" required >
@@ -30,13 +33,22 @@
                                                     nome do grupo obrigatório
                                                 </small>
                                             </div>
+                                        </div >
+                                        <div class="col-md-2 align-items-end">
+                                            <label >Status</label>
+                                            <div class="onoffswitch">
+                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                                                <label class="onoffswitch-label" for="myonoffswitch"></label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>                    
                                 <div class="form-group">                                   
                                     <div class="row">         
                                         <div class="col-md-6"style="padding-top: 10px; " >  
                                             <div class="form-inline border-bottom " style="padding-bottom: 10px;">
                                                 <div class="col-md-auto">
-                                                    <label for="uname1">Entidade(s)</label>       
+                                                    <label >Entidade(s)</label>       
                                                 </div>
                                                 <div class="col-md-3">
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextDetran" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -59,7 +71,7 @@
                                         <div class="col-md-6"style="padding-top: 10px; " >  
                                             <div class="form-inline border-bottom" style="padding-bottom: 10px;">
                                                 <div class="col-md-4">
-                                                    <label for="uname1">Funcionalidade(s)</label>       
+                                                    <label >Funcionalidade(s)</label>       
                                                 </div>
                                                 <div class="col-md-2">
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextDetranFunc" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -70,7 +82,7 @@
                                                     <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
                                                         <div class="col"  *ngFor="let feature of _entitiesDetran | filter : name : searchTextFunc">
                                                             <label class="btn btn-outline-rainti"  >
-                                                                <input type="checkbox" name="groupOptions" id="{{ feature.name }}.{{ feature.id}}" autocomplete="off"> {{ feature.name }}
+                                                                <input type="checkbox" name="groupOptions" id="{{ feature.featurename }}.{{ feature.id}}" autocomplete="off"> {{ feature.featurename }}
                                                             </label>
                                                         </div>  
                                                     </div>  
@@ -99,7 +111,7 @@
                         <div class="tab-pane fade" id="group-creditor" role="tabpanel" aria-labelledby="group-creditor-tab" >
                             <form class="form" #profileForm="ngForm">
                                 <div class="form-group">
-                                            <label for="uname1">Grupo</label>
+                                            <label >Grupo</label>
                                             <input type="text" [(ngModel)]="groupData.planname" name="planname"  class="form-control rounded-0" 
                                             placeholder="Digite o nome do grupo a ser criado"
                                             [class.is-invalid]="planname.invalid && planname.touched" #planname="ngModel" required >
@@ -114,7 +126,7 @@
                                         <div class="col-md-6"style="padding-top: 10px; " >  
                                             <div class="form-inline border-bottom " style="padding-bottom: 10px;">
                                                 <div class="col-md-auto">
-                                                    <label for="uname1">Entidade(s)</label>       
+                                                    <label >Entidade(s)</label>       
                                                 </div>
                                                 <div class="col-md-3">
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextCreditor" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -137,7 +149,7 @@
                                         <div class="col-md-6"style="padding-top: 10px; " >  
                                             <div class="form-inline border-bottom" style="padding-bottom: 10px;">
                                                 <div class="col-md-4">
-                                                    <label for="uname1">Funcionalidade(s)</label>       
+                                                    <label >Funcionalidade(s)</label>       
                                                 </div>
                                                 <div class="col-md-2">
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextCreditorFunc" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -148,7 +160,7 @@
                                                     <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
                                                         <div class="col"  *ngFor="let feature of _entitiesCreditor | filter : name : searchTextCreditorFunc">
                                                             <label class="btn btn-outline-rainti"  >
-                                                                <input type="checkbox" name="groupOptions" id="{{ feature.name }}.{{ feature.id}}" autocomplete="off"> {{ feature.name }}
+                                                                <input type="checkbox" name="groupOptions" id="{{ feature.featurename }}.{{ feature.id}}" autocomplete="off"> {{ feature.featurename }}
                                                             </label>
                                                         </div>  
                                                     </div>  
@@ -177,7 +189,7 @@
                         <div class="tab-pane fade" id="group-creditor-group" role="tabpanel" aria-labelledby="group-creditor-group-tab" >
                             <form class="form" #profileForm="ngForm">
                                 <div class="form-group">
-                                            <label for="uname1">Grupo</label>
+                                            <label >Grupo</label>
                                             <input type="text" [(ngModel)]="groupData.planname" name="planname"  class="form-control rounded-0" 
                                             placeholder="Digite o nome do grupo a ser criado"
                                             [class.is-invalid]="planname.invalid && planname.touched" #planname="ngModel" required >
@@ -192,7 +204,7 @@
                                         <div class="col-md-6"style="padding-top: 10px; " >  
                                             <div class="form-inline border-bottom " style="padding-bottom: 10px;">
                                                 <div class="col-md-auto">
-                                                    <label for="uname1">Entidade(s)</label>       
+                                                    <label >Entidade(s)</label>       
                                                 </div>
                                                 <div class="col-md-3">
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextCreditorGroup" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -209,13 +221,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> 
-                                                                                         
+                                        </div>                                                                                         
                                         
                                         <div class="col-md-6"style="padding-top: 10px; " >  
                                             <div class="form-inline border-bottom" style="padding-bottom: 10px;">
                                                 <div class="col-md-4">
-                                                    <label for="uname1">Funcionalidade(s)</label>       
+                                                    <label >Funcionalidade(s)</label>       
                                                 </div>
                                                 <div class="col-md-2">
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTexCreditorGrouptFunc" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -226,7 +237,7 @@
                                                     <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
                                                         <div class="col"  *ngFor="let feature of _entitiesCreditorGroup | filter : name : searchTextCreditorGroupFunc">
                                                             <label class="btn btn-outline-rainti"  >
-                                                                <input type="checkbox" name="groupOptions" id="{{ feature.name }}.{{ feature.id}}" autocomplete="off"> {{ feature.name }}
+                                                                <input type="checkbox" name="groupOptions" id="{{ feature.featurename }}.{{ feature.id}}" autocomplete="off"> {{ feature.featurename }}
                                                             </label>
                                                         </div>  
                                                     </div>  
@@ -255,7 +266,7 @@
                         <div class="tab-pane fade" id="group-admin" role="tabpanel" aria-labelledby="group-admin-tab" >
                             <form class="form" #profileForm="ngForm">
                                 <div class="form-group">
-                                            <label for="uname1">Grupo</label>
+                                            <label >Grupo</label>
                                             <input type="text" [(ngModel)]="groupData.planname" name="planname"  class="form-control rounded-0" 
                                             placeholder="Digite o nome do grupo a ser criado"
                                             [class.is-invalid]="planname.invalid && planname.touched" #planname="ngModel" required >
@@ -270,7 +281,7 @@
                                         <div class="col-md-6"style="padding-top: 10px; " >  
                                             <div class="form-inline border-bottom " style="padding-bottom: 10px;">
                                                 <div class="col-md-auto">
-                                                    <label for="uname1">Entidade(s)</label>       
+                                                    <label >Entidade(s)</label>       
                                                 </div>
                                                 <div class="col-md-3">
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextAdmin" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
@@ -293,7 +304,7 @@
                                         <div class="col-md-6"style="padding-top: 10px; " >  
                                             <div class="form-inline border-bottom" style="padding-bottom: 10px;">
                                                 <div class="col-md-4">
-                                                    <label for="uname1">Funcionalidade(s)</label>       
+                                                    <label >Funcionalidade(s)</label>       
                                                 </div>
                                                 <div class="col-md-2">
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextAdminFunc" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">

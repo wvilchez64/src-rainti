@@ -124,16 +124,16 @@ const getUserGroupFeatures = (req, res) =>{
   let token = jwtToken.verifyToken( req, res)
 
   pool.query('select f.component as component, '
-  +' f.description as featurename'
-  +' et.description as entitytype '
-  +' from  '
-  +' features f, '
-  +' entity_type_features ef, '
-  +' entity_type et '
-  +' where '
-  +' ef.featuresid = f.id '
-  +' and ef.entitytypeid = et.id  '
-  +' order by 2,1 ',
+            +' f.description as featurename, '
+            +' et.description as entitytype '
+            +' from  '
+            +' features f, '
+            +' entity_type_features ef, '
+            +' entity_type et '
+            +' where '
+            +' ef.featuresid = f.id '
+            +' and ef.entitytypeid = et.id  '
+            +' order by 2,1 ',
    (error, storedShowFeaturesForGroup) => {
     if (error) {
       console.log(error)
