@@ -24,29 +24,30 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div  class="col">
-                                            <label >Grupo</label>
-                                            <input type="text" [(ngModel)]="groupData.planname" name="planname"  class="form-control rounded-0" 
-                                            placeholder="Digite o nome do grupo a ser criado"
-                                            [class.is-invalid]="planname.invalid && planname.touched" #planname="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="planname.valid || planname.untouched">
-                                                <small  class="text-danger"*ngIf="planname.errors && planname.errors.required">
+                                            <label >{{_detranGroupData.features}}</label>
+                                            <label >Grupo</label>                                            
+                                            <input type="text" [(ngModel)]="_groupData.planname" name="detranPlanname"  class="form-control rounded-0" 
+                                            placeholder="Digite o nome do plano"
+                                            [class.is-invalid]="detranPlanname.invalid && detranPlanname.touched" #detranPlanname="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="detranPlanname.valid || detranPlanname.untouched">
+                                                <small  class="text-danger"*ngIf="detranPlanname.errors && detranPlanname.errors.required">
                                                     nome do grupo obrigatório
                                                 </small>
                                             </div>
                                         </div >
-                                        <div class="col-md-2 align-items-end">
+                                        <div class="col-md-2">
                                             <label >Status</label>
                                             <div class="onoffswitch">
-                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="detranSwitch" checked>
-                                                <label class="onoffswitch-label" for="detranSwitch"></label>
+                                                <input type="checkbox" [(ngModel)]="_detranSwitch" name="detranSwitch" class="onoffswitch-checkbox" id="detranSwitch" checked>
+                                                <label class="onoffswitch-label" for="detranSwitch"></label>                                                
                                             </div>
                                         </div>
                                     </div>
                                 </div>                    
                                 <div class="form-group">                                   
                                     <div class="row">         
-                                        <div class="col-md-6"style="padding-top: 10px; " >  
-                                            <div class="form border-bottom " style="padding-bottom: 10px;">
+                                        <div class="col-md-6">  
+                                            <div class="form border" style="padding-bottom: 10px; padding-top: 10px;">
                                                 <div class="col">
                                                     <label >Entidade(s)</label>       
                                                 </div>
@@ -54,22 +55,22 @@
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextDetran" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
                                                 </div>                                                    
                                             </div>                                            
-                                            <div class="row">
-                                                <div class="col"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
-                                                        <div class="col" *ngFor="let entities of _entitiesDetran | filterEntityName  : searchTextDetran">
-                                                            <label class="btn btn-outline-rainti" >
-                                                                <input type="checkbox"  id="detran.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off"> {{ entities.entityname }}
-                                                            </label>
-                                                        </div>
+                                            
+                                            <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
+                                                    <div class="col" *ngFor="let entities of _entitiesDetran | filterEntityName  : searchTextDetran">
+                                                        <label class="btn btn-outline-rainti" >
+                                                            <input type="checkbox"  id="detran.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off"> {{ entities.entityname }}
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                         </div> 
                                                                                          
                                         
-                                        <div class="col-md-6"style="padding-top: 10px; " >  
-                                            <div class="form border-bottom" style="padding-bottom: 10px;">
+                                        <div class="col-md-6">  
+                                            <div class="form border" style="padding-bottom: 10px; padding-top: 10px;">
                                                 <div class="col">
                                                     <label >Funcionalidade(s)</label>       
                                                 </div>
@@ -77,18 +78,18 @@
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextDetranFunc" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
                                                 </div>                                                    
                                             </div>                                            
-                                            <div class="row">
-                                                <div class="col"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
-                                                        <div class="col"  *ngFor="let feature of _featuresDetran | filterFeatureName : searchTextDetranFunc">
-                                                            <label class="btn btn-outline-rainti"  >
-                                                                <input type="checkbox"  id="detran.{{feature.featurename }}..{{feature.id}}" autocomplete="off"> {{feature.featurename }}
-                                                            </label>
-                                                        </div>  
+                                            
+                                            <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
+                                                    <div class="col"  *ngFor="let feature of _featuresDetran | filterFeatureName : searchTextDetranFunc">
+                                                        <label class="btn btn-outline-rainti"  >
+                                                            <input type="checkbox"  id="detran.{{feature.featurename }}..{{feature.id}}" autocomplete="off"> {{feature.featurename }}
+                                                        </label>
                                                     </div>  
-                                                </div>    
-                                                
+                                                </div>  
                                             </div>    
+                                                
+                                              
                                         </div>         
                                     </div> 
                                 </div>  
@@ -114,11 +115,11 @@
                                     <div class="row">
                                         <div  class="col">
                                             <label >Grupo</label>
-                                            <input type="text" [(ngModel)]="groupData.planname" name="planname"  class="form-control rounded-0" 
-                                            placeholder="Digite o nome do grupo a ser criado"
-                                            [class.is-invalid]="planname.invalid && planname.touched" #planname="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="planname.valid || planname.untouched">
-                                                <small  class="text-danger"*ngIf="planname.errors && planname.errors.required">
+                                            <input type="text" [(ngModel)]="_groupData.planname" name="creditorPlanname"  class="form-control rounded-0" 
+                                            placeholder="Digite o nome do plano"
+                                            [class.is-invalid]="creditorPlanname.invalid && creditorPlanname.touched" #creditorPlanname="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="creditorPlanname.valid || creditorPlanname.untouched">
+                                                <small  class="text-danger"*ngIf="creditorPlanname.errors && creditorPlanname.errors.required">
                                                     nome do grupo obrigatório
                                                 </small>
                                             </div>
@@ -126,7 +127,7 @@
                                         <div class="col-md-2 align-items-end">
                                             <label >Status</label>
                                             <div class="onoffswitch">
-                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="creditorSwitch" checked>
+                                                <input type="checkbox" [(ngModel)]="_creditorSwitch" name="creditorSwitch" class="onoffswitch-checkbox" id="creditorSwitch" checked>
                                                 <label class="onoffswitch-label" for="creditorSwitch"></label>
                                             </div>
                                         </div>
@@ -134,8 +135,8 @@
                                 </div>                      
                                 <div class="form-group">                                   
                                     <div class="row">         
-                                        <div class="col-md-6"style="padding-top: 10px; " >  
-                                            <div class="form border-bottom " style="padding-bottom: 10px;">
+                                        <div class="col-md-6">  
+                                            <div class="form border " style="padding-bottom: 10px; padding-top: 10px;">
                                                 <div class="col">
                                                     <label >Entidade(s)</label>       
                                                 </div>
@@ -143,22 +144,22 @@
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextCreditor" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
                                                 </div>                                                    
                                             </div>                                            
-                                            <div class="row">
-                                                <div class="col"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
-                                                        <div class="col" *ngFor="let entities of _entitiesCreditor | filterEntityName : searchTextCreditor">
-                                                            <label class="btn btn-outline-rainti" >
-                                                                <input type="checkbox"  id="creditor.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off"> {{ entities.entityname }}
-                                                            </label>
-                                                        </div>
+                                            
+                                            <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
+                                                    <div class="col" *ngFor="let entities of _entitiesCreditor | filterEntityName : searchTextCreditor">
+                                                        <label class="btn btn-outline-rainti" >
+                                                            <input type="checkbox"  id="creditor.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off"> {{ entities.entityname }}
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                         </div> 
                                                                                          
                                         
-                                        <div class="col-md-6"style="padding-top: 10px; " >  
-                                            <div class="form border-bottom" style="padding-bottom: 10px;">
+                                        <div class="col-md-6">  
+                                            <div class="form border" style="padding-bottom: 10px; padding-top: 10px;">
                                                 <div class="col">
                                                     <label >Funcionalidade(s)</label>       
                                                 </div>
@@ -166,18 +167,18 @@
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextCreditorFunc" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
                                                 </div>                                                    
                                             </div>                                            
-                                            <div class="row">
-                                                <div class="col"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
-                                                        <div class="col"  *ngFor="let feature of _featuresCreditor | filterFeatureName : searchTextCreditorFunc">
-                                                            <label class="btn btn-outline-rainti"  >
-                                                                <input type="checkbox"  id="creditor.{{feature.featurename }}..{{feature.id}}" autocomplete="off"> {{feature.featurename }}
-                                                            </label>
-                                                        </div>  
+                                            
+                                            <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
+                                                    <div class="col"  *ngFor="let feature of _featuresCreditor | filterFeatureName : searchTextCreditorFunc">
+                                                        <label class="btn btn-outline-rainti"  >
+                                                            <input type="checkbox"  id="creditor.{{feature.featurename }}..{{feature.id}}" autocomplete="off"> {{feature.featurename }}
+                                                        </label>
                                                     </div>  
-                                                </div>    
-                                                
+                                                </div>  
                                             </div>    
+                                            
+                                        
                                         </div>         
                                     </div> 
                                 </div>  
@@ -203,11 +204,11 @@
                                     <div class="row">
                                         <div  class="col">
                                             <label >Grupo</label>
-                                            <input type="text" [(ngModel)]="groupData.planname" name="planname"  class="form-control rounded-0" 
-                                            placeholder="Digite o nome do grupo a ser criado"
-                                            [class.is-invalid]="planname.invalid && planname.touched" #planname="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="planname.valid || planname.untouched">
-                                                <small  class="text-danger"*ngIf="planname.errors && planname.errors.required">
+                                            <input type="text" [(ngModel)]="_groupData.planname" name="creditorGroupPlanname"  class="form-control rounded-0" 
+                                            placeholder="Digite o nome do plano"
+                                            [class.is-invalid]="creditorGroupPlanname.invalid && creditorGroupPlanname.touched" #creditorGroupPlanname="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="creditorGroupPlanname.valid || creditorGroupPlanname.untouched">
+                                                <small  class="text-danger"*ngIf="creditorGroupPlanname.errors && creditorGroupPlanname.errors.required">
                                                     nome do grupo obrigatório
                                                 </small>
                                             </div>
@@ -215,7 +216,7 @@
                                         <div class="col-md-2 align-items-end">
                                             <label >Status</label>
                                             <div class="onoffswitch">
-                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="creditorGroupSwitch" checked>
+                                                <input type="checkbox" [(ngModel)]="_creditorGroupSwitch" name="creditorGroupSwitch" class="onoffswitch-checkbox" id="creditorGroupSwitch" checked>
                                                 <label class="onoffswitch-label" for="creditorGroupSwitch"></label>
                                             </div>
                                         </div>
@@ -223,8 +224,8 @@
                                 </div>                      
                                 <div class="form-group">                                   
                                     <div class="row">         
-                                        <div class="col-md-6"style="padding-top: 10px; " >  
-                                            <div class="form border-bottom " style="padding-bottom: 10px;">
+                                        <div class="col-md-6">  
+                                            <div class="form border" style="padding-bottom: 10px; padding-top: 10px;">
                                                 <div class="col">
                                                     <label >Entidade(s)</label>       
                                                 </div>
@@ -232,21 +233,21 @@
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTextCreditorGroup" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
                                                 </div>                                                    
                                             </div>                                            
-                                            <div class="row">
-                                                <div class="col"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
-                                                        <div class="col" *ngFor="let entities of _entitiesCreditorGroup | filterEntityName : searchTextCreditorGroup">
-                                                            <label class="btn btn-outline-rainti" >
-                                                                <input type="checkbox"  id="creditorgroup.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off"> {{ entities.entityname }}
-                                                            </label>
-                                                        </div>
+                                            
+                                            <div class="col border-bottom border-left"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
+                                                    <div class="col" *ngFor="let entities of _entitiesCreditorGroup | filterEntityName : searchTextCreditorGroup">
+                                                        <label class="btn btn-outline-rainti" >
+                                                            <input type="checkbox"  id="creditorgroup.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off"> {{ entities.entityname }}
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
+                                            
                                         </div>                                                                                         
                                         
-                                        <div class="col-md-6"style="padding-top: 10px; " >  
-                                            <div class="form border-bottom" style="padding-bottom: 10px;">
+                                        <div class="col-md-6" >  
+                                            <div class="form border" style="padding-bottom: 10px; padding-top : 10px">
                                                 <div class="col">
                                                     <label >Funcionalidade(s)</label>       
                                                 </div>
@@ -254,18 +255,18 @@
                                                     <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchTexCreditorGrouptFunc" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
                                                 </div>                                                    
                                             </div>                                            
-                                            <div class="row">
-                                                <div class="col"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                    <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
-                                                        <div class="col"  *ngFor="let feature of _featuresCreditorGroup | filterFeatureName : searchTexCreditorGrouptFunc">
-                                                            <label class="btn btn-outline-rainti"  >
-                                                                <input type="checkbox"  id="creditorgroup.{{feature.featurename }}..{{feature.id}}" autocomplete="off"> {{feature.featurename }}
-                                                            </label>
-                                                        </div>  
+                                            
+                                            <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
+                                                    <div class="col"  *ngFor="let feature of _featuresCreditorGroup | filterFeatureName : searchTexCreditorGrouptFunc">
+                                                        <label class="btn btn-outline-rainti"  >
+                                                            <input type="checkbox"  id="creditorgroup.{{feature.featurename }}..{{feature.id}}" autocomplete="off"> {{feature.featurename }}
+                                                        </label>
                                                     </div>  
-                                                </div>    
-                                                
+                                                </div>  
                                             </div>    
+                                            
+                                            
                                         </div>         
                                     </div> 
                                 </div>  
@@ -291,11 +292,11 @@
                                     <div class="row">
                                         <div  class="col">
                                             <label >Grupo</label>
-                                            <input type="text" [(ngModel)]="groupData.planname" name="planname"  class="form-control rounded-0" 
-                                            placeholder="Digite o nome do grupo a ser criado"
-                                            [class.is-invalid]="planname.invalid && planname.touched" #planname="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="planname.valid || planname.untouched">
-                                                <small  class="text-danger"*ngIf="planname.errors && planname.errors.required">
+                                            <input type="text" [(ngModel)]="_groupData.planname" name="adminPlanname"  class="form-control rounded-0" 
+                                            placeholder="Digite o nome do plano"
+                                            [class.is-invalid]="adminPlanname.invalid && adminPlanname.touched" #adminPlanname="ngModel" required >
+                                            <div class="md-errors-spacer" [hidden]="adminPlanname.valid || adminPlanname.untouched">
+                                                <small  class="text-danger"*ngIf="adminPlanname.errors && adminPlanname.errors.required">
                                                     nome do grupo obrigatório
                                                 </small>
                                             </div>
@@ -303,16 +304,17 @@
                                         <div class="col-md-2 align-items-end">
                                             <label >Status</label>
                                             <div class="onoffswitch">
-                                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="adminSwitch" checked>
+                                                <input type="checkbox" [(ngModel)]="_adminSwitch" name="adminSwitch" class="onoffswitch-checkbox" id="adminSwitch" checked>
                                                 <label class="onoffswitch-label" for="adminSwitch"></label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>                   
+                                
                                 <div class="form-group">                                   
                                     <div class="row">         
-                                        <div class="col-md-6"style="padding-top: 10px; " >  
-                                            <div class="form border-bottom " style="padding-bottom: 10px;">
+                                        <div class="col-md-6" >  
+                                            <div class="form border " style="padding-bottom: 10px; padding-top : 10px">
                                                 <div class="col">
                                                     <label >Entidade(s)</label>       
                                                 </div>
@@ -321,7 +323,7 @@
                                                 </div>                                                    
                                             </div>                                            
                                             
-                                            <div class="col"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
+                                            <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
                                                 <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
                                                     <div class="col" *ngFor="let entities of _entitiesAdmin | filterEntityName : searchTextAdmin">
                                                         <label class="btn btn-outline-rainti" >
@@ -334,9 +336,9 @@
                                         </div> 
                                                                                          
                                         
-                                        <div class="col-md-6"style="padding-top: 10px; " >  
-                                            <div class="form border-bottom" style="padding-bottom: 10px;">
-                                                <div class="col">
+                                        <div class="col-md-6">  
+                                            <div class="form border" style="padding-bottom: 10px; padding-top : 10px">
+                                                <div class="col" >
                                                     <label >Funcionalidade(s)</label>       
                                                 </div>
                                                 <div class="col">
@@ -344,7 +346,7 @@
                                                 </div>                                                    
                                             </div>                                            
                                             
-                                            <div class="col " style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
+                                            <div class="col border-left border-bottom" style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
                                                 <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
                                                     <div class="col"  *ngFor="let feature of _featuresAdmin | filterFeatureName : searchTextAdminFunc">
                                                         <label class="btn btn-outline-rainti"  >

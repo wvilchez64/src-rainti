@@ -15,8 +15,8 @@ export class FilterStatusPipe implements PipeTransform {
     }
 
     searchText = searchText.toLocaleLowerCase();    
-
-    if(searchText == 'default') {
+    
+    if(searchText == 'todos') {
       return items
     }else{
       return items.filter(it => {

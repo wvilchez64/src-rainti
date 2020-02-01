@@ -64,6 +64,7 @@ import { FilterEntityNamePipe } from './filter-entity-name.pipe';
 import { FilterFeatureNamePipe } from './filter-feature-name.pipe';
 import { GroupsDetailComponent } from './registers/groups/groups-detail/groups-detail.component';
 import { FilterStatusPipe } from './filter-status.pipe';
+import { FilterDescriptionPipe } from './filter-description.pipe';
 
 
 @NgModule({
@@ -119,6 +120,7 @@ import { FilterStatusPipe } from './filter-status.pipe';
     FilterFeatureNamePipe,
     GroupsDetailComponent,
     FilterStatusPipe,
+    FilterDescriptionPipe,
   ],
   imports: [
     BrowserModule,

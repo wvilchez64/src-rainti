@@ -11,12 +11,18 @@ import { UserAddService } from '../../user/user-services/user-add.service';
 })
 export class GroupAddComponent implements OnInit {
 
-  groupData = {
+  _groupData = {
     planname : '',
-    entityid : '',
-    features: '',
+    entityid : {},
+    features: {},
   }
+
+  _detranGroupData = {
+    features: {}
+  }
+  
   _errorMessage = ''
+
   _entitiesDetran: Array<any> = []
   _entitiesCreditor: Array<any> = [] 
   _entitiesCreditorGroup: Array<any> = [] 
@@ -28,23 +34,16 @@ export class GroupAddComponent implements OnInit {
   _featuresCreditorGroup: Array<any> = [] 
   _featuresAdmin: Array<any> = [] 
   _featuresRegistrar: Array<any> = []
-   
-  topicHasError = true
-  dddHasError = true
-  getFetuares: Array<any> = [] 
+  
+  _detranSwitch = true
+  _creditorSwitch = true
+  _creditorGroupSwitch = true
+  _adminSwitch = true
 
   constructor(private _groupAddService: GroupAddService,
     private _router: Router,
     private _userAddService: UserAddService,
     ) {  }
-
-    validateTopic(value) {
-      if (value === 'default') {
-        this.topicHasError = true;
-      } else {
-        this.topicHasError = false;
-      }
-    }
 
     ngOnInit() {
 
@@ -94,7 +93,7 @@ export class GroupAddComponent implements OnInit {
 
   }             
     createGroup(){
-    this._groupAddService.createGroup(this.groupData)
+    this._groupAddService.createGroup(this._groupData)
     .subscribe(
       res => {
         console.log(res)

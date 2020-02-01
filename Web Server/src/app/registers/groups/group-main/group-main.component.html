@@ -6,15 +6,15 @@
     <form class="form-inline ">
       <div class="row align-items-center mb-1">    
         <div class="col">
-          <select class="custom-select" [(ngModel)]="status" name="myStatus" >                            
-              <option value="Default">Todos</option>
+          <select class="custom-select" [(ngModel)]="_status" name="_status" >                            
+              <option >Todos</option>
               <option >Ativo</option>
               <option >Inativo</option>
           </select>
                             
         </div>  
         <div class="col">
-          <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
+          <input class="form-control mr-sm-2" type="search" [(ngModel)]="_searchText" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
         </div>            
       </div>   
     </form> 
@@ -22,7 +22,7 @@
 </div>
 <hr/>
 <div class="row mt-2">    
-    <div class="col-md-4 mb-4" *ngFor="let group of groupMain | filter : searchText | filterStatus : status"> 
+    <div class="col-md-4 mb-4" *ngFor="let group of _groupMain | filter : _searchText | filterStatus : _status"> 
       <div class="card text-center shadow rounded">
         <div class="card-body ">
           <h2 class="card-title ">{{group.name}}</h2>
