@@ -54,7 +54,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
 import { TransactionBillingComponent } from './reports/transaction-billing/transaction-billing.component';
-import { DataTablesModule } from 'angular-datatables';
 import { AuditUserDetailComponent } from './reports/audit-history/audit-user-detail/audit-user-detail.component';
 import { AuditGroupDetailComponent } from './reports/audit-history/audit-group-detail/audit-group-detail.component';
 import { AuditContractDetailComponent } from './reports/audit-history/audit-contract-detail/audit-contract-detail.component';
@@ -65,6 +64,11 @@ import { FilterFeatureNamePipe } from './filter-feature-name.pipe';
 import { GroupsDetailComponent } from './registers/groups/groups-detail/groups-detail.component';
 import { FilterStatusPipe } from './filter-status.pipe';
 import { FilterDescriptionPipe } from './filter-description.pipe';
+import { TableFilterPipe } from './reports/transaction-billing/table-filter-pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faFilter, faBan } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
 
 
 @NgModule({
@@ -121,6 +125,7 @@ import { FilterDescriptionPipe } from './filter-description.pipe';
     GroupsDetailComponent,
     FilterStatusPipe,
     FilterDescriptionPipe,
+    TableFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -131,7 +136,8 @@ import { FilterDescriptionPipe } from './filter-description.pipe';
     CpfCnpjModule,
     CurrencyMaskModule,
     NgbModule,
-    DataTablesModule,
+    NgxPaginationModule,
+    FontAwesomeModule,
 
   ],
   providers: [AuthService, AuthGuard, 
@@ -140,4 +146,11 @@ import { FilterDescriptionPipe } from './filter-description.pipe';
   bootstrap: [AppComponent],
 
 })
-export class AppModule { }
+export class AppModule { 
+
+  constructor(){
+    
+    library.add(faFilter, faBan);
+  }
+
+}

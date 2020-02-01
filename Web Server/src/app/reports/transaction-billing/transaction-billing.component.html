@@ -1,39 +1,112 @@
-<table class="table table-hover" datatable [dtOptions]="dtOptions">
-    <thead>
-      <tr>
-        <th class="text-center" scope="col">Contrato</th>
-        <th class="text-center" scope="col">Gestora</th>
-        <th class="text-center" scope="col">Credora</th>
-        <th class="text-center" scope="col">Chassi</th>
-        <th class="text-center" scope="col">Detran</th>
-        <th class="text-center" scope="col">Taxa de registro</th>
-        <th class="text-center" scope="col">Data do registro</th>
-        <th class="text-center" scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-     <tr *ngFor="let group of data">
-           <td class="text-center">{{group.nContrato}}</td>
-           <td class="text-center">{{group.gestora}}</td>
-           <td class="text-center">{{group.credora}}</td>
-           <td class="text-center">{{group.chassi}}</td>
-           <td class="text-center">{{group.detran}}</td>
-           <td class="text-center">{{group.tRegistro}}</td>
-           <td class="text-center">{{group.dataRegistro}}</td>
-           <td class="text-center">{{group.status}}</td>
-       </tr>
-    </tbody>
-  </table>
+<div class="container"><br/>
+
+  <form billing
+        #form="ngForm">
+
+        <div class="row justify-content-lg align-items-center">
+          <div class="col">
+            <h1>Bilhetagem de transações</h1>  
+          </div>  
+        </div>
+        <hr/>
+      
+        <div class="row" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight">
+        <div class="form-group col-sm-3 panel panel-primary filterable" *ngIf="filter=='comFiltros'">
+          <strong>Detran</strong>
+          <select class="form-control form-control-sm"
+                  name="detran"
+                  [(ngModel)]="detran">
+            <option value="">Todos</option>    
+            <option *ngFor="let detran of detranList"
+                    [value]="detran">{{ detran }}</option>
+          </select> 
+        </div>  
+    
+        <div class="form-group col-sm-3 panel panel-primary filterable" *ngIf="filter=='comFiltros'">
+          <strong>Gestora</strong>
+          <select class="form-control form-control-sm"
+                  name="gestora"
+                  [(ngModel)]="gestora">
+            <option value="">Todos</option>      
+            <option *ngFor="let gestora of gestoraList"
+                    [value]="gestora">{{ gestora }}</option>
+          </select>
+        </div> 
+      </div>
+
+    
+    <!-- <div class="form-group" class="col-md-auto" *ngFor="let gestor of gestoraList.get('gestoraList').controls; let i = index">
+     
+      <label class="btn btn-outline-rainti" >
+          <input type="checkbox" formArrayName="gestoraList" [formControlName]="i"> {{ gestor }}
+      </label>
+    
+  </div>
+
+  <div class="form-group" class="col-sm-6">
+    <label>Data de</label>
+    <input type="date" [(ngModel)]="dataDe" name="dataD" class="form-control rounded-0" 
+     #dataD="ngModel" >
+  </div>
+
+<div class="form-group" class="col-sm-6">
+  <label>Data até</label>
+  <input type="date" [(ngModel)]="dataAte" name="dataA" class="form-control rounded-0" 
+   #dataA="ngModel" >
+  </div> -->
+
+
+
+ 
+    <div *ngIf="filter=='semFiltros'" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight">
+    <button class="btn btn-sm  btn-rainti" (click)="markAsActive('comFiltros')"> Filtro <fa-icon [icon]="['fas', 'filter']"></fa-icon></button>
+  </div>
+
+  <div *ngIf="filter=='comFiltros'" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight">
+    <button class="btn btn-sm  btn-rainti" (click)="markAsActive('semFiltros')"> Apagar <fa-icon [icon]="['fas', 'ban']" ></fa-icon></button>
+  </div>
+  
+
+
+    <table class="table table-hover">
+      <thead  class="bg-rainti text-light font-weight-lighter">
+
+        <th>Contrato</th>
+        <th>Gestora</th>
+        <th>Credora</th>
+        <th>Chassi</th>
+        <th>Detran</th>
+        <th>Taxa</th>
+        <th>Data</th>
+        <th>Status</th>       
+         <br>
+
+
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let dataTransactionBillings of dataTransactionBilling | tableFilter: form.value | paginate: { itemsPerPage: 10, currentPage: p }">
+          <td>{{ dataTransactionBillings.nContrato }}</td>
+          <td>{{ dataTransactionBillings.gestora }}</td>
+          <td>{{ dataTransactionBillings.credora }}</td>
+          <td>{{ dataTransactionBillings.chassi }}</td>
+          <td>{{ dataTransactionBillings.detran }}</td>
+          <td>{{ dataTransactionBillings.tRegistro }}</td>
+          <td>{{ dataTransactionBillings.dataRegistro }}</td>
+          <td>{{ dataTransactionBillings.status }}</td>
+        </tr>
+        
+      </tbody>
+      
+    </table>
+    <div class="float-right"> <pagination-controls  (pageChange)="p = $event"></pagination-controls></div><br>
+  </form>
 
   <hr/>
-  <div class="row justify-content-lg align-items-center">
-    <div class="col">
-    </div>  
-    <div class="col-md-auto">    
-      <form class="form-inline ">
-        <div class="row align-items-center mb-1">    
-            <p class="font-weight-bold">Total R$: 1231232131232,000</p>  
-        </div>   
-      </form> 
-    </div>
-  </div>
+
+<div class="col" class="text-right">
+    <h4>Total: R$ {{registro}}</h4>  
+</div>
+
+
+</div>
