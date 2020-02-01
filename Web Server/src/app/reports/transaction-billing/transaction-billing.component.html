@@ -85,7 +85,8 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let dataTransactionBillings of dataTransactionBilling | tableFilter: form.value | paginate: { itemsPerPage: 10, currentPage: p }">
+        <tr *ngFor="let dataTransactionBillings of dataTransactionBilling | tableFilter: form.value | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+
           <td>{{ dataTransactionBillings.nContrato }}</td>
           <td>{{ dataTransactionBillings.gestora }}</td>
           <td>{{ dataTransactionBillings.credora }}</td>
@@ -99,7 +100,10 @@
       </tbody>
       
     </table>
-    <div class="float-right"> <pagination-controls  (pageChange)="p = $event"></pagination-controls></div><br>
+    <div class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight">
+    <ngb-pagination [collectionSize]="dataTransactionBilling.length" [(page)]="page" [maxSize]="5" 
+    [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+    </div>
   </form>
 
   <hr/>

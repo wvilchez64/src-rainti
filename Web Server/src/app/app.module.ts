@@ -65,7 +65,6 @@ import { GroupsDetailComponent } from './registers/groups/groups-detail/groups-d
 import { FilterStatusPipe } from './filter-status.pipe';
 import { FilterDescriptionPipe } from './filter-description.pipe';
 import { TableFilterPipe } from './reports/transaction-billing/table-filter-pipe';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter, faBan } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -136,7 +135,6 @@ import { library } from '@fortawesome/fontawesome-svg-core';
     CpfCnpjModule,
     CurrencyMaskModule,
     NgbModule,
-    NgxPaginationModule,
     FontAwesomeModule,
 
   ],

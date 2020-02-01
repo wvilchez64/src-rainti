@@ -19,6 +19,9 @@ export class TransactionBillingComponent implements OnInit {
   registro: any[] =[11 + 11];
 
   gestoraList: any[] = ['ITAU', 'Santander', 'CaixaEconômica'];
+  
+  page = 1;
+  pageSize =10;
 
   constructor( ){}
 
@@ -29,12 +32,4 @@ export class TransactionBillingComponent implements OnInit {
 
   }
 
-  totalPrice(total: any) {
-    total = 0;
-    for(let data of this.registro){
-      total += data.registro + data.registro;
-    }
-      return total;
-
-    }
 }
