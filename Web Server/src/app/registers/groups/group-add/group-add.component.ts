@@ -45,6 +45,10 @@ export class GroupAddComponent implements OnInit {
     private _userAddService: UserAddService,
     ) {  }
 
+    ngAfterViewInit(){
+      window.document.activeElement.ownerDocument.body.style.backgroundColor = '#000000';
+   }
+
     ngOnInit() {
 
         this._groupAddService.getUserGroupFeatures()
@@ -79,6 +83,7 @@ export class GroupAddComponent implements OnInit {
                 this._entitiesDetran.push(data)
               } else if(data.entitytype == 'CREDORA'){ // Type Creditor
                 this._entitiesCreditor.push(data)
+                this._entitiesCreditorGroup.push(data)
               } else if( data.entitytype == 'GESTORA'){ // Type Creditor Group
                 this._entitiesCreditorGroup.push(data)
               }else if( data.entitytype == 'REGISTRADORA'){ // Type Registrar
