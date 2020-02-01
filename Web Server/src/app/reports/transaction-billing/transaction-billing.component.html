@@ -13,7 +13,7 @@
         <div class="row" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight">
         <div class="form-group col-sm-3 panel panel-primary filterable" *ngIf="filter=='comFiltros'">
           <strong>Detran</strong>
-          <select class="form-control form-control-sm"
+          <select class="custom-select form-control-sm"
                   name="detran"
                   [(ngModel)]="detran">
             <option value="">Todos</option>    
@@ -24,7 +24,7 @@
     
         <div class="form-group col-sm-3 panel panel-primary filterable" *ngIf="filter=='comFiltros'">
           <strong>Gestora</strong>
-          <select class="form-control form-control-sm"
+          <select class="custom-select form-control-sm"
                   name="gestora"
                   [(ngModel)]="gestora">
             <option value="">Todos</option>      
