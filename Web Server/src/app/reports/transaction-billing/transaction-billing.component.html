@@ -7,6 +7,13 @@
   <hr />
   <div style="padding-top: 10px; height: 650px; overflow-y: scroll; white-space: nowrap;"> 
     <form billing #form="ngForm"> 
+
+      <!-- <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+        <option [value]="10">10</option>
+        <option [value]="30">30</option>
+        <option [value]="50">50</option>
+        <option [value]="100">100</option>
+      </select> -->
   
       <div class="row" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight">
         <div class="form-group col-sm-3 panel panel-primary filterable" *ngIf="filter=='comFiltros'">

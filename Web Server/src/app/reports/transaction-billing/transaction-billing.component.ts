@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { dataTransactionBilling } from './fixed-data-transaction-billing';
 
-
 @Component({
   selector: 'app-transaction-billing',
   templateUrl: './transaction-billing.component.html',
@@ -16,12 +15,10 @@ export class TransactionBillingComponent implements OnInit {
   dataDe: any[];
   detranList: string[] = ['Acre', 'Pernambuco', 'Bahia'];
 
-  registro: any[] =[11 + 11];
-
   gestoraList: any[] = ['ITAU', 'Santander', 'CaixaEconômica'];
   
   page = 1;
-  pageSize =10;
+  pageSize= 7;
 
   constructor( ){}
 
