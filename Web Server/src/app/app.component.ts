@@ -37,6 +37,10 @@ export class AppComponent    implements OnInit {
       ) 
     }  
 
+    /* ngAfterViewInit(){
+      window.document.activeElement.ownerDocument.body.style.backgroundColor = '#F0F0F0';
+   } */
+
     checkDetranAvaiability(content){
       this._detranService.getStates()
       .subscribe( 

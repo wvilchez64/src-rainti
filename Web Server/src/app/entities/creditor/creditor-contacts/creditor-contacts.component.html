@@ -1,4 +1,5 @@
-<div class="row justify-content-lg align-items-center">
+<div class="card shadow rounded" style="padding: 30px">
+  <div class="row justify-content-lg align-items-center">
     <div class="col">
       <h1>Contatos</h1>  
     </div>  
@@ -14,8 +15,8 @@
     </div>
   </div>
   <hr/>
-  <div class="row mt-2">    
-      <div class="col-md-4 mb-4" *ngFor="let creditorContact of creditorContacts | filter: name : searchText"> 
+  <div class="row mt-2" style="padding-top: 10px; height: 650px; overflow-y: scroll; white-space: nowrap;">    
+      <div class="col-md-4 mb-4" *ngFor="let creditorContact of creditorContacts | filter: searchText"> 
         <div class="card text-center shadow rounded">
           <div class="card-body ">
             <h5 class="card-title ">{{creditorContact.name}}</h5>
@@ -35,3 +36,5 @@
       </div>
     </div>
 
+
+</div>

@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 .bg-rainti { background-color : #0090D5}
 
+.shadow-sm{box-shadow:0 .125rem .25rem rgba(0,0,0,.075)!important}
+.shadow{box-shadow:0 .5rem 1rem rgba(0,0,0,.15)!important}
+.shadow-lg{box-shadow:0 1rem 3rem rgba(0,0,0,.175)!important}
+.shadow-none{box-shadow:none!important}
+
 .btn-rainti{color:#fff;background-color:#0090D5;border-color:#0090D5}
 .btn-rainti:hover{color:#fff;background-color:#0069d9;border-color:#0062cc}
 .btn-rainti.focus,.btn-rainti:focus{color:#fff;background-color:#0069d9;border-color:#0062cc;box-shadow:0 0 0 .2rem rgba(38,143,255,.5)}

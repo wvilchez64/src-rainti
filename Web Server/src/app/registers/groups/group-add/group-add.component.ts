@@ -45,9 +45,7 @@ export class GroupAddComponent implements OnInit {
     private _userAddService: UserAddService,
     ) {  }
 
-    ngAfterViewInit(){
-      window.document.activeElement.ownerDocument.body.style.backgroundColor = '#000000';
-   }
+  
 
     ngOnInit() {
 
