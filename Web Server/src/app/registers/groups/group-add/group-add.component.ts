@@ -18,7 +18,14 @@ export class GroupAddComponent implements OnInit {
   }
 
   _detranGroupData = {
-    features: {}
+    features: [],
+  }
+
+  addDetran(event){
+    
+    this._detranGroupData.features.push(event.target.id)
+    console.log(this._detranGroupData.features)
+
   }
   
   _errorMessage = ''
@@ -41,8 +48,6 @@ export class GroupAddComponent implements OnInit {
   _adminSwitch = true
 
   constructor(private _groupAddService: GroupAddService,
-    private _router: Router,
-    private _userAddService: UserAddService,
     ) {  }
 
   

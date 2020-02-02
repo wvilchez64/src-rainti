@@ -5,10 +5,8 @@
             <!-- form card login -->
             <div class="card shadow">
                   <div class="card-body">
-                    <h4 class="card-title mb-4 mt-1">Cadastro de grupos</h4>
-                    
+                    <h4 class="card-title mb-4 mt-1">Cadastro de grupos</h4>                    
                     <hr/>
-
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
                           <a class="nav-item nav-link active" id="group-detran-tab" data-toggle="tab" href="#group-detran" role="tab" aria-controls="group-detran" aria-selected="true"  >Detran</a>
@@ -60,7 +58,7 @@
                                                 <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
                                                     <div class="col" *ngFor="let entities of _entitiesDetran | filterEntityName  : searchTextDetran">
                                                         <label class="btn btn-outline-rainti" >
-                                                            <input type="checkbox"  id="detran.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off"> {{ entities.entityname }}
+                                                            <input type="checkbox"  id="detran.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off" (click)="addDetran($event)"> {{ entities.entityname }}
                                                         </label>
                                                     </div>
                                                 </div>
