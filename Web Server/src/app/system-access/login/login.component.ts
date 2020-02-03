@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     
     // Start watch when time is up.
     this.userIdle.onTimeout().subscribe(() => {
-      localStorage.removeItem('token')
+      sessionStorage.removeItem('token')
       this.stopWatching()
       this.stop()
       this.restart()
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => {
          // console.log(res)
-          localStorage.setItem('token',res.token)
+          sessionStorage.setItem('token',res.token)
           this._router.navigate(['/registrar-contrato'])
         },
         error => {
