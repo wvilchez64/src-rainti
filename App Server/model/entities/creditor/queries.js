@@ -253,7 +253,7 @@ const createCreditor = async function (req, res) {
     
     var i; 
     for (i = 0; i < userData.entities.length; i++) {
-       entities_relationshipValues = [identity, userData.entities[i].id]
+       entities_relationshipValues = [userData.entities[i].id, identity]
       await client.query(entities_relationshipSql, entities_relationshipValues);
     } 
          
@@ -269,93 +269,126 @@ const createCreditor = async function (req, res) {
   }
 }
 
-const updateCreditorById = async function (req, res) {
+const createLog = function (id, columns, req) {
+  var dataValuesNew = Object.values(req.new)
+  var dataValuesOld = Object.values(req.old)
+  console.log(dataValuesNew, dataValuesOld)
+  var propertyName
+  var log={}
+  let i = 0
+  let isChanged = false
+  dataValuesOld.forEach(value => {
+    propertyName = columns[i]
+    if (i == id) {
+      log[propertyName] = value
+    }
+    if (JSON.stringify(value) != JSON.stringify(dataValuesNew[i])) {
+      isChanged = true
+      log[propertyName] = {
+        OldValue : value,
+        NewValue : dataValuesNew[i]
+      }
+    }
+    i++
+  })   
+  logResult = isChanged ? log : {}
+  return logResult
 
+}
+
+const updateCreditorById = async function (req, res) {
+  /* */
+  let columns = Object.getOwnPropertyNames(req.body.new)
+  columns = ['iD', 'cnpj', 'estado', 'razão social', 'nome fantasia', 'ddd', 'tel', 'email', 'logradouro', 'número do logradouro', 'complemento endereço', 'bairro', 'munícipio', 'cep', 'contrato', 'data inicio',  'data final', 'entidades']
+  //null o id nao e' parte do log, ao contrario mandar a posicao onde esta o Id
+  log = createLog(0, columns, req.body)
+  console.log(log)
+  
   let userData = req.body;  
   const identity = parseInt(req.params.id)
 
-  const client = await pool.connect()
-  try {
-    await client.query('BEGIN')
-  
-    const state = await client.query('select id from states where description = $1', [userData.topic]);
-    const idstate = state.rows[0].id;
+  // const client = await pool.connect()
+  // try {
+  //   await client.query('BEGIN')
 
-    const entitiesSql = "update entities set description = $1, status = true where id = $2;";
-    const entitiesValues = [userData.cnpj, identity];
-    await client.query(entitiesSql, entitiesValues);
- 
-    const states_relationshipSql = "update states_relationship set idstate = $1 where identity = $2;";
-    const states_relationshipValues = [idstate, identity];
-    await client.query(states_relationshipSql, states_relationshipValues);      
+  //   const state = await client.query('select id from states where description = $1', [userData.topic]);
+  //   const idstate = state.rows[0].id;
 
-    const data_creditorSql = "update data_creditor set description = $1 where identity = $2 and datacodeid = $3;";
+  //   const entitiesSql = "update entities set description = $1, status = true where id = $2;";
+  //   const entitiesValues = [userData.cnpj, identity];
+  //   await client.query(entitiesSql, entitiesValues);
 
-    var data_creditorValues = [userData.businessname, identity,  8]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   const states_relationshipSql = "update states_relationship set idstate = $1 where identity = $2;";
+  //   const states_relationshipValues = [idstate, identity];
+  //   await client.query(states_relationshipSql, states_relationshipValues);      
 
-    data_creditorValues = [userData.fantasyname, identity,  9]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   const data_creditorSql = "update data_creditor set description = $1 where identity = $2 and datacodeid = $3;";
 
-    data_creditorValues = [userData.dddmodel, identity, 7]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   var data_creditorValues = [userData.businessname, identity,  8]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.phone, identity, 2]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.fantasyname, identity,  9]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.email, identity, 3]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.dddmodel, identity, 7]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.address, identity, 10]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.phone, identity, 2]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.streetnumber, identity, 11]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.email, identity, 3]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.addresscomplement, identity, 15]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.address, identity, 10]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.district, identity, 13]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.streetnumber, identity, 11]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.county, identity, 14]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.addresscomplement, identity, 15]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.zipcode, identity, 12]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.district, identity, 13]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.contract, identity, 16]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.county, identity, 14]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.startdate, identity, 17]; 
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.zipcode, identity, 12]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    data_creditorValues = [userData.enddate, identity, 18];
-    await client.query(data_creditorSql, data_creditorValues);
+  //   data_creditorValues = [userData.contract, identity, 16]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    var entities_relationshipSql = "delete from entities_relationship where firstentity = $1";
-    var entities_relationshipValues = [identity];
-    await client.query(entities_relationshipSql, entities_relationshipValues);
+  //   data_creditorValues = [userData.startdate, identity, 17]; 
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    entities_relationshipSql = "insert into entities_relationship (firstentity, secondentity) values ($1, $2)";
-    entities_relationshipValues = [];
- 
-    var i; 
-    for (i = 0; i < userData.entities.length; i++) {
-      entities_relationshipValues = [userData.entities[i].id, identity]
-      await client.query(entities_relationshipSql, entities_relationshipValues);
-    } 
+  //   data_creditorValues = [userData.enddate, identity, 18];
+  //   await client.query(data_creditorSql, data_creditorValues);
 
-    await client.query('COMMIT');
-    res.status(200).json({
-      response: "Credora atualizada"});
-  } catch (e) {
-    await client.query('ROLLBACK');
-    res.status(400).json({response: "Erro atualizando Credora"});
-    throw e;
-  } finally {
-    client.release();
-  }
+  //   var entities_relationshipSql = "delete from entities_relationship where firstentity = $1";
+  //   var entities_relationshipValues = [identity];
+  //   await client.query(entities_relationshipSql, entities_relationshipValues);
+
+  //   entities_relationshipSql = "insert into entities_relationship (firstentity, secondentity) values ($1, $2)";
+  //   entities_relationshipValues = [];
+
+  //   var i; 
+  //   for (i = 0; i < userData.entities.length; i++) {
+  //     entities_relationshipValues = [userData.entities[i].id, identity]
+  //     await client.query(entities_relationshipSql, entities_relationshipValues);
+  //   } 
+
+  //   await client.query('COMMIT');
+  //   res.status(200).json({
+  //     response: "Credora atualizada"});
+  // } catch (e) {
+  //   await client.query('ROLLBACK');
+  //   res.status(400).json({response: "Erro atualizando Credora"});
+  //   throw e;
+  // } finally {
+  //   client.release();
+  // }
 }
 
 const deleteCreditorById = (req, res) =>{

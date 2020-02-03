@@ -17,14 +17,14 @@
   </div>
   <hr/>
   <div class="row mt-2">    
-      <div class="col-md-4 mb-4" *ngFor="let users of user | filter: fristname : searchText"> 
+      <div class="col-md-4 mb-4" *ngFor="let contract of _contracts | filter: name : searchText"> 
         <div class="card text-center shadow rounded">
           <div class="card-body ">
-            <h5 class="card-title ">{{users.name}}</h5>
+            <h5 class="card-title ">{{contract.name}}</h5>
             <hr/>
-            <p class="card-text"><b>Last:</b> {{users.lastname}}</p>
-            <p class="card-text"><b>usuário:</b> {{users.username}}</p>
-            <p class="card-text"><b>e-mail:</b> {{users.email}}</p>          
+            <p class="card-text"><b>detran:</b> {{contract.detran}}</p>
+            <p class="card-text"><b>contrato:</b> {{contract.contract}}</p>
+            <p class="card-text"><b>registro:</b> {{contract.contractregisterid}}</p>          
           </div>
           <div class="card-footer text-muted">
             <div class="row align-items-center mb-1">    
