@@ -1,8 +1,8 @@
 const express =  require('express')
 const login = require ('./system-access/login/api')
+const administration = require ('./system-access/administration/api')
 const recover = require ('./system-access/password-recover/api')
 const reset = require ('./system-access/password-reset/api')
-const register = require ('./system-access/register/api')
 const common = require ('./common/api')
 const detran = require ('./entities/detran/api')
 const creditor = require ('./entities/creditor/api')
@@ -16,7 +16,7 @@ const app = express()
 app.use('/login', login)
 app.use('/recover-password', recover)
 app.use('/reser-password', reset)
-app.use('/register-user', register)
+app.use('/administration', administration )
 
 // COMMON
 app.use('/common', common)
