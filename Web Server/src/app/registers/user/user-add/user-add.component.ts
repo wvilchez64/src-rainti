@@ -17,15 +17,14 @@ export class UserAddComponent implements OnInit {
     dddModel: '11',
     phone: '1234-5678',
     cpf: '369.844.728-22',
+    status: true,
     email: 'allan.finco@rainti.com.br',
-    userGroup: '',
-    userEntities: '',
+    groupsId: '',
 
   }
 
   _errorMessage = ''
   _groupsData : Array<any> = []
-  _entities : Array<any> = [] 
   topicHasError = true
   dddHasError = true
 
@@ -50,40 +49,25 @@ export class UserAddComponent implements OnInit {
   nextTab(tab){
     this._activeTab = tab
   }
-
-  saveUser(){
-
-   
-   /*  this._userAddService.createUser(this.registerUserData)
-      .subscribe(
-        res => {
-          console.log(res)
-          this._router.navigate(['/user-main'])
-        },
-        error => console.log(error) 
-        )  
-    */
-  }
   
+  featuresControl(event) {
+    this.registerUserData.groupsId = event.target.id
+  }
+   
   createUser(){
-    /*  this._userAddService.createUser(this.registerUserData)
+     this._userAddService.createUser(this.registerUserData)
        .subscribe(
          res => {
            console.log(res)
-           this._router.navigate(['/user-main'])
+           
          },
          error => console.log(error) 
          )  
-     */
+     
    } 
 
   backToUsers(){
 
   }
-  CheckAllOptions() {
-    if (this._groups.every(val => val.checked == true))
-      this._groups.forEach(val => { val.checked = false });
-    else
-      this._groups.forEach(val => { val.checked = true });
-  }
+  
 }

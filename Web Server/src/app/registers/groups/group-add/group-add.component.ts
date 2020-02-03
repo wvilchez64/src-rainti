@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { GroupAddService } from '../group-services/group-add.service';
-import { UserAddService } from '../../user/user-services/user-add.service';
-import { CompileShallowModuleMetadata } from '@angular/compiler';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -53,6 +51,7 @@ export class GroupAddComponent implements OnInit {
   }
 
   constructor(private _groupAddService: GroupAddService,
+    private _location: Location
   ) { }
 
   ngOnInit() {
@@ -332,6 +331,10 @@ export class GroupAddComponent implements OnInit {
         },
         error => console.log(error)
       )
+  }
+
+  backToGroups(){
+    this._location.back()
   }
 
 }

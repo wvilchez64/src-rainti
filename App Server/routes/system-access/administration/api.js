@@ -11,7 +11,8 @@ router.get('/user-group-entities', verifyToken, queries.getUserGroupEntities)
 router.get('/user-group-entities/:id', verifyToken, queries.getUserGroupEntitiesById)
 router.get('/user-groups/:id', verifyToken, queries.getGroup)
 router.get('/user-main', verifyToken, queries.getUser)
-router.get('/user-groups', verifyToken, queries.getGroupsForUsersAdd)
+router.get('/user-groups-add', verifyToken, queries.getGroupsForUsersAdd)
+router.get('/user-groups', verifyToken, queries.getGroups)
 
 // PUTs
 router.put('/user-groups-disable', verifyToken, queries.disableGroupById)
@@ -20,6 +21,7 @@ router.put('/user-groups-update/:id', verifyToken, queries.updateGroupById)
 // POSTs
 
 router.post('/user-group-add', verifyToken, queries.createGroup)
+router.post('/user-add', verifyToken, queries.createUser)
 
 function verifyToken(req, res, next){
     if(!req.headers.authorization){

@@ -61,8 +61,8 @@
                                         <div class="col-md-2">
                                             <label >Status</label>
                                             <div class="onoffswitch">
-                                                <input type="checkbox" [(ngModel)]="_detranData.planstatus" name="detranSwitch" class="onoffswitch-checkbox" id="detranSwitch" checked>
-                                                <label class="onoffswitch-label" for="detranSwitch"></label>                                                
+                                                <input type="checkbox" [(ngModel)]="registerUserData.status" name="statusSwitch" class="onoffswitch-checkbox" id="statusSwitch" checked>
+                                                <label class="onoffswitch-label" for="statusSwitch"></label>                                                
                                             </div>
                                         </div> 
                                     </div>
@@ -162,8 +162,9 @@
                                         <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
                                             <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  >    
                                                 <div class="col" *ngFor="let group of _groupsData | filter : searchText">
-                                                    <label class="btn btn-outline-rainti " [ngClass]="group.checked ? 'active' : 'default'"  >
-                                                        <input type="radio" [checked]="group.checked"  id="group.{{group.name}}" autocomplete="off" > {{ group.name }}
+                                                    <label class="btn btn-outline-rainti "   >
+                                                        <input type="radio" name="options" id="{{group.id}}" autocomplete="off" 
+                                                        (click)="featuresControl($event)"> {{ group.name }}
                                                     </label>
                                                 </div>
                                             </div>

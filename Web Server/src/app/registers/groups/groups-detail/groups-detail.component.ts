@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupDetailService } from '../group-services/group-detail.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-groups-detail',
@@ -49,7 +50,8 @@ export class GroupsDetailComponent implements OnInit {
   }
 
   constructor(private _groupDetailService: GroupDetailService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _location: Location
   ) { }
 
   ngOnInit() {
@@ -382,6 +384,10 @@ export class GroupsDetailComponent implements OnInit {
         )
       }
     )
+  }
+
+  backToGroups(){
+    this._location.back()
   }
 
 }

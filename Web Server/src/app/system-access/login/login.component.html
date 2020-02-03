@@ -1,49 +1,63 @@
-<div class="py-5">
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <span class="anchor" id="formLogin"></span>
-            <div class="card shadow">
-                <article class="card-body">
-                    <!-- <a routerLink="/register" routerLinkActive="active" class="float-right btn btn-outline-primary">Cadastre-se</a> -->
-                    <h4 class="card-title mb-4 mt-1">Entrar</h4>
-                    <form #loginForm="ngForm">                        
-                        <div class="form-group">
-                            <label>Usuário</label>
-                            <input  type="text" [(ngModel)]="loginUserData.userName" name="userName" class="form-control rounded-0"  
-                            #user="ngModel" [class.is-invalid]="user.invalid && user.touched" required>
-                            <div class="md-errors-spacer" [hidden]="user.valid || user.untouched">
-                                <small class="text-danger"  *ngIf="user.errors && user.errors.required">
-                                    Nome de usuário obrigatório
-                                </small>
-                            </div>
-                        </div> <!-- form-group// -->
-                        <div class="form-group">
-                            <a class="float-right" routerLink="/recuperar-senha" routerLinkActive="active">Recuperar senha</a>
-                            <label>Senha</label>
-                            <input  type="password" [(ngModel)]="loginUserData.password" name="password" class="form-control rounded-0"  
-                            #password="ngModel" [class.is-invalid]="password.invalid && password.touched" required>
-                            <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
-                                <small class="text-danger"  *ngIf="password.errors && password.errors.required">
-                                    Senha obrigatória
-                                </small>
-                            </div>
-                        </div> <!-- form-group// --> 
-                        <div class="form-group"> 
-                        <div class="checkbox">
-                        <label> <input type="checkbox"> Salvar senha </label>
-                        </div> <!-- checkbox .// -->
-                        </div> <!-- form-group// -->  
-                        <div class="form-group">
-                            <button [disabled]="loginForm.form.invalid" type="button" (click)="loginUser()" class="btn btn-rainti btn-block">Entrar</button>
-                        </div> <!-- form-group// -->                                                           
-                    </form>
-                    <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
-                        {{_errorMessage}}
+<div class="col-md-4 mx-auto" style="padding-top: 150px;">
+    <div class="card shadow">
+        <div class="card-body">
+            <!-- <a routerLink="/register" routerLinkActive="active" class="float-right btn btn-outline-primary">Cadastre-se</a> -->
+            <h4 class="card-title">Bem-vindo</h4>
+            <hr />
+            <form #loginForm="ngForm">
+                <div class="form-group">
+                    <label>Usuário</label>
+                    <input type="text" [(ngModel)]="loginUserData.userName" name="userName"
+                        class="form-control rounded-0" #user="ngModel" [class.is-invalid]="user.invalid && user.touched"
+                        required>
+                    <div class="md-errors-spacer" [hidden]="user.valid || user.untouched">
+                        <small class="text-danger" *ngIf="user.errors && user.errors.required">
+                            Nome de usuário obrigatório
+                        </small>
                     </div>
-                </article>
-                </div> <!-- card.// -->
-        </div>
+                </div> <!-- form-group// -->
+                <div class="form-group">
+
+                    <label>Senha</label>
+
+                    <input type="password" [(ngModel)]="loginUserData.password" name="password"
+                        class="form-control rounded-0" #password="ngModel"
+                        [class.is-invalid]="password.invalid && password.touched" required>
+
+                    <a class="text" routerLink="/recuperar-senha" routerLinkActive="active">Esqueceu sua senha? Clique
+                        aqui</a>
+                    <div class="md-errors-spacer" [hidden]="password.valid || password.untouched">
+                        <small class="text-danger" *ngIf="password.errors && password.errors.required">
+                            Senha obrigatória
+                        </small>
+                    </div>
+                </div>
+
+                <!-- <div class="form-group"> 
+                            <div class="checkbox">
+                                <label> <input type="checkbox"> Salvar senha </label>
+                            </div>                         
+                         </div> -->
+                <hr />
+                <div class="form-group">
+                    <button [disabled]="loginForm.form.invalid" type="button" (click)="loginUser()"
+                        class="btn btn-rainti btn-block">Entrar</button>
+                </div>
+
+            </form>
+            <div class="row">
+                <div class="alert alert-danger text-center text-danger text-wrap" *ngIf="_errorMessage">
+                    {{_errorMessage}}
+                </div>
+                <img src="../assets/images/logo.png" class="col-md-4 mx-auto" >
+                
+            </div>
+            
+
+            
+
+
+
+        </div> <!-- card.// -->
     </div>
 </div>
-    
-
