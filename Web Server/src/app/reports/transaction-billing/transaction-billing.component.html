@@ -8,12 +8,18 @@
   <div style="padding-top: 10px; height: 650px; white-space: nowrap;"> 
     <form billing #form="ngForm"> 
 
-      <div>
+      
         <div class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight d-inline-block">
-          <button class="btn btn-sm  btn-rainti" (click)="exportAsXLSX()"> Exportar <fa-icon
+        <div class="ml-1">
+          <button class="btn btn-sm  btn-rainti"  (click)="exportAsXLSX()"> Exportar XLS <fa-icon
+            [icon]="['fas', 'file-excel']"></fa-icon></button>
+        </div>
+        <div>
+          <button class="btn btn-sm  btn-rainti" (click)="downloadFile()"> Exportar CSV <fa-icon
             [icon]="['fas', 'file-excel']"></fa-icon></button>
         </div>
       </div>
+  
 
       <!-- <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
         <option [value]="10">10</option>

@@ -69,6 +69,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter, faBan, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { ExcelService } from './reports/transaction-billing/excel.service';
+import { DownloadFileService } from './reports/transaction-billing/csv.service';
 
 
 @NgModule({
@@ -139,7 +140,7 @@ import { ExcelService } from './reports/transaction-billing/excel.service';
     FontAwesomeModule,
 
   ],
-  providers: [AuthService, AuthGuard, ExcelService,
+  providers: [AuthService, AuthGuard, ExcelService, DownloadFileService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent],
