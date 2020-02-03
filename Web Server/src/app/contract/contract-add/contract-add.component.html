@@ -1,4 +1,4 @@
-<div class="py-5">
+
     <div class="row">
         <div class="col-md-8 mx-auto">
             <span class="anchor" id="formLogin"></span>
@@ -19,38 +19,42 @@
                     <div class="tab-content" id="nav-tabContent">
                         <div [ngClass]="{'show active':_activeTab==='nav-credor'}" class="tab-pane fade" id="nav-credor" role="tabpanel" aria-labelledby="nav-credor-tab"> <br>
                             <form class="form" #entitiesForm="ngForm">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xl">
-                                            <label for="uname1">Detran</label>
-                                            <div class="col border text-center btn-outline-secondary" *ngIf="_detransLoad">
-                                                <span class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
-                                            </div>
-                                            <select class="custom-select" #detran="ngModel" [class.is-invalid]="detransHasError && detran.touched"
-                                            name="detran" [(ngModel)]="contractData.detran" (change)="validateDetrans(detran.value)" (blur)="validateDetrans(detran.value)">                            
-                                                <option value="default">--Escolha um Detran</option>
-                                                <option *ngFor="let detran of _detrans">{{ detran.description}}</option>
-                                            </select>
-                                            <small class="text-danger" [class.d-none]="!detransHasError || detran.untouched">Escolha um Detran</small>
-                                        </div>
-                                    </div>
+                                <div class="form-group">                                        
+                                    <div class="col">
+                                        <label for="uname1">Detran</label>
+                                    </div>                                    
+                                    <div class="col" *ngIf="!_detransLoad">                                        
+                                        <select class="custom-select" #detran="ngModel" [class.is-invalid]="detransHasError && detran.touched"
+                                        name="detran" [(ngModel)]="contractData.detran" (change)="validateDetrans(detran.value)" (blur)="validateDetrans(detran.value)">                            
+                                            <option value="default">--Escolha um Detran</option>
+                                            <option *ngFor="let detran of _detrans">{{ detran.description}}</option>
+                                        </select>
+                                        <small class="text-danger" [class.d-none]="!detransHasError || detran.untouched">Escolha um Detran</small>
+                                    </div>                                    
+                                     <div class="col border text-center btn-outline-secondary" *ngIf="_detransLoad">
+                                        <span class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
+                                    </div> 
+                                    
                                 </div>
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-xl">
+                                        <div class="col">
                                             <label for="uname1">Credora</label>
-                                            <div class="col border text-center btn-outline-secondary" *ngIf="_creditorsLoad">
-                                                <span class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
-                                            </div>
+                                        </div>
+                                        <div class="col" *ngIf="!_creditorsLoad">
                                             <select class="custom-select" #creditor="ngModel" [class.is-invalid]="creditorsHasError && creditor.touched"
                                             name="creditor" [(ngModel)]="contractData.creditor" (change)="validateCreditors(creditor.value)" (blur)="validateCreditors(creditor.value)">                            
                                                 <option value="default">--Escolha uma credora</option>
                                                 <option *ngFor="let creditor of _creditors">{{ creditor.description }}</option>
                                             </select>
                                             <small class="text-danger" [class.d-none]="!creditorsHasError || creditor.untouched">Escolha uma credora</small>
+                                        </div>           
+                                        
+                                        <div class="col border text-center btn-outline-secondary" *ngIf="_creditorsLoad">
+                                            <span class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
                                         </div>
-                                    </div>
+                                        
                                 </div>
+                                <hr/>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6"> 
@@ -949,7 +953,7 @@
                             </form>
                         </div>
                     </div>
-                    <hr/>
+                    
                     <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
                         {{_errorMessage}}
                     </div> 
@@ -960,6 +964,6 @@
             </div>
         </div>
     </div>
-</div>
+
 
 
