@@ -33,6 +33,9 @@ import { GroupAddComponent } from './registers/groups/group-add/group-add.compon
 import { GroupMainComponent } from './registers/groups/group-main/group-main.component';
 import { ContractMainComponent } from './contract/contract-main/contract-main.component';
 import { ContractAddComponent } from './contract/contract-add/contract-add.component';
+import { TransactionBillingComponent } from './reports/transaction-billing/transaction-billing.component';
+import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
+import { GroupsDetailComponent } from './registers/groups/groups-detail/groups-detail.component';
 
 const routes: Routes = [
   {
@@ -45,26 +48,32 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'user-add',
+    path: 'usuarios-adicionar',
     component: UserAddComponent,
     canActivate: [AuthGuard]
   },
 
   {
-    path: 'user-main',
+    path: 'usuarios',
     component: UserMainComponent,
     canActivate: [AuthGuard]
   },
 
   {
-  path: 'group-main',
+  path: 'grupos',
   component: GroupMainComponent,
   canActivate: [AuthGuard]
   },
 
   {
-    path: 'group-add',
+    path: 'grupos-adicionar',
     component: GroupAddComponent,
+    canActivate: [AuthGuard]
+    },
+
+  {
+    path: 'grupo-detalhe/:id',
+    component: GroupsDetailComponent,
     canActivate: [AuthGuard]
     },
 
@@ -212,6 +221,19 @@ const routes: Routes = [
     component: ContractAddComponent,
     canActivate: [AuthGuard]
   },
+
+  {
+    path: 'bilhetagem-transacoes',
+    component: TransactionBillingComponent,
+    canActivate: [AuthGuard]
+  },
+
+  {
+    path: 'transacoes-financeiras',
+    component: FinancialTransactionComponent,
+    canActivate: [AuthGuard]
+  },
+
 
 ];
 

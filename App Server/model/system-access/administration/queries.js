@@ -1,9 +1,8 @@
 const Pool = require('pg').Pool
 const crypto = require('crypto')
-const jwt = require('jsonwebtoken')
 const jsonData = require('../../../config/config-database.json')
 var randomize = require('randomatic');
-const jwtToken = require('../../../routes/common/functions')
+const jwtToken = require('../../../routes/common/jwt-validation')
 
 const pool = new Pool({  
   user: jsonData.user,
@@ -12,25 +11,6 @@ const pool = new Pool({
   password: jsonData.password,
   port: jsonData.port,
 })
-
-// Criação de usuários
-const createUser = (req, res) => {
-  let userData = req.body
-  
-  let hash = crypto.createHash('md5').update(userData.password).digest("hex")
-
-  pool.query('insert into users (firstname, lastname, email, username, passwordMd5) values ($1, $2, $3, $4, $5);',
-    [userData.firstName, userData.lastName, userData.email, userData.userName, hash],
-    (error, registeredUser) => {
-      if (error) {
-        console.log(error)
-        res.status(401).send('Usuário já cadastrado!')
-      } else {
-        res.status(200).json(registeredUser)
-      }
-
-    })
-}
 
 // Exibição de usuários
 const getUser = (req, res) =>{
@@ -49,36 +29,15 @@ const getGroupsForUsersAdd = (req, res) =>{
 
   let token = jwtToken.verifyToken( req, res)
 
-  console.log(token.subject.userId+' ' + req.body)
-
+  const userId = token.subject.userId
  
-  pool.query('select rp.id as id, '
-            +'	   p.description as name, '
-            +'	   dd.description as entityname '
-            +'from plan p, '
-            +'	   role_plans rp, '
-            +'	   accounts acc, '
-            +'	   data_detran dd '
-            +'where acc.roleplanid = rp.id '
-            +'and rp.planid = p.id '
-            +'and acc.userid = $1 '
-            +'and dd.identity = rp.entityid '
-            +'and dd.datacodeid = 1  '
-            +'union '
-            +'select rp.id as id, '
-            +'	   p.description as name, '
-            +'	   dd.description as entityname '
-            +'from plan p, '
-            +'	   role_plans rp, '
-            +'	   accounts acc, '
-            +'	   data_creditor dd '
-            +'where acc.roleplanid = rp.id '
-            +'and rp.planid = p.id '
-            +'and acc.userid = $1 '
-            +'and dd.identity = rp.entityid '
-            +'and dd.datacodeid = 9 '
-            +'order by 2', 
-      [token.subject.userId],
+  pool.query('select g.id, g.description as name, case when g.status = 1 then \'Ativo\' else \'Inativo\' end as status '
+            +' from user_entities ue, groups_relationship gp, groups g '
+            +' where ue.userid = $1 '
+            +' and gp.entityid = ue.entityid  '
+            +' and gp.groupsid = g.id '
+            +' group by g.description, g.id', 
+      [userId],
    (error, storedShowGroupsForUsers) => {
     if (error) {
       console.log(error)
@@ -89,39 +48,27 @@ const getGroupsForUsersAdd = (req, res) =>{
   })
 }
 
-// Exibindo as entidades existentes na criação de usuários
-const getUserEntities = (req, res) =>{
-  pool.query('select  dd.identity as id, max(case when dd.datacodeid = 9 then dd.description end) as name  from data_creditor dd, states st, states_relationship sr, entities et where dd."identity" = sr."identity" and st.id = sr.idstate and dd."identity" = et.id  and et.status = true group by dd.identity order by 2',
-   (error, storedShowEntitiesForUsers) => {
-    if (error) {
-      console.log(error)
-    }else{
-    console.log(storedShowEntitiesForUsers.rows)
-    res.status(200).json(storedShowEntitiesForUsers.rows)
-    }
-  })
-}
 
-// Criação de grupos
-const createGroup = (req, res) => {
-  let groupData = req.body
 
-  pool.query('insert into role_plans (planname, entityid, status) values ($1, $2, $3);',
-    [groupData.planname, groupData.entityid, groupData.status],
-    (error, registeredGroup) => {
-      if (error) {
-        console.log(error)
-        res.status(401).send('Grupo já cadastrado!')
-      } else {
-        res.status(200).json(registeredGroup)
-      }
-    })
-}
+
 
 
 // Exibindo as features existentes na criação de grupos
 const getUserGroupFeatures = (req, res) =>{
-  pool.query('select description as name, id from features',
+
+  let token = jwtToken.verifyToken( req, res)
+
+  pool.query('select f.component as component, '
+            +' f.description as featurename, '
+            +' et.description as entitytype '
+            +' from  '
+            +' features f, '
+            +' entity_type_features ef, '
+            +' entity_type et '
+            +' where '
+            +' ef.featuresid = f.id '
+            +' and ef.entitytypeid = et.id  '
+            +' order by 2,1 ',
    (error, storedShowFeaturesForGroup) => {
     if (error) {
       console.log(error)
@@ -131,12 +78,81 @@ const getUserGroupFeatures = (req, res) =>{
   })
 }
 
+// Exibindo as features existentes na criação de grupos
+const getUserGroupEntities = (req, res) =>{
+
+  let token = jwtToken.verifyToken( req, res)
+
+  const userId = token.subject.userId
+
+  pool.query('select et.id as entityid, '
+  +' dd.description as entityname,  '
+  +' ey.description as entitytype  '
+  +' from  '
++' accounts acc, '
+   +' groups_relationship gp, '
+   +' data_detran dd, '
+   +' entities et, '
+   +' entity_type ey '
+   +' where acc.userid = $1 '
++' and acc.groupsid = gp.groupsid '
+ +' and (dd.identity = gp.entityid) '
+ +' and et.status = true '
+ +' and gp.entityid = et.id '
+ +' and dd.datacodeid = 1 '
+ +' and et.entitytypeid = ey.id '
+ +' and gp.status = 1 '
+ +' and acc.status = 1 '
+ +' union '
++' select et.id as entityid,  '
++' dd.description as entityname,  '
+  +' ey.description as entitytype  '
+  +' from  '
++' accounts acc, '
+   +' groups_relationship gp, '
+   +' data_creditor dd, '
+   +' entities et, '
+   +' entity_type ey '
+   +' where acc.userid = $1 '
++' and acc.groupsid = gp.groupsid '
+ +' and (dd.identity = gp.entityid) '
+ +' and et.status = true '
+ +' and gp.entityid = et.id '
+ +' and dd.datacodeid = 8 '
+ +' and et.entitytypeid = ey.id '
+ +' and gp.status = 1 '
+ +' and acc.status = 1',[userId],
+   (error, storedShowFeaturesForGroup) => {
+    if (error) {
+      console.log(error)
+    }else{
+    res.status(200).json(storedShowFeaturesForGroup.rows)
+    }
+  })
+}
+
+const disableGroupById = (req, res) =>{
+
+  let userData = req.body
+  console.log("ID: "+userData[0])
+  
+  pool.query('update groups set status = 0 where id = $1 ',
+  [userData.id],
+   (error, storedShowFeaturesForGroup) => {
+    if (error) {
+      console.log(error)
+      res.status(500).json(error)
+    }else{
+    res.status(200).json('Registro atualizado com sucesso')
+    }
+  })
+}
+
 module.exports = { 
-  createUser,
   getUser,
-  createGroup,
   getGroupsForUsersAdd,
-  getUserEntities,
   getUserGroupFeatures,
+  getUserGroupEntities,
+  disableGroupById,
   
   }

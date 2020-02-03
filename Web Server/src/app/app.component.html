@@ -1,93 +1,129 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow fixed-top" >
+<div style="padding: 80px 0px 0px 0px; padding-block-end: 80px; background-image:url('../assets/images/blue-circuit.jpg');">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow fixed-top" >
     
-  <a class="navbar-brand" routerLink="/principal" routerLinkActive="active"><img src="../assets/images/logo.png" class="img-reponsive"></a>
+    <a class="navbar-brand" routerLink="/principal" routerLinkActive="active"><img src="../assets/images/logo.png" class="img-reponsive"></a>
+      
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <div class="collapse navbar-collapse"  id="navbarSupportedContent">
+      <ul class="nav navbar-nav mr-auto" >
+        <div class= "row justify-content-lg align-items-center" *ngIf="_authService.loggedIn()">       
+          <li class="dropdown px-3"  >
+            <a class="nav-link" class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Registro de Contratos
+            <span class="caret"></span></a>
+              <ul class="dropdown-menu"  >
+                <li >
+                  <a class="nav-link px-2 text-dark" routerLink="/contratos" routerLinkActive="active">Consultar</a>
+                  <a class="nav-link px-2 text-dark" routerLink="/registrar-contrato" routerLinkActive="active">Adicionar</a>
+                </li>
+                <!-- <li *ngFor="let entityType of entityTypes"> 
+                  <a class="nav-link px-2 text-dark" routerLink="/{{entityType.name.toLocaleLowerCase()}}" routerLinkActive="active" >{{entityType.name}}</a>
+                </li> -->
+              </ul>
+          </li>     
+          
+          <li class="px-3">
+            <div class="dropdown">
+              <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Instituições
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    <li class="dropdown-submenu">
+                      <a  class="dropdown-item" tabindex="-1">Detrans</a>
+                      <ul class="dropdown-menu">
+                        <a class="nav-link px-2 text-dark" routerLink="/detran" routerLinkActive="active">Consultar</a>
+                        <a class="nav-link px-2 text-dark" style="cursor:pointer" (click)="checkDetranAvaiability(content)">Adicionar</a>                         
+                      </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                      <a  class="dropdown-item" tabindex="-1">Credoras</a>
+                      <ul class="dropdown-menu">
+                        <a class="nav-link px-2 text-dark" routerLink="/credora" routerLinkActive="active">Consultar</a>
+                        <a class="nav-link px-2 text-dark" routerLink="/credor-adicionar" routerLinkActive="active">Adicionar</a>
+                      </ul>
+                    </li>                     
+                    <li class="dropdown-submenu">
+                      <a  class="dropdown-item" tabindex="-1">Gestoras</a>
+                      <ul class="dropdown-menu">
+                        <a class="nav-link px-2 text-dark" routerLink="/gestora" routerLinkActive="active">Consultar</a>
+                        <a class="nav-link px-2 text-dark" routerLink="/gestor-adicionar" routerLinkActive="active">Adicionar</a>                      
+                      </ul>
+                    </li>  
+                  </ul>
+            </div>
+          </li>
+          <li class="px-3">
+            <div class="dropdown">
+              <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Administração
+                <span class="caret"></span></a>
+                <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                    <li class="dropdown-submenu">
+                      <a  class="dropdown-item" tabindex="-1">Usuários</a>
+                      <ul class="dropdown-menu">
+                        <a class="dropdown-item" routerLink="/usuarios" routerLinkActive="active" >Consultar</a>
+                        <a class="dropdown-item" routerLink="/usuarios-adicionar" routerLinkActive="active" >Adcicionar</a>                         
+                      </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                      <a  class="dropdown-item" tabindex="-1">Grupos</a>
+                      <ul class="dropdown-menu">
+                        <a class="dropdown-item" routerLink="/grupos" routerLinkActive="active" >Consultar</a>
+                        <a class="dropdown-item" routerLink="/grupos-adicionar" routerLinkActive="active" >Adicionar</a>                          
+                      </ul>
+                    </li>                     
+                  </ul>
+            </div>
+          </li>
+          <li class="dropdown px-3">
+            <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Relatórios
+            <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="nav-link px-2 text-dark" routerLink="/historico-transacao" routerLinkActive="active" >Histórico de auditoria</a>
+                  <a class="nav-link px-2 text-dark" routerLink="/bilhetagem-transacoes" routerLinkActive="active" >Bilhetagem de transações</a>
+                  <a class="nav-link px-2 text-dark" routerLink="/transacoes-financeiras" routerLinkActive="active" >Transações financeira</a>
+                </li>
+              </ul>
+          </li>  
+        </div>   
+      </ul>   
+   
+      
+      <ul class="nav navbar-nav navbar-right">
+          <a class="nav-link" style="cursor:pointer" *ngIf="_authService.loggedIn()" >Perfil</a>
+          <a class="nav-link" style="cursor:pointer" *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Sair</a>
+      </ul> 
+    </div>
+  </nav>  
   
-  <div class="collapse navbar-collapse"  id="navbarSupportedContent">
-    <ul class="nav navbar-nav mr-auto" >
-      <div class= "row justify-content-lg align-items-center" *ngIf="_authService.loggedIn()">       
-        <li class="dropdown px-3"  >
-          <a class="nav-link" class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Registro de Contratos
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu"  >
-              <li >
-                <a class="nav-link px-2 text-dark" routerLink="/contratos" routerLinkActive="active">Consultar</a>
-                <a class="nav-link px-2 text-dark" routerLink="/registrar-contrato" routerLinkActive="active">Adicionar</a>
-              </li>
-              <!-- <li *ngFor="let entityType of entityTypes"> 
-                <a class="nav-link px-2 text-dark" routerLink="/{{entityType.name.toLocaleLowerCase()}}" routerLinkActive="active" >{{entityType.name}}</a>
-              </li> -->
-            </ul>
-        </li>     
-        <li class="dropdown px-3"  >
-          <a class="nav-link" class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Detran
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu"  >
-              <li >
-                <a class="nav-link px-2 text-dark" routerLink="/detran" routerLinkActive="active">Consultar</a>
-                <a class="nav-link px-2 text-dark" routerLink="/detran-adicionar" routerLinkActive="active">Adicionar</a>
-              </li>
-              <!-- <li *ngFor="let entityType of entityTypes"> 
-                <a class="nav-link px-2 text-dark" routerLink="/{{entityType.name.toLocaleLowerCase()}}" routerLinkActive="active" >{{entityType.name}}</a>
-              </li> -->
-            </ul>
-        </li>     
-        <li class="dropdown px-3" >
-          <a class="nav-link " class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Credora
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu"  >
-              <li >
-                <a class="nav-link px-2 text-dark" routerLink="/credora" routerLinkActive="active">Consultar</a>
-                <a class="nav-link px-2 text-dark" routerLink="/credor-adicionar" routerLinkActive="active">Adicionar</a>
-              </li>
-              <!-- <li *ngFor="let entityType of entityTypes"> 
-                <a class="nav-link px-2 text-dark" routerLink="/{{entityType.name.toLocaleLowerCase()}}" routerLinkActive="active" >{{entityType.name}}</a>
-              </li> -->
-            </ul>
-        </li>
-        <li class="dropdown px-3" >
-          <a class="nav-link " class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Gestora
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu"  >
-              <li >
-                <a class="nav-link px-2 text-dark" routerLink="/gestora" routerLinkActive="active">Consultar</a>
-                <a class="nav-link px-2 text-dark" routerLink="/gestor-adicionar" routerLinkActive="active">Adicionar</a>
-              </li>
-              <!-- <li *ngFor="let entityType of entityTypes"> 
-                <a class="nav-link px-2 text-dark" routerLink="/{{entityType.name.toLocaleLowerCase()}}" routerLinkActive="active" >{{entityType.name}}</a>
-              </li> -->
-            </ul>
-        </li>   
-        <li class="dropdown px-3">
-          <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Administração
-          <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="nav-link px-2 text-dark" routerLink="/user-main" routerLinkActive="active" >Usuários</a>
-                <a class="nav-link px-2 text-dark" routerLink="/group-main" routerLinkActive="active" >Grupos</a>
-              </li>
-            </ul>
-        </li>       
-      </div>   
-    </ul>   
-    <ul class="nav navbar-nav navbar-right">
-        <a class="nav-link" style="cursor:pointer" *ngIf="_authService.loggedIn()" >Perfil</a>
-        <a class="nav-link" style="cursor:pointer" *ngIf="_authService.loggedIn()" (click)="_authService.logoutUser()">Sair</a>
-    </ul> 
+  <ng-template  #content let-modal>
+    
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Aviso</h4>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="dateOfBirth">Todos os Detrans já foram cadastrados.</label>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-rainti" (click)="modal.close()">OK</button>
+      </div>
+    </div>
+  </ng-template>
+  
+  <nav class="navbar-sm fixed-bottom " >
+      <div class="col" style="padding-top: 5px;" >
+        
+        <h6  class="text-center text-light font-weight-lighter" >© 2019 - RainTI Tecnologia e Sistemas de Informação LTDA <br> Rua Paulino Corado, 20, Jardim Santa Teresa - Jundiaí/SP - Todos os direitos reservados.</h6>
+      </div> 
+  </nav>
+  
+  <div class="container" style="height: 820px; white-space: nowrap;">
+    
+    <router-outlet ></router-outlet>  
+             
   </div>
-</nav>  
-
-<nav class="navbar-sm fixed-bottom navbar-dark bg-rainti shadow-lg" >
-    <div class="col" >
-      <h6  class="text-center text-light font-weight-lighter" >© 2020 - RainTI Tecnologia e Sistemas de Informação LTDA <br> Rua Paulino Corado, 20, Jardim Santa Teresa - Jundiaí/SP - Todos os direitos reservados.</h6>
-    </div> 
-</nav>
-
-<div class="container" style="padding: 80px 0px 80px 0px">
-  
-  <router-outlet></router-outlet>  
-           
 </div>

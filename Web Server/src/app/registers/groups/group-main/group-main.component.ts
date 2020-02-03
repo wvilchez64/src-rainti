@@ -9,19 +9,32 @@ import { GroupMainService } from '../group-services/group-main.service';
 })
 export class GroupMainComponent implements OnInit {
 
-  groupMain: Array<any> = []
-  searchText: ''
-  name: ''
-  constructor(private _groupService: GroupMainService) { 
-      
-    }
+  _groupMain: Array<any> = []
+  _searchText: ''
+  _status = 'Todos'  
+  _userData = {id: ''}
+
+  constructor(private _groupService: GroupMainService) { }
 
   ngOnInit() {
     this._groupService.getGroup()
     .subscribe(      
-      res => this.groupMain = res,
+      res => this._groupMain = res,
       err => console.log(err)
     ) 
+  }
+
+  disableGroup(id){
+    this._userData.id = id
+    this._groupService.disableGroup(this._userData)
+    .subscribe(res =>{
+      console.log(res)
+      this.ngOnInit()
+    },
+    err => {
+      console.log(err)
+    })
+
   }
 }
 

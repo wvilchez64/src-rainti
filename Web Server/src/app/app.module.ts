@@ -13,7 +13,7 @@ import { LoginComponent } from './system-access/login/login.component';
 import { AuthService } from './system-access/system-access-services/auth.service';
 import { AuthGuard } from './auth.guard';
 import { TokenInterceptorService } from './token-interceptor.service';
-import { FilterPipe } from './filter-name.pipe';
+import { FilterPipe } from './pipes/filter-name.pipe';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
 import { RegistrarComponent } from './entities/registrar/registrar.component';
@@ -50,6 +50,25 @@ import { ContractAddComponent } from './contract/contract-add/contract-add.compo
 import { ContractMainComponent } from './contract/contract-main/contract-main.component';
 import { CpfCnpjModule } from 'ng2-cpf-cnpj';
 import { CurrencyMaskModule } from "ng2-currency-mask";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
+import { TransactionBillingComponent } from './reports/transaction-billing/transaction-billing.component';
+import { AuditUserDetailComponent } from './reports/audit-history/audit-user-detail/audit-user-detail.component';
+import { AuditGroupDetailComponent } from './reports/audit-history/audit-group-detail/audit-group-detail.component';
+import { AuditContractDetailComponent } from './reports/audit-history/audit-contract-detail/audit-contract-detail.component';
+import { AuditDetranDetailComponent } from './reports/audit-history/audit-detran-detail/audit-detran-detail.component';
+import { AuditCreditorDetailComponent } from './reports/audit-history/audit-creditor-detail/audit-creditor-detail.component';
+import { FilterEntityNamePipe } from './pipes/filter-entity-name.pipe';
+import { FilterFeatureNamePipe } from './pipes/filter-feature-name.pipe';
+import { GroupsDetailComponent } from './registers/groups/groups-detail/groups-detail.component';
+import { FilterStatusPipe } from './pipes/filter-status.pipe';
+import { FilterDescriptionPipe } from './pipes/filter-description.pipe';
+import { TableFilterPipe } from './reports/transaction-billing/table-filter-pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faFilter, faBan, faFileExcel } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { ExcelService } from './reports/transaction-billing/excel.service';
 
 
 @NgModule({
@@ -92,6 +111,21 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 
     ContractAddComponent,
     ContractMainComponent,
+
+    FinancialTransactionComponent,
+    TransactionBillingComponent,
+ 
+    AuditUserDetailComponent,
+    AuditGroupDetailComponent,
+    AuditContractDetailComponent,
+    AuditDetranDetailComponent,
+    AuditCreditorDetailComponent,
+    FilterEntityNamePipe,
+    FilterFeatureNamePipe,
+    GroupsDetailComponent,
+    FilterStatusPipe,
+    FilterDescriptionPipe,
+    TableFilterPipe,
   ],
   imports: [
     BrowserModule,
@@ -101,11 +135,21 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
     UserIdleModule,
     CpfCnpjModule,
     CurrencyMaskModule,
+    NgbModule,
+    FontAwesomeModule,
 
   ],
-  providers: [AuthService, AuthGuard, 
+  providers: [AuthService, AuthGuard, ExcelService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
-export class AppModule { }
+export class AppModule { 
+
+  constructor(){
+    
+    library.add(faFilter, faBan, faFileExcel);
+  }
+
+}
