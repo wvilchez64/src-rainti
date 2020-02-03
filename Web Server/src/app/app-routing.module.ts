@@ -119,16 +119,6 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'credora',
-    component: CreditorMainComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'credor-detalhe/:id',
-    component: CreditorDetailComponent,
-    canActivate : [AuthGuard],
-  },
-  {
     path: 'detran-detalhe-contato/:id',
     component: DetranContactDetailComponent,
     canActivate: [AuthGuard]
@@ -140,6 +130,21 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'credora',
+    component: CreditorMainComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'credor-adicionar',
+    component: CreditorAddComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'credor-detalhe/:id',
+    component: CreditorDetailComponent,
+    canActivate : [AuthGuard],
+  },
+  {
     path: 'credor-contatos/:id',
     component: CreditorContactsComponent,
     canActivate: [AuthGuard]
@@ -149,11 +154,7 @@ const routes: Routes = [
     component: CreditorContactDetailComponent,
     canActivate: [AuthGuard]
   },
-  {
-    path: 'credor-adicionar',
-    component: CreditorAddComponent,
-    canActivate: [AuthGuard]
-  },
+
   {
     path: 'credor-adicionar-contato/:id',
     component: CreditorContactAddComponent,

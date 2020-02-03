@@ -248,6 +248,7 @@ const getCreditors = (req, res) => {
       }
       
     })
+
 }
 
 module.exports = { 

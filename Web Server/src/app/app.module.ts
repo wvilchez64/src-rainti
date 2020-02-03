@@ -66,8 +66,9 @@ import { FilterStatusPipe } from './pipes/filter-status.pipe';
 import { FilterDescriptionPipe } from './pipes/filter-description.pipe';
 import { TableFilterPipe } from './reports/transaction-billing/table-filter-pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faFilter, faBan } from '@fortawesome/free-solid-svg-icons';
+import { faFilter, faBan, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { ExcelService } from './reports/transaction-billing/excel.service';
 
 
 @NgModule({
@@ -138,7 +139,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
     FontAwesomeModule,
 
   ],
-  providers: [AuthService, AuthGuard, 
+  providers: [AuthService, AuthGuard, ExcelService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent],
@@ -148,7 +149,7 @@ export class AppModule {
 
   constructor(){
     
-    library.add(faFilter, faBan);
+    library.add(faFilter, faBan, faFileExcel);
   }
 
 }

@@ -20,7 +20,7 @@ const getEntitiesTypes = (req, res) =>{
 }
 
 const getStates = (req, res) =>{
-  pool.query('select description from states',
+  pool.query('select id, description from states',
    (error, storedStates) => {
     if (error) {
       console.log(error)
