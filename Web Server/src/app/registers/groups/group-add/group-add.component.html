@@ -5,7 +5,7 @@
             <!-- form card login -->
             <div class="card shadow">
                   <div class="card-body">
-                    <h4 class="card-title mb-4 mt-1">Cadastro de grupos</h4>                    
+                    <h4 class="card-title mb-4 mt-1">Cadastrar grupo</h4>                    
                     <hr/>
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -22,9 +22,8 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div  class="col">
-                                            <label >{{_detranGroupData.features}}</label>
                                             <label >Grupo</label>                                            
-                                            <input type="text" [(ngModel)]="_groupData.planname" name="detranPlanname"  class="form-control rounded-0" 
+                                            <input type="text" [(ngModel)]="_detranData.planname" name="detranPlanname"  class="form-control rounded-0" 
                                             placeholder="Digite o nome do plano"
                                             [class.is-invalid]="detranPlanname.invalid && detranPlanname.touched" #detranPlanname="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="detranPlanname.valid || detranPlanname.untouched">
@@ -36,7 +35,7 @@
                                         <div class="col-md-2">
                                             <label >Status</label>
                                             <div class="onoffswitch">
-                                                <input type="checkbox" [(ngModel)]="_detranSwitch" name="detranSwitch" class="onoffswitch-checkbox" id="detranSwitch" checked>
+                                                <input type="checkbox" [(ngModel)]="_detranData.planstatus" name="detranSwitch" class="onoffswitch-checkbox" id="detranSwitch" checked>
                                                 <label class="onoffswitch-label" for="detranSwitch"></label>                                                
                                             </div>
                                         </div>
@@ -55,10 +54,10 @@
                                             </div>                                            
                                             
                                             <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
-                                                    <div class="col" *ngFor="let entities of _entitiesDetran | filterEntityName  : searchTextDetran">
-                                                        <label class="btn btn-outline-rainti" >
-                                                            <input type="checkbox"  id="detran.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off" (click)="addDetran($event)"> {{ entities.entityname }}
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  >    
+                                                    <div class="col" *ngFor="let entities of _detranData.entities | filterEntityName  : searchTextDetran">
+                                                        <label class="btn btn-outline-rainti " [ngClass]="entities.checked ? 'active' : 'default'"  >
+                                                            <input type="checkbox" [checked]="entities.checked"  id="detran.{{entities.entityname}}" autocomplete="off" (change)="detranEntitiesControl($event)"> {{ entities.entityname }}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -78,10 +77,12 @@
                                             </div>                                            
                                             
                                             <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
-                                                    <div class="col"  *ngFor="let feature of _featuresDetran | filterFeatureName : searchTextDetranFunc">
-                                                        <label class="btn btn-outline-rainti"  >
-                                                            <input type="checkbox"  id="detran.{{feature.featurename }}..{{feature.id}}" autocomplete="off"> {{feature.featurename }}
+                                                <div class="btn-group btn-group-toggle btn-group-vertical"   data-toggle="buttons" >                                                                                
+                                                    <div class="col"  *ngFor="let feature of _detranData.features | filterFeatureName : searchTextDetranFunc">
+                                                        <label class="btn btn-outline-rainti " [ngClass]="feature.checked ? 'active' : 'default'"  >
+                                                            <input type="checkbox"  [checked]="feature.checked"  id="detran.{{feature.featurename }}" autocomplete="off"
+                                                            (change)="detranFeaturesControl($event)"
+                                                            > {{feature.featurename }}
                                                         </label>
                                                     </div>  
                                                 </div>  
@@ -98,10 +99,20 @@
                                             <button type="submit" (click)="backToUsers()" class="btn btn-info btn-block">Voltar</button>
                                         </div>  
                                         <div class="col-sm-6">                                        
-                                            <button type="submit" [disabled]="detranForm.form.invalid" (click)="createDetranGroup()" class="btn btn-rainti btn-block ">Salvar</button>                
+                                            <button type="submit" *ngIf="!_detranSaving"[disabled]="detranForm.form.invalid" (click)="createDetranGroup()" class="btn btn-rainti btn-block ">
+                                                Salvar                                                
+                                            </button>              
+                                             <button class="btn btn-outline-rainti btn-block" type="button" disabled *ngIf="_detranSaving">
+                                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                               
+                                            </button>
                                         </div>  
-                                    </div>                            
+                                        
+                                        
+                                    </div>                                                          
                                 </div> 
+                                <div class="alert alert-danger text-center text-danger" *ngIf="_detranErrorMessage">
+                                    {{_detranErrorMessage}}
+                                </div>      
                             </form>
                         </div>
                     
@@ -113,7 +124,7 @@
                                     <div class="row">
                                         <div  class="col">
                                             <label >Grupo</label>
-                                            <input type="text" [(ngModel)]="_groupData.planname" name="creditorPlanname"  class="form-control rounded-0" 
+                                            <input type="text" [(ngModel)]="_creditorData.planname" name="creditorPlanname"  class="form-control rounded-0" 
                                             placeholder="Digite o nome do plano"
                                             [class.is-invalid]="creditorPlanname.invalid && creditorPlanname.touched" #creditorPlanname="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="creditorPlanname.valid || creditorPlanname.untouched">
@@ -125,7 +136,7 @@
                                         <div class="col-md-2 align-items-end">
                                             <label >Status</label>
                                             <div class="onoffswitch">
-                                                <input type="checkbox" [(ngModel)]="_creditorSwitch" name="creditorSwitch" class="onoffswitch-checkbox" id="creditorSwitch" checked>
+                                                <input type="checkbox" [(ngModel)]="_creditorData.planstatus" name="creditorSwitch" class="onoffswitch-checkbox" id="creditorSwitch" checked>
                                                 <label class="onoffswitch-label" for="creditorSwitch"></label>
                                             </div>
                                         </div>
@@ -144,10 +155,10 @@
                                             </div>                                            
                                             
                                             <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
-                                                    <div class="col" *ngFor="let entities of _entitiesCreditor | filterEntityName : searchTextCreditor">
-                                                        <label class="btn btn-outline-rainti" >
-                                                            <input type="checkbox"  id="creditor.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off"> {{ entities.entityname }}
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  >    
+                                                    <div class="col" *ngFor="let entities of _creditorData.entities | filterEntityName : searchTextCreditor">
+                                                        <label class="btn btn-outline-rainti " [ngClass]="entities.checked ? 'active' : 'default'"  >
+                                                            <input type="checkbox" [checked]="entities.checked"  id="creditor.{{entities.entityname}}" autocomplete="off" (change)="creditorEntitiesControl($event)"> {{ entities.entityname }}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -167,10 +178,13 @@
                                             </div>                                            
                                             
                                             <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
-                                                    <div class="col"  *ngFor="let feature of _featuresCreditor | filterFeatureName : searchTextCreditorFunc">
-                                                        <label class="btn btn-outline-rainti"  >
-                                                            <input type="checkbox"  id="creditor.{{feature.featurename }}..{{feature.id}}" autocomplete="off"> {{feature.featurename }}
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  >                                                                                
+                                                    <div class="col"  *ngFor="let feature of _creditorData.features | filterFeatureName : searchTextCreditorFunc">
+                                                        
+                                                        
+                                                        <label class="btn btn-outline-rainti " [ngClass]="feature.checked ? 'active' : 'default'"  >
+                                                            <input type="checkbox"  [checked]="feature.checked"  id="creditor.{{feature.featurename }}" autocomplete="off"
+                                                            (change)="creditorFeaturesControl($event)"> {{feature.featurename }}
                                                         </label>
                                                     </div>  
                                                 </div>  
@@ -187,9 +201,17 @@
                                             <button type="submit" (click)="backToUsers()" class="btn btn-info btn-block">Voltar</button>
                                         </div>  
                                         <div class="col-sm-6">                                        
-                                            <button type="submit" [disabled]="creditorForm.form.invalid" (click)="createCreditorGroup()" class="btn btn-rainti btn-block ">Salvar</button>                
+                                            <button type="submit" *ngIf="!_creditorSaving"[disabled]="creditorForm.form.invalid" (click)="createCreditorGroup()" class="btn btn-rainti btn-block ">
+                                                Salvar                                                
+                                            </button>              
+                                             <button class="btn btn-outline-rainti btn-block" type="button" disabled *ngIf="_creditorSaving">
+                                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                               
+                                            </button>
                                         </div>  
                                     </div>                            
+                                </div> 
+                                <div class="alert alert-danger text-center text-danger" *ngIf="_creditorErrorMessage">
+                                    {{_creditorErrorMessage}}
                                 </div> 
                             </form>
                         </div>
@@ -202,7 +224,7 @@
                                     <div class="row">
                                         <div  class="col">
                                             <label >Grupo</label>
-                                            <input type="text" [(ngModel)]="_groupData.planname" name="creditorGroupPlanname"  class="form-control rounded-0" 
+                                            <input type="text" [(ngModel)]="_creditorGroupData.planname" name="creditorGroupPlanname"  class="form-control rounded-0" 
                                             placeholder="Digite o nome do plano"
                                             [class.is-invalid]="creditorGroupPlanname.invalid && creditorGroupPlanname.touched" #creditorGroupPlanname="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="creditorGroupPlanname.valid || creditorGroupPlanname.untouched">
@@ -214,7 +236,7 @@
                                         <div class="col-md-2 align-items-end">
                                             <label >Status</label>
                                             <div class="onoffswitch">
-                                                <input type="checkbox" [(ngModel)]="_creditorGroupSwitch" name="creditorGroupSwitch" class="onoffswitch-checkbox" id="creditorGroupSwitch" checked>
+                                                <input type="checkbox" [(ngModel)]="_creditorGroupData.planstatus" name="creditorGroupSwitch" class="onoffswitch-checkbox" id="creditorGroupSwitch" checked>
                                                 <label class="onoffswitch-label" for="creditorGroupSwitch"></label>
                                             </div>
                                         </div>
@@ -233,10 +255,10 @@
                                             </div>                                            
                                             
                                             <div class="col border-bottom border-left"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
-                                                    <div class="col" *ngFor="let entities of _entitiesCreditorGroup | filterEntityName : searchTextCreditorGroup">
-                                                        <label class="btn btn-outline-rainti" >
-                                                            <input type="checkbox"  id="creditorgroup.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off"> {{ entities.entityname }}
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  >    
+                                                    <div class="col" *ngFor="let entities of _creditorGroupData.entities | filterEntityName : searchTextCreditorGroup">
+                                                        <label class="btn btn-outline-rainti " [ngClass]="entities.checked ? 'active' : 'default'"  >
+                                                            <input type="checkbox" [checked]="entities.checked"  id="creditorGroup.{{entities.entityname}}" autocomplete="off" (change)="creditorGroupEntitiesControl($event)"> {{ entities.entityname }}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -255,16 +277,15 @@
                                             </div>                                            
                                             
                                             <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
-                                                    <div class="col"  *ngFor="let feature of _featuresCreditorGroup | filterFeatureName : searchTexCreditorGrouptFunc">
-                                                        <label class="btn btn-outline-rainti"  >
-                                                            <input type="checkbox"  id="creditorgroup.{{feature.featurename }}..{{feature.id}}" autocomplete="off"> {{feature.featurename }}
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  >                                                                                
+                                                    <div class="col"  *ngFor="let feature of _creditorGroupData.features | filterFeatureName : searchTexCreditorGrouptFunc">
+                                                        <label class="btn btn-outline-rainti " [ngClass]="feature.checked ? 'active' : 'default'"  >
+                                                            <input type="checkbox"  [checked]="feature.checked"  id="creditorGroup.{{feature.featurename }}" autocomplete="off"
+                                                            (change)="creditorGroupFeaturesControl($event)"> {{feature.featurename }}
                                                         </label>
                                                     </div>  
                                                 </div>  
                                             </div>    
-                                            
-                                            
                                         </div>         
                                     </div> 
                                 </div>  
@@ -275,9 +296,17 @@
                                             <button type="submit" (click)="backToUsers()" class="btn btn-info btn-block">Voltar</button>
                                         </div>  
                                         <div class="col-sm-6">                                        
-                                            <button type="submit" [disabled]="creditorGroupForm.form.invalid" (click)="createCreditorGroupGroup()" class="btn btn-rainti btn-block ">Salvar</button>                
+                                            <button type="submit" *ngIf="!_creditorGroupSaving"[disabled]="creditorGroupForm.form.invalid" (click)="createCreditorGroupGroup()" class="btn btn-rainti btn-block ">
+                                                Salvar                                                
+                                            </button>              
+                                             <button class="btn btn-outline-rainti btn-block" type="button" disabled *ngIf="_creditorGroupSaving">
+                                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                               
+                                            </button>
                                         </div>  
                                     </div>                            
+                                </div> 
+                                <div class="alert alert-danger text-center text-danger" *ngIf="_creditorGroupErrorMessage">
+                                    {{_creditorGroupErrorMessage}}
                                 </div> 
                             </form>
                         </div>
@@ -290,7 +319,7 @@
                                     <div class="row">
                                         <div  class="col">
                                             <label >Grupo</label>
-                                            <input type="text" [(ngModel)]="_groupData.planname" name="adminPlanname"  class="form-control rounded-0" 
+                                            <input type="text" [(ngModel)]="_adminData.planname" name="adminPlanname"  class="form-control rounded-0" 
                                             placeholder="Digite o nome do plano"
                                             [class.is-invalid]="adminPlanname.invalid && adminPlanname.touched" #adminPlanname="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="adminPlanname.valid || adminPlanname.untouched">
@@ -302,7 +331,7 @@
                                         <div class="col-md-2 align-items-end">
                                             <label >Status</label>
                                             <div class="onoffswitch">
-                                                <input type="checkbox" [(ngModel)]="_adminSwitch" name="adminSwitch" class="onoffswitch-checkbox" id="adminSwitch" checked>
+                                                <input type="checkbox" [(ngModel)]="_adminData.planstatus" name="adminSwitch" class="onoffswitch-checkbox" id="adminSwitch" checked>
                                                 <label class="onoffswitch-label" for="adminSwitch"></label>
                                             </div>
                                         </div>
@@ -322,17 +351,15 @@
                                             </div>                                            
                                             
                                             <div class="col border-left border-bottom"style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>    
-                                                    <div class="col" *ngFor="let entities of _entitiesAdmin | filterEntityName : searchTextAdmin">
-                                                        <label class="btn btn-outline-rainti" >
-                                                            <input type="checkbox" id="admin.{{entities.entityname}}..{{entities.entityid}}" autocomplete="off"> {{ entities.entityname }}
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  >    
+                                                    <div class="col" *ngFor="let entities of _adminData.entities | filterEntityName : searchTextAdmin">
+                                                        <label class="btn btn-outline-rainti " [ngClass]="entities.checked ? 'active' : 'default'"  >
+                                                            <input type="checkbox" [checked]="entities.checked"  id="admin.{{entities.entityname}}" autocomplete="off" (change)="adminEntitiesControl($event)"> {{ entities.entityname }}
                                                         </label>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            
-                                        </div> 
-                                                                                         
+                                            </div>                                            
+                                        </div>                                                                                         
                                         
                                         <div class="col-md-6">  
                                             <div class="form border" style="padding-bottom: 10px; padding-top : 10px">
@@ -345,10 +372,11 @@
                                             </div>                                            
                                             
                                             <div class="col border-left border-bottom" style="padding-top: 10px; height: 350px; overflow-y: scroll; white-space: nowrap;">
-                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  required>                                                                                
-                                                    <div class="col"  *ngFor="let feature of _featuresAdmin | filterFeatureName : searchTextAdminFunc">
-                                                        <label class="btn btn-outline-rainti"  >
-                                                            <input type="checkbox"  id="admin.{{feature.featurename }}..{{feature.id}}" autocomplete="off"> {{feature.featurename }}
+                                                <div class="btn-group btn-group-toggle btn-group-vertical" data-toggle="buttons"  >                                                                                
+                                                    <div class="col"  *ngFor="let feature of _adminData.features | filterFeatureName : searchTextAdminFunc">
+                                                        <label class="btn btn-outline-rainti " [ngClass]="feature.checked ? 'active' : 'default'"  >
+                                                            <input type="checkbox"  [checked]="feature.checked"  id="admin.{{feature.featurename }}" autocomplete="off"
+                                                            (change)="adminFeaturesControl($event)"> {{feature.featurename }}
                                                         </label>
                                                     </div>  
                                                 </div>  
@@ -365,9 +393,17 @@
                                             <button type="submit" (click)="backToUsers()" class="btn btn-info btn-block">Voltar</button>
                                         </div>  
                                         <div class="col-sm-6">                                        
-                                            <button type="submit" [disabled]="adminForm.form.invalid" (click)="createGroup()" class="btn btn-rainti btn-block ">Salvar</button>                
+                                            <button type="submit" *ngIf="!_adminSaving"[disabled]="adminForm.form.invalid" (click)="createAdminGroup()" class="btn btn-rainti btn-block ">
+                                                Salvar                                                
+                                            </button>              
+                                             <button class="btn btn-outline-rainti btn-block" type="button" disabled *ngIf="_adminSaving">
+                                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                               
+                                            </button>
                                         </div>  
                                     </div>                            
+                                </div> 
+                                <div class="alert alert-danger text-center text-danger" *ngIf="_adminErrorMessage">
+                                    {{_adminErrorMessage}}
                                 </div> 
                             </form>
                         </div>

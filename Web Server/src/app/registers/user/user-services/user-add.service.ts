@@ -7,25 +7,15 @@ import { HttpClient } from '@angular/common/http';
 export class UserAddService {
 
   private _appServerConfig = require('../../../../assets/configs/config-app-server.json')
+  
+  private _groupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-groups"
+  
 
-  private _createUserUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-add"
-  private _showUserGroupsUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/show-user-groups"
-  private _showUserEntitiesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/show-user-entities"
-
-
-  constructor(private http: HttpClient,) { }
+  constructor(private http: HttpClient) {  }
 
   getUserGroups(){
-    return this.http.get<any>(this._showUserGroupsUrl)
-  }
+    return this.http.get<any>(this._groupUrl)
+   }
 
-  getUserEntities(){
-    return this.http.get<any>(this._showUserEntitiesUrl)
-  }
-
-
-  createUser(user){
-    return this.http.post<any>(this._createUserUrl, user)
-  }
   
 }

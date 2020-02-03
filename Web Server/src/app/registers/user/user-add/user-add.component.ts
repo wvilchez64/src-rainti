@@ -24,7 +24,7 @@ export class UserAddComponent implements OnInit {
   }
 
   _errorMessage = ''
-  _groups : Array<any> = []
+  _groupsData : Array<any> = []
   _entities : Array<any> = [] 
   topicHasError = true
   dddHasError = true
@@ -39,7 +39,7 @@ export class UserAddComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res)
-          this._groups = res
+          this._groupsData = res
         },
         error => {  console.log(error)
                   this._errorMessage = error.error }

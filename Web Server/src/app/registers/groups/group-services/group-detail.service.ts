@@ -9,23 +9,30 @@ export class GroupDetailService {
 
   private _appServerConfig = require('../../../../assets/configs/config-app-server.json')
 
-  private _createGroupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/group-add"
-  private _userFeaturesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-group-features"
-  private _userEntitiesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-group-entities"
+  
+  private _userFeaturesUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-group-features/"
+  private _userEntitiessUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-group-entities/"
+  private _userGroupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-groups/"
+  private _userGroupUpdateUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-groups-update/"
+  
 
 
   constructor(private http: HttpClient,) { }
 
-  getUserGroupFeatures(){
-    return this.http.get<any>(this._userFeaturesUrl)
+  getUserGroupFeaturesById(id){
+    return this.http.get<any>(this._userFeaturesUrl+id)
   }
 
-  getUserGroupEntities(){
-    return this.http.get<any>(this._userEntitiesUrl)
+  getUserGroupEntitiesByid(id){
+    return this.http.get<any>(this._userEntitiessUrl+id)
   }
 
-  createGroup(group){
-    return this.http.post<any>(this._createGroupUrl, group)
+  getUserGroupByid(id){
+    return this.http.get<any>(this._userGroupUrl+id)
   }
-  
+
+  updateGroup(id,userData){
+    return this.http.put<any>(this._userGroupUpdateUrl+id, userData)
+  }
+
 }
