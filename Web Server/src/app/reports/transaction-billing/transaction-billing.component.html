@@ -5,8 +5,15 @@
     </div>
   </div>
   <hr />
-  <div style="padding-top: 10px; height: 650px; overflow-y: scroll; white-space: nowrap;"> 
+  <div style="padding-top: 10px; height: 650px; white-space: nowrap;"> 
     <form billing #form="ngForm"> 
+
+      <div>
+        <div class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight d-inline-block">
+          <button class="btn btn-sm  btn-rainti" (click)="exportAsXLSX()"> Exportar <fa-icon
+            [icon]="['fas', 'file-excel']"></fa-icon></button>
+        </div>
+      </div>
 
       <!-- <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
         <option [value]="10">10</option>
@@ -14,25 +21,26 @@
         <option [value]="50">50</option>
         <option [value]="100">100</option>
       </select> -->
-  
-      <div class="row" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight">
-        <div class="form-group col-sm-3 panel panel-primary filterable" *ngIf="filter=='comFiltros'">
-          <strong>Detran</strong>
-          <select class="form-control form-control-sm" name="detran" [(ngModel)]="detran">
-            <option value="">Todos</option>
-            <option *ngFor="let detran of detranList" [value]="detran">{{ detran }}</option>
-          </select>
+      <div class="row"> 
+        <div class="col-sm-6 d-inline-block">
+          <div class="form-group panel panel-primary filterable d-inline-block px-2" *ngIf="filter=='comFiltros'">
+            <strong>Detran</strong>
+            <select class="form-control form-control-sm" name="detran" [(ngModel)]="detran">
+              <option value="">Todos</option>
+              <option *ngFor="let detran of detranList" [value]="detran">{{ detran }}</option>
+            </select>
+          </div>
+    
+          <div class="form-group  panel panel-primary filterable d-inline-block" *ngIf="filter=='comFiltros'">
+            <strong>Gestora</strong>
+            <select class="form-control form-control-sm" name="gestora" [(ngModel)]="gestora">
+              <option value="">Todos</option>
+              <option *ngFor="let gestora of gestoraList" [value]="gestora">{{ gestora }}</option>
+            </select>
+          </div>
         </div>
-  
-        <div class="form-group col-sm-3 panel panel-primary filterable" *ngIf="filter=='comFiltros'">
-          <strong>Gestora</strong>
-          <select class="form-control form-control-sm" name="gestora" [(ngModel)]="gestora">
-            <option value="">Todos</option>
-            <option *ngFor="let gestora of gestoraList" [value]="gestora">{{ gestora }}</option>
-          </select>
-        </div>
-      </div>
-  
+      
+    
   
       <!-- <div class="form-group" class="col-md-auto" *ngFor="let gestor of gestoraList.get('gestoraList').controls; let i = index">
            
@@ -56,18 +64,17 @@
   
   
   
-  
-      <div *ngIf="filter=='semFiltros'" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight">
+    <div class="col-6 d-inline-block ">
+      <div *ngIf="filter=='semFiltros'" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight d-inline-block">
         <button class="btn btn-sm  btn-rainti" (click)="markAsActive('comFiltros')"> Filtro <fa-icon
             [icon]="['fas', 'filter']"></fa-icon></button>
       </div>
-  
-      <div *ngIf="filter=='comFiltros'" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight">
+      <div *ngIf="filter=='comFiltros'" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight d-inline-block">
         <button class="btn btn-sm  btn-rainti" (click)="markAsActive('semFiltros')"> Apagar <fa-icon
             [icon]="['fas', 'ban']"></fa-icon></button>
       </div>
-  
-  
+    </div>
+  </div>
   
       <table class="table table-hover">
         <thead class="bg-rainti text-light font-weight-lighter">
@@ -89,14 +96,14 @@
           <tr
             *ngFor="let dataTransactionBillings of dataTransactionBilling | tableFilter: form.value | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
   
-            <td>{{ dataTransactionBillings.nContrato }}</td>
-            <td>{{ dataTransactionBillings.gestora }}</td>
-            <td>{{ dataTransactionBillings.credora }}</td>
-            <td>{{ dataTransactionBillings.chassi }}</td>
-            <td>{{ dataTransactionBillings.detran }}</td>
-            <td>{{ dataTransactionBillings.tRegistro }}</td>
-            <td>{{ dataTransactionBillings.dataRegistro }}</td>
-            <td>{{ dataTransactionBillings.status }}</td>
+            <td>{{ dataTransactionBillings.Contrato }}</td>
+            <td>{{ dataTransactionBillings.Gestora }}</td>
+            <td>{{ dataTransactionBillings.Credora }}</td>
+            <td>{{ dataTransactionBillings.Chassi }}</td>
+            <td>{{ dataTransactionBillings.Detran }}</td>
+            <td>{{ dataTransactionBillings.Taxa }}</td>
+            <td>{{ dataTransactionBillings.Data }}</td>
+            <td>{{ dataTransactionBillings.Status }}</td>
           </tr>
   
         </tbody>
