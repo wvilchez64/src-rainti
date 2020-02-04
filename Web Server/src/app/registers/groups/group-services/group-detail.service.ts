@@ -14,6 +14,7 @@ export class GroupDetailService {
   private _userEntitiessUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-group-entities/"
   private _userGroupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-groups/"
   private _userGroupUpdateUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-groups-update/"
+  private _userGroupDeleteUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-groups-delete"
   
 
 
@@ -33,6 +34,10 @@ export class GroupDetailService {
 
   updateGroup(id,userData){
     return this.http.put<any>(this._userGroupUpdateUrl+id, userData)
+  }
+
+  deleteGroup(id){
+    return this.http.put<any>(this._userGroupDeleteUrl,id)
   }
 
 }

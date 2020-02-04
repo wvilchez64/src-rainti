@@ -73,6 +73,8 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { ExcelService } from './reports/transaction-billing/excel.service';
 import { CsvFileService } from './reports/transaction-billing/csv.service';
 import { TableFilterPipe } from './reports/transaction-billing/table-filter.pipe';
+import { UserDetailComponent } from './registers/user/user-detail/user-detail/user-detail.component';
+import { FilterUserPipe } from './pipes/filter-user.pipe';
 
 
 @NgModule({
@@ -130,6 +132,8 @@ import { TableFilterPipe } from './reports/transaction-billing/table-filter.pipe
     FilterStatusPipe,
     FilterDescriptionPipe,
     TableFilterPipe,
+    UserDetailComponent,
+    FilterUserPipe,
   ],
   imports: [
     BrowserModule,
