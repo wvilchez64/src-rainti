@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { dataTransactionBilling } from './fixed-data-transaction-billing';
 import {ExcelService} from './excel.service';
-import {DownloadFileService} from './csv.service';
-
-
+import {CsvFileService} from './csv.service';
 
 @Component({
   selector: 'app-transaction-billing',
@@ -11,10 +9,8 @@ import {DownloadFileService} from './csv.service';
   styleUrls: ['./transaction-billing.component.css']
 })
 export class TransactionBillingComponent implements OnInit {
-  ngOnInit() {
-
-    }
-
+  ngOnInit() {}
+    
     public dataTransactionBilling: any = dataTransactionBilling;
     filter: string[] =['semFiltros'];
     dataAte: any[];
@@ -24,20 +20,23 @@ export class TransactionBillingComponent implements OnInit {
     page = 1;
     pageSize= 5;
     groupData: any;
-    registro: any[] =[22];
+    lista: any;
     
-    constructor( private excelService:ExcelService, public downloadService:DownloadFileService  )
+    constructor( 
+                  private excelService:ExcelService, 
+                  public csvFileService:CsvFileService,
+                )
     {
 
     this.groupData = this.organise(this.dataTransactionBilling);
 
     }
 
-    downloadFile(){
-      return this.downloadService.downloadFile(this.dataTransactionBilling)
+    CsvFile(){
+      return this.csvFileService.CsvFile(this.dataTransactionBilling)
       }
 
-    exportAsXLSX() {
+    exportAsXLSX(): void {
 
       this.excelService.exportAsExcelFile(this.dataTransactionBilling, 'Bilhetagem_Transações_RainTI');
        
@@ -71,6 +70,11 @@ export class TransactionBillingComponent implements OnInit {
     
   }
 
+  getTotalCost() {
+    return this.dataTransactionBilling.reduce((acc, val) => acc += val.Taxa, 0);
+  }
+
 }
+
 
 

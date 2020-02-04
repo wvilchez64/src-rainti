@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core'; 
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import pt from '@angular/common/locales/pt';
+registerLocaleData(pt)
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -64,12 +67,12 @@ import { FilterFeatureNamePipe } from './pipes/filter-feature-name.pipe';
 import { GroupsDetailComponent } from './registers/groups/groups-detail/groups-detail.component';
 import { FilterStatusPipe } from './pipes/filter-status.pipe';
 import { FilterDescriptionPipe } from './pipes/filter-description.pipe';
-import { TableFilterPipe } from './reports/transaction-billing/table-filter-pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter, faBan, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { ExcelService } from './reports/transaction-billing/excel.service';
-import { DownloadFileService } from './reports/transaction-billing/csv.service';
+import { CsvFileService } from './reports/transaction-billing/csv.service';
+import { TableFilterPipe } from './reports/transaction-billing/table-filter.pipe';
 
 
 @NgModule({
@@ -140,8 +143,9 @@ import { DownloadFileService } from './reports/transaction-billing/csv.service';
     FontAwesomeModule,
 
   ],
-  providers: [AuthService, AuthGuard, ExcelService, DownloadFileService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
+  providers: [AuthService, AuthGuard, ExcelService, CsvFileService, TableFilterPipe,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true,  },
+    {provide: LOCALE_ID, useValue: 'pt'}
   ],
   bootstrap: [AppComponent],
 
