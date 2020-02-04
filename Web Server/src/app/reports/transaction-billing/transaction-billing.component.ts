@@ -4,6 +4,7 @@ import {ExcelService} from './excel.service';
 import {DownloadFileService} from './csv.service';
 
 
+
 @Component({
   selector: 'app-transaction-billing',
   templateUrl: './transaction-billing.component.html',
@@ -18,7 +19,7 @@ export class TransactionBillingComponent implements OnInit {
     filter: string[] =['semFiltros'];
     dataAte: any[];
     dataDe: any[];
-    detranList: string[] = ['Acre', 'Pernambuco', 'Bahia'];
+    detranList: any[] = ['Acre', 'Pernambuco', 'Bahia'];
     gestoraList: any[] = ['ITAU', 'Santander', 'CaixaEconômica'];
     page = 1;
     pageSize= 5;
