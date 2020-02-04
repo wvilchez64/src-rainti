@@ -10,7 +10,8 @@ import { Location } from '@angular/common';
 })
 export class GroupsDetailComponent implements OnInit {
 
-  
+  _userData = {id: ''}
+
   _detranErrorMessage = ''
   _creditorErrorMessage = ''
   _creditorGroupErrorMessage = ''
@@ -373,6 +374,24 @@ export class GroupsDetailComponent implements OnInit {
     this._route.paramMap.subscribe(
       params =>{
         this._groupDetailService.updateGroup(params.get('id'),this._adminData)
+        .subscribe(
+          res => {
+            this._detranSaving = false          
+          },
+          error => {
+            console.log(error)
+            this._detranSaving = false
+          }
+        )
+      }
+    )
+  }
+
+  deleteGroup(){
+    this._route.paramMap.subscribe(
+      params =>{
+        this._userData.id = params.get('id')
+        this._groupDetailService.deleteGroup(this._userData)
         .subscribe(
           res => {
             this._detranSaving = false          

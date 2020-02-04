@@ -14,7 +14,7 @@ const pool = new Pool({
 
 // Exibição de usuários
 const getUser = (req, res) => {
-  pool.query('select firstname as name, lastname as lastname, username as username,  email as email from users',
+  pool.query('select us.id, case when acc.status = 1 then \'Ativo\' else \'Inativo\' end as status, firstname as name, lastname as lastname, username as username,  email as email, cpf as cpf from users us, accounts acc where acc.userid= us.id',
     (error, storedUser) => {
       if (error) {
         console.log(error)
@@ -71,16 +71,16 @@ const createUser = (req, res) => {
  
 }
 
-const getGroups = (req, res) => {
-
+const getGroupsDetail = (req, res) => { 
   let token = jwtToken.verifyToken(req, res)
 
-  const userId = token.subject.userId
+  const userId = parseInt(req.params.id)
 
   console.log("User :"+userId)
 
-  pool.query('select g.id, g.description as name, case when g.status = 1 then \'Ativo\' else \'Inativo\' end as status '
-    + ' from user_entities ue, groups_relationship gp, groups g '
+  pool.query('select g.id, g.description as name, case when g.id = acc.groupsid then true else false end as checked '
+    + ' from user_entities ue, groups_relationship gp, groups g'
+    + ' left join accounts acc on g.id = acc.groupsid '
     + ' where ue.userid = $1 '
     + ' and gp.entityid = ue.entityid  '
     + ' and gp.groupsid = g.id '
@@ -96,9 +96,43 @@ const getGroups = (req, res) => {
     })
 }
 
+const getUserDetail = (req, res) => { 
+  
+}
+
+const updateUserById = (req, res) => { 
+  
+}
+
+const getGroups = (req, res) => {
+
+  let token = jwtToken.verifyToken(req, res)
+
+  const userId = token.subject.userId
+
+  console.log("User :"+userId)
+
+  pool.query('select g.id, g.description as name, case when g.status = 1 then \'Ativo\' else \'Inativo\' end as status'
+    + ' from user_entities ue, groups_relationship gp, groups g '
+    + ' where ue.userid = $1 '
+    + ' and gp.entityid = ue.entityid  '
+    + ' and gp.groupsid = g.id '
+    + ' and g.status in (0,1) '
+    + ' group by g.description, g.id',
+    [userId],
+    (error, storedShowGroupsForUsers) => {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log(JSON.stringify(storedShowGroupsForUsers.rows))
+        res.status(200).json(storedShowGroupsForUsers.rows)
+      }
+    })
+}
+
 const getGroup = (req, res) => {
   let groupsId = parseInt(req.params.id)
-  pool.query('select g.description as planname, case when g.status = 1 then true else false end as planstatus, ey.description as entitytype from groups g, entity_type ey where g.entitytypeid = ey.id and g.id =$1' ,
+  pool.query('select g.description as planname, case when g.status = 1 then true else false end as planstatus, ey.description as entitytype from groups g, entity_type ey where g.entitytypeid = ey.id and g.status in (0,1) and g.id =$1' ,
   [groupsId],
     (error, storedUser) => {
       if (error) {
@@ -123,6 +157,7 @@ const getGroupsForUsersAdd = (req, res) => {
     + ' where ue.userid = $1 '
     + ' and gp.entityid = ue.entityid  '
     + ' and gp.groupsid = g.id '
+    + ' and g.status in (0,1)'
     + ' group by g.description, g.id',
     [userId],
     (error, storedShowGroupsForUsers) => {
@@ -313,6 +348,23 @@ const disableGroupById = (req, res) => {
     })
 }
 
+const deleteGroupById = (req, res) => {
+
+  let userData = req.body
+  console.log("ID: " + userData.id)
+
+  pool.query('update groups set status = 2 where id = $1 ',
+    [userData.id],
+    (error, storedShowFeaturesForGroup) => {
+      if (error) {
+        console.log(error)
+        res.status(500).json(error)
+      } else {
+        res.status(200).json('Registro atualizado com sucesso')
+      }
+    })
+}
+
 const createGroup = (req, res) => {  
 
    let token = jwtToken.verifyToken(req, res)
@@ -377,8 +429,8 @@ const updateGroupById = (req, res) => {
    try {
      await client.query('BEGIN')
      // groups
-      const groupInsert = await client.query('update groups set status = $1 where id = $2', 
-     [ userData.planstatus ? 1 : 0, groupsId]) 
+      const groupInsert = await client.query('update groups set status = $1, description = $3 where id = $2', 
+     [ userData.planstatus ? 1 : 0, groupsId, userData.planname]) 
      
      // groups_relationship
       await userData.entities.forEach(element => {
@@ -391,7 +443,6 @@ const updateGroupById = (req, res) => {
          client.query('update groups_features set status = $1 where featuresid = $2 and groupsid = $3', 
          [ element.checked ? 1 : 0, element.featureid, groupsId])   
          
-         console.log(element.checked ? 1 : 0, element.featureid, groupsId)
      });
      
      await client.query('COMMIT')
@@ -417,9 +468,14 @@ module.exports = {
   getUserGroupFeatures,
   getUserGroupEntities,
   disableGroupById,
+  deleteGroupById,
   createGroup,
   getUserGroupFeaturesById,
   getUserGroupEntitiesById,
   getGroup,
   updateGroupById,
+  getGroupsDetail,
+  getUserDetail,
+  updateUserById,
+
 }

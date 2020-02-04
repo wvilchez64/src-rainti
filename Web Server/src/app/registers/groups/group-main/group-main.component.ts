@@ -19,8 +19,13 @@ export class GroupMainComponent implements OnInit {
   ngOnInit() {
     this._groupService.getGroup()
     .subscribe(      
-      res => this._groupMain = res,
-      err => console.log(err)
+      res => {
+        console.log(res)
+        this._groupMain = res
+      },
+      err => {
+        console.log(err)
+      }
     ) 
   }
 
