@@ -3,12 +3,12 @@ import * as json2csv from 'json2csv'; // convert json file to csv
 import { saveAs } from 'file-saver';  // save the file
 
 @Injectable()
-export class DownloadFileService {
+export class CsvFileService {
     Json2csvParser = json2csv.Parser;
     constructor() {
 
      }
-     public downloadFile(data:any, filename? : string){
+     public CsvFile(data:any, filename? : string){
         let csvData = this.convertToCSV(data);
         let file = new Blob([csvData], { type: 'text/csv;charset=utf-8' });
         saveAs(file,"data.csv");

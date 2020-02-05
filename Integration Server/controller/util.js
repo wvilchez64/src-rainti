@@ -1,0 +1,7 @@
+
+exports.rPad   = function (rv, size, charToComplete){ if (rv==null || typeof rv === 'undefined') return rv; if(rv.length>=size) return rv.substring(-size); else for(var i = 0;i<size;i++){ rv = rv + charToComplete; if(rv.length==size) return rv; } return rv;}
+exports.lPad   = function (rv, size, charToComplete){ if (rv==null || typeof rv === 'undefined') return rv; if(rv.length>=size) return rv.substring(0,size); else for(var i = 0;i<size;i++){ rv = charToComplete + rv; if(rv.length==size) return rv; } return rv;}
+exports.nvl    = function (val, replacer){if(val == null)return replacer;else return val;}
+exports.isNull = function (val){ return (val == null?true:false); }
+exports.dateToJulian= function (dateParam){var date = new Date(dateParam); /*a new date*/var time = date.getTime(); /* the timestamp, not neccessarely using UTC as current time*/var julian_day = Math.floor((time / 86400000) - (date.getTimezoneOffset()/1440) + 2440587.5);}
+exports.getJulianDate = function (){var date = new Date();     /*a new date*/var time = date.getTime(); /*the timestamp, not neccessarely using UTC as current time*/var julian_day =Math.floor((time / 86400000) - (date.getTimezoneOffset()/1440) + 2440587.5);return julian_day;}

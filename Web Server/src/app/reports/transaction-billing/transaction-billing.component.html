@@ -8,66 +8,45 @@
   <div style="padding-top: 10px; height: 650px; white-space: nowrap;"> 
     <form #form="ngForm"> 
 
-      
         <div class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight d-inline-block">
         <div class="ml-1">
           <button class="btn btn-sm  btn-rainti"  (click)="exportAsXLSX()"> Exportar XLS <fa-icon
             [icon]="['fas', 'file-excel']"></fa-icon></button>
         </div>
         <div>
-          <button class="btn btn-sm  btn-rainti" (click)="downloadFile()"> Exportar CSV <fa-icon
+          <button class="btn btn-sm  btn-rainti" (click)="CsvFile()"> Exportar CSV <fa-icon
             [icon]="['fas', 'file-excel']"></fa-icon></button>
         </div>
       </div>
   
       <div class="row"> 
-        <div class="col-sm-6 d-inline-block">
-          <div class="form-group panel panel-primary filterable d-inline-block px-2" *ngIf="filter=='comFiltros'">
-            <strong>Detran</strong>
-            <select class="form-control form-control-sm" name="Detran" [(ngModel)]="Detran">
-              <option value="">Todos</option>
-              <option *ngFor="let Detran of detranList" [value]="Detran">{{ Detran }}</option>
-            </select>
+        <div class="col-8 d-inline-block">
+            <div class="form-group panel panel-primary filterable d-inline-block px-2" *ngIf="filter=='comFiltros'">
+              <strong>Detran</strong>
+              <input class="form-control form-control-sm" type="search" [(ngModel)]="detran" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
+            </div>
+            <div class="form-group  panel panel-primary filterable d-inline-block" *ngIf="filter=='comFiltros'">
+              <strong>Credora</strong>
+              <input class="form-control form-control-sm" type="search" [(ngModel)]="creditor" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
+            </div>
+            <div class="form-group d-inline-block  px-2" *ngIf="filter=='comFiltros'">
+              <strong>Data de</strong>
+              <input type="date" [(ngModel)]="startDate" name="startDate" class="form-control form-control-sm" 
+              #start="ngModel" [value]="startDate" >
+            </div>
+            <div class="form-group d-inline-block" *ngIf="filter=='comFiltros'">
+              <strong>Data até</strong>
+              <input type="date" [(ngModel)]="endDate" name="endDate" class="form-control form-control-sm" 
+              #end="ngModel"  [value]="endDate">
+            </div>
           </div>
-    
-          <div class="form-group  panel panel-primary filterable d-inline-block" *ngIf="filter=='comFiltros'">
-            <strong>Gestora</strong>
-            <select class="form-control form-control-sm" name="Gestora" [(ngModel)]="Gestora">
-              <option value="">Todos</option>
-              <option *ngFor="let Gestora of gestoraList" [value]="Gestora">{{ Gestora }}</option>
-            </select>
-          </div>
-        </div>
-      
-        <!-- <div class="form-group" class="col-md-auto" *ngFor="let gestor of gestoraList.get('gestoraList').controls; let i = index">
-            
-              <label class="btn btn-outline-rainti" >
-                  <input type="checkbox" formArrayName="gestoraList" [formControlName]="i"> {{ gestor }}
-              </label>
-            
-          </div>
-        
-          <div class="form-group" class="col-sm-6">
-            <label>Data de</label>
-            <input type="date" [(ngModel)]="dataDe" name="dataD" class="form-control rounded-0" 
-            #dataD="ngModel" >
-          </div>
-        
-        <div class="form-group" class="col-sm-6">
-          <label>Data até</label>
-          <input type="date" [(ngModel)]="dataAte" name="dataA" class="form-control rounded-0" 
-          #dataA="ngModel" >
-          </div> -->
-  
-  
-  
-        <div class="col-6 d-inline-block ">
-          <div *ngIf="filter=='semFiltros'" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight d-inline-block">
+        <div class="col-4 d-inline-block">
+          <div *ngIf="filter=='semFiltros'" class="d-flex flex-row-reverse bd-highlight bd-highlight d-inline-block">
             <button class="btn btn-sm  btn-rainti" (click)="markAsActive('comFiltros')"> Filtro <fa-icon
                 [icon]="['fas', 'filter']"></fa-icon></button>
           </div>
-          <div *ngIf="filter=='comFiltros'" class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight d-inline-block">
-            <button class="btn btn-sm  btn-rainti" (click)="markAsActive('semFiltros')"> Apagar <fa-icon
+          <div *ngIf="filter=='comFiltros'" class="d-flex flex-row-reverse bd-highlight  bd-highlight d-inline-block">
+            <button class="btn btn-sm  btn-rainti" (click)="markAsActive('semFiltros')"> Apagar filtro <fa-icon
                 [icon]="['fas', 'ban']"></fa-icon></button>
           </div>
         </div>
@@ -89,15 +68,15 @@
     
           <tbody>
             <tr
-              *ngFor="let dataTransactionBillings of dataTransactionBilling | tableFilter: form.value | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+              *ngFor="let dataTransactionBillings of getArray() | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
     
               <td>{{ dataTransactionBillings.Contrato }}</td>
               <td>{{ dataTransactionBillings.Gestora }}</td>
               <td>{{ dataTransactionBillings.Credora }}</td>
               <td>{{ dataTransactionBillings.Chassi }}</td>
               <td>{{ dataTransactionBillings.Detran }}</td>
-              <td>{{ dataTransactionBillings.Taxa }}</td>
-              <td>{{ dataTransactionBillings.Data }}</td>
+              <td>{{ dataTransactionBillings.Taxa | currency: 'BRL' }}</td>
+              <td>{{ dataTransactionBillings.Data | date: 'dd/MM/yyyy'}}</td>
               <td>{{ dataTransactionBillings.Status }}</td>
             </tr>
     
@@ -105,13 +84,13 @@
     
         </table>
         <div class="d-flex flex-row-reverse bd-highlight p-2 bd-highlight">
-          <ngb-pagination [collectionSize]="dataTransactionBilling.length" [(page)]="page" [maxSize]="5" [rotate]="true"
+          <ngb-pagination [collectionSize]="getArray().length" [(page)]="page" [maxSize]="5" [rotate]="true"
             [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
         </div>
     </form>
     <hr />
     <div class="col" class="text-right">
-      <h4>Total: R$ {{registro}}</h4>
+      <h4>Total: {{ getTotalCost() | currency:'BRL'}}</h4>
     </div>
   </div>
 </div>
