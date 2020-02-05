@@ -72,7 +72,6 @@ import { faFilter, faBan, faFileExcel } from '@fortawesome/free-solid-svg-icons'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { ExcelService } from './reports/transaction-billing/excel.service';
 import { CsvFileService } from './reports/transaction-billing/csv.service';
-import { TableFilterPipe } from './reports/transaction-billing/table-filter.pipe';
 import { UserDetailComponent } from './registers/user/user-detail/user-detail/user-detail.component';
 import { FilterUserPipe } from './pipes/filter-user.pipe';
 
@@ -131,7 +130,6 @@ import { FilterUserPipe } from './pipes/filter-user.pipe';
     GroupsDetailComponent,
     FilterStatusPipe,
     FilterDescriptionPipe,
-    TableFilterPipe,
     UserDetailComponent,
     FilterUserPipe,
 
@@ -148,7 +146,7 @@ import { FilterUserPipe } from './pipes/filter-user.pipe';
     FontAwesomeModule,
 
   ],
-  providers: [AuthService, AuthGuard, ExcelService, CsvFileService, TableFilterPipe,
+  providers: [AuthService, AuthGuard, ExcelService, CsvFileService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true,  },
     {provide: LOCALE_ID, useValue: 'pt'}
   ],
