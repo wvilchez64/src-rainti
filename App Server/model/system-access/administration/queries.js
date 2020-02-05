@@ -45,8 +45,8 @@ const createUser = (req, res) => {
    try {
      await client.query('BEGIN')
      // users
-    const userId = await client.query('insert into users (firstname, lastname, email, username, passwordMd5) values ($1, $2, $3, $4, $5) returning id', 
-    [userData.firstName, userData.lastName, userData.email, userData.userName, hash])
+    const userId = await client.query('insert into users (firstname, lastname, email, username, passwordMd5, cpf, ddd, phone) values ($1, $2, $3, $4, $5, $6, $7, $8) returning id', 
+    [userData.firstName, userData.lastName, userData.email, userData.userName, hash, userData.cpf, userData.dddModel, userData.phone])
 
     // accounts
     await client.query('insert into accounts (userid, status, groupsid) values ($1, $2, $3)', 
@@ -78,12 +78,12 @@ const getGroupsDetail = (req, res) => {
 
   console.log("User :"+userId)
 
-  pool.query('select g.id, g.description as name, case when g.id = acc.groupsid then true else false end as checked '
-    + ' from user_entities ue, groups_relationship gp, groups g'
-    + ' left join accounts acc on g.id = acc.groupsid '
+  pool.query('select g.id, g.description as name,  false as checked '
+    + ' from user_entities ue, groups_relationship gp, groups g '
     + ' where ue.userid = $1 '
     + ' and gp.entityid = ue.entityid  '
     + ' and gp.groupsid = g.id '
+    + ' and g.status in (0,1) '
     + ' group by g.description, g.id',
     [userId],
     (error, storedShowGroupsForUsers) => {
@@ -97,11 +97,82 @@ const getGroupsDetail = (req, res) => {
 }
 
 const getUserDetail = (req, res) => { 
+
+  let token = jwtToken.verifyToken(req, res)
+
+  const userId = parseInt(req.params.id)
+
+  pool.query('select us.id as userid, '
+    + ' us.firstname as firstname, '
+    + ' us.lastname as lastname,  '
+    + ' us.username as username, '
+    + ' us.ddd as ddd, '
+    + ' us.phone as phone, '
+    + ' us.cpf as cpf, '
+    + ' case when acc.status = 1 then true else false end as status, '
+    + ' us.email as email,  '
+    + ' acc.groupsid as groupsid'
+    + ' from users us, accounts acc '
+    + ' where us.id = $1 '
+    + ' and acc.userid = us.id ',
+    [userId],
+    (error, storedShowGroupsForUsers) => {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log(JSON.stringify(storedShowGroupsForUsers.rows))
+        res.status(200).json(storedShowGroupsForUsers.rows)
+      }
+    })
   
 }
 
 const updateUserById = (req, res) => { 
-  
+  let token = jwtToken.verifyToken(req, res)
+
+ //const userId = token.subject.userId
+
+ let userData = req.body
+
+ console.log(userData)
+
+ let random = randomize('Aa0',10)
+
+ let hash = crypto.createHash('md5').update(random).digest("hex")
+
+ ;(async () => {
+   
+     const client = await pool.connect()
+   try {
+     await client.query('BEGIN')
+     // users
+    const userId = await client.query('update users set firstname = $1, '
+                                     +' lastname = $2, '
+                                     +' email = $3, '
+                                     +' username = $4,'
+                                     +' cpf = $5, '
+                                     +' ddd = $6, '
+                                     +' phone = $7 '
+                                     +' where id = $8', 
+    [userData.firstname, userData.lastname, userData.email, userData.username, userData.cpf, userData.ddd, userData.phone, userData.userid])
+
+    // accounts
+    await client.query('update accounts set status = $2, groupsid = $3 where userid = $1', 
+    [userData.userid, userData.status ? 1 : 0, userData.groupsid])
+     
+     await client.query('COMMIT')
+
+     res.status(200).json({response: "Grupo "+ userData.planname+ " adicionado"})        
+           
+   } catch (e) {
+     await client.query('ROLLBACK')
+     res.status(500).json({response: "Falha ao inserir Grupo no Sistema"})        
+     throw e
+   } finally {
+     client.release()
+   }
+ })().catch(e => console.error(e.stack))
+ 
 }
 
 const getGroups = (req, res) => {

@@ -12,16 +12,16 @@ export class UserDetailComponent implements OnInit {
 
   
   registerUserData = {
-    userId:'',
-    firstName: '',
-    lastName: '', 
-    userName: '',
-    dddModel: '',
+    userid:'',
+    firstname: '',
+    lastname: '', 
+    username: '',
+    ddd: '',
     phone: '',
     cpf: '',
     status: true,
     email: '',
-    groupsId: '',
+    groupsid: '',
 
   }
 
@@ -40,17 +40,17 @@ export class UserDetailComponent implements OnInit {
       this._route.paramMap
       .subscribe(
         params => {
-          this.registerUserData.userId = params.get('id')
+          this.registerUserData.userid = params.get('id')
         },
         err => {
 
         }
       )
-      this._userDetailService.getUserDetail(this.registerUserData.userId)
+      this._userDetailService.getUserDetail(this.registerUserData.userid)
       .subscribe(
         res => {
-          console.log(res)
-          this.registerUserData = res
+          
+          this.registerUserData = res[0]    
 
         },
         err =>{
@@ -58,15 +58,22 @@ export class UserDetailComponent implements OnInit {
         }
       )
 
-      this._userDetailService.getUserGroups(this.registerUserData.userId)
+      this._userDetailService.getUserGroups(this.registerUserData.userid)
       .subscribe(
-        res => {
-          console.log(res)
+        res => {              
           this._groupsData = res
+          this._groupsData.forEach( val => { 
+            
+            if(val.id == this.registerUserData.groupsid){
+              val.checked = true
+            }
+          })
+          
         },
         error => {  console.log(error)
                   this._errorMessage = error.error }
         )
+      
     }
 
 
@@ -75,11 +82,12 @@ export class UserDetailComponent implements OnInit {
   }
   
   featuresControl(event) {
-    this.registerUserData.groupsId = event.target.id
+    
+    this.registerUserData.groupsid = event.target.id
   }
    
   updateUser(){
-     this._userDetailService.updateUser(this.registerUserData.userId, this.registerUserData)
+     this._userDetailService.updateUser(this.registerUserData.userid, this.registerUserData)
        .subscribe(
          res => {
            console.log(res)
