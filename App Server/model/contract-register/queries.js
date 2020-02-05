@@ -36,7 +36,8 @@ const getContract = (req, res) =>{
              "on   a.idcontract = c.id " +
              "inner join data_creditor d " +
              "on   c.identity = d.identity " +
-             "where d.datacodeid = $5",
+             "where d.datacodeid = $5 " +
+             "order by a.idContract desc",
    [datagroupcodeid, contrato, dataContrato, detran, nomeFantasia],
    (error, storedContract) => {
     if (error) {

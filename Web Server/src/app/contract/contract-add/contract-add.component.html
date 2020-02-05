@@ -72,10 +72,10 @@
                             <form class="form" #vehicleForm="ngForm">
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-6">
+									    <div class="col-sm-6">
                                             <label for="uname1">Chassi</label>
                                             <input type="text" [(ngModel)]="contractData.chassi" name="chassi"  class="form-control rounded-0" 
-                                            pattern="^(?:([A-HJ-NPR-Z]){3}|\d{3})(([A-HJ-NPR-Z]){6}|\d{6})(([A-HJ-NPR-Z]){4}|\d{4})\d{4}$" 
+                                            pattern="^([A-HJ-NPR-Za-hj-npr-z\d]{13})\d{4}$" 
                                             [class.is-invalid]="chassi.invalid && chassi.touched" #chassi="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="chassi.valid || chassi.untouched">
                                                 <small  class="text-danger"*ngIf="chassi.errors && chassi.errors.required">
@@ -84,12 +84,12 @@
                                                 <small  class="text-danger" *ngIf="chassi.errors && chassi.errors.pattern">
                                                     Chassi inválido (Formato: AAAAAAAAAAAAANNNN)
                                                 </small>
-                                        </div>
+											</div>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="uname1">Confirme o chassi</label>
                                             <input type="text" [(ngModel)]="contractData.chassiConfirmation" name="chassiConfirmation" class="form-control rounded-0" 
-                                            pattern="^(?:([A-HJ-NPR-Z]){3}|\d{3})(([A-HJ-NPR-Z]){6}|\d{6})(([A-HJ-NPR-Z]){4}|\d{4})\d{4}$" 
+                                            pattern="^([A-HJ-NPR-Za-hj-npr-z\d]{13})\d{4}$" 
                                             [class.is-invalid]="chassiConfirmation.invalid && chassiConfirmation.touched" #chassiConfirmation="ngModel" 
                                             appConfirmEqualValidator="chassi"required >
                                             <div class="md-errors-spacer" [hidden]="chassiConfirmation.valid || chassiConfirmation.untouched">
@@ -525,28 +525,28 @@
                                             </div>                                        
                                         </div>
                                         <div class="col">
-                                            <div class="col"*ngIf="_guarantorType=='cpf'" >
-                                                <input type="text" [(ngModel)]="contractData.guarantorCpfValue" name="cpf" class="form-control rounded-0" 
+											<div class="col"*ngIf="_guarantorType=='cpf'" >
+                                                <input type="text" [(ngModel)]="contractData.guarantorValue" name="cpf" class="form-control rounded-0" 
                                                     pattern="^\d{3}\.\d{3}\.\d{3}\-\d{2}$" placeHolder="123.123.123-12"
-                                                    [class.is-invalid]="guarantorCpfValue.invalid && guarantorCpfValue.touched" #guarantorCpfValue="ngModel" required >
-                                                    <div class="md-errors-spacer" [hidden]="guarantorCpfValue.valid || guarantorCpfValue.untouched">
-                                                        <small  class="text-danger"*ngIf="guarantorCpfValue.errors && guarantorCpfValue.errors.required">
+                                                    [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" required >
+                                                    <div class="md-errors-spacer" [hidden]="guarantorValue.valid || guarantorValue.untouched">
+                                                        <small  class="text-danger"*ngIf="guarantorValue.errors && guarantorValue.errors.required">
                                                             CPF obrigatório 
                                                         </small>
-                                                        <small  class="text-danger" *ngIf="guarantorCpfValue.errors && guarantorCpfValue.errors.pattern">
+                                                        <small  class="text-danger" *ngIf="guarantorValue.errors && guarantorValue.errors.pattern">
                                                             CPF inválido (Ex.: 123.123.123-12)
                                                         </small>
                                                     </div>
                                             </div>
                                             <div class="col"*ngIf="_guarantorType=='cnpj'" >
-                                                <input type="text" [(ngModel)]="contractData.guarantorCnpj" name="guarantorCnpj" class="form-control rounded-0" 
+                                                <input type="text" [(ngModel)]="contractData.guarantorValue" name="guarantorValue" class="form-control rounded-0" 
                                                     pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$" placeHolder="12.123.123/0001-12"
-                                                    [class.is-invalid]="guarantorCnpj.invalid && guarantorCnpj.touched" #guarantorCnpj="ngModel" required >
-                                                    <div class="md-errors-spacer" [hidden]="guarantorCnpj.valid || guarantorCnpj.untouched">
-                                                        <small  class="text-danger"*ngIf="guarantorCnpj.errors && guarantorCnpj.errors.required">
+                                                    [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" required >
+                                                    <div class="md-errors-spacer" [hidden]="guarantorValue.valid || guarantorValue.untouched">
+                                                        <small  class="text-danger"*ngIf="guarantorValue.errors && guarantorValue.errors.required">
                                                             CNPJ obrigatório 
                                                         </small>
-                                                        <small  class="text-danger" *ngIf="guarantorCnpj.errors && guarantorCnpj.errors.pattern">
+                                                        <small  class="text-danger" *ngIf="guarantorValue.errors && guarantorValue.errors.pattern">
                                                             CNPJ inválido (Ex.: 12.123.123/0001-12)
                                                         </small>
                                                     </div>
@@ -964,6 +964,5 @@
             </div>
         </div>
     </div>
-
-
-
+	
+	
