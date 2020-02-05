@@ -81,8 +81,8 @@ export class TransactionBillingComponent implements OnInit {
  
   markAsActive(filter: string[]){
     this.filter = filter;
-    delete this.detran;
-    delete this.creditor;
+    this.detran ='';
+    this.creditor ='';
     delete this.startDate;
     delete this.endDate;
     
