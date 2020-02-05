@@ -134,6 +134,7 @@ import { FilterUserPipe } from './pipes/filter-user.pipe';
     TableFilterPipe,
     UserDetailComponent,
     FilterUserPipe,
+
   ],
   imports: [
     BrowserModule,
