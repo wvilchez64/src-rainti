@@ -37,6 +37,7 @@ import { TransactionBillingComponent } from './reports/transaction-billing/trans
 import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
 import { GroupsDetailComponent } from './registers/groups/groups-detail/groups-detail.component';
 import { UserDetailComponent } from './registers/user/user-detail/user-detail.component';
+import { FirstAccessComponent } from './system-access/first-access/first-access.component';
 
 const routes: Routes = [
   {
@@ -97,6 +98,10 @@ const routes: Routes = [
   {
     path: 'recuperar-senha-reset/:id',
     component: PasswordResetComponent
+  },
+  {
+    path: 'novo-acesso/:id',
+    component: FirstAccessComponent
   },
   {
     path: 'detran',

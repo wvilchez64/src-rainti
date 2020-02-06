@@ -15,14 +15,15 @@
                       </nav>
                       <!-- User data TAB -->
                       <div class="tab-content" id="nav-tabContent" style="padding-top: 10px;">
-                        <div class="tab-pane fade show active " id="user-data" role="tabpanel" aria-labelledby="user-data-tab" >
+                        <div class="tab-pane fade show active " id="user-data" role="tabpanel" aria-labelledby="user-data-tab" 
+                        [ngClass]="{ 'active show': _activeTab === 'user-data'}">
 
                             <form class="form" #registerForm="ngForm" >
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label for="uname1">Nome</label>
-                                            <input type="text" [(ngModel)]="registerUserData.firstName" name="firstName"  class="form-control rounded-0" 
+                                            <input type="text" [(ngModel)]="_registerUserData.firstName" name="firstName"  class="form-control rounded-0" 
                                             [class.is-invalid]="name.invalid && name.touched" #name="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="name.valid || name.untouched">
                                                 <small  class="text-danger"*ngIf="name.errors && name.errors.required">
@@ -32,7 +33,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="uname1">Sobrenome</label>
-                                            <input type="text" [(ngModel)]="registerUserData.lastName" name="lastName" class="form-control rounded-0" 
+                                            <input type="text" [(ngModel)]="_registerUserData.lastName" name="lastName" class="form-control rounded-0" 
                                             [class.is-invalid]="lastName.invalid && lastName.touched" #lastName="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="lastName.valid || lastName.untouched">
                                                 <small  class="text-danger"*ngIf="lastName.errors && lastName.errors.required">
@@ -46,7 +47,7 @@
                                     <div class="row">
                                         <div class="col">                                            
                                             <label for="uname1">CPF</label>
-                                            <input type="text" [(ngModel)]="registerUserData.cpf" name="cpf" class="form-control rounded-0" 
+                                            <input type="text" [(ngModel)]="_registerUserData.cpf" name="cpf" class="form-control rounded-0" 
                                             pattern="^\d{3}\.\d{3}\.\d{3}(-\d{2})$" placeHolder="123.123.123-12"
                                             [class.is-invalid]="cpf.invalid && cpf.touched" #cpf="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="cpf.valid || cpf.untouched">
@@ -61,7 +62,7 @@
                                         <div class="col-md-2">
                                             <label >Status</label>
                                             <div class="onoffswitch">
-                                                <input type="checkbox" [(ngModel)]="registerUserData.status" name="statusSwitch" class="onoffswitch-checkbox" id="statusSwitch" checked>
+                                                <input type="checkbox" [(ngModel)]="_registerUserData.status" name="statusSwitch" class="onoffswitch-checkbox" id="statusSwitch" checked>
                                                 <label class="onoffswitch-label" for="statusSwitch"></label>                                                
                                             </div>
                                         </div> 
@@ -69,7 +70,7 @@
                                 </div> 
                                 <div class="form-group">
                                     <label for="uname1">Nome de usuário</label>
-                                    <input type="text" [(ngModel)]="registerUserData.userName" name="userName" class="form-control rounded-0" 
+                                    <input type="text" [(ngModel)]="_registerUserData.userName" name="userName" class="form-control rounded-0" 
                                     [class.is-invalid]="userName.invalid && userName.touched" #userName="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="userName.valid || userName.untouched">
                                                 <small  class="text-danger"*ngIf="userName.errors && userName.errors.required">
@@ -80,7 +81,7 @@
                                 <div class="form-group">
                                     <label for="uname1">E-mail</label>
                                     <input #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="text" 
-                                    [(ngModel)]="registerUserData.email" name="email" class="form-control rounded-0" 
+                                    [(ngModel)]="_registerUserData.email" name="email" class="form-control rounded-0" 
                                     [class.is-invalid]="email.invalid && email.touched" required>
                                     <div class="md-errors-spacer" [hidden]="email.valid || email.untouched">
                                         <small  class="text-danger"*ngIf="email.errors && email.errors.required">
@@ -97,7 +98,7 @@
                                             <label for="uname1">DDD</label>
                                             <input type="text" pattern="^([1-9]{2})"
                                             placeHolder="11"
-                                            [(ngModel)]="registerUserData.dddModel" name="dddModel" class="form-control rounded-0" 
+                                            [(ngModel)]="_registerUserData.dddModel" name="dddModel" class="form-control rounded-0" 
                                             [class.is-invalid]="dddModel.invalid && dddModel.touched" #dddModel="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="dddModel.valid || dddModel.untouched">
                                                 <small  class="text-danger"*ngIf="dddModel.errors && dddModel.errors.required">
@@ -113,7 +114,7 @@
                                             <label for="uname1">Telefone</label>
                                             <input type="text" pattern="^([1-9]{1}[0-9]{3}|[1-9]{1}[0-9]{4})(-)([0-9]{4})"
                                             placeHolder="1234-5678 ou 12345-6789"
-                                            [(ngModel)]="registerUserData.phone" name="phone" class="form-control rounded-0" 
+                                            [(ngModel)]="_registerUserData.phone" name="phone" class="form-control rounded-0" 
                                             [class.is-invalid]="phone.invalid && phone.touched" #phone="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="phone.valid || phone.untouched">
                                                 <small  class="text-danger"*ngIf="phone.errors && phone.errors.required">
@@ -143,7 +144,8 @@
 
                         <!-- User Profile TAB -->
                         <form
-                         class="tab-pane fade" id="user-profile" role="tabpanel" aria-labelledby="user-profile-tab" >
+                         class="tab-pane fade" id="user-profile" role="tabpanel" aria-labelledby="user-profile-tab" 
+                         [ngClass]="{ 'active show': _activeTab === 'user-profile'}"  >
                             <form class="form" #profileForm="ngForm" ></form>
                                 <div class="form-group">
                                     <div>
@@ -177,7 +179,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6">                   
-                                            <button type="submit" (click)="backToUsers()" class="btn btn-info btn-block float-right">Voltar</button>
+                                            <button type="submit" (click)="nextTab('user-data')" class="btn btn-info btn-block float-right">Anterior</button>
                                         </div>  
                                         <div class="col-sm-6">                                        
                                             <button type="submit" [disabled]="profileForm.form.invalid" (click)="createUser()" class="btn btn-rainti btn-block ">Finalizar</button>                
@@ -185,10 +187,8 @@
                                     </div>                            
                                 </div> 
                             </form>
-                        </div>
-                        
-                      </div>
-                                       
+                        </div>                       
+                      </div>                                      
             </div>
             <!-- /form card login -->
         </div>

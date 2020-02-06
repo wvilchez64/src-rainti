@@ -843,7 +843,7 @@
                                         </button>
                                         </div>
                                         <div class="modal-body list-group">
-                                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+                                            <a class="list-group-item list-group-item-action flex-column align-items-start active">
                                                 <p>Credor:</p>
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <ul>
@@ -887,8 +887,8 @@
                                             </a>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-                                            <button type="button" class="btn btn-primary" (click)="createContract()">Finalizar</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-dismiss="modal">Voltar</button>
+                                            <button type="button" class="btn btn-primary" (click)="createContract()" routerLink="/contratos" data-dismiss="modal">Finalizar</button>
                                             <div class="col border text-center btn-outline-secondary" *ngIf="_contractLoad">
                                                 <span class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
                                             </div>
