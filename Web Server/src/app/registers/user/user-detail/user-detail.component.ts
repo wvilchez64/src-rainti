@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserAddService } from '../user-services/user-add.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserDetailService } from '../user-services/user-detail.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-detail',
@@ -34,8 +33,7 @@ export class UserDetailComponent implements OnInit {
   _activeTab = 'user-data'
 
   constructor(private _userDetailService: UserDetailService,
-    private _route: ActivatedRoute,
-    private _location: Location) { }
+    private _route: ActivatedRoute) { }
 
     ngOnInit() {
 
@@ -100,23 +98,9 @@ export class UserDetailComponent implements OnInit {
      
    } 
 
-   deleteUser(){
-    this._userDetailService.deleteUser(this.registerUserData)
-      .subscribe(
-        res => {
-          console.log(res)          
-        },
-        error => console.log(error) 
-        )  
-    
-  } 
-
   backToUsers(){
-    this._location.back()
+
   }
-
-
-    
 
 
 }

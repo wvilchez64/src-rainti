@@ -15,8 +15,7 @@
                       </nav>
                       <!-- User data TAB -->
                       <div class="tab-content" id="nav-tabContent" style="padding-top: 10px;">
-                        <div class="tab-pane fade show active " id="user-data" role="tabpanel" aria-labelledby="user-data-tab" 
-                        [ngClass]="{ 'active show': _activeTab === 'user-data'}">
+                        <div class="tab-pane fade show active " id="user-data" role="tabpanel" aria-labelledby="user-data-tab" >
 
                             <form class="form" #registerForm="ngForm" >
                                 <div class="form-group">
@@ -131,13 +130,10 @@
                                 <hr/>
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-4">                   
+                                        <div class="col-sm-6">                   
                                             <button type="submit" (click)="backToUsers()" class="btn btn-info btn-block">Voltar</button>                                            
                                         </div>  
-                                        <div class="col-sm-4">                   
-                                            <button type="submit" (click)="deleteUser()" class="btn btn-danger btn-block">Excluir</button>
-                                        </div> 
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-6">
                                             <button type="submit" [disabled]="registerForm.form.invalid" (click)="nextTab('user-profile')"  class="btn btn-rainti btn-block ">Próximo</button>                                                            
                                         </div>  
                                     </div>                            
@@ -147,8 +143,7 @@
 
                         <!-- User Profile TAB -->
                         <form
-                         class="tab-pane fade" id="user-profile" role="tabpanel" aria-labelledby="user-profile-tab" 
-                         [ngClass]="{ 'active show': _activeTab === 'user-profile'}"  >
+                         class="tab-pane fade" id="user-profile" role="tabpanel" aria-labelledby="user-profile-tab" >
                             <form class="form" #profileForm="ngForm" ></form>
                                 <div class="form-group">
                                     <div class="col">
@@ -181,13 +176,10 @@
                                 <hr/>
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-sm-4">                   
-                                            <button type="submit" (click)="nextTab('user-data')" class="btn btn-info btn-block ">Anterior</button>
+                                        <div class="col-sm-6">                   
+                                            <button type="submit" (click)="backToUsers()" class="btn btn-info btn-block float-right">Voltar</button>
                                         </div>  
-                                        <div class="col-sm-4">                   
-                                            <button type="submit" (click)="deleteUser()" class="btn btn-danger btn-block">Excluir</button>
-                                        </div>  
-                                        <div class="col-sm-4">                                        
+                                        <div class="col-sm-6">                                        
                                             <button type="submit" [disabled]="profileForm.form.invalid" (click)="updateUser()" class="btn btn-rainti btn-block ">Finalizar</button>                
                                         </div>  
                                     </div>                            
