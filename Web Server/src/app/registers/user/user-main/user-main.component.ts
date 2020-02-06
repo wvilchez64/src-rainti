@@ -29,5 +29,19 @@ export class UserMainComponent implements OnInit {
       err => console.log(err)
     ) 
   }
+
+  disableUser(id){
+    
+    this._userService.disableUser({"id":id})
+    .subscribe(
+      res => {
+        console.log(res)
+        this.ngOnInit()
+      },
+      err =>{
+        console.log(err)
+      }
+    )
+  }
 }
 

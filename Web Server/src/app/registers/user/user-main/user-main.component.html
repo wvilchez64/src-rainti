@@ -40,7 +40,7 @@
               <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/usuarios-detalhe/{{users.id}}" routerLinkActive="active" >Editar</button>
             </div>        
             <div class="col">
-              <button type="button" class="btn btn-secondary btn-md btn-block" (click)="deleteUser()">Desativar</button>
+              <button type="button" class="btn btn-secondary btn-md btn-block" (click)="disableUser(users.id)">Desativar</button>
             </div>            
           </div>         
         </div>

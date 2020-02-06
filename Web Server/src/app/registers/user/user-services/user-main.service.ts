@@ -10,6 +10,7 @@ export class UserMainService {
   private _appServerConfig = require('../../../../assets/configs/config-app-server.json')
   
   private _userUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-main"
+  private _userDisableUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-disable"
   
 
   constructor(private http: HttpClient) {  }
@@ -18,5 +19,8 @@ export class UserMainService {
     return this.http.get<any>(this._userUrl)
    }
 
+   disableUser(id){
+    return this.http.put<any>(this._userDisableUrl,id)
+   }
    
 }
