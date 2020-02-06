@@ -871,7 +871,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<div class=\"py-5\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-6 mx-auto\">\r\n            <span class=\"anchor\" id=\"formLogin\"></span>\r\n            <!-- form card login -->\r\n            <div class=\"card shadow\">\r\n                  <div class=\"card-body\">\r\n                    <h4 class=\"card-title mb-4 mt-1\">Verifique seu e-mail</h4>\r\n                    <hr/>\r\n                    <label for=\"uname1\">Um código de verificação foi enviado ao seu e-mail cadastrado.<br>Esse código tem validade de <b>15 minutos.</b></label>\r\n                    <hr/>\r\n                    <form  class=\"form\" #resetForm=\"ngForm\">                        \r\n                        <div class=\"form-group\">\r\n                            <label for=\"uname1\">Código de verificação</label>\r\n                            <div class=\"md-errors-spacer\" [hidden]=\"resetCode.valid || resetCode.untouched\">\r\n                                <small  class=\"text-danger\"*ngIf=\"resetCode.errors && resetCode.errors.required\">\r\n                                    Código Obrigatório\r\n                                </small>\r\n                            </div>\r\n                            \r\n                            <form #resetCode=\"ngForm\">\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode1\" name=\"resetCode1\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode1.invalid && resetCode1.touched\" #resetCode1=\"ngModel\" required >\r\n                                    </div>\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" (blur)=\"resetCode1.valid\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode2\" name=\"resetCode2\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode2.invalid && resetCode2.touched\" #resetCode2=\"ngModel\" required >\r\n                                    </div>\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode3\" name=\"resetCode3\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode3.invalid && resetCode3.touched\" #resetCode3=\"ngModel\" required >\r\n                                    </div>\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode4\" name=\"resetCode4\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode4.invalid && resetCode4.touched\" #resetCode4=\"ngModel\" required >\r\n                                    </div>\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode5\" name=\"resetCode5\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode5.invalid && resetCode5.touched\" #resetCode5=\"ngModel\" required >\r\n                                    </div>\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode6\" name=\"resetCode6\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode6.invalid && resetCode6.touched\" #resetCode6=\"ngModel\" required >\r\n                                    </div>\r\n                                </div>\r\n                            </form> \r\n                            <!-- <small  class=\"text-primary\">\r\n                                <a class=\"text\" (click)=\"doSomething\" style=\"cursor:pointer\">Gerar novo código</a>\r\n                            </small> -->\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <div class=\"row\">\r\n                                <div class=\"col-sm-6\">\r\n                                    <label for=\"uname1\">Nova Senha</label>\r\n                                    <input type=\"password\" [(ngModel)]=\"resetUserData.password\" name=\"password\"  class=\"form-control rounded-0\" \r\n                                    [class.is-invalid]=\"password.invalid && password.touched\" #password=\"ngModel\" required >\r\n                                    <div class=\"md-errors-spacer\" [hidden]=\"password.valid || password.untouched\">\r\n                                        <small  class=\"text-danger\"*ngIf=\"password.errors && password.errors.required\">\r\n                                            senha obrigatória\r\n                                        </small>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"col-sm-6\">\r\n                                    <label for=\"uname1\">Confirme sua senha</label>\r\n                                    <input type=\"password\" [(ngModel)]=\"resetUserData.confirmedPassword\" name=\"confirmedPassword\" class=\"form-control rounded-0\" \r\n                                    [class.is-invalid]=\"confirmedPassword.invalid && confirmedPassword.touched\" #confirmedPassword=\"ngModel\" \r\n                                    appConfirmEqualValidator=\"password\"required >\r\n                                    <div class=\"md-errors-spacer\" [hidden]=\"confirmedPassword.valid || confirmedPassword.untouched\">\r\n                                        <small  class=\"text-danger\"*ngIf=\"confirmedPassword.errors && confirmedPassword.errors.required\">\r\n                                            confirmação de senha obrigatória\r\n                                        </small>\r\n                                    </div>\r\n                                    <div class=\"md-errors-spacer\" [hidden]=\"confirmedPassword.valid || confirmedPassword.untouched\">\r\n                                        <small  class=\"text-danger\"*ngIf=\"confirmedPassword.errors && confirmedPassword.errors?.notEqual\">\r\n                                            confirmação de senha incorreta\r\n                                        </small>\r\n                                    </div>\r\n                                </div>  \r\n                            </div>                            \r\n                        </div>              \r\n                        <hr/>                            \r\n                        <div class=\"row\">\r\n                            <div class=\"col\">\r\n                                <button  type=\"submit\" (click)=\"backToEmailSender()\" class=\"btn btn-info btn-block\">Voltar</button>\r\n                            </div>\r\n                            <div class=\"col\">\r\n                                <button [disabled]=\"resetForm.form.invalid\" type=\"submit\" (click)=\"resetUser()\" class=\"btn btn-rainti btn-block\">Confirmar</button>\r\n                            </div>\r\n                        </div>\r\n                        \r\n                        \r\n                    </form>\r\n                  </div>\r\n            </div>\r\n            <!-- /form card login -->\r\n        </div>\r\n    </div>\r\n</div>\r\n    \r\n\r\n";
+    __webpack_exports__["default"] = "<div class=\"py-5\">\r\n    <div class=\"row\">\r\n        <div class=\"col-md-6 mx-auto\">\r\n            <span class=\"anchor\" id=\"formLogin\"></span>\r\n            <!-- form card login -->\r\n            <div class=\"card shadow\">\r\n                  <div class=\"card-body\">\r\n                    <h4 class=\"card-title mb-4 mt-1\">Verifique seu e-mail</h4>\r\n                    <hr/>\r\n                    <label for=\"uname1\">Um código de verificação foi enviado ao seu e-mail cadastrado.<br>Esse código tem validade de <b>15 minutos.</b></label>\r\n                    <hr/>\r\n                    <form  class=\"form\" #resetForm=\"ngForm\">                        \r\n                        <div class=\"form-group\">\r\n                            <label for=\"uname1\">Código de verificação</label>\r\n                            <div class=\"md-errors-spacer\" [hidden]=\"resetCode.valid || resetCode.untouched\">\r\n                                <small  class=\"text-danger\"*ngIf=\"resetCode.errors && resetCode.errors.required\">\r\n                                    Código Obrigatório\r\n                                </small>\r\n                            </div>\r\n                            \r\n                            <form #resetCode=\"ngForm\">\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode1\" name=\"resetCode1\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode1.invalid && resetCode1.touched\" #resetCode1=\"ngModel\" required >\r\n                                    </div>\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" (blur)=\"resetCode1.valid\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode2\" name=\"resetCode2\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode2.invalid && resetCode2.touched\" #resetCode2=\"ngModel\" required >\r\n                                    </div>\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode3\" name=\"resetCode3\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode3.invalid && resetCode3.touched\" #resetCode3=\"ngModel\" required >\r\n                                    </div>\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode4\" name=\"resetCode4\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode4.invalid && resetCode4.touched\" #resetCode4=\"ngModel\" required >\r\n                                    </div>\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode5\" name=\"resetCode5\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode5.invalid && resetCode5.touched\" #resetCode5=\"ngModel\" required >\r\n                                    </div>\r\n                                    <div class=\"col-md-1\">\r\n                                        <input type=\"text\" style=\"text-align: center;\"  maxlength=\"1\" [(ngModel)]=\"resetUserData.resetCode6\" name=\"resetCode6\" class=\"form-control rounded-5 form-fixer\" \r\n                                        [class.is-invalid]=\"resetCode6.invalid && resetCode6.touched\" #resetCode6=\"ngModel\" required >\r\n                                    </div>\r\n                                </div>\r\n                            </form> \r\n                            <!-- <small  class=\"text-primary\">\r\n                                <a class=\"text\" (click)=\"doSomething\" style=\"cursor:pointer\">Gerar novo código</a>\r\n                            </small> -->\r\n                        </div>\r\n                        <div class=\"form-group\">\r\n                            <div class=\"row\">\r\n                                <div class=\"col-sm-6\">\r\n                                    <label for=\"uname1\">Nova Senha</label>\r\n                                    <input type=\"password\" [(ngModel)]=\"resetUserData.password\" name=\"password\"  class=\"form-control rounded-0\" \r\n                                    [class.is-invalid]=\"password.invalid && password.touched\" #password=\"ngModel\" required >\r\n                                    <div class=\"md-errors-spacer\" [hidden]=\"password.valid || password.untouched\">\r\n                                        <small  class=\"text-danger\"*ngIf=\"password.errors && password.errors.required\">\r\n                                            senha obrigatória\r\n                                        </small>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"col-sm-6\">\r\n                                    <label for=\"uname1\">Confirme sua senha</label>\r\n                                    <input type=\"password\" [(ngModel)]=\"resetUserData.confirmedPassword\" name=\"confirmedPassword\" class=\"form-control rounded-0\" \r\n                                    [class.is-invalid]=\"confirmedPassword.invalid && confirmedPassword.touched\" #confirmedPassword=\"ngModel\" \r\n                                    pattern=\"(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}\"\r\n                                    appConfirmEqualValidator=\"password\"required >\r\n                                    <div class=\"md-errors-spacer\" [hidden]=\"confirmedPassword.valid || confirmedPassword.untouched\">\r\n                                        <small  class=\"text-danger\"*ngIf=\"confirmedPassword.errors && confirmedPassword.errors.required\">\r\n                                            confirmação de senha obrigatória\r\n                                        </small>\r\n                                    </div>\r\n                                    <div class=\"md-errors-spacer\" [hidden]=\"confirmedPassword.valid || confirmedPassword.untouched\">\r\n                                        <small  class=\"text-danger\"*ngIf=\"confirmedPassword.errors && confirmedPassword.errors?.notEqual\">\r\n                                            confirmação de senha incorreta\r\n                                        </small>\r\n                                    </div>\r\n                                </div>  \r\n                            </div>                            \r\n                        </div>              \r\n                        <hr/>                            \r\n                        <div class=\"row\">\r\n                            <div class=\"col\">\r\n                                <button  type=\"submit\" (click)=\"backToEmailSender()\" class=\"btn btn-info btn-block\">Voltar</button>\r\n                            </div>\r\n                            <div class=\"col\">\r\n                                <button [disabled]=\"resetForm.form.invalid\" type=\"submit\" (click)=\"resetUser()\" class=\"btn btn-rainti btn-block\">Confirmar</button>\r\n                            </div>\r\n                        </div>\r\n                        \r\n                        \r\n                    </form>\r\n                  </div>\r\n            </div>\r\n            <!-- /form card login -->\r\n        </div>\r\n    </div>\r\n</div>\r\n    \r\n\r\n";
     /***/
   },
 
@@ -10189,7 +10189,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         this._userAddService = _userAddService;
         this._router = _router;
-        this.registerUserData = {
+        this._registerUserData = {
           firstName: '',
           lastName: '',
           userName: '',
@@ -10200,6 +10200,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           email: '',
           groupsId: ''
         };
+        this._resetCode = '';
         this._errorMessage = '';
         this._groupsData = [];
         this.topicHasError = true;
@@ -10228,12 +10229,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "featuresControl",
         value: function featuresControl(event) {
-          this.registerUserData.groupsId = event.target.id;
+          this._registerUserData.groupsId = event.target.id;
         }
       }, {
         key: "createUser",
         value: function createUser() {
-          this._userAddService.createUser(this.registerUserData).subscribe(function (res) {
+          var _this62 = this;
+
+          this._userAddService.createUser(this._registerUserData).subscribe(function (res) {
+            _this62._resetCode = res.resetCode;
+
+            _this62.sendEmail(_this62._registerUserData.email);
+
             console.log(res);
           }, function (error) {
             return console.log(error);
@@ -10242,6 +10249,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "backToUsers",
         value: function backToUsers() {}
+      }, {
+        key: "sendEmail",
+        value: function sendEmail(emailTo) {
+          var emailConfig = __webpack_require__(
+          /*! ../../../../assets/configs/config-email-noreply.json */
+          "./src/assets/configs/config-email-noreply.json");
+
+          var emailData = {
+            host: emailConfig.host,
+            port: emailConfig.port,
+            secure: emailConfig.secure,
+            requireTLS: emailConfig.requireTLS,
+            userName: emailConfig.userName,
+            emailFrom: emailConfig.emailFrom,
+            password: emailConfig.password,
+            emailTo: emailTo,
+            subjectContent: "[NÃO RESPONDA] - RainTI novo Acesso",
+            plainText: "Acesso o link a seguir: http://" + emailConfig.hostSrc + ":4200/novo-acesso, informe o seu nome de usuário: " + this._registerUserData.userName + " e o código a seguir: " + this._resetCode + " para criar seu acesso",
+            html: ' <head> ' + ' <title>Rating Reminder</title> ' + ' <meta content="text/html; charset=utf-8" http-equiv="Content-Type"> ' + ' <meta content="width=device-width" name="viewport"> ' + ' <style type="text/css"> ' + ' @font-face { ' + ' font-family: &#x27; ' + ' Postmates Std&#x27; ' + ' ; ' + ' font-weight: 600; ' + ' font-style: normal; ' + ' src: local(&#x27; Postmates Std Bold&#x27; ), url(https://s3-us-west-1.amazonaws.com/buyer-static.postmates.com/assets/email/postmates-std-bold.woff) format(&#x27; woff&#x27; ); ' + ' } ' + ' @font-face { ' + ' font-family: &#x27; ' + ' Postmates Std&#x27; ' + ' ; ' + ' font-weight: 500; ' + ' font-style: normal; ' + ' src: local(&#x27; Postmates Std Medium&#x27; ), url(https://s3-us-west-1.amazonaws.com/buyer-static.postmates.com/assets/email/postmates-std-medium.woff) format(&#x27; woff&#x27; ); ' + ' } ' + ' @font-face { ' + ' font-family: &#x27; ' + ' Postmates Std&#x27; ' + '  ; ' + ' font-weight: 400; ' + ' font-style: normal; ' + ' src: local(&#x27; Postmates Std Regular&#x27; ), url(https://s3-us-west-1.amazonaws.com/buyer-static.postmates.com/assets/email/postmates-std-regular.woff) format(&#x27; woff&#x27; ); ' + ' } ' + ' </style> ' + ' <style media="screen and (max-width: 680px)"> ' + ' @media screen and (max-width: 680px) { ' + ' .page-center { ' + ' padding-left: 0 !important; ' + ' padding-right: 0 !important; ' + '  } ' + ' .footer-center { ' + ' padding-left: 20px !important; ' + ' padding-right: 20px !important; ' + '  } ' + ' } ' + ' </style> ' + ' </head> ' + ' <body style="background-color: #f4f4f5;"> ' + ' <table cellpadding="0" cellspacing="0" ' + ' style="width: 100%; height: 100%; background-color: #f4f4f5; text-align: center;"> ' + ' <tbody> ' + ' <tr> ' + ' <td style="text-align: center;"> ' + ' <table align="center" cellpadding="0" cellspacing="0" id="body" ' + ' style="background-color: #fff; width: 100%; max-width: 680px; height: 100%;"> ' + ' <tbody> ' + ' <tr> ' + ' <td> ' + ' <table align="center" cellpadding="0" cellspacing="0" class="page-center" ' + ' style="text-align: left; padding-bottom: 88px; width: 100%; padding-left: 120px; padding-right: 120px;"> ' + ' <tbody> ' + ' <tr> ' + ' <td style="padding-top: 24px;"> ' + ' <img src="cid:logo" ' + ' style="width: 56px;"> ' + ' </td> ' + ' </tr> ' + ' <tr> ' + ' <td colspan="2" ' + ' style="padding-top: 72px; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #000000; font-family: \'Postmates Std\', \'Helvetica\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif; font-size: 48px; font-smoothing: always; font-style: normal; font-weight: 600; letter-spacing: -2.6px; line-height: 52px; mso-line-height-rule: exactly; text-decoration: none;"> ' + ' Bem-vindo à RainTI, ' + this._registerUserData.firstName + ' ' + this._registerUserData.lastName + '</td> ' + ' </tr> ' + '  <tr> ' + ' <td style="padding-top: 48px; padding-bottom: 48px;"> ' + ' <table cellpadding="0" cellspacing="0" style="width: 100%"> ' + ' <tbody> ' + ' <tr> ' + ' <td ' + ' style="width: 100%; height: 1px; max-height: 1px; background-color: #d9dbe0; opacity: 0.81"> ' + '  </td> ' + ' </tr> ' + '  </tbody> ' + ' </table> ' + ' </td> ' + ' </tr> ' + ' <tr> ' + ' <td ' + ' style="-ms-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #9095a2; font-family: \'Postmates Std\', \'Helvetica\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif; font-size: 16px; font-smoothing: always; font-style: normal; font-weight: 400; letter-spacing: -0.18px; line-height: 24px; mso-line-height-rule: exactly; text-decoration: none; vertical-align: top; width: 100%;"> ' + ' Você está recebendo esse e-mail pois foi criada uma conta no SRC-e ' + ' Sistema de Registro de Contrato eletrônico pela empresa RainTI. ' + ' A seguir estão seus dados de acesso' + ' Usuário: ' + this._registerUserData.userName + ' Código de verificação: ' + this._resetCode + ' Com esses dados você poderá cadastrar sua senha e acessar ao sistema.' + ' </td> ' + ' </tr> ' + ' <tr> ' + ' <td ' + ' style="padding-top: 24px; -ms-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #9095a2; font-family: \'Postmates Std\', \'Helvetica\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif; font-size: 16px; font-smoothing: always; font-style: normal; font-weight: 400; letter-spacing: -0.18px; line-height: 24px; mso-line-height-rule: exactly; text-decoration: none; vertical-align: top; width: 100%;"> ' + ' Clique no botão a seguir e cadastre uma nova senha ' + ' </td> ' + ' </tr> ' + ' <tr> ' + ' <td> ' + ' <a data-click-track-id="37" href="http://' + emailConfig.hostSrc + ':4200/novo-acesso" ' + ' style="margin-top: 36px; -ms-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #ffffff; font-family: \'Postmates Std\', \'Helvetica\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif; font-size: 12px; font-smoothing: always; font-style: normal; font-weight: 600; letter-spacing: 0.7px; line-height: 48px; mso-line-height-rule: exactly; text-decoration: none; vertical-align: top; width: 220px; background-color: #0090D5; border-radius: 5px; display: block; text-align: center; text-transform: uppercase" ' + ' target="_blank"> ' + ' Recuperar senha ' + ' </a> ' + ' </td> ' + ' </tr> ' + '  </tbody> ' + '  </table> ' + ' </td> ' + '  </tr> ' + ' </tbody> ' + ' </table> ' + ' </td> ' + ' </tr> ' + '         </tbody> ' + '     </table> ' + ' </body> '
+          };
+          console.log(emailData);
+
+          this._userAddService.sendEmail(emailData).subscribe(function (res) {
+            console.log(res);
+          }, function (error) {
+            return console.log(error);
+          });
+        }
       }]);
 
       return UserAddComponent;
@@ -10361,29 +10396,29 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(UserDetailComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this62 = this;
+          var _this63 = this;
 
           this._route.paramMap.subscribe(function (params) {
-            _this62.registerUserData.userid = params.get('id');
+            _this63.registerUserData.userid = params.get('id');
           }, function (err) {});
 
           this._userDetailService.getUserDetail(this.registerUserData.userid).subscribe(function (res) {
-            _this62.registerUserData = res[0];
+            _this63.registerUserData = res[0];
           }, function (err) {
             console.log(err);
           });
 
           this._userDetailService.getUserGroups(this.registerUserData.userid).subscribe(function (res) {
-            _this62._groupsData = res;
+            _this63._groupsData = res;
 
-            _this62._groupsData.forEach(function (val) {
-              if (val.id == _this62.registerUserData.groupsid) {
+            _this63._groupsData.forEach(function (val) {
+              if (val.id == _this63.registerUserData.groupsid) {
                 val.checked = true;
               }
             });
           }, function (error) {
             console.log(error);
-            _this62._errorMessage = error.error;
+            _this63._errorMessage = error.error;
           });
         }
       }, {
@@ -10505,11 +10540,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(UserMainComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this63 = this;
+          var _this64 = this;
 
           this._userService.getUser().subscribe(function (res) {
             console.log(res);
-            _this63.user = res;
+            _this64.user = res;
           }, function (err) {
             return console.log(err);
           });
@@ -10587,6 +10622,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         "./src/assets/configs/config-app-server.json");
         this._groupUrl = "http://" + this._appServerConfig.host + ":" + this._appServerConfig.port + "/api/administration/user-groups-add";
         this._userUrl = "http://" + this._appServerConfig.host + ":" + this._appServerConfig.port + "/api/administration/user-add";
+        this._sendEmailUrl = "http://" + this._appServerConfig.host + ":" + this._appServerConfig.port + "/api/common/send-email";
       }
 
       _createClass(UserAddService, [{
@@ -10598,6 +10634,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         key: "createUser",
         value: function createUser(userData) {
           return this.http.post(this._userUrl, userData);
+        }
+      }, {
+        key: "sendEmail",
+        value: function sendEmail(user) {
+          return this.http.post(this._sendEmailUrl, user);
         }
       }]);
 
@@ -12525,7 +12566,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "getArray",
         value: function getArray() {
-          var _this64 = this;
+          var _this65 = this;
 
           if (this.filterTransactionBilling.length == 0 && this.detran === undefined && this.creditor === undefined) {
             this.filterTransactionBilling = _fixed_data_transaction_billing__WEBPACK_IMPORTED_MODULE_2__["dataTransactionBilling"];
@@ -12534,73 +12575,73 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
           if (this.detran !== undefined && this.creditor === undefined && this.startDate === undefined && this.endDate === undefined) {
             this.filterTransactionBilling = _fixed_data_transaction_billing__WEBPACK_IMPORTED_MODULE_2__["dataTransactionBilling"].filter(function (v) {
-              return v.Detran.toLocaleLowerCase().includes(_this64.detran.toLocaleLowerCase());
+              return v.Detran.toLocaleLowerCase().includes(_this65.detran.toLocaleLowerCase());
             });
           }
 
           if (this.detran !== undefined && this.creditor !== undefined && this.startDate === undefined && this.endDate === undefined) {
             this.filterdetran = _fixed_data_transaction_billing__WEBPACK_IMPORTED_MODULE_2__["dataTransactionBilling"].filter(function (v) {
-              return v.Detran.toLocaleLowerCase().includes(_this64.detran.toLocaleLowerCase());
+              return v.Detran.toLocaleLowerCase().includes(_this65.detran.toLocaleLowerCase());
             });
             this.filterTransactionBilling = this.filterdetran;
           }
 
           if (this.detran !== undefined && this.creditor === undefined && this.startDate !== undefined && this.endDate !== undefined) {
             this.filterdetran = _fixed_data_transaction_billing__WEBPACK_IMPORTED_MODULE_2__["dataTransactionBilling"].filter(function (v) {
-              return v.Detran.toLocaleLowerCase().includes(_this64.detran.toLocaleLowerCase());
+              return v.Detran.toLocaleLowerCase().includes(_this65.detran.toLocaleLowerCase());
             });
             this.filterTransactionBilling = this.filterdetran;
           }
 
           if (this.creditor !== undefined && this.detran === undefined && this.startDate === undefined && this.endDate === undefined) {
             this.filterTransactionBilling = _fixed_data_transaction_billing__WEBPACK_IMPORTED_MODULE_2__["dataTransactionBilling"].filter(function (d) {
-              return d.Credora.toLocaleLowerCase().includes(_this64.creditor.toLocaleLowerCase());
+              return d.Credora.toLocaleLowerCase().includes(_this65.creditor.toLocaleLowerCase());
             });
           }
 
           if (this.creditor !== undefined && this.detran === undefined && this.startDate !== undefined && this.endDate !== undefined) {
             this.filterTransactionBilling = this.filterdetran.filter(function (d) {
-              return d.Credora.toLocaleLowerCase().includes(_this64.creditor.toLocaleLowerCase());
+              return d.Credora.toLocaleLowerCase().includes(_this65.creditor.toLocaleLowerCase());
             });
           }
 
           if (this.creditor !== undefined && this.detran !== undefined && this.startDate === undefined && this.endDate === undefined) {
             this.filterTransactionBilling = this.filterdetran.filter(function (d) {
-              return d.Credora.toLocaleLowerCase().includes(_this64.creditor.toLocaleLowerCase());
+              return d.Credora.toLocaleLowerCase().includes(_this65.creditor.toLocaleLowerCase());
             });
           }
 
           if (this.startDate !== undefined && this.endDate !== undefined && this.detran === undefined && this.creditor === undefined) {
             this.dataTransactionBilling.Data = new Date().getTime();
             this.filterTransactionBilling = _fixed_data_transaction_billing__WEBPACK_IMPORTED_MODULE_2__["dataTransactionBilling"].filter(function (y) {
-              return y.Data >= _this64.startDate && y.Data <= _this64.endDate;
+              return y.Data >= _this65.startDate && y.Data <= _this65.endDate;
             });
           }
 
           if (this.startDate !== undefined && this.endDate !== undefined && this.detran !== undefined && this.creditor === undefined) {
             this.dataTransactionBilling.Data = new Date().getTime();
             this.filterTransactionBilling = _fixed_data_transaction_billing__WEBPACK_IMPORTED_MODULE_2__["dataTransactionBilling"].filter(function (y) {
-              return y.Data >= _this64.startDate && y.Data <= _this64.endDate;
+              return y.Data >= _this65.startDate && y.Data <= _this65.endDate;
             });
           }
 
           if (this.startDate !== undefined && this.endDate !== undefined && this.detran === undefined && this.creditor !== undefined) {
             this.dataTransactionBilling.Data = new Date().getTime();
             this.filterTransactionBilling = _fixed_data_transaction_billing__WEBPACK_IMPORTED_MODULE_2__["dataTransactionBilling"].filter(function (y) {
-              return y.Data >= _this64.startDate && y.Data <= _this64.endDate;
+              return y.Data >= _this65.startDate && y.Data <= _this65.endDate;
             });
           }
 
           if (this.startDate !== undefined && this.endDate !== undefined && this.detran !== undefined && this.creditor !== undefined) {
             this.dataTransactionBilling.Data = new Date().getTime();
             this.filterTransactionBilling = _fixed_data_transaction_billing__WEBPACK_IMPORTED_MODULE_2__["dataTransactionBilling"].filter(function (y) {
-              return y.Data >= _this64.startDate && y.Data <= _this64.endDate;
+              return y.Data >= _this65.startDate && y.Data <= _this65.endDate;
             });
             this.filterTransactionBilling = this.filterTransactionBilling.filter(function (d) {
-              return d.Credora.toLocaleLowerCase().includes(_this64.creditor.toLocaleLowerCase());
+              return d.Credora.toLocaleLowerCase().includes(_this65.creditor.toLocaleLowerCase());
             });
             this.filterTransactionBilling = this.filterTransactionBilling.filter(function (v) {
-              return v.Detran.toLocaleLowerCase().includes(_this64.detran.toLocaleLowerCase());
+              return v.Detran.toLocaleLowerCase().includes(_this65.detran.toLocaleLowerCase());
             });
           }
 
@@ -12725,7 +12766,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "loginUser",
         value: function loginUser() {
-          var _this65 = this;
+          var _this66 = this;
 
           this.stop(); // Setting configs of watching tims is setted in seconds
 
@@ -12745,22 +12786,22 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this.userIdle.onTimeout().subscribe(function () {
             sessionStorage.removeItem('token');
 
-            _this65.stopWatching();
+            _this66.stopWatching();
 
-            _this65.stop();
+            _this66.stop();
 
-            _this65.restart();
+            _this66.restart();
 
-            _this65._router.navigate(['/login']);
+            _this66._router.navigate(['/login']);
           });
 
           this._auth.loginUser(this.loginUserData).subscribe(function (res) {
             // console.log(res)
             sessionStorage.setItem('token', res.token);
 
-            _this65._router.navigate(['/registrar-contrato']);
+            _this66._router.navigate(['/registrar-contrato']);
           }, function (error) {
-            _this65._errorMessage = error.error;
+            _this66._errorMessage = error.error;
             console.log(error);
           });
         }
@@ -13053,18 +13094,18 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "recoverPassword",
         value: function recoverPassword() {
-          var _this66 = this;
+          var _this67 = this;
 
           this._auth.recoverPassword(this.recoverPasswordData).subscribe(function (res) {
-            _this66.resetCode = res.code;
+            _this67.resetCode = res.code;
 
-            _this66.sendEmail(res.emailTo[0].email);
+            _this67.sendEmail(res.emailTo[0].email);
 
             console.log(res);
 
-            _this66._router.navigate(['/recuperar-senha-reset/' + res.emailTo[0].id]);
+            _this67._router.navigate(['/recuperar-senha-reset/' + res.emailTo[0].id]);
           }, function (error) {
-            console.log(error), _this66._router.navigate(['/recuperar-senha-falha']);
+            console.log(error), _this67._router.navigate(['/recuperar-senha-falha']);
           });
         }
       }, {
@@ -13218,16 +13259,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       _createClass(PasswordResetComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this67 = this;
+          var _this68 = this;
 
           this._route.paramMap.subscribe(function (params) {
-            _this67.resetUserData.userId = params.get('id');
+            _this68.resetUserData.userId = params.get('id');
           });
         }
       }, {
         key: "resetUser",
         value: function resetUser() {
-          var _this68 = this;
+          var _this69 = this;
 
           this.resetUserData.resetCode = this.resetUserData.resetCode1 + this.resetUserData.resetCode2 + this.resetUserData.resetCode3 + this.resetUserData.resetCode4 + this.resetUserData.resetCode5 + this.resetUserData.resetCode6;
           console.log(this.resetUserData);
@@ -13235,7 +13276,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           this._auth.resetUser(this.resetUserData).subscribe(function (res) {
             console.log(res);
 
-            _this68._router.navigate(['/login']);
+            _this69._router.navigate(['/login']);
           }, function (error) {
             return console.log(error);
           });

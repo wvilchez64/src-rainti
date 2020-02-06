@@ -76,7 +76,7 @@ export class UserAddComponent implements OnInit {
   }
   
   sendEmail(emailTo) {
-    var emailConfig = require('../../../assets/configs/config-email-noreply.json')
+    var emailConfig = require('../../../../assets/configs/config-email-noreply.json')
 
     let emailData = {
       host: emailConfig.host,
