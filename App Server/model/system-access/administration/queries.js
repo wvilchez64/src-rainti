@@ -37,6 +37,8 @@ const createUser = (req, res) => {
 
  let random = randomize('Aa0',10)
 
+ let resetCode = randomize('Aa0',6)
+
  let hash = crypto.createHash('md5').update(random).digest("hex")
 
  ;(async () => {
@@ -45,8 +47,9 @@ const createUser = (req, res) => {
    try {
      await client.query('BEGIN')
      // users
-    const userId = await client.query('insert into users (firstname, lastname, email, username, passwordMd5, cpf, ddd, phone) values ($1, $2, $3, $4, $5, $6, $7, $8) returning id', 
-    [userData.firstName, userData.lastName, userData.email, userData.userName, hash, userData.cpf, userData.dddModel, userData.phone])
+    const userId = await client.query('insert into users (firstname, lastname, email, username, passwordMd5, cpf, ddd, phone, resetcode, resetexpirationdate, expirationdate)'
+                                     +' values ($1, $2, $3, $4, $5, $6, $7, $8, $9, now() + \'1 day\'::interval, now() + \'3 month\'::interval ) returning id', 
+    [userData.firstName, userData.lastName, userData.email, userData.userName, hash, userData.cpf, userData.dddModel, userData.phone, resetCode])
 
     // accounts
     await client.query('insert into accounts (userid, status, groupsid) values ($1, $2, $3)', 
@@ -58,7 +61,7 @@ const createUser = (req, res) => {
      
      await client.query('COMMIT')
 
-     res.status(200).json({response: "Grupo "+ userData.planname+ " adicionado"})        
+     res.status(200).json({"userId":userId, "resetCode":resetCode})        
            
    } catch (e) {
      await client.query('ROLLBACK')

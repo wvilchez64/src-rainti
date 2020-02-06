@@ -24,6 +24,8 @@ export class UserAddComponent implements OnInit {
 
   }
 
+  _userId = ''
+
   _resetCode = ''
 
   _errorMessage = ''
@@ -64,6 +66,7 @@ export class UserAddComponent implements OnInit {
          res => {
 
            this._resetCode = res.resetCode
+           this._userId = res.userId
            this.sendEmail(this._registerUserData.email)
            console.log(res)
            
@@ -196,7 +199,7 @@ export class UserAddComponent implements OnInit {
                                                 +' </tr> '
                                             +' <tr> '
                                             +' <td> '
-                                                +' <a data-click-track-id="37" href="http://'+emailConfig.hostSrc+':4200/novo-acesso/'+this._registerUserData.+" '
+                                                +' <a data-click-track-id="37" href="http://'+emailConfig.hostSrc+':4200/novo-acesso/'+this._userId+'" '
                                                     +' style="margin-top: 36px; -ms-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #ffffff; font-family: \'Postmates Std\', \'Helvetica\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif; font-size: 12px; font-smoothing: always; font-style: normal; font-weight: 600; letter-spacing: 0.7px; line-height: 48px; mso-line-height-rule: exactly; text-decoration: none; vertical-align: top; width: 220px; background-color: #0090D5; border-radius: 5px; display: block; text-align: center; text-transform: uppercase" '
                                                         +' target="_blank"> '
                                                         +' Recuperar senha '
