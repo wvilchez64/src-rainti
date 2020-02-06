@@ -11,14 +11,14 @@ import { UserAddService } from '../user-services/user-add.service';
 export class UserAddComponent implements OnInit {
 
     registerUserData = {
-    firstName: 'Allan',
-    lastName: 'Finco', 
-    userName: 'allan.finco',
-    dddModel: '11',
-    phone: '1234-5678',
-    cpf: '369.844.728-22',
+    firstName: '',
+    lastName: '', 
+    userName: '',
+    dddModel: '',
+    phone: '',
+    cpf: '',
     status: true,
-    email: 'allan.finco@rainti.com.br',
+    email: '',
     groupsId: '',
 
   }

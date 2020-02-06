@@ -70,6 +70,14 @@
 .btn-outline-dark:not(:disabled):not(.disabled).active:focus,.btn-outline-dark:not(:disabled):not(.disabled):active:focus,.show>.btn-outline-dark.dropdown-toggle:focus{box-shadow:0 0 0 .2rem rgba(52,58,64,.5)}.btn-link{font-weight:400;color:#0090D5;text-decoration:none}
 
 
+input.form-fixer {
+    padding: 1px;
+    font-size: 22px;
+    width: 32px;
+}
+
+
+
 .dropdown-submenu {
     position: relative;
 }
