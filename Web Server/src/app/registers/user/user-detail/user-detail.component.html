@@ -9,13 +9,14 @@
                     <hr/>
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                          <a class="nav-item nav-link active" id="user-data-tab" data-toggle="tab" href="#user-data" role="tab" aria-controls="user-data" aria-selected="true"  >Dados do Usuário</a>
-                          <a class="nav-item nav-link " id="user-profile-tab" data-toggle="tab" href="#user-profile" role="tab" aria-controls="user-profile" aria-selected="false" >Perfil de Acesso</a>
+                            <a class="nav-item nav-link " [ngClass]="{'active':_activeTab=='user-data'}" id="user-data-tab" data-toggle="tab" href="#user-data" role="tab" aria-controls="user-data" aria-selected="true"  >Dados do Usuário</a>
+                            <a class="nav-item nav-link " [ngClass]="{'active':_activeTab=='user-profile'}"id="user-profile-tab" data-toggle="tab" href="#user-profile" role="tab" aria-controls="user-profile" aria-selected="false" >Perfil de Acesso</a>
                         </div>
                       </nav>
                       <!-- User data TAB -->
                       <div class="tab-content" id="nav-tabContent" style="padding-top: 10px;">
-                        <div class="tab-pane fade show active " id="user-data" role="tabpanel" aria-labelledby="user-data-tab" >
+                        <div class="tab-pane fade " id="user-data" role="tabpanel" aria-labelledby="user-data-tab" 
+                        [ngClass]="{ 'active show': _activeTab === 'user-data'}">
 
                             <form class="form" #registerForm="ngForm" >
                                 <div class="form-group">
@@ -142,9 +143,9 @@
                         </div>
 
                         <!-- User Profile TAB -->
-                        <form
-                         class="tab-pane fade" id="user-profile" role="tabpanel" aria-labelledby="user-profile-tab" >
-                            <form class="form" #profileForm="ngForm" ></form>
+                        <div [ngClass]="{'show active':_activeTab=='user-profile'}" class="tab-pane fade" id="user-profile" role="tabpanel" aria-labelledby="user-profile-tab">
+                    
+                            <form class="form" #profileForm="ngForm" >
                                 <div class="form-group">
                                     <div class="col">
                                         <h5>Selecione o Grupo de Acesso</h5>                                                                 
