@@ -10,7 +10,7 @@ export class UserAddService {
   
   private _groupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-groups-add"
   private _userUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-add"
-  
+  private _sendEmailUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/common/send-email"
 
   constructor(private http: HttpClient) {  }
 
@@ -22,5 +22,9 @@ export class UserAddService {
     return this.http.post<any>(this._userUrl, userData)
    }
 
+   sendEmail(user){
+    return this.http.post<any>(this._sendEmailUrl, user)
+
+  }
   
 }
