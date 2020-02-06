@@ -14,7 +14,7 @@ const pool = new Pool({
 
 // Exibição de usuários
 const getUser = (req, res) => {
-  pool.query('select us.id, case when acc.status = 1 then \'Ativo\' else \'Inativo\' end as status, firstname as name, lastname as lastname, username as username,  email as email, cpf as cpf from users us, accounts acc where acc.userid= us.id',
+  pool.query('select us.id, case when acc.status = 1 then \'Ativo\' else \'Inativo\' end as status, firstname as name, lastname as lastname, username as username,  email as email, cpf as cpf from users us, accounts acc where acc.userid= us.id and acc.status in (0,1)',
     (error, storedUser) => {
       if (error) {
         console.log(error)
@@ -163,6 +163,82 @@ const updateUserById = (req, res) => {
      await client.query('COMMIT')
 
      res.status(200).json({response: "Grupo "+ userData.planname+ " adicionado"})        
+           
+   } catch (e) {
+     await client.query('ROLLBACK')
+     res.status(500).json({response: "Falha ao inserir Grupo no Sistema"})        
+     throw e
+   } finally {
+     client.release()
+   }
+ })().catch(e => console.error(e.stack))
+ 
+}
+
+const deleteUserById = (req, res) => { 
+  let token = jwtToken.verifyToken(req, res)
+
+ //const userId = token.subject.userId
+
+ let userData = req.body
+
+ console.log(userData)
+
+ let random = randomize('Aa0',10)
+
+ let hash = crypto.createHash('md5').update(random).digest("hex")
+
+ ;(async () => {
+   
+     const client = await pool.connect()
+   try {
+     await client.query('BEGIN') 
+
+    // accounts
+    await client.query('update accounts set status = 2, groupsid = $2 where userid = $1', 
+    [userData.userid, userData.groupsid])
+     
+     await client.query('COMMIT')
+
+     res.status(200).json({response: "Usuário "+ userData.userid+ " excluído"})        
+           
+   } catch (e) {
+     await client.query('ROLLBACK')
+     res.status(500).json({response: "Falha ao inserir Grupo no Sistema"})        
+     throw e
+   } finally {
+     client.release()
+   }
+ })().catch(e => console.error(e.stack))
+ 
+}
+
+const disableUserById = (req, res) => { 
+  let token = jwtToken.verifyToken(req, res)
+
+ //const userId = token.subject.userId
+
+ let userData = req.body
+
+ console.log(userData)
+
+ let random = randomize('Aa0',10)
+
+ let hash = crypto.createHash('md5').update(random).digest("hex")
+
+ ;(async () => {
+   
+     const client = await pool.connect()
+   try {
+     await client.query('BEGIN') 
+
+    // accounts
+    await client.query('update accounts set status = 0 where userid = $1', 
+    [userData.id])
+     
+     await client.query('COMMIT')
+
+     res.status(200).json({response: "Usuário "+ userData.userid+ " excluído"})        
            
    } catch (e) {
      await client.query('ROLLBACK')
@@ -548,5 +624,7 @@ module.exports = {
   getGroupsDetail,
   getUserDetail,
   updateUserById,
+  deleteUserById,
+  disableUserById,
 
 }
