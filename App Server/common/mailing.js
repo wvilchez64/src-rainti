@@ -9,18 +9,20 @@ async function emailSender(user, callback){//(configHost, configPort, configSecu
     host: user.host,
     port: user.port,
     secure: user.secure, // true for 465, false for other ports
+    requireTLS: user.requireTLS,
     auth: {
       user: user.emailFrom,
       pass: user.password//  password
     }
   });
+  console.log(user.requireTLS)
   
   let mailOptions = {
     from: '"'+user.userName+'" <'+user.emailFrom+'>',//'"'+userName+'" <'+email+'>', // sender address
     to: user.emailTo, // list of receivers
     subject: user.subjectContent, // Subject line
-    text: user.bodyContent, // plain text body
-    html: "<b>"+user.bodyContent+"</b>" // html body
+    text: user.plainText, // plain text body
+    html: user.html // html body
   };
 
   let info = await transporter.sendMail(mailOptions);

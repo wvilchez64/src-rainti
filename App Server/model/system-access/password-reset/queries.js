@@ -16,7 +16,9 @@ const resetPassword = (req, res) =>{
 
   let hash = crypto.createHash('md5').update(userData.password).digest("hex")
 
-  pool.query('update users set passwordmd5 = $1 where username = $2 and resetcode = $3',[hash, userData.userName, userData.resetCode],
+  console.log(userData)
+
+  pool.query('update users set passwordmd5 = $1 where id = $2 and resetcode = $3',[hash, userData.userId, userData.resetCode],
    (error, result) => {
     if (error) {
       throw error

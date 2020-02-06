@@ -15,7 +15,7 @@ const app = express()
 // SYSTEM ACCESS
 app.use('/login', login)
 app.use('/recover-password', recover)
-app.use('/reser-password', reset)
+app.use('/reset-password', reset)
 app.use('/administration', administration )
 
 // COMMON

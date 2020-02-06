@@ -3,6 +3,6 @@ const queries = require('../../../model/system-access/password-reset/queries')
 
 const router = express.Router()
 
-router.post('/reset-password', queries.resetPassword)
+router.post('/reset', queries.resetPassword)
 
 module.exports = router

@@ -1,5 +1,5 @@
 
-<div class="row" style="padding-top: 10px; height: 650px; white-space: nowrap;">
+<div class="row" >
     <div class="col-md-8 mx-auto"  >
         <span class="anchor" id="formLogin"></span>
         <div class="card shadow">
@@ -15,7 +15,7 @@
                         <a class="nav-item nav-link" id="nav-contrato-tab" data-toggle="tab" href="#nav-contrato" [ngClass]="{'active':_activeTab==='nav-contrato'}" (click)="nextTab('nav-contrato')" role="tab" aria-controls="nav-contrato" aria-selected="false">Contrato </a>
                     </div>
                 </nav>
-                <div class="tab-content" id="nav-tabContent">
+                <div class="tab-content" id="nav-tabContent" >
                     <div [ngClass]="{'show active':_activeTab==='nav-credor'}" class="tab-pane fade" id="nav-credor" role="tabpanel" aria-labelledby="nav-credor-tab"> <br>
                         <form class="form" #entitiesForm="ngForm">
                             <div class="form-group">                                        
@@ -538,7 +538,7 @@
                     </div>
                     <div [ngClass]="{'show active':_activeTab==='nav-contrato'}" class="tab-pane fade" id="nav-contrato" role="tabpanel" aria-labelledby="nav-contrato-tab"><br>
                         <form class="form" #contractForm="ngForm">
-                            <div class="row">               
+                            <div class="row" >               
                                 <div class="form-group col-6">
                                     <label for="uname1">Contrato</label>
                                     <input type="text" [(ngModel)]="contractData.contract" name="contract" class="form-control rounded-0" 

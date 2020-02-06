@@ -49,8 +49,8 @@ export class AuthService {
     return sessionStorage.getItem('token')
   }
 
-  recoverPassword(user){
-    return this.http.post<any>(this._recoverPasswordUrl, user)
+  recoverPassword(userData){
+    return this.http.post<any>(this._recoverPasswordUrl, userData)
   }
 
   sendEmail(user){
