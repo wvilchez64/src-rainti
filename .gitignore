@@ -1,1 +1,7 @@
 
+App Server/config/
+Web Server/src/assets/configs
+Web Server/dist/ngApp/assets/configs/config-app-server.json
+Web Server/dist/ngApp/assets/configs/config-app-server.json
+Web Server/dist/ngApp/assets/configs/config-email-noreply.json
+Web Server/dist/ngApp/assets/configs/ddd.json
