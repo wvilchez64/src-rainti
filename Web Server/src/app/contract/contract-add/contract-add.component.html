@@ -1,9 +1,7 @@
-
-<div class="row" style="padding-top: 10px; height: 650px; white-space: nowrap;">
-    <div class="col-md-8 mx-auto"  >
+    <div class="col-md-8 mx-auto">
         <span class="anchor" id="formLogin"></span>
-        <div class="card shadow">
-            <div class="card-body"style="padding: 30px">
+        <div class="card shadow" >
+            <div class="card-body " >
                 <h4 class="card-title mb-4 mt-1">Registro de contrato</h4>
                 <hr/>                    
                 <nav>
@@ -15,6 +13,7 @@
                         <a class="nav-item nav-link" id="nav-contrato-tab" data-toggle="tab" href="#nav-contrato" [ngClass]="{'active':_activeTab==='nav-contrato'}" (click)="nextTab('nav-contrato')" role="tab" aria-controls="nav-contrato" aria-selected="false">Contrato </a>
                     </div>
                 </nav>
+                
                 <div class="tab-content" id="nav-tabContent">
                     <div [ngClass]="{'show active':_activeTab==='nav-credor'}" class="tab-pane fade" id="nav-credor" role="tabpanel" aria-labelledby="nav-credor-tab"> <br>
                         <form class="form" #entitiesForm="ngForm">
@@ -483,49 +482,47 @@
                                         </small>
                                     </div>
                                 </div>
-                            </div>  
-                            <div class="form-group">         
-                                <div class="row">
-                                    <div class="col-md-4" >                                                                                  
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="customRadioInlineguarantor1" name="customRadioInlineguarantor" class="custom-control-input" (click)="cpfCnpjSelect('guarantor', 'cpf')" checked>
-                                            <label class="custom-control-label" for="customRadioInlineguarantor1">CPF</label>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="customRadioInlineguarantor2" name="customRadioInlineguarantor" class="custom-control-input" (click)="cpfCnpjSelect('guarantor', 'cnpj')">
-                                            <label class="custom-control-label" for="customRadioInlineguarantor2">CNPJ</label>
-                                        </div>                                        
+                            </div>         
+                            <div class="row">
+                                <div class="form-group col-sm-6" >                                                                                  
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInlineguarantor1" name="customRadioInlineguarantor" class="custom-control-input" (click)="cpfCnpjSelect('guarantor', 'cpf')" checked>
+                                        <label class="custom-control-label" for="customRadioInlineguarantor1">CPF</label>
                                     </div>
-                                    <div class="col">
-                                        <div class="col"*ngIf="_guarantorType=='cpf'" >
-                                            <input type="text" [(ngModel)]="contractData.guarantorValue" name="cpf" class="form-control rounded-0" 
-                                                pattern="^\d{3}\.\d{3}\.\d{3}\-\d{2}$" placeHolder="123.123.123-12"
-                                                [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" required >
-                                                <div class="md-errors-spacer" [hidden]="guarantorValue.valid || guarantorValue.untouched">
-                                                    <small  class="text-danger"*ngIf="guarantorValue.errors && guarantorValue.errors.required">
-                                                        CPF obrigatório 
-                                                    </small>
-                                                    <small  class="text-danger" *ngIf="guarantorValue.errors && guarantorValue.errors.pattern">
-                                                        CPF inválido (Ex.: 123.123.123-12)
-                                                    </small>
-                                                </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="customRadioInlineguarantor2" name="customRadioInlineguarantor" class="custom-control-input" (click)="cpfCnpjSelect('guarantor', 'cnpj')">
+                                        <label class="custom-control-label" for="customRadioInlineguarantor2">CNPJ</label>
+                                    </div>                                        
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div *ngIf="_guarantorType=='cpf'" >
+                                        <input type="text" [(ngModel)]="contractData.guarantorValue" name="cpf" class="form-control rounded-0" 
+                                        pattern="^\d{3}\.\d{3}\.\d{3}\-\d{2}$" placeHolder="123.123.123-12"
+                                        [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" required >
+                                        <div class="md-errors-spacer" [hidden]="guarantorValue.valid || guarantorValue.untouched">
+                                            <small  class="text-danger"*ngIf="guarantorValue.errors && guarantorValue.errors.required">
+                                                CPF obrigatório 
+                                            </small>
+                                            <small  class="text-danger" *ngIf="guarantorValue.errors && guarantorValue.errors.pattern">
+                                                CPF inválido (Ex.: 123.123.123-12)
+                                            </small>
                                         </div>
-                                        <div class="col"*ngIf="_guarantorType=='cnpj'" >
-                                            <input type="text" [(ngModel)]="contractData.guarantorValue" name="guarantorValue" class="form-control rounded-0" 
-                                                pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$" placeHolder="12.123.123/0001-12"
-                                                [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" required >
-                                                <div class="md-errors-spacer" [hidden]="guarantorValue.valid || guarantorValue.untouched">
-                                                    <small  class="text-danger"*ngIf="guarantorValue.errors && guarantorValue.errors.required">
-                                                        CNPJ obrigatório 
-                                                    </small>
-                                                    <small  class="text-danger" *ngIf="guarantorValue.errors && guarantorValue.errors.pattern">
-                                                        CNPJ inválido (Ex.: 12.123.123/0001-12)
-                                                    </small>
-                                                </div>
+                                    </div>
+                                    <div *ngIf="_guarantorType=='cnpj'" >
+                                        <input type="text" [(ngModel)]="contractData.guarantorValue" name="guarantorValue" class="form-control rounded-0" 
+                                        pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$" placeHolder="12.123.123/0001-12"
+                                        [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" required >
+                                        <div class="md-errors-spacer" [hidden]="guarantorValue.valid || guarantorValue.untouched">
+                                            <small  class="text-danger"*ngIf="guarantorValue.errors && guarantorValue.errors.required">
+                                                CNPJ obrigatório 
+                                            </small>
+                                            <small  class="text-danger" *ngIf="guarantorValue.errors && guarantorValue.errors.pattern">
+                                                CNPJ inválido (Ex.: 12.123.123/0001-12)
+                                            </small>
                                         </div>
-                                    </div> 
+                                    </div>
                                 </div> 
-                            </div>
+                            </div> 
                             <div class="row">
                                 <div class="form-group col-sm-6"> 
                                     <button type="submit" [ngClass]="{'active':_activeTab==='nav-garantidor'}" (click)="nextTab('nav-devedor')" class="btn btn-info btn-block" >Anterior</button>
@@ -536,7 +533,7 @@
                             </div>
                         </form>
                     </div>
-                    <div [ngClass]="{'show active':_activeTab==='nav-contrato'}" class="tab-pane fade" id="nav-contrato" role="tabpanel" aria-labelledby="nav-contrato-tab"><br>
+                    <div [ngClass]="{'show active':_activeTab==='nav-contrato'}" class="tab-pane fade" id="nav-contrato" role="tabpanel" aria-labelledby="nav-contrato-tab" style="padding: 0px 20px 0px 20px; height: 650px; overflow-y: scroll;"><br>
                         <form class="form" #contractForm="ngForm">
                             <div class="row">               
                                 <div class="form-group col-6">
@@ -902,6 +899,7 @@
                         </form>
                     </div>
                 </div>
+
             </div> 
         </div>
     </div>                
@@ -911,6 +909,6 @@
     <div class="alert alert-primary text-center text-primary" *ngIf="_createdMessage">
         {{_createdMessage}}
     </div>    
-</div>
+
 	
 	
