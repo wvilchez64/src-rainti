@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserAddService } from '../user-services/user-add.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserDetailService } from '../user-services/user-detail.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-detail',
@@ -11,7 +12,7 @@ import { UserDetailService } from '../user-services/user-detail.service';
 export class UserDetailComponent implements OnInit {
 
   
-  registerUserData = {
+  _registerUserData = {
     userid:'',
     firstname: '',
     lastname: '', 
@@ -33,24 +34,25 @@ export class UserDetailComponent implements OnInit {
   _activeTab = 'user-data'
 
   constructor(private _userDetailService: UserDetailService,
-    private _route: ActivatedRoute) { }
+    private _route: ActivatedRoute,
+    private _location: Location) { }
 
     ngOnInit() {
 
       this._route.paramMap
       .subscribe(
         params => {
-          this.registerUserData.userid = params.get('id')
+          this._registerUserData.userid = params.get('id')
         },
         err => {
 
         }
       )
-      this._userDetailService.getUserDetail(this.registerUserData.userid)
+      this._userDetailService.getUserDetail(this._registerUserData.userid)
       .subscribe(
         res => {
           
-          this.registerUserData = res[0]    
+          this._registerUserData = res[0]    
 
         },
         err =>{
@@ -58,13 +60,13 @@ export class UserDetailComponent implements OnInit {
         }
       )
 
-      this._userDetailService.getUserGroups(this.registerUserData.userid)
+      this._userDetailService.getUserGroups(this._registerUserData.userid)
       .subscribe(
         res => {              
           this._groupsData = res
           this._groupsData.forEach( val => { 
             
-            if(val.id == this.registerUserData.groupsid){
+            if(val.id == this._registerUserData.groupsid){
               val.checked = true
             }
           })
@@ -83,11 +85,11 @@ export class UserDetailComponent implements OnInit {
   
   featuresControl(event) {
     
-    this.registerUserData.groupsid = event.target.id
+    this._registerUserData.groupsid = event.target.id
   }
    
   updateUser(){
-     this._userDetailService.updateUser(this.registerUserData.userid, this.registerUserData)
+     this._userDetailService.updateUser(this._registerUserData.userid, this._registerUserData)
        .subscribe(
          res => {
            console.log(res)
@@ -99,7 +101,7 @@ export class UserDetailComponent implements OnInit {
    } 
 
   backToUsers(){
-
+    this._location.back()
   }
 
 

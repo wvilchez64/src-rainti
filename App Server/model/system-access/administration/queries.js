@@ -47,9 +47,9 @@ const createUser = (req, res) => {
    try {
      await client.query('BEGIN')
      // users
-    const userId = await client.query('insert into users (firstname, lastname, email, username, passwordMd5, cpf, ddd, phone, resetcode, resetexpirationdate, expirationdate)'
-                                     +' values ($1, $2, $3, $4, $5, $6, $7, $8, $9, now() + \'1 day\'::interval, now() + \'3 month\'::interval ) returning id', 
-    [userData.firstName, userData.lastName, userData.email, userData.userName, hash, userData.cpf, userData.dddModel, userData.phone, resetCode])
+    const userId = await client.query('insert into users (firstname, lastname, email, username, passwordMd5, cpf, ddd, phone, resetcode, resetexpirationdate, expirationdate, registration)'
+                                     +' values ($1, $2, $3, $4, $5, $6, $7, $8, $9, now() + \'1 day\'::interval, now() + \'3 month\'::interval, $10 ) returning id', 
+    [userData.firstName, userData.lastName, userData.email, userData.userName, hash, userData.cpf, userData.dddModel, userData.phone, resetCode, userData.registration])
 
     // accounts
     await client.query('insert into accounts (userid, status, groupsid) values ($1, $2, $3)', 

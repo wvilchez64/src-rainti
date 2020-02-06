@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAddService } from '../user-services/user-add.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class UserAddComponent implements OnInit {
     status: true,
     email: '',
     groupsId: '',
+    registration: '',
 
   }
 
@@ -35,7 +37,8 @@ export class UserAddComponent implements OnInit {
   _activeTab = 'user-data'
 
   constructor(private _userAddService: UserAddService,
-    private _router: Router) { }
+    private _router: Router,
+    private _location: Location) { }
 
     ngOnInit() {
       this._userAddService.getUserGroups()
@@ -75,7 +78,7 @@ export class UserAddComponent implements OnInit {
    } 
 
   backToUsers(){
-
+    this._location.back()
   }
   
   sendEmail(emailTo) {

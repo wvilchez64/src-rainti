@@ -81,11 +81,11 @@
                                         </div>
                                         <div class="col">
                                             <label for="uname1">Matrícula</label>
-                                            <input type="text" [(ngModel)]="_registerUserData.usercode" name="userName" class="form-control rounded-0" 
-                                            [class.is-invalid]="userName.invalid && userName.touched" #userName="ngModel" required >
-                                                    <div class="md-errors-spacer" [hidden]="userName.valid || userName.untouched">
-                                                        <small  class="text-danger"*ngIf="userName.errors && userName.errors.required">
-                                                            Nome de usuário obrigatória
+                                            <input type="text" [(ngModel)]="_registerUserData.registration" name="registration" class="form-control rounded-0" 
+                                            [class.is-invalid]="registration.invalid && registration.touched" #registration="ngModel" required >
+                                                    <div class="md-errors-spacer" [hidden]="registration.valid || registration.untouched">
+                                                        <small  class="text-danger"*ngIf="registration.errors && registration.errors.required">
+                                                            Matrícula de usuário obrigatória
                                                         </small>
                                                     </div>
                                         </div>
