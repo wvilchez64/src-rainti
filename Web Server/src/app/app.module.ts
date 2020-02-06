@@ -74,6 +74,7 @@ import { ExcelService } from './reports/transaction-billing/excel.service';
 import { CsvFileService } from './reports/transaction-billing/csv.service';
 import { UserDetailComponent } from './registers/user/user-detail/user-detail.component';
 import { FilterUserPipe } from './pipes/filter-user.pipe';
+import { FirstAccessComponent } from './system-access/first-access/first-access.component';
 
 
 @NgModule({
@@ -132,6 +133,7 @@ import { FilterUserPipe } from './pipes/filter-user.pipe';
     FilterDescriptionPipe,
     UserDetailComponent,
     FilterUserPipe,
+    FirstAccessComponent,
 
   ],
   imports: [

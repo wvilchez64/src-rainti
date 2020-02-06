@@ -148,13 +148,7 @@ export class PasswordRecoverComponent implements OnInit {
                                                     +' código de verificação: '+this.resetCode
                                                     +' </td> '
                                                 +' </tr> '
-                                            +' <tr> '
-                                            +' <td '
-                                                +' style="padding-top: 24px; -ms-text-size-adjust: 100%; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #9095a2; font-family: \'Postmates Std\', \'Helvetica\', -apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', \'Oxygen\', \'Ubuntu\', \'Cantarell\', \'Fira Sans\', \'Droid Sans\', \'Helvetica Neue\', sans-serif; font-size: 16px; font-smoothing: always; font-style: normal; font-weight: 400; letter-spacing: -0.18px; line-height: 24px; mso-line-height-rule: exactly; text-decoration: none; vertical-align: top; width: 100%;"> '
-                                                    +' Por favor toque no botão abaixo e cadastre uma nova senha. '
-                                                    +' </td> '
-                                                +' </tr> '
-                                            +' <tr> '
+                                         
                                             +'  </tbody> '
                                         +'  </table> '
                                     +' </td> '
