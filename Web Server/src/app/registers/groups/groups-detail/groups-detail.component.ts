@@ -51,8 +51,6 @@ export class GroupsDetailComponent implements OnInit {
     features: [],
   }
 
-  _activeTab = ''
-
   constructor(private _groupDetailService: GroupDetailService,
     private _route: ActivatedRoute,
     private _location: Location,

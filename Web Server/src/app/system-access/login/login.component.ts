@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
     private userIdle: UserIdleService) { }
 
   ngOnInit() {
+    this.stopWatching()
     this.stop()
   }
 

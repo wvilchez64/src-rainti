@@ -55,7 +55,11 @@ export class PasswordResetComponent implements OnInit {
       .subscribe(
         res => {
           console.log(res)
-          this._router.navigate(['/login'])          
+          if(res.returnCode < 3){
+            console.log(res.response)
+          }else{
+            this._router.navigate(['/login'])          
+          }          
         },
         error => console.log(error) 
         )       

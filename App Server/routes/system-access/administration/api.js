@@ -15,14 +15,14 @@ router.get('/user-groups-add', verifyToken, queries.getGroupsForUsersAdd)
 router.get('/user-groups', verifyToken, queries.getGroups)
 router.get('/user-detail-groups/:id', verifyToken, queries.getGroupsDetail)
 router.get('/user-detail/:id', verifyToken, queries.getUserDetail)
+router.get('/user-first-access/:id', queries.getUserForFirstAccess)
 
 // PUTs
 router.put('/user-groups-disable', verifyToken, queries.disableGroupById)
 router.put('/user-groups-delete', verifyToken, queries.deleteGroupById)
 router.put('/user-groups-update/:id', verifyToken, queries.updateGroupById)
 router.put('/user-update/:id', verifyToken, queries.updateUserById)
-router.put('/user-delete', verifyToken, queries.deleteUserById)
-router.put('/user-disable', verifyToken, queries.disableUserById)
+router.put('/user-first-access-update', queries.updateUserPasswordById)
 
 // POSTs
 

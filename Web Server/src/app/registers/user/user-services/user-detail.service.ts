@@ -11,7 +11,7 @@ export class UserDetailService {
   private _groupUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-detail-groups/"
   private _userUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-detail/"
   private _userUpdateUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-update/"
-  private _userDeleteUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/administration/user-delete"
+
   
 
   constructor(private http: HttpClient) {  }
@@ -28,8 +28,6 @@ export class UserDetailService {
   return this.http.put<any>(this._userUpdateUrl+id, userData)
   }
 
-  deleteUser(userData){
-    return this.http.put<any>(this._userDeleteUrl, userData)
-    }
+
 
 }
