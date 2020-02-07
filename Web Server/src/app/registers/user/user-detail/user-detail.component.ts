@@ -23,6 +23,7 @@ export class UserDetailComponent implements OnInit {
     status: true,
     email: '',
     groupsid: '',
+    registration: '',
 
   }
 
@@ -99,6 +100,8 @@ export class UserDetailComponent implements OnInit {
          )  
      
    } 
+
+
 
   backToUsers(){
     this._location.back()

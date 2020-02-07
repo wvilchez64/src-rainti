@@ -52,7 +52,6 @@ export class UserAddComponent implements OnInit {
         )
     }
 
-
   nextTab(tab){
     this._activeTab = tab
   }
@@ -65,16 +64,13 @@ export class UserAddComponent implements OnInit {
      this._userAddService.createUser(this._registerUserData)
        .subscribe(
          res => {
-
            this._resetCode = res.resetCode
            this._userId = res.userId
            this.sendEmail(this._registerUserData.email)
-           console.log(res)
-           
+           console.log(res)           
          },
          error => console.log(error) 
-         )  
-     
+         )       
    } 
 
   backToUsers(){

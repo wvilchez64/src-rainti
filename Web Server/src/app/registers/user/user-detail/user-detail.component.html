@@ -4,8 +4,9 @@
             <span class="anchor" id="formLogin"></span>
             <!-- form card login -->
             <div class="card shadow">
-                  <div class="card-body">
-                    <h4 class="card-title mb-4 mt-1">Editar usuário</h4>
+                  <div class="card-body">       
+                    <h4 class="card-title mb-4 mt-1">Editar usuário</h4>            
+
                     <hr/>
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -72,17 +73,17 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="uname1">Nome de usuário</label>
-                                            <input type="text" [(ngModel)]="__registerUserData.userName" name="userName" class="form-control rounded-0" 
-                                            [class.is-invalid]="userName.invalid && userName.touched" #userName="ngModel" required >
-                                                    <div class="md-errors-spacer" [hidden]="userName.valid || userName.untouched">
-                                                        <small  class="text-danger"*ngIf="userName.errors && userName.errors.required">
+                                            <input type="text" [(ngModel)]="_registerUserData.username" name="username" class="form-control rounded-0" 
+                                            [class.is-invalid]="username.invalid && username.touched" #username="ngModel" required >
+                                                    <div class="md-errors-spacer" [hidden]="username.valid || username.untouched">
+                                                        <small  class="text-danger"*ngIf="username.errors && username.errors.required">
                                                             Nome de usuário obrigatória
                                                         </small>
                                                     </div>
                                         </div>
                                         <div class="col">
                                             <label for="uname1">Matrícula</label>
-                                            <input type="text" [(ngModel)]="__registerUserData.registration" name="registration" class="form-control rounded-0" 
+                                            <input type="text" [(ngModel)]="_registerUserData.registration" name="registration" class="form-control rounded-0" 
                                             [class.is-invalid]="registration.invalid && registration.touched" #registration="ngModel" required >
                                                     <div class="md-errors-spacer" [hidden]="registration.valid || registration.untouched">
                                                         <small  class="text-danger"*ngIf="registration.errors && registration.errors.required">

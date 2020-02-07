@@ -23,7 +23,8 @@ const recoverPassword = (req, res) =>{
       res.status(401).json(email.rows)
     }else{
       res.status(200).json({code: random, emailTo: email.rows })
-      pool.query('update users set resetcode = $1 where cpf = $2 ',[random, userData.cpf])
+      console.log(userData.cpf)
+      pool.query('update users set resetcode = $1, resetexpirationdate = now() + \'15 minutes\'::interval where cpf = $2 ',[random, userData.cpf])
     }
     
   })
