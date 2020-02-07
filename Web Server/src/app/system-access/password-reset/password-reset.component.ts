@@ -1,7 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../system-access-services/auth.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -14,28 +15,57 @@ export class PasswordResetComponent implements OnInit {
   
 
   resetUserData = {
-    userName:'',
+    userId:'',
     resetCode:'',
     password:'',
     confirmedPassword: '',
+    resetCode1: '',
+    resetCode2: '',
+    resetCode3: '',
+    resetCode4: '',
+    resetCode5: '',
+    resetCode6: '',
   }
 
   constructor(private _auth: AuthService,
-    private _router: Router) {
+    private _router: Router,
+    private _location: Location,
+    private _route: ActivatedRoute) {
       
      }
   ngOnInit() {
+    this._route.paramMap.subscribe(
+      params => {
+        this.resetUserData.userId = params.get('id')
+      }
+    )
   }
 
   resetUser(){
-    this._auth.resetUser(this.resetUserData)
+    this.resetUserData.resetCode = this.resetUserData.resetCode1 
+                                  +this.resetUserData.resetCode2
+                                  +this.resetUserData.resetCode3 
+                                  +this.resetUserData.resetCode4 
+                                  +this.resetUserData.resetCode5 
+                                  +this.resetUserData.resetCode6 
+
+    console.log(this.resetUserData)
+
+     this._auth.resetUser(this.resetUserData)
       .subscribe(
         res => {
           console.log(res)
-          this._router.navigate(['/login'])          
+          if(res.returnCode < 3){
+            console.log(res.response)
+          }else{
+            this._router.navigate(['/login'])          
+          }          
         },
         error => console.log(error) 
-        )      
+        )       
+  }
+  backToEmailSender(){
+    this._location.back()
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DetranAddService } from '../detran-services/detran-add.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-detran-add',
@@ -27,7 +28,9 @@ export class DetranAddComponent implements OnInit {
 
   constructor(private _detranAddService: DetranAddService,
     private _router: Router,
-    private _location: Location) {       
+    private _location: Location,
+    private toastr: ToastrService,
+    ) {       
       
     }
 
@@ -47,7 +50,8 @@ export class DetranAddComponent implements OnInit {
         this._states = res
       },
       error => {console.log(error)
-                this._errorMessage = error.error }
+                this._errorMessage = error.error
+                this.toastr.error('Erro ao carregar estados, por favor recarregue a página.'); }
       )
   }
 
@@ -57,12 +61,14 @@ export class DetranAddComponent implements OnInit {
         res => {
           console.log(res)
           this.ngOnInit()
-          this._createdMessage = 'Detran '+this.userData.userName+' cadastrado com sucesso!'
+          this.toastr.success('Detran cadastrado com sucesso!');
+          this.backToDetran()
           // Reset form to add another Detran
           //this.userData = {userName : '', cnpj : '', phone : '', email : '', topic : '', dddModel : '' } 
         },
         error => {console.log(error)
-                  this._errorMessage = error.error }
+                  this._errorMessage = error.error
+                  this.toastr.error('Erro ao carregar cadastrar Detran.'); }
         )      
   }
 

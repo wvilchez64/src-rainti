@@ -6,31 +6,41 @@
     <div class="col-md-auto">    
       <form class="form-inline ">
         <div class="row align-items-center mb-1">    
-                
           <div class="col">
-            <input class="form-control mr-sm-2" type="search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
-          </div>            
+            <select class="custom-select" [(ngModel)]="_status" name="_status" >                            
+                <option >Todos</option>
+                <option >Ativo</option>
+                <option >Inativo</option>
+            </select>
+                              
+          </div>  
+          <div class="col">
+            <input class="form-control mr-sm-2" type="search" [(ngModel)]="_searchText" [ngModelOptions]="{standalone: true}" placeHolder="Buscar">
+          </div>             
         </div>   
       </form> 
     </div>
   </div>
   <hr/>
   <div class="row" style="padding-top: 10px; height: 650px; overflow-y: scroll; white-space: nowrap;">    
-    <div class="card-deck" *ngFor="let users of user | filter: fristname : searchText"> 
-      <div class="card shadow rounded">
+    <div class="col-md-4 mb-4" *ngFor="let users of user | filterUser : _searchText | filterStatus : _status "> 
+      <div class="card text shadow rounded">
         <div class="card-body">
           <h5 class="card-title">{{users.name}} {{users.lastname}}</h5>
           <hr/>
+          <p class="card-text"><b>status: </b> {{users.status}}</p>
           <p class="card-text"><b>usuário: </b> {{users.username}} </p>
-          <p class="card-text"><b>e-mail: </b> {{users.email}}</p>          
+          <p class="card-text"><b>e-mail: </b> {{users.email}}</p> 
+          <p class="card-text"><b>CPF: </b> {{users.cpf}}</p>         
+                    
         </div>
         <div class="card-footer text-muted">
           <div class="row align-items-center mb-1">    
             <div class="col">
-              <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/usuario-detalhe" routerLinkActive="active" >Editar</button>
+              <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/usuarios-detalhe/{{users.id}}" routerLinkActive="active" >Editar</button>
             </div>        
             <div class="col">
-              <button type="button" class="btn btn-info btn-md btn-block" (click)="deleteUser()">Contatos</button>
+              <button type="button" class="btn btn-secondary btn-md btn-block" (click)="deleteUser()">Desativar</button>
             </div>            
           </div>         
         </div>

@@ -89,27 +89,19 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <button type="submit" (click)="updateDetran()" class="btn btn-rainti btn-block">Alterar</button>
+                                    <button type="submit" (click)="backToDetran()" class="btn btn-info btn-block">Voltar</button>
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="submit" (click)="deleteDetran()" class="btn btn-danger btn-block">Excluir</button>
-                                </div>  
+                                </div>
                                 <div class="col-sm-4">
-                                    <button type="submit" (click)="backToDetran()" class="btn btn-info btn-block">Voltar</button>
-                                </div>  
+                                    <button type="submit" (click)="updateDetran()" class="btn btn-rainti btn-block">Alterar</button>
+                                </div>   
                             </div>                            
                         </div>                               
-                        <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
-                            {{_errorMessage}}
-                        </div> 
-                        <div class="alert alert-primary text-center text-primary" *ngIf="_registerUpdated">
-                            {{_registerUpdated}}
-                        </div>                                  
-                       
                     </form>
                   </div>
             </div>
-            <!-- /form card login -->
         </div>
     </div>
 </div>

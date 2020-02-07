@@ -24,18 +24,20 @@
   <hr/>
   <div class="row" style="padding-top: 10px; height: 650px; overflow-y: scroll; white-space: nowrap;">    
       <div class="col-md-4 mb-4" *ngFor="let group of _groupMain | filter : _searchText | filterStatus : _status"> 
-        <div class="card text-center shadow rounded">
+        <div class="card text shadow rounded">
           <div class="card-body ">
-            <h2 class="card-title ">{{group.name}}</h2>
-            <h5> Status: {{group.status}}</h5>          
+            <h5 class="card-title ">{{group.name}}</h5>
+            <hr/>
+            <p> <b>Status:</b> {{group.status}}</p>          
+                     
           </div>
           <div class="card-footer text-muted">
             <div class="row align-items-center mb-1">    
               <div class="col">
-                <button type="button" class="btn btn-primary btn-md btn-block" routerLink="/grupo-detalhe/{{group.id}}" routerLinkActive="active" >Editar</button>
+                <button type="button" class="btn btn-rainti btn-md btn-block" routerLink="/grupo-detalhe/{{group.id}}" routerLinkActive="active" >Editar</button>
               </div>        
               <div class="col">
-                <button type="button" class="btn btn-info btn-md btn-block" (click)="disableGroup(group.id)">Desativar</button>
+                <button type="button" class="btn btn-secondary btn-md btn-block" (click)="disableGroup(group.id)">Desativar</button>
               </div>            
             </div>         
           </div>

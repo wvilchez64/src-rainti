@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreditorGroupAddService } from '../creditor-group-services/creditor-group-add.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr'
+
 
 @Component({
   selector: 'app-creditor-add',
@@ -36,7 +38,9 @@ export class CreditorGroupAddComponent implements OnInit {
   
   constructor(private _creditorGroupAddService: CreditorGroupAddService,
     private _router: Router,
-    private _location: Location) { }
+    private _location: Location,
+    private toastr: ToastrService,
+    ) { }
 
     
   validateTopic(value) {
@@ -54,7 +58,8 @@ export class CreditorGroupAddComponent implements OnInit {
         this._states = res
       },
       error => {console.log(error)
-                this._errorMessage = error.error }
+                this._errorMessage = error.error
+                this.toastr.error('Erro ao carregar as estados, por favor recarregue a página.');   }
       )
   }
 
@@ -66,10 +71,13 @@ export class CreditorGroupAddComponent implements OnInit {
     this._creditorGroupAddService.createCreditorGroup(this.creditorGroupData)
       .subscribe(
         res => {
+          this.toastr.success('Gestora criada com sucesso!');  
           this._router.navigate(['/gestora'])
         },
         error => {console.log(error)
-                  this._errorMessage = error.error }
+                  this._errorMessage = error.error
+                  this.toastr.error('Erro ao criar gestora.');  
+                 }
         )  
     
   }

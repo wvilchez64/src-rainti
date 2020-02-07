@@ -98,10 +98,13 @@
                             <hr/>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-sm-6">                   
+                                    <div class="col-sm-4">                   
                                         <button type="submit" (click)="backToGroups()" class="btn btn-info btn-block">Voltar</button>
                                     </div>  
-                                    <div class="col-sm-6">                                        
+                                    <div class="col-sm-4">                   
+                                        <button type="submit" (click)="deleteGroup()" class="btn btn-danger btn-block">Excluir</button>
+                                    </div>
+                                    <div class="col-sm-4">                                        
                                         <button type="submit" *ngIf="!_detranSaving"[disabled]="detranForm.form.invalid" (click)="updateDetranGroup()" class="btn btn-rainti btn-block ">
                                             Salvar                                                
                                         </button>              
@@ -201,10 +204,13 @@
                             <hr/>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-sm-6">                   
+                                    <div class="col-sm-4">                   
                                         <button type="submit" (click)="backToGroups()" class="btn btn-info btn-block">Voltar</button>
                                     </div>  
-                                    <div class="col-sm-6">                                        
+                                    <div class="col-sm-4">                   
+                                        <button type="submit" (click)="deleteGroup()" class="btn btn-danger btn-block">Excluir</button>
+                                    </div>
+                                    <div class="col-sm-4">                                        
                                         <button type="submit" *ngIf="!_creditorSaving"[disabled]="creditorForm.form.invalid" (click)="updateCreditorGroup()" class="btn btn-rainti btn-block ">
                                             Salvar                                                
                                         </button>              
@@ -297,10 +303,13 @@
                             <hr/>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-sm-6">                   
+                                    <div class="col-sm-4">                   
                                         <button type="submit" (click)="backToGroups()" class="btn btn-info btn-block">Voltar</button>
-                                    </div>  
-                                    <div class="col-sm-6">                                        
+                                    </div> 
+                                    <div class="col-sm-4">                   
+                                        <button type="submit" (click)="deleteGroup()" class="btn btn-danger btn-block">Excluir</button>
+                                    </div> 
+                                    <div class="col-sm-4">                                        
                                         <button type="submit" *ngIf="!_creditorGroupSaving"[disabled]="creditorGroupForm.form.invalid" (click)="updateCreditorGroupGroup()" class="btn btn-rainti btn-block ">
                                             Salvar                                                
                                         </button>              
@@ -397,12 +406,15 @@
                             <hr/>
                             <div class="form-group">
                                 <div class="row">
-                                    <div class="col-sm-6">                   
+                                    <div class="col-sm-4">                   
                                         <button type="submit" (click)="backToGroups()" class="btn btn-info btn-block">Voltar</button>
                                     </div>  
-                                    <div class="col-sm-6">                                        
+                                    <div class="col-sm-4">                   
+                                        <button type="submit" (click)="deleteGroup()" class="btn btn-danger btn-block">Excluir</button>
+                                    </div>  
+                                    <div class="col-sm-4">                                        
                                         <button type="submit" *ngIf="!_adminSaving"[disabled]="adminForm.form.invalid" (click)="updateAdminGroup()" class="btn btn-rainti btn-block ">
-                                            Salvar                                                
+                                            Alterar                                                
                                         </button>              
                                          <button class="btn btn-outline-rainti btn-block" type="button" disabled *ngIf="_adminSaving">
                                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                               

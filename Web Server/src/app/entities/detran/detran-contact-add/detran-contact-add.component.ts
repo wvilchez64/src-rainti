@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DetranAddContactService } from '../detran-services/detran-add-contact.service';
+import { ToastrService } from 'ngx-toastr'
 
 
 @Component({
@@ -23,7 +24,9 @@ export class DetranContactAddComponent implements OnInit {
 
   constructor(private _location: Location,
               private _route: ActivatedRoute,
-              private _detranAddContact: DetranAddContactService ) { }
+              private _detranAddContact: DetranAddContactService,
+              private toastr: ToastrService,
+               ) { }
 
   ngOnInit() {
     
@@ -37,13 +40,15 @@ export class DetranContactAddComponent implements OnInit {
         .subscribe(
           res => {
             console.log(res)
-            this._createdMessage = 'Contato '+this.userData.name+' adicionado com sucesso!'
+            this.toastr.success('Contato adicionado com sucesso!');
+            this.backToDetranContacts() 
             
             // Reset form to add another contact
             //this.userData = {name: '',dddModel: '',phone: '',email: '',additionalInfo: '',}               
           },
           error => {console.log(error)
             this._errorMessage = error.error 
+            this.toastr.error('Erro ao adicionar contato.'); 
           }
         )   
     }

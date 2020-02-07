@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core'; 
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import pt from '@angular/common/locales/pt';
+registerLocaleData(pt)
 
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -49,11 +52,16 @@ import { GroupAddComponent } from './registers/groups/group-add/group-add.compon
 import { GroupMainComponent } from './registers/groups/group-main/group-main.component';
 import { UserAddComponent } from './registers/user/user-add/user-add.component';
 import { UserMainComponent } from './registers/user/user-main/user-main.component';
+
 import { ContractAddComponent } from './contract/contract-add/contract-add.component';
 import { ContractMainComponent } from './contract/contract-main/contract-main.component';
 import { CpfCnpjModule } from 'ng2-cpf-cnpj';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgBrazil } from 'ng-brazil'
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
 import { TransactionBillingComponent } from './reports/transaction-billing/transaction-billing.component';
@@ -67,12 +75,14 @@ import { FilterFeatureNamePipe } from './pipes/filter-feature-name.pipe';
 import { GroupsDetailComponent } from './registers/groups/groups-detail/groups-detail.component';
 import { FilterStatusPipe } from './pipes/filter-status.pipe';
 import { FilterDescriptionPipe } from './pipes/filter-description.pipe';
-import { TableFilterPipe } from './reports/transaction-billing/table-filter-pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFilter, faBan, faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { ExcelService } from './reports/transaction-billing/excel.service';
-import { DownloadFileService } from './reports/transaction-billing/csv.service';
+import { CsvFileService } from './reports/transaction-billing/csv.service';
+import { UserDetailComponent } from './registers/user/user-detail/user-detail.component';
+import { FilterUserPipe } from './pipes/filter-user.pipe';
+import { FirstAccessComponent } from './system-access/first-access/first-access.component';
 
 
 @NgModule({
@@ -129,7 +139,10 @@ import { DownloadFileService } from './reports/transaction-billing/csv.service';
     GroupsDetailComponent,
     FilterStatusPipe,
     FilterDescriptionPipe,
-    TableFilterPipe,
+    UserDetailComponent,
+    FilterUserPipe,
+    FirstAccessComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -142,14 +155,23 @@ import { DownloadFileService } from './reports/transaction-billing/csv.service';
     NgbModule,
     FontAwesomeModule,
     FileUploadModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgBrazil,
+    TextMaskModule,
+
+
   ],
-  providers: [AuthService, AuthGuard, ExcelService, DownloadFileService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
+  providers: [AuthService, AuthGuard, ExcelService, CsvFileService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true,  },
+    {provide: LOCALE_ID, useValue: 'pt'}
   ],
   bootstrap: [AppComponent],
 
 })
 export class AppModule { 
+
+  NgbdToastPreventAutohide
 
   constructor(){
     

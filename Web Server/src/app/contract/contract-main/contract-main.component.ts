@@ -10,7 +10,8 @@ import { ContractMainService } from '../../contract/contract-services/contract-m
 export class ContractMainComponent implements OnInit {
  
   _contracts: Array<any> = []
-  searchText= ''
+  searchText: ''
+  name: ''
 
   constructor(private _contractMainService: ContractMainService,
               private _router: Router){}   

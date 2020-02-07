@@ -13,16 +13,18 @@ const pool = new Pool({
 const recoverPassword = (req, res) =>{
   let userData = req.body
   let random = randomize('Aa0',6)
-  pool.query('select email from users where email = $1 or username = $1',[userData.email],
+  console.log(userData)
+  pool.query('select id, email from users where cpf = $1',[userData.cpf],
    (error, email) => {
     if (error) {
       console.log(error)
     }
-    if(email.rowCount == 0){
+    else if(email.rowCount == 0){
       res.status(401).json(email.rows)
     }else{
-      res.status(200).json({code: random, emailTo: email.rows})
-      pool.query('update users set resetcode = $1 where username = $2 or email = $2 ',[random, userData.email])
+      res.status(200).json({code: random, emailTo: email.rows })
+      console.log(userData.cpf)
+      pool.query('update users set resetcode = $1, resetexpirationdate = now() + \'15 minutes\'::interval where cpf = $2 ',[random, userData.cpf])
     }
     
   })

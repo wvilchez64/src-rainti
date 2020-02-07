@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreditorAddService } from '../creditor-services/creditor-add.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-creditor-add',
@@ -41,7 +42,9 @@ export class CreditorAddComponent implements OnInit {
 
   constructor(private _creditorAddService: CreditorAddService,
     private _router: Router,
-    private _location: Location) { }
+    private _location: Location,
+    private toastr: ToastrService,
+    ) { }
 
 
   validateTopic(value) {
@@ -59,7 +62,9 @@ export class CreditorAddComponent implements OnInit {
             this._states = res
           },
           error => {console.log(error)
-                    this._errorMessage = error.error }
+                    this._errorMessage = error.error
+                    this.toastr.error('Erro ao carregar estados, por favor recarregue a página.');   
+                  }
           )
       
     this._creditorAddService.getDetrans()
@@ -70,6 +75,7 @@ export class CreditorAddComponent implements OnInit {
             },
             error => {console.log(error)
                       this._errorMessage = error.error 
+                      this.toastr.error('Erro ao carregar Detran, por favor recarregue a página.');  
             }
         )   
                     
@@ -80,7 +86,7 @@ export class CreditorAddComponent implements OnInit {
             this._creditorsgroup = res;   
           },
           error => {console.log(error)
-                    this._errorMessage = error.error
+                    this._errorMessage = error.error 
             }
         )   
      
@@ -140,9 +146,12 @@ export class CreditorAddComponent implements OnInit {
        .subscribe(
          res => {
            this._router.navigate(['/credora'])
+           this.toastr.success('Credora criada com sucesso!'); 
          },
          error => {console.log(error)
-                   this._errorMessage = error.error }
+                   this._errorMessage = error.error
+                   this.toastr.error('Erro ao criar credora.'); 
+                  }
          )  
     
   }

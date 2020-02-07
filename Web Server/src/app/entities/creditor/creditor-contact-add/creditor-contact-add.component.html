@@ -2,7 +2,6 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <span class="anchor" id="formLogin"></span>
-            <!-- form card login -->
             <div class="card shadow">
                 <div class="card-body">
                     <h4 class="card-title mb-4 mt-1">Cadastrar Contato</h4>
@@ -77,24 +76,16 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <button type="submit" [disabled]="registerForm.form.invalid" (click)="addCreditorContact()" class="btn btn-rainti btn-block ">Adicionar</button>                
+                                    <button type="submit" (click)="backToCreditorContacts()" class="btn btn-info btn-block">Voltar</button>
                                 </div>  
                                 <div class="col-sm-6">
-                                    <button type="submit" (click)="backToCreditorContacts()" class="btn btn-info btn-block">Voltar</button>
+                                    <button type="submit" [disabled]="registerForm.form.invalid" (click)="addCreditorContact()" class="btn btn-rainti btn-block ">Adicionar</button>                
                                 </div>  
                             </div>                            
                         </div>                             
-                        <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
-                            {{_errorMessage}}
-                        </div> 
-                        <div class="alert alert-primary text-center text-primary" *ngIf="_createdMessage">
-                            {{_createdMessage}}
-                        </div>                                  
-                       
                     </form>
                 </div>
             </div>
-            <!-- /form card login -->
         </div>
     </div>
 </div>

@@ -12,7 +12,7 @@ export class DetranMainComponent implements OnInit {
 
   entities: Array<any> = []
   searchText: ''
-  name: ''
+  
   constructor(private _detranService: DetranMainService,
     private _router: Router,
     private _detranAddService: DetranAddService) { 

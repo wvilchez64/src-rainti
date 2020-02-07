@@ -13,6 +13,8 @@ export class UserMainComponent implements OnInit {
   user: Array<any> = []
   searchText: ''
   name: ''
+  _status= 'Todos'
+  
   constructor(private _userService: UserMainService) { 
       
     }
@@ -20,7 +22,10 @@ export class UserMainComponent implements OnInit {
   ngOnInit() {
     this._userService.getUser()
     .subscribe(      
-      res => this.user = res,
+      res => {
+        console.log(res)
+        this.user = res
+      },
       err => console.log(err)
     ) 
   }
