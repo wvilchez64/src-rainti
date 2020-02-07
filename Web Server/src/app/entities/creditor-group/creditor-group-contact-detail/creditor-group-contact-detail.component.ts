@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CreditorGroupContactDetailService } from '../creditor-group-services/creditor-group-contact-detail.service';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-creditor-group-contact-detail',
@@ -20,7 +21,9 @@ export class CreditorGroupContactDetailComponent implements OnInit {
   _updatedMessage = ''
   constructor(private _location: Location,
               private _route: ActivatedRoute,
-              private _creditorGroupContactDetail: CreditorGroupContactDetailService ) { }
+              private _creditorGroupContactDetail: CreditorGroupContactDetailService,
+              private toastr: ToastrService,
+               ) { }
 
   ngOnInit() {
     this._route.paramMap
@@ -34,6 +37,7 @@ export class CreditorGroupContactDetailComponent implements OnInit {
           },
           err => {
             console.log(err)
+            this.toastr.error('Erro ao carregar contato, por favor recarregue a página.');  
           }
         )   
     }      
@@ -48,10 +52,12 @@ export class CreditorGroupContactDetailComponent implements OnInit {
         .subscribe(
           res => {
             console.log(res)
-            this._updatedMessage = 'Dados de contato alterados com sucesso'
+            this.toastr.success('Alterações salvas com sucesso!');
+            this.backToCreditorGroupContacts()  
           },
           err => {
             console.log(err)
+            this.toastr.error('Erro ao salvar alterações.');  
           }
         )   
     }      
@@ -67,9 +73,11 @@ export class CreditorGroupContactDetailComponent implements OnInit {
           res => {
             console.log(res)
             this.backToCreditorGroupContacts()
+            this.toastr.success('Contato deletado com sucesso!');  
           },
           err => {
             console.log(err)
+            this.toastr.error('Erro ao carregar as funcionalidades, por favor recarregue a página.');  
           }
         )   
     }      

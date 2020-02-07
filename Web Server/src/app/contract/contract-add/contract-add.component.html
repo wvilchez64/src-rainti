@@ -278,7 +278,7 @@
                                 <div class="form-group col-sm-6 d-inline-block"> 
                                     <div class=" p-1 text-center">                                
                                         <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" id="customRadioInlinebuyer1" name="customRadioInlinebuyer" class="custom-control-input" (click)="cpfCnpjSelect('buyer', 'cpf')" checked>
+                                            <input type="radio" id="customRadioInlinebuyer1" name="customRadioInlinebuyer" class="custom-control-input" (click)="cpfCnpjSelect('buyer', 'cpf')"checked>
                                             <label class="custom-control-label" for="customRadioInlinebuyer1">CPF</label>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
@@ -288,7 +288,7 @@
                                     </div>     
                                     <div *ngIf="_buyerType=='cpf'" >
                                         <input Value="text" [(ngModel)]="contractData.buyerValue" name="buyerValue" class="form-control rounded-0" 
-                                        pattern="^\d{3}\.\d{3}\.\d{3}\-\d{2}$" placeHolder="123.123.123-12"
+                                        pattern="^\d{3}\.\d{3}\.\d{3}\-\d{2}$" cpf [textMask]="{mask: MASKS.cpf.textMask}"
                                         [class.is-invalid]="buyerValue.invalid && buyerValue.touched" #buyerValue="ngModel" required >
                                         <div class="md-errors-spacer" [hidden]="buyerValue.valid || buyerValue.untouched">
                                             <small  class="text-danger"*ngIf="buyerValue.errors && buyerValue.errors.required">
@@ -301,8 +301,8 @@
                                     </div>
                                     <div *ngIf="_buyerType=='cnpj'" >
                                         <input type="text" [(ngModel)]="contractData.buyerValue" name="buyerValue" class="form-control rounded-0" 
-                                        pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$" placeHolder="12.123.123/0001-12"
-                                        [class.is-invalid]="buyerValue.invalid && buyerValue.touched" #buyerValue="ngModel" required >
+                                        pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$"
+                                        [class.is-invalid]="buyerValue.invalid && buyerValue.touched" #buyerValue="ngModel" required cnpj [textMask]="{mask: MASKS.cnpj.textMask}" >
                                         <div class="md-errors-spacer" [hidden]="buyerValue.valid || buyerValue.untouched">
                                             <small  class="text-danger"*ngIf="buyerValue.errors && buyerValue.errors.required">
                                                 CNPJ obrigatório 
@@ -379,15 +379,14 @@
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label for="uname1">Cep</label>
-                                    <input type="text" [(ngModel)]="contractData.buyerZipCode" name="buyerZipCode"  class="form-control rounded-0" 
-                                    pattern="^([0-9]{5})(-)([0-9]{3})$" placeHolder="12345-678"
-                                    [class.is-invalid]="buyerZipCode.invalid && buyerZipCode.touched" #buyerZipCode="ngModel" required >
+                                    <input type="text" [(ngModel)]="contractData.buyerZipCode" name="buyerZipCode"  class="form-control rounded-0"  
+                                    [class.is-invalid]="buyerZipCode.invalid && buyerZipCode.touched" #buyerZipCode="ngModel" cep [textMask]="{mask: MASKS.cep.textMask}" required >
                                     <div class="md-errors-spacer" [hidden]="buyerZipCode.valid || buyerZipCode.untouched">
                                         <small  class="text-danger"*ngIf="buyerZipCode.errors && buyerZipCode.errors.required">
                                             Cep obrigatório
                                         </small>
-                                        <small  class="text-danger" *ngIf="buyerZipCode.errors && buyerZipCode.errors.pattern">
-                                            Cep inválido (Ex.: 12345-678)
+                                        <small  class="text-danger" *ngIf="buyerZipCode.errors && buyerZipCode.errors">
+                                            Cep inválido (Ex.: 12.345-678)
                                         </small>
                                     </div>
                                 </div>
@@ -497,8 +496,8 @@
                                 <div class="form-group col-sm-6">
                                     <div *ngIf="_guarantorType=='cpf'" >
                                         <input type="text" [(ngModel)]="contractData.guarantorValue" name="cpf" class="form-control rounded-0" 
-                                        pattern="^\d{3}\.\d{3}\.\d{3}\-\d{2}$" placeHolder="123.123.123-12"
-                                        [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" required >
+                                        pattern="^\d{3}\.\d{3}\.\d{3}\-\d{2}$"
+                                        [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" cpf [textMask]="{mask: MASKS.cpf.textMask}" required >
                                         <div class="md-errors-spacer" [hidden]="guarantorValue.valid || guarantorValue.untouched">
                                             <small  class="text-danger"*ngIf="guarantorValue.errors && guarantorValue.errors.required">
                                                 CPF obrigatório 
@@ -510,8 +509,8 @@
                                     </div>
                                     <div *ngIf="_guarantorType=='cnpj'" >
                                         <input type="text" [(ngModel)]="contractData.guarantorValue" name="guarantorValue" class="form-control rounded-0" 
-                                        pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$" placeHolder="12.123.123/0001-12"
-                                        [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" required >
+                                        pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$"
+                                        [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" cnpj [textMask]="{mask: MASKS.cnpj.textMask}" required >
                                         <div class="md-errors-spacer" [hidden]="guarantorValue.valid || guarantorValue.untouched">
                                             <small  class="text-danger"*ngIf="guarantorValue.errors && guarantorValue.errors.required">
                                                 CNPJ obrigatório 
@@ -888,7 +887,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal" data-dismiss="modal">Voltar</button>
-                                            <button type="button" class="btn btn-primary" (click)="createContract()" routerLink="/contratos" data-dismiss="modal">Finalizar</button>
+                                            <button type="button" class="btn btn-primary" (click)="createContract()" data-dismiss="modal" >Finalizar</button>
                                             <div class="col border text-center btn-outline-secondary" *ngIf="_contractLoad">
                                                 <span class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
                                             </div>
@@ -902,13 +901,7 @@
 
             </div> 
         </div>
-    </div>                
-    <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
-        {{_errorMessage}}
     </div> 
-    <div class="alert alert-primary text-center text-primary" *ngIf="_createdMessage">
-        {{_createdMessage}}
-    </div>    
 
 	
 	

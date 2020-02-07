@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GroupDetailService } from '../group-services/group-detail.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-groups-detail',
@@ -54,7 +55,8 @@ export class GroupsDetailComponent implements OnInit {
 
   constructor(private _groupDetailService: GroupDetailService,
     private _route: ActivatedRoute,
-    private _location: Location
+    private _location: Location,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -95,7 +97,11 @@ export class GroupsDetailComponent implements OnInit {
             })
                
           },
-          error => { console.log(error) }
+          error => { 
+            console.log(error) 
+            this.toastr.error('Erro ao carregar as informações do usuário, por favor recarregue a página.');  
+
+          }
         )
         
         this._groupDetailService.getUserGroupFeaturesById(params.get('id'))
@@ -117,7 +123,10 @@ export class GroupsDetailComponent implements OnInit {
             })
   
           },
-          error => { console.log(error) }
+          error => { 
+            console.log(error) 
+            this.toastr.error('Erro ao carregar as funcionalidades, por favor recarregue a página.');  
+          }
         )
         this._groupDetailService.getUserGroupEntitiesByid(params.get('id'))
       .subscribe(
@@ -140,7 +149,10 @@ export class GroupsDetailComponent implements OnInit {
           })
           
         },
-        error => { console.log(error) }
+        error => {
+           console.log(error)
+           this.toastr.error('Erro ao carregar as instituições, por favor recarregue a página.'); 
+           }
       )
       
       }
@@ -257,11 +269,15 @@ export class GroupsDetailComponent implements OnInit {
         this._groupDetailService.updateGroup(params.get('id'),this._detranData)
         .subscribe(
           res => {
-            this._detranSaving = false          
+            this._detranSaving = false 
+            this.toastr.success('Alterações salvas com sucesso!'); 
+            this.backToGroups();
+         
           },
           error => {
             console.log(error)
             this._detranSaving = false
+            this.toastr.error('Erro ao salvar alterações.');    
           }
         )
       }
@@ -298,11 +314,15 @@ export class GroupsDetailComponent implements OnInit {
         this._groupDetailService.updateGroup(params.get('id'),this._creditorData)
         .subscribe(
           res => {
-            this._detranSaving = false          
+            this._detranSaving = false
+            this.toastr.success('Alterações salvas com sucesso!'); 
+            this.backToGroups();
+            
           },
           error => {
             console.log(error)
             this._detranSaving = false
+            this.toastr.error('Erro ao salvar alterações.'); 
           }
         )
       }
@@ -338,11 +358,15 @@ export class GroupsDetailComponent implements OnInit {
         this._groupDetailService.updateGroup(params.get('id'),this._creditorGroupData)
         .subscribe(
           res => {
-            this._detranSaving = false          
+            this._detranSaving = false
+            this.toastr.success('Alterações salvas com sucesso!'); 
+            this.backToGroups();
+          
           },
           error => {
             console.log(error)
             this._detranSaving = false
+            this.toastr.error('Erro ao salvar alterações.'); 
           }
         )
       }
@@ -378,11 +402,14 @@ export class GroupsDetailComponent implements OnInit {
         this._groupDetailService.updateGroup(params.get('id'),this._adminData)
         .subscribe(
           res => {
-            this._detranSaving = false          
+            this._detranSaving = false
+            this.toastr.success('Alterações salvas com sucesso!'); 
+            this.backToGroups();          
           },
           error => {
             console.log(error)
             this._detranSaving = false
+            this.toastr.error('Erro ao salvar alterações.'); 
           }
         )
       }
@@ -396,11 +423,14 @@ export class GroupsDetailComponent implements OnInit {
         this._groupDetailService.deleteGroup(this._userData)
         .subscribe(
           res => {
-            this._detranSaving = false          
+            this._detranSaving = false
+            this.toastr.success('Grupo deletado com sucesso!'); 
+            this.backToGroups();         
           },
           error => {
             console.log(error)
             this._detranSaving = false
+            this.toastr.error('Erro ao salvar alterações.'); 
           }
         )
       }

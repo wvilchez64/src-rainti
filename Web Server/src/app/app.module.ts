@@ -49,11 +49,16 @@ import { GroupAddComponent } from './registers/groups/group-add/group-add.compon
 import { GroupMainComponent } from './registers/groups/group-main/group-main.component';
 import { UserAddComponent } from './registers/user/user-add/user-add.component';
 import { UserMainComponent } from './registers/user/user-main/user-main.component';
+
 import { ContractAddComponent } from './contract/contract-add/contract-add.component';
 import { ContractMainComponent } from './contract/contract-main/contract-main.component';
 import { CpfCnpjModule } from 'ng2-cpf-cnpj';
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { NgBrazil } from 'ng-brazil'
+import { TextMaskModule } from 'angular2-text-mask';
 
 import { FinancialTransactionComponent } from './reports/financial-transaction/financial-transaction.component';
 import { TransactionBillingComponent } from './reports/transaction-billing/transaction-billing.component';
@@ -144,6 +149,11 @@ import { FilterUserPipe } from './pipes/filter-user.pipe';
     CurrencyMaskModule,
     NgbModule,
     FontAwesomeModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgBrazil,
+    TextMaskModule,
+
 
   ],
   providers: [AuthService, AuthGuard, ExcelService, CsvFileService,
@@ -154,6 +164,8 @@ import { FilterUserPipe } from './pipes/filter-user.pipe';
 
 })
 export class AppModule { 
+
+  NgbdToastPreventAutohide
 
   constructor(){
     

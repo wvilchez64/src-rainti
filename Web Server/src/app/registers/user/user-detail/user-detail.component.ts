@@ -3,6 +3,7 @@ import { UserAddService } from '../user-services/user-add.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserDetailService } from '../user-services/user-detail.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-user-detail',
@@ -35,7 +36,10 @@ export class UserDetailComponent implements OnInit {
 
   constructor(private _userDetailService: UserDetailService,
     private _route: ActivatedRoute,
-    private _location: Location) { }
+    private _location: Location,
+    private toastr: ToastrService,
+    private _router: Router,
+    ) { }
 
     ngOnInit() {
 
@@ -93,9 +97,14 @@ export class UserDetailComponent implements OnInit {
        .subscribe(
          res => {
            console.log(res)
+           this.toastr.success('Alterações salvas com sucesso!');     
+           this.backToUsers();
            
          },
-         error => console.log(error) 
+         error => {
+           console.log(error)
+           this.toastr.error('Erro ao salvar alterações.');    
+          } 
          )  
      
    } 
@@ -104,9 +113,13 @@ export class UserDetailComponent implements OnInit {
     this._userDetailService.deleteUser(this.registerUserData)
       .subscribe(
         res => {
-          console.log(res)          
+          console.log(res)
+          this.toastr.success('Usuário deletado com sucesso!');          
         },
-        error => console.log(error) 
+        error => {
+          console.log(error)
+          this.toastr.error('Erro ao deletar o usuário.');    
+         }
         )  
     
   } 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserAddService } from '../user-services/user-add.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr'
 
 
 @Component({
@@ -35,7 +36,9 @@ export class UserAddComponent implements OnInit {
 
   constructor(private _userAddService: UserAddService,
     private _router: Router,
-    private _location: Location) { }
+    private _location: Location,
+    private toastr: ToastrService,
+    ) { }
 
     ngOnInit() {
       this._userAddService.getUserGroups()
@@ -66,9 +69,13 @@ export class UserAddComponent implements OnInit {
            this._resetCode = res.resetCode
            this.sendEmail(this._registerUserData.email)
            console.log(res)
+           this.toastr.success('Usuário criado com sucesso!');
            
          },
-         error => console.log(error) 
+         error => {
+           console.log(error)
+           this.toastr.error('Erro ao criar o usuário.');
+           }
          )  
      
    } 
@@ -221,8 +228,12 @@ export class UserAddComponent implements OnInit {
   .subscribe(
     res => {
       console.log(res)
+      this.toastr.success('As instruções de primeiro acesso foi enviado ao usuário via e-mail.');
     },
-    error => console.log(error)
+    error => {
+      console.log(error)
+      this.toastr.error('Erro ao enviar e-mail para o usuário.');
+    }
   )   
     
   }

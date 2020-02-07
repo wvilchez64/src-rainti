@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { ContractAddService } from '../../contract/contract-services/contract-add.service';
 import { Location } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ToastrService } from 'ngx-toastr'
+import { utilsBr } from 'js-brasil';
+
 
 @Component({
   selector: 'app-contract-add',
@@ -13,6 +16,8 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class ContractAddComponent implements OnInit {
   public cpfcnpjActiveConsumer ='cpf';
   public cpfcnpjActive ='cpf';
+  public MASKS = utilsBr.MASKS;
+
   //ContractData devem ter a ordem das tab da tela e a ordem que sao mostrada na tela
   //ContractData tem campos que nao vao a ser mostrado no resumen, por isso estao de ultimos //special
   _contractLoad = false
@@ -154,10 +159,14 @@ export class ContractAddComponent implements OnInit {
   _buyerType = 'cpf'
   
   dddHasError = true
+
+  staticAlertClosed = false;
+  successMessage: string;
   
   constructor(private _contractAddService: ContractAddService,
     private _router: Router,
-    private _location: Location
+    private _location: Location,
+    private toastr: ToastrService
   ) { }
 
   validateDetrans(value) {
@@ -443,9 +452,11 @@ export class ContractAddComponent implements OnInit {
   cpfCnpjSelect(origin: string, type: string) {
     if (origin == 'guarantor') {
       this._guarantorType = type
+      this.contractData.guarantorValue = ''
     }
     if (origin == 'buyer') {
       this._buyerType = type
+      this.contractData.buyerValue = ''
     }
   }
  
@@ -517,12 +528,16 @@ export class ContractAddComponent implements OnInit {
          res => {
           this._createdMessage = 'Contrato Adicionado'
           this._contractLoad = false
+          this.toastr.success('Contrato adicionado com sucesso')
           this._router.navigate(['/contratos'])
         },
          error => {
            this._contractLoad = false
            console.log(error)
-           this._errorMessage = error.error }
+           this._errorMessage ='Erro ao salvar contrato'
+           this.toastr.error('Falha ao registrar contrato')
+          }
+           
          )  
   }
 }
