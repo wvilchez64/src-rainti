@@ -1,8 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter  } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractAddService } from '../../contract/contract-services/contract-add.service';
 import { Location } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
+import { FileUploader } from 'ng2-file-upload';
+import { AuthService } from "../../system-access/system-access-services/auth.service";
+import { Injector } from '@angular/core';
+//import { ContractFileUploadService } from '../../contract/contract-services/contract-file-upload.service';
 
 @Component({
   selector: 'app-contract-add',
@@ -11,8 +16,50 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 
 export class ContractAddComponent implements OnInit {
-  public cpfcnpjActiveConsumer ='cpf';
-  public cpfcnpjActive ='cpf';
+
+  private _appServerConfig = require('../../../assets/configs/config-app-server.json')
+  private _fileUploadContractUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/contract-register/file-upload"
+  
+  authService = this.injector.get(AuthService)
+
+  public uploader:FileUploader = new FileUploader({  
+                                      url: this._fileUploadContractUrl, 
+                                      authToken:  `Bearer ${this.authService.getToken()}`,
+                                      itemAlias: 'file'
+                                    });
+  
+  fileObject: any;
+
+  public onFileSelected(event: EventEmitter<File[]>) {
+    console.log(event)
+    const file: File = event[0];
+    if (typeof file === 'undefined' || file == null) {
+      return 
+    } 
+    this.readBase64(file)
+      .then(function(data) {
+      console.log(data);
+      
+    })
+
+  }
+
+  readBase64(file): Promise<any> {
+    var reader  = new FileReader();
+    var future = new Promise((resolve, reject) => {
+      reader.addEventListener("load", function () {
+        resolve(reader.result);
+      }, false);
+
+      reader.addEventListener("error", function (event) {
+        reject(event);
+      }, false);
+
+      reader.readAsDataURL(file);
+    });
+    return future;
+  }
+
   //ContractData devem ter a ordem das tab da tela e a ordem que sao mostrada na tela
   //ContractData tem campos que nao vao a ser mostrado no resumen, por isso estao de ultimos //special
   _contractLoad = false
@@ -155,119 +202,17 @@ export class ContractAddComponent implements OnInit {
   
   dddHasError = true
   
-  constructor(private _contractAddService: ContractAddService,
+  constructor(
+    private _contractAddService: ContractAddService,
+    //private _contractFileUploadService: ContractFileUploadService,
     private _router: Router,
-    private _location: Location
-  ) { }
-
-  validateDetrans(value) {
-    this.detransHasError = false;
-    if (value === 'default') {
-      this.detransHasError = true;
-    } else {
-      this.contractData.detranId = this.findId(this._detrans, value)
-    }
-  }
-  validateCreditors(value) {
-  this.creditorsHasError = false;
-  if (value === 'default') {
-      this.creditorsHasError = true;
-    } else {
-      this.contractData.creditorId = this.findId(this._creditors, value)
-    }
-  }
-  validateBuyerStates(value) {
-    this.buyerStatesHasError = false;
-    if (value === 'default') {
-        this.buyerStatesHasError = true;
-    } else {
-      this.contractData.buyerStateId = this.findId(this._buyerStates, value)
-    }
-  }
-  validatePlateStates(value) {
-    this.plateStatesHasError = false;
-    if (value === 'default') {
-        this.plateStatesHasError = true;
-    } else {
-      this.contractData.plateStateId = this.findId(this._plateStates, value)
-    }
-  }  
-  validateLicensingStates(value) {
-    this.licensingStatesHasError = false;
-    if (value === 'default') {
-        this.licensingStatesHasError = true;
-    } else {
-      this.contractData.licensingStateId = this.findId(this._licensingStates, value)
-    }
-  }  
-  validateAlienTypes(value) {
-    this.alienTypesHasError = false;
-    if (value === 'default') {
-       this.alienTypesHasError = true;
-     } else {
-      this.contractData.alienTypeId = this.findId(this._alienTypes, value)
-     }
-  }
-  validateIndexes(value) {
-    this.indexesHasError = false;
-    if (value === 'default') {
-       this.indexesHasError = true;
-     } else {
-      this.contractData.indexId = this.findId(this._indexes, value)
-     }
-  }
-  validateReleaseStates(value) {
-    this.releaseStatesHasError = false;
-    if (value === 'default') {
-       this.releaseStatesHasError = true;
-     } else {
-      this.contractData.releaseStateId = this.findId(this._releaseStates, value)
-     }
-  }
-  validateSpecies(value) {
-    this.speciesHasError = false;
-    if (value === 'default') {
-       this.speciesHasError = true;
-     } else {
-      this.contractData.specieId = this.findId(this._species, value)
-     }
-  }
-  validateFabricationYears(value) {
-    this.fabricationYearsHasError = false;
-    if (value === 'default') {
-       this.fabricationYearsHasError = true;
-     } 
-  }
-  validateBrands(e, value) {
-    this.brandsHasError = false;
-    if (value === 'default') {
-       this.brandsHasError = true;
-     } else {
-       if (e.type == "change") {
-          this._brandId = this.findId(this._brands, value)
-          this.getModels(this._brandId)
-       }
-     }
-  }  
-  validateModels(e, value) {
-    this.modelsHasError = false;
-    if (value === 'default') {
-       this.modelsHasError = true;
-     } else {
-       if (e.type == "change") {
-          this._modelId = this.findId(this._models, value)
-          this.getModelYears(this._brandId, this._modelId)
-        }
-    }
-  }
-  validateModelYears(value) {
-    this.modelYearsHasError = false;
-    if (value === 'default') {
-       this.modelYearsHasError = true;
-    } 
-  } 
+    private _location: Location,
+    private injector: Injector
+  ) 
+  { }
 
   ngOnInit() {
+    this.uploader.onAfterAddingFile = (file)=> { file.withCredentials = false; };
     this._detransLoad = true
     this._contractAddService.getDetrans()
     .subscribe(
@@ -511,7 +456,7 @@ export class ContractAddComponent implements OnInit {
   createContract(){
     this.contractData.guarantorType = this._guarantorType
     this.contractData.buyerType = this._buyerType
-    //this._contractLoad = true
+    this._contractLoad = true
     this._contractAddService.createContract(this.contractData)
        .subscribe(
          res => {
@@ -525,4 +470,110 @@ export class ContractAddComponent implements OnInit {
            this._errorMessage = error.error }
          )  
   }
+  validateDetrans(value) {
+    this.detransHasError = false;
+    if (value === 'default') {
+      this.detransHasError = true;
+    } else {
+      this.contractData.detranId = this.findId(this._detrans, value)
+    }
+  }
+  validateCreditors(value) {
+  this.creditorsHasError = false;
+  if (value === 'default') {
+      this.creditorsHasError = true;
+    } else {
+      this.contractData.creditorId = this.findId(this._creditors, value)
+    }
+  }
+  validateBuyerStates(value) {
+    this.buyerStatesHasError = false;
+    if (value === 'default') {
+        this.buyerStatesHasError = true;
+    } else {
+      this.contractData.buyerStateId = this.findId(this._buyerStates, value)
+    }
+  }
+  validatePlateStates(value) {
+    this.plateStatesHasError = false;
+    if (value === 'default') {
+        this.plateStatesHasError = true;
+    } else {
+      this.contractData.plateStateId = this.findId(this._plateStates, value)
+    }
+  }  
+  validateLicensingStates(value) {
+    this.licensingStatesHasError = false;
+    if (value === 'default') {
+        this.licensingStatesHasError = true;
+    } else {
+      this.contractData.licensingStateId = this.findId(this._licensingStates, value)
+    }
+  }  
+  validateAlienTypes(value) {
+    this.alienTypesHasError = false;
+    if (value === 'default') {
+       this.alienTypesHasError = true;
+     } else {
+      this.contractData.alienTypeId = this.findId(this._alienTypes, value)
+     }
+  }
+  validateIndexes(value) {
+    this.indexesHasError = false;
+    if (value === 'default') {
+       this.indexesHasError = true;
+     } else {
+      this.contractData.indexId = this.findId(this._indexes, value)
+     }
+  }
+  validateReleaseStates(value) {
+    this.releaseStatesHasError = false;
+    if (value === 'default') {
+       this.releaseStatesHasError = true;
+     } else {
+      this.contractData.releaseStateId = this.findId(this._releaseStates, value)
+     }
+  }
+  validateSpecies(value) {
+    this.speciesHasError = false;
+    if (value === 'default') {
+       this.speciesHasError = true;
+     } else {
+      this.contractData.specieId = this.findId(this._species, value)
+     }
+  }
+  validateFabricationYears(value) {
+    this.fabricationYearsHasError = false;
+    if (value === 'default') {
+       this.fabricationYearsHasError = true;
+     } 
+  }
+  validateBrands(e, value) {
+    this.brandsHasError = false;
+    if (value === 'default') {
+       this.brandsHasError = true;
+     } else {
+       if (e.type == "change") {
+          this._brandId = this.findId(this._brands, value)
+          this.getModels(this._brandId)
+       }
+     }
+  }  
+  validateModels(e, value) {
+    this.modelsHasError = false;
+    if (value === 'default') {
+       this.modelsHasError = true;
+     } else {
+       if (e.type == "change") {
+          this._modelId = this.findId(this._models, value)
+          this.getModelYears(this._brandId, this._modelId)
+        }
+    }
+  }
+  validateModelYears(value) {
+    this.modelYearsHasError = false;
+    if (value === 'default') {
+       this.modelYearsHasError = true;
+    } 
+  } 
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,7 +18,7 @@ export class ContractAddService {
   private _modelsUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/contract-register/get-models/"
   private _modelYearsUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/contract-register/get-modelYears/"
   private _createContractUrl = "http://"+this._appServerConfig.host+":"+this._appServerConfig.port+"/api/contract-register/create-contract"
-
+  
   constructor(private http: HttpClient) {  }
   
   getDetrans(){
@@ -60,7 +60,7 @@ export class ContractAddService {
   getModelYears(modelId, brandId){
     return this.http.get<any>(this._modelYearsUrl+modelId+'\\'+brandId)
   }
-  
+ 
   createContract(user){
     return this.http.post<any>(this._createContractUrl, user)
   }

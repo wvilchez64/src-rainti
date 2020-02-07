@@ -16,6 +16,9 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { FilterPipe } from './pipes/filter-name.pipe';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
+
+import { FileUploadModule } from 'ng2-file-upload';
+
 import { RegistrarComponent } from './entities/registrar/registrar.component';
 import { DetranContactsComponent } from './entities/detran/detran-contacts/detran-contacts.component';
 import { PasswordRecoverComponent } from './system-access/password-recover/password-recover.component';
@@ -138,7 +141,7 @@ import { DownloadFileService } from './reports/transaction-billing/csv.service';
     CurrencyMaskModule,
     NgbModule,
     FontAwesomeModule,
-
+    FileUploadModule,
   ],
   providers: [AuthService, AuthGuard, ExcelService, DownloadFileService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },

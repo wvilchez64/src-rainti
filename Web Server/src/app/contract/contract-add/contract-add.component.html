@@ -13,6 +13,7 @@
                             <a class="nav-item nav-link" id="nav-veiculo-tab" data-toggle="tab" href="#nav-veiculo" [ngClass]="{'active':_activeTab==='nav-veiculo'}" (click)="nextTab('nav-veiculo')" role="tab" aria-controls="nav-veiculo" aria-selected="false">Veículo</a>
                             <a class="nav-item nav-link" id="nav-devedor-tab" data-toggle="tab" href="#nav-devedor" [ngClass]="{'active':_activeTab==='nav-devedor'}" (click)="nextTab('nav-devedor')" role="tab" aria-controls="nav-devedor" aria-selected="false">Devedor</a>
                             <a class="nav-item nav-link" id="nav-garantidor-tab" data-toggle="tab" href="#nav-garantidor" [ngClass]="{'active':_activeTab==='nav-garantidor'}" (click)="nextTab('nav-garantidor')" role="tab" aria-controls="nav-garantidor" aria-selected="false">Garantidor</a>
+                            <a class="nav-item nav-link" id="nav-documento-tab" data-toggle="tab" href="#nav-documento" [ngClass]="{'active':_activeTab==='nav-documento'}" (click)="nextTab('nav-documento')" role="tab" aria-controls="nav-documento" aria-selected="false">Documento </a>
                             <a class="nav-item nav-link" id="nav-contrato-tab" data-toggle="tab" href="#nav-contrato" [ngClass]="{'active':_activeTab==='nav-contrato'}" (click)="nextTab('nav-contrato')" role="tab" aria-controls="nav-contrato" aria-selected="false">Contrato </a>
                         </div>
                     </nav>
@@ -75,7 +76,7 @@
                                         <div class="col-sm-6">
                                             <label for="uname1">Chassi</label>
                                             <input type="text" [(ngModel)]="contractData.chassi" name="chassi"  class="form-control rounded-0" 
-                                            pattern="^(?:([A-HJ-NPR-Z]){3}|\d{3})(([A-HJ-NPR-Z]){6}|\d{6})(([A-HJ-NPR-Z]){4}|\d{4})\d{4}$" 
+                                            pattern="^([A-HJ-NPR-Za-hj-npr-z\d]{13})\d{4}$" 
                                             [class.is-invalid]="chassi.invalid && chassi.touched" #chassi="ngModel" required >
                                             <div class="md-errors-spacer" [hidden]="chassi.valid || chassi.untouched">
                                                 <small  class="text-danger"*ngIf="chassi.errors && chassi.errors.required">
@@ -89,7 +90,7 @@
                                         <div class="col-sm-6">
                                             <label for="uname1">Confirme o chassi</label>
                                             <input type="text" [(ngModel)]="contractData.chassiConfirmation" name="chassiConfirmation" class="form-control rounded-0" 
-                                            pattern="^(?:([A-HJ-NPR-Z]){3}|\d{3})(([A-HJ-NPR-Z]){6}|\d{6})(([A-HJ-NPR-Z]){4}|\d{4})\d{4}$" 
+                                            pattern="^([A-HJ-NPR-Za-hj-npr-z\d]{13})\d{4}$" 
                                             [class.is-invalid]="chassiConfirmation.invalid && chassiConfirmation.touched" #chassiConfirmation="ngModel" 
                                             appConfirmEqualValidator="chassi"required >
                                             <div class="md-errors-spacer" [hidden]="chassiConfirmation.valid || chassiConfirmation.untouched">
@@ -526,27 +527,27 @@
                                         </div>
                                         <div class="col">
                                             <div class="col"*ngIf="_guarantorType=='cpf'" >
-                                                <input type="text" [(ngModel)]="contractData.guarantorCpfValue" name="cpf" class="form-control rounded-0" 
+                                                <input type="text" [(ngModel)]="contractData.guarantorValue" name="cpf" class="form-control rounded-0" 
                                                     pattern="^\d{3}\.\d{3}\.\d{3}\-\d{2}$" placeHolder="123.123.123-12"
-                                                    [class.is-invalid]="guarantorCpfValue.invalid && guarantorCpfValue.touched" #guarantorCpfValue="ngModel" required >
-                                                    <div class="md-errors-spacer" [hidden]="guarantorCpfValue.valid || guarantorCpfValue.untouched">
-                                                        <small  class="text-danger"*ngIf="guarantorCpfValue.errors && guarantorCpfValue.errors.required">
+                                                    [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" required >
+                                                    <div class="md-errors-spacer" [hidden]="guarantorValue.valid || guarantorValue.untouched">
+                                                        <small  class="text-danger"*ngIf="guarantorValue.errors && guarantorValue.errors.required">
                                                             CPF obrigatório 
                                                         </small>
-                                                        <small  class="text-danger" *ngIf="guarantorCpfValue.errors && guarantorCpfValue.errors.pattern">
+                                                        <small  class="text-danger" *ngIf="guarantorValue.errors && guarantorValue.errors.pattern">
                                                             CPF inválido (Ex.: 123.123.123-12)
                                                         </small>
                                                     </div>
                                             </div>
                                             <div class="col"*ngIf="_guarantorType=='cnpj'" >
-                                                <input type="text" [(ngModel)]="contractData.guarantorCnpj" name="guarantorCnpj" class="form-control rounded-0" 
+                                                <input type="text" [(ngModel)]="contractData.guarantorValue" name="guarantorValue" class="form-control rounded-0" 
                                                     pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$" placeHolder="12.123.123/0001-12"
-                                                    [class.is-invalid]="guarantorCnpj.invalid && guarantorCnpj.touched" #guarantorCnpj="ngModel" required >
-                                                    <div class="md-errors-spacer" [hidden]="guarantorCnpj.valid || guarantorCnpj.untouched">
-                                                        <small  class="text-danger"*ngIf="guarantorCnpj.errors && guarantorCnpj.errors.required">
+                                                    [class.is-invalid]="guarantorValue.invalid && guarantorValue.touched" #guarantorValue="ngModel" required >
+                                                    <div class="md-errors-spacer" [hidden]="guarantorValue.valid || guarantorValue.untouched">
+                                                        <small  class="text-danger"*ngIf="guarantorValue.errors && guarantorValue.errors.required">
                                                             CNPJ obrigatório 
                                                         </small>
-                                                        <small  class="text-danger" *ngIf="guarantorCnpj.errors && guarantorCnpj.errors.pattern">
+                                                        <small  class="text-danger" *ngIf="guarantorValue.errors && guarantorValue.errors.pattern">
                                                             CNPJ inválido (Ex.: 12.123.123/0001-12)
                                                         </small>
                                                     </div>
@@ -566,6 +567,75 @@
                                 </div>
                             </form>
                         </div>
+
+                        <div [ngClass]="{'show active':_activeTab==='nav-documento'}" class="tab-pane fade " id="nav-documento" role="tabpanel" aria-labelledby="nav-documento-tab"><br>
+                            <h6 class="card-title mb-4 mt-1">Seleccionar arquivos</h6>
+                            <div class="row">
+ 
+                                <div class="col-md-3">
+                                    <div> 
+                                        Varios&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
+                                        <input type="file" ng2FileSelect [uploader]="uploader" multiple (onFileSelected)="onFileSelected($event)"  /><br/>
+                                    </div>
+                                    <div>
+                                        Individual
+                                        <input type="file" ng2FileSelect [uploader]="uploader" (onFileSelected)="onFileSelected($event)" />
+                                    </div> 
+                                </div>
+                            </div>
+                            <br>
+                            <div>
+                                <p>Selecionados: {{ uploader?.queue?.length }} </p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"style="margin-bottom: 40px">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let item of uploader.queue">
+                                                <td><strong>{{ item?.file?.name }}</strong></td>
+                                                <td class="text-center">
+                                                    <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                                    <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                    <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                                </td>
+                                                <td nowrap>
+                                                    <button type="button" class="btn btn-secondary btn-s"
+                                                            (click)="item.remove()">
+                                                        <span class="glyphicon glyphicon-trash"></span> Remover
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    Progresso:
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-rainti btn-s"
+                                            (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                                        <span class="glyphicon glyphicon-upload"></span> Carregar
+                                    </button>
+                                </div>                   
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-secondary btn-s"
+                                            (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                                        <span class="glyphicon glyphicon-trash"></span> Remover
+                                    </button>
+                                </div>                   
+                            </div>
+                        </div>
+                      
                         <div [ngClass]="{'show active':_activeTab==='nav-contrato'}" class="tab-pane fade" id="nav-contrato" role="tabpanel" aria-labelledby="nav-contrato-tab"><br>
                             <form class="form" #contractForm="ngForm">
                                 <div class="form-group">
@@ -939,7 +1009,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-                                                            <button type="button" class="btn btn-primary" (click)="createContract()">Finalizar</button>
+                                                            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createContract()">Finalizar</button>
                                                             <div class="col border text-center btn-outline-secondary" *ngIf="_contractLoad">
                                                                 <span class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
                                                             </div>
