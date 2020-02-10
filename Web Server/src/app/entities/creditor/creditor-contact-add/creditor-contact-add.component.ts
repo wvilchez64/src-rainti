@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { CreditorAddContactService } from '../creditor-services/creditor-add-contact.service';
+import { ToastrService } from 'ngx-toastr'
 
 
 @Component({
@@ -23,7 +24,9 @@ export class CreditorContactAddComponent implements OnInit {
 
   constructor(private _location: Location,
               private _route: ActivatedRoute,
-              private _creditorAddContact: CreditorAddContactService ) { }
+              private _creditorAddContact: CreditorAddContactService,
+              private toastr: ToastrService,
+              ) { }
 
   ngOnInit() {
     
@@ -38,13 +41,17 @@ export class CreditorContactAddComponent implements OnInit {
         .subscribe(
           res => {
             console.log(res)
-            this._createdMessage = 'Contato '+this.userData.name+' adicionado com sucesso!'
+            this.toastr.success('Contato adicionado com sucesso!');
+            this.backToCreditorContacts()
+            
+          
             
             // Reset form to add another contact
             //this.userData = {name: '',dddModel: '',phone: '',email: '',additionalInfo: '',}               
           },
           error => {console.log(error)
-            this._errorMessage = error.error 
+            this.toastr.error('Erro ao adicionar contato'); 
+            
           }
         )   
     }
@@ -52,8 +59,8 @@ export class CreditorContactAddComponent implements OnInit {
     );
   }
 
-  backToCreditorContacts(){
-    this._location.back()
-  }
+    backToCreditorContacts(){
+      this._location.back()
+    }
 
 }

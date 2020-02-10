@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DetranContactDetailService } from '../detran-services/detran-contact-detail.service';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-detran-contact-detail',
@@ -20,7 +21,9 @@ export class DetranContactDetailComponent implements OnInit {
   _updatedMessage = ''
   constructor(private _location: Location,
               private _route: ActivatedRoute,
-              private _detranContactDetail: DetranContactDetailService ) { }
+              private _detranContactDetail: DetranContactDetailService,
+              private toastr: ToastrService,
+               ) { }
 
   ngOnInit() {
     this._route.paramMap
@@ -48,10 +51,12 @@ export class DetranContactDetailComponent implements OnInit {
         .subscribe(
           res => {
             console.log(res)
-            this._updatedMessage = 'Dados de contato alterados com sucesso'
+            this.toastr.success('Alterações salva com sucesso!');
+            this.backToDetranContacts()
           },
           err => {
             console.log(err)
+            this.toastr.error('Erro ao salvar alterações.');
           }
         )   
     }      
@@ -66,10 +71,12 @@ export class DetranContactDetailComponent implements OnInit {
         .subscribe(
           res => {
             console.log(res)
+            this.toastr.success('Contato deletado com sucesso!');
             this.backToDetranContacts()
           },
           err => {
             console.log(err)
+            this.toastr.error('Erro ao deletar contato.');
           }
         )   
     }      

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CreditorGroupDetailService } from '../creditor-group-services/creditor-group-detail.service';
 import { CreditorGroupAddService } from '../creditor-group-services/creditor-group-add.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-creditor-group-detail',
@@ -60,7 +61,9 @@ export class CreditorGroupDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private _creditorGroupDetail: CreditorGroupDetailService,
     private _creditorGroupAddService: CreditorGroupAddService,
-    private _location: Location ) { }
+    private _location: Location,
+    private toastr: ToastrService,
+     ) { }
 
   validateTopic(value) {
     if (value === 'default') {
@@ -93,6 +96,7 @@ export class CreditorGroupDetailComponent implements OnInit {
           },
           err => {
             console.log(err)
+            this.toastr.error('Erro as informações, por favor recarregue a página.');
           }
         )   
     }
@@ -113,11 +117,13 @@ export class CreditorGroupDetailComponent implements OnInit {
         this._creditorGroupDetail.updateCreditorGroup(this.creditorGroupData, params.get('id'))
         .subscribe(
           res => {
-            this._registerUpdated = 'Gestora atualizada com sucesso.'
+            this.toastr.success('Alterações salva com sucesso!.');
+            this.backToCreditorGroup()
             console.log(res)
           },
           err => {
             console.log(err)
+            this.toastr.error('Erro ao salvar alterações.');
           }
         )   
     }      
@@ -133,10 +139,12 @@ export class CreditorGroupDetailComponent implements OnInit {
          .subscribe(
            res => {
              console.log(res)
+             this.toastr.success('Gestora deletada com sucesso!.');
              this.backToCreditorGroup()
            },
           err => {
              console.log(err)
+             this.toastr.error('Erro ao deletar gestora.');
            }
          )   
        }  

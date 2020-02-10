@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DetranDetailService } from '../detran-services/detran-detail.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-detran-detail',
@@ -32,7 +33,9 @@ export class DetranDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private _detranDetail: DetranDetailService,
-    private _location: Location ) { }
+    private _location: Location,
+    private toastr: ToastrService,
+     ) { }
 
   ngOnInit() {
     
@@ -47,6 +50,7 @@ export class DetranDetailComponent implements OnInit {
           },
           err => {
             console.log(err)
+            this.toastr.error('Erro ao carregar as informações, por favor recarregue a página.'); 
           }
         )   
     }
@@ -66,11 +70,13 @@ export class DetranDetailComponent implements OnInit {
         this._detranDetail.updateDetran(this.detranData, params.get('id'))
         .subscribe(
           res => {
-            this._registerUpdated = 'Detran atualizado com sucesso.'
+            this.toastr.success('Alterações salvas com sucesso!'); 
+            this.backToDetran()
             console.log(res)
           },
           err => {
             console.log(err)
+            this.toastr.error('Erro ao salvar as alterações.'); 
           }
         )   
     }      
@@ -86,10 +92,12 @@ export class DetranDetailComponent implements OnInit {
         .subscribe(
           res => {
             console.log(res)
+            this.toastr.success('Detran deletado com sucesso!'); 
             this.backToDetran()
           },
           err => {
             console.log(err)
+            this.toastr.error('Erro ao deletar Detran.'); 
           }
         )   
     }

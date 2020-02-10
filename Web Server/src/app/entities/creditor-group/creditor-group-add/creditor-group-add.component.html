@@ -39,58 +39,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="uname1">CNPJ</label>
-                                            <input type="text" [(ngModel)]="creditorGroupData.cnpj" name="cnpj" class="form-control rounded-0" 
-                                            pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$" placeHolder="12.123.123/0001-12"
-                                            [class.is-invalid]="cnpj.invalid && cnpj.touched" #cnpj="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="cnpj.valid || cnpj.untouched">
-                                                <small  class="text-danger"*ngIf="cnpj.errors && cnpj.errors.required">
-                                                    CNPJ obrigatório 
-                                                </small>
-                                                <small  class="text-danger" *ngIf="cnpj.errors && cnpj.errors.pattern">
-                                                    CNPJ inválido (Ex.: 12.123.123/0001-12)
-                                                </small>
-                                            </div>      
-                                        </div>   
-                                    </div>
-                                </div>     
-                                <div class="form-group">                            
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <label for="uname1">DDD</label>
-                                            <input type="text" pattern="^([1-9]{2})"
-                                            placeHolder="11"
-                                            [(ngModel)]="creditorGroupData.dddmodel" name="dddModel" class="form-control rounded-0" 
-                                            [class.is-invalid]="dddModel.invalid && dddModel.touched" #dddModel="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="dddModel.valid || dddModel.untouched">
-                                                <small  class="text-danger"*ngIf="dddModel.errors && dddModel.errors.required">
-                                                    DDD obrigatório
-                                                </small>
-                                                <small  class="text-danger"*ngIf="(dddModel.errors && dddModel.errors.pattern) || ddHasError">
-                                                    DDD inválido
-                                                </small>
-                                            </div>                                         
-                                        </div>
-                                        <div class="col-7">
-                                            <label for="uname1">Telefone</label>
-                                            <input type="text" pattern="^([1-9]{1}[0-9]{3}|[1-9]{1}[0-9]{4})(-)([0-9]{4})"
-                                            placeHolder="1234-5678 ou 12345-6789"
-                                            [(ngModel)]="creditorGroupData.phone" name="phone" class="form-control rounded-0" 
-                                            [class.is-invalid]="phone.invalid && phone.touched" #phone="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="phone.valid || phone.untouched">
-                                                <small  class="text-danger"*ngIf="phone.errors && phone.errors.required">
-                                                    Telefone obrigatório
-                                                </small>
-                                                <small  class="text-danger"*ngIf="phone.errors && phone.errors.pattern">
-                                                    Formato inválido (Ex.: 1234-5678 ou 12345-6789) 
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                          
-                                <div class="form-group">
                                     <label for="uname1">E-mail</label>
                                     <input #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="text" 
                                     placeHolder="example@example.com"
@@ -104,22 +52,128 @@
                                             e-mail inválido (Ex.: example@example.com)
                                         </small>
                                     </div>
-                                </div>	
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <button type="submit" [ngClass]="{'active':activeTab==='nav-home'}" (click)="nextTab('nav-address')" class="btn btn-rainti btn-block ">Próximo</button>                
-                                        </div>  
-                                        <div class="col-sm-6">
-                                            <button type="submit" (click)="backToCreditorGroup()" class="btn btn-info btn-block">Voltar</button>
-                                        </div>  
-                                    </div>                            
-                                </div>                                         
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="uname1">CNPJ</label>
+                                        <input type="text" [(ngModel)]="creditorGroupData.cnpj" name="cnpj" class="form-control rounded-0" 
+                                        pattern="^\d{2}\.\d{3}\.\d{3}\/\d{4}(-\d{2})$" placeHolder="12.123.123/0001-12"
+                                        [class.is-invalid]="cnpj.invalid && cnpj.touched" #cnpj="ngModel" required >
+                                        <div class="md-errors-spacer" [hidden]="cnpj.valid || cnpj.untouched">
+                                            <small  class="text-danger"*ngIf="cnpj.errors && cnpj.errors.required">
+                                                CNPJ obrigatório 
+                                            </small>
+                                            <small  class="text-danger" *ngIf="cnpj.errors && cnpj.errors.pattern">
+                                                CNPJ inválido (Ex.: 12.123.123/0001-12)
+                                            </small>
+                                        </div>        
+                                    </div>                               
+                                    <div class="form-group col-sm-2">
+                                        <label for="uname1">DDD</label>
+                                        <input type="text" pattern="^([1-9]{2})"
+                                        placeHolder="11"
+                                        [(ngModel)]="creditorGroupData.dddmodel" name="dddModel" class="form-control rounded-0" 
+                                        [class.is-invalid]="dddModel.invalid && dddModel.touched" #dddModel="ngModel" required >
+                                        <div class="md-errors-spacer" [hidden]="dddModel.valid || dddModel.untouched">
+                                            <small  class="text-danger"*ngIf="dddModel.errors && dddModel.errors.required">
+                                                DDD obrigatório
+                                            </small>
+                                            <small  class="text-danger"*ngIf="(dddModel.errors && dddModel.errors.pattern) || ddHasError">
+                                                DDD inválido
+                                            </small>
+                                        </div>                                         
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="uname1">Telefone</label>
+                                        <input type="text" pattern="^([1-9]{1}[0-9]{3}|[1-9]{1}[0-9]{4})(-)([0-9]{4})"
+                                        placeHolder="1234-5678 ou 12345-6789"
+                                        [(ngModel)]="creditorGroupData.phone" name="phone" class="form-control rounded-0" 
+                                        [class.is-invalid]="phone.invalid && phone.touched" #phone="ngModel" required >
+                                        <div class="md-errors-spacer" [hidden]="phone.valid || phone.untouched">
+                                            <small  class="text-danger"*ngIf="phone.errors && phone.errors.required">
+                                                Telefone obrigatório
+                                            </small>
+                                            <small  class="text-danger"*ngIf="phone.errors && phone.errors.pattern">
+                                                Formato inválido (Ex.: 1234-5678 ou 12345-6789) 
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>                          
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <button type="submit" (click)="backToCreditorGroup()" class="btn btn-info btn-block">Voltar</button>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button type="submit" [ngClass]="{'active':activeTab==='nav-home'}" (click)="nextTab('nav-address')" class="btn btn-rainti btn-block ">Próximo</button>                
+                                    </div>  
+                                </div>                                                                     
                             </form>                
                         </div>
                         <div [ngClass]="{'show active':activeTab==='nav-address'}" class="tab-pane fade" id="nav-address" role="tabpanel" aria-labelledby="nav-address-tab">
                             <form class="form" #addressForm="ngForm">
-                                <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">   
+                                    <label for="uname1">Cep</label>
+                                    <input type="text" [(ngModel)]="creditorGroupData.zipcode" name="zipCode" class="form-control rounded-0" 
+                                    pattern="^([0-9]{5})(-)([0-9]{3})$" placeHolder="12345-678"
+                                    [class.is-invalid]="zipCode.invalid && zipCode.touched" #zipCode="ngModel" required >
+                                    <div class="md-errors-spacer" [hidden]="zipCode.valid || zipCode.untouched">
+                                        <small  class="text-danger"*ngIf="zipCode.errors && zipCode.errors.required">
+                                            Cep obrigatório
+                                        </small>
+                                        <small  class="text-danger" *ngIf="zipCode.errors && zipCode.errors.pattern">
+                                            Cep inválido (Ex.: 12345-678)
+                                        </small>
+                                    </div>                                   
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="uname1">Estado</label><br>
+                                    <!-- <div class="dropup">
+                                        <a class="nav-link " class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Gestora
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu" style="padding-top: 10px; height: 150px; overflow: auto; white-space: nowrap;">  
+                                            <li *ngFor="let state of _states">
+                                                <input type="checkbox" name="groupOptions" autocomplete="off"> {{ state.description }}
+                                            </li>
+                                            <li *ngFor="let entityType of entityTypes"> 
+                                                <a class="nav-link px-2 text-dark" routerLink="/{{entityType.name.toLocaleLowerCase()}}" routerLinkActive="active" >{{entityType.name}}</a>
+                                            </li> -->
+                                        <!-- </ul>
+                                    </div> -->
+                                    <select class="custom-select" 
+                                    #topic="ngModel" [class.is-invalid]="topicHasError && topic.touched" name="topic" 
+                                    [(ngModel)]="creditorGroupData.topic" (change)="validateTopic(topic.value)" (blur)="validateTopic(topic.value)">                            
+                                        <option value="default">--Escolha um Estado</option>
+                                        <option *ngFor="let state of _states">{{ state.description }}</option>
+                                    </select>
+                                    <small class="text-danger" [class.d-none]="!topicHasError || topic.untouched">Escolha um Estado</small>
+                                </div> 
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="uname1">Municipio</label>
+                                     <input type="text" [(ngModel)]="creditorGroupData.county" name="county" class="form-control rounded-0" 
+                                     [class.is-invalid]="county.invalid && county.touched" #county="ngModel" required >
+                                    <div class="md-errors-spacer" [hidden]="county.valid || county.untouched">
+                                        <small  class="text-danger"*ngIf="county.errors && county.errors.required">
+                                            Municipio obrigatório
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="uname1">Bairro</label>
+                                    <input type="text" [(ngModel)]="creditorGroupData.district" name="district" class="form-control rounded-0" 
+                                    [class.is-invalid]="district.invalid && district.touched" #district="ngModel" required >
+                                    <div class="md-errors-spacer" [hidden]="district.valid || district.untouched">
+                                        <small  class="text-danger"*ngIf="district.errors && district.errors.required">
+                                            Bairro obrigatório
+                                        </small>
+                                    </div>
+                                </div>                                                      
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
                                     <label for="uname1">Logradouro</label>
                                     <input type="text" [(ngModel)]="creditorGroupData.address" name="address" class="form-control rounded-0" 
                                     [class.is-invalid]="address.invalid && address.touched" #address="ngModel" required >
@@ -129,173 +183,92 @@
                                         </small>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <label for="uname1">Número</label>
-                                            <input type="text" [(ngModel)]="creditorGroupData.streetnumber" name="streetNumber" class="form-control rounded-0" 
-                                            [class.is-invalid]="streetNumber.invalid && streetNumber.touched" #streetNumber="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="streetNumber.valid || streetNumber.untouched">
-                                                <small  class="text-danger"*ngIf="streetNumber.errors && streetNumber.errors.required">
-                                                    Número do Logradouro obrigatório
-                                                </small>
-                                            </div>
-                                        </div>
+                                <div class="form-group col-sm-2">
+                                    <label for="uname1">Número</label>
+                                    <input type="text" [(ngModel)]="creditorGroupData.streetnumber" name="streetNumber" class="form-control rounded-0" 
+                                    [class.is-invalid]="streetNumber.invalid && streetNumber.touched" #streetNumber="ngModel" required >
+                                    <div class="md-errors-spacer" [hidden]="streetNumber.valid || streetNumber.untouched">
+                                        <small  class="text-danger"*ngIf="streetNumber.errors && streetNumber.errors.required">
+                                            Número do Logradouro obrigatório
+                                        </small>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="uname1">Complemento Endereço</label>
+                                <div class="form-group col-sm-4">
+                                    <label for="uname1">Complemento </label>
                                     <input type="text" [(ngModel)]="creditorGroupData.addresscomplement" name="addressComplement" class="form-control rounded-0" 
                                     [class.is-invalid]="addressComplement.invalid && addressComplement.touched" #addressComplement="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="addressComplement.valid || addressComplement.untouched">
-                                                <small  class="text-danger"*ngIf="addressComplement.errors && addressComplement.errors.required">
-                                                    Complemento Endereço obrigatório
-                                                </small>
-                                            </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="uname1">Bairro</label>
-                                            <input type="text" [(ngModel)]="creditorGroupData.district" name="district" class="form-control rounded-0" 
-                                            [class.is-invalid]="district.invalid && district.touched" #district="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="district.valid || district.untouched">
-                                                <small  class="text-danger"*ngIf="district.errors && district.errors.required">
-                                                    Bairro obrigatório
-                                                </small>
-                                            </div>
-                                        </div>    
-                                        <div class="col-6">
-                                            <label for="uname1">Municipio</label>
-                                             <input type="text" [(ngModel)]="creditorGroupData.county" name="county" class="form-control rounded-0" 
-                                             [class.is-invalid]="county.invalid && county.touched" #county="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="county.valid || county.untouched">
-                                                <small  class="text-danger"*ngIf="county.errors && county.errors.required">
-                                                    Municipio obrigatório
-                                                </small>
-                                            </div>
-                                        </div>                                                   
+                                    <div class="md-errors-spacer" [hidden]="addressComplement.valid || addressComplement.untouched">
+                                        <small  class="text-danger"*ngIf="addressComplement.errors && addressComplement.errors.required">
+                                            Complemento Endereço obrigatório
+                                        </small>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <label for="uname1">Estado</label>
-                                            <div class="dropup">
-                                                <a class="nav-link " class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Gestora
-                                                    <span class="caret"></span></a>
-                                                      <ul class="dropdown-menu" style="padding-top: 10px; height: 150px; overflow: auto; white-space: nowrap;">  
-                                                        <li *ngFor="let state of _states">
-                                                            <input type="checkbox" name="groupOptions" autocomplete="off"> {{ state.description }}
-                                                        </li>
-                                                        <!-- <li *ngFor="let entityType of entityTypes"> 
-                                                          <a class="nav-link px-2 text-dark" routerLink="/{{entityType.name.toLocaleLowerCase()}}" routerLinkActive="active" >{{entityType.name}}</a>
-                                                        </li> -->
-                                                      </ul>
-                                            </div>
-                                            <select class="custom-select" 
-                                            #topic="ngModel" [class.is-invalid]="topicHasError && topic.touched" name="topic" 
-                                            [(ngModel)]="creditorGroupData.topic" (change)="validateTopic(topic.value)" (blur)="validateTopic(topic.value)">                            
-                                                <option value="default">--Escolha um Estado</option>
-                                                <option *ngFor="let state of _states">{{ state.description }}</option>
-                                            </select>
-                                            <small class="text-danger" [class.d-none]="!topicHasError || topic.untouched">Escolha um Estado</small>
-                                        </div> 
-                                        <div class="col-5">   
-                                            <label for="uname1">Cep</label>
-                                            <input type="text" [(ngModel)]="creditorGroupData.zipcode" name="zipCode" class="form-control rounded-0" 
-                                            pattern="^([0-9]{5})(-)([0-9]{3})$" placeHolder="12345-678"
-                                            [class.is-invalid]="zipCode.invalid && zipCode.touched" #zipCode="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="zipCode.valid || zipCode.untouched">
-                                                <small  class="text-danger"*ngIf="zipCode.errors && zipCode.errors.required">
-                                                    Cep obrigatório
-                                                </small>
-                                                <small  class="text-danger" *ngIf="zipCode.errors && zipCode.errors.pattern">
-                                                    Cep inválido (Ex.: 12345-678)
-                                                </small>
-                                            </div>                                   
-                                        </div> 
-                                    </div> 
-                                </div>    
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <button type="submit" [ngClass]="{'active':activeTab==='nav-address'}" (click)="nextTab('nav-contract')" class="btn btn-rainti btn-block ">Próximo</button>                
-                                        </div>  
-                                        <div class="col-sm-6">
-                                            <button type="submit" (click)="backToCreditorGroup()" class="btn btn-info btn-block">Voltar</button>
-                                        </div>  
-                                    </div>                            
-                                </div>                              
-                            </form>                
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <button type="submit" (click)="backToCreditorGroup()" class="btn btn-info btn-block">Voltar</button>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <button type="submit" [ngClass]="{'active':activeTab==='nav-address'}" (click)="nextTab('nav-contract')" class="btn btn-rainti btn-block ">Próximo</button>                
+                                </div>  
+                                  
+                            </div>                            
+                        </form>                
                         </div>
                         <div [ngClass]="{'show active':activeTab==='nav-contract'}" class="tab-pane fade" id="nav-contract" role="tabpanel" aria-labelledby="nav-contract-tab">
                             <form class="form" #contractForm="ngForm">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="uname1">Contrato</label>
-                                            <input type="text" [(ngModel)]="creditorGroupData.contract" name="contract" class="form-control rounded-0" 
-                                            pattern="^.{6,}$" placeHolder="A1B23C"
-                                            [class.is-invalid]="contract.invalid && contract.touched" #contract="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="contract.valid || contract.untouched">
-                                                <small  class="text-danger"*ngIf="contract.errors && contract.errors.required">
-                                                    contrato inválido (Minimo 6 posições)
-                                                </small>
-                                                <small  class="text-danger" *ngIf="contract.errors && contract.errors.pattern">
-                                                    contrato inválido (Ex.: A1B23C minimo 6 posições)
-                                                </small>
-                                            </div>
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <label for="uname1">Contrato</label>
+                                        <input type="text" [(ngModel)]="creditorGroupData.contract" name="contract" class="form-control rounded-0" 
+                                        pattern="^.{6,}$" placeHolder="A1B23C"
+                                        [class.is-invalid]="contract.invalid && contract.touched" #contract="ngModel" required >
+                                        <div class="md-errors-spacer" [hidden]="contract.valid || contract.untouched">
+                                            <small  class="text-danger"*ngIf="contract.errors && contract.errors.required">
+                                                contrato inválido (Minimo 6 posições)
+                                            </small>
+                                            <small  class="text-danger" *ngIf="contract.errors && contract.errors.pattern">
+                                                contrato inválido (Ex.: A1B23C minimo 6 posições)
+                                            </small>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="uname1">Data Inicio</label>
-                                            <input type="date" [(ngModel)]="creditorGroupData.startdate" name="startDate" class="form-control rounded-0" 
-                                            [class.is-invalid]="startDate.invalid && startDate.touched" #startDate="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="startDate.valid || startDate.untouched">
-                                                <small  class="text-danger"*ngIf="startDate.errors && startDate.errors.required">
-                                                    Data Inicio inválida 
-                                                </small>
-                                            </div>
-                                        </div> 
-                                        <div class="col-6">
-                                            <label for="uname1">Data Final</label>
-                                            <input type="date" [(ngModel)]="creditorGroupData.enddate" name="endDate" class="form-control rounded-0" 
-                                            [class.is-invalid]="endDate.invalid && endDate.touched" #endDate="ngModel" required >
-                                            <div class="md-errors-spacer" [hidden]="endDate.valid || endDate.untouched">
-                                                <small  class="text-danger"*ngIf="endDate.errors && endDate.errors.required">
-                                                    Data Final inválida 
-                                                </small>
-                                            </div>
-                                        </div>    
-                                    </div>                                                   
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <button type="submit" [disabled]="contractForm.form.invalid" (click)="createCreditorGroup()" class="btn btn-rainti btn-block ">Confirmar</button>                
-                                        </div>  
-                                        <div class="col-sm-6">
-                                            <button type="submit" (click)="backToCreditorGroup()" class="btn btn-info btn-block">Voltar</button>
-                                        </div>  
-                                    </div>                            
-                                </div>                             
+                                <div class="row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="uname1">Data Inicio</label>
+                                        <input type="date" [(ngModel)]="creditorGroupData.startdate" name="startDate" class="form-control rounded-0" 
+                                        [class.is-invalid]="startDate.invalid && startDate.touched" #startDate="ngModel" required >
+                                        <div class="md-errors-spacer" [hidden]="startDate.valid || startDate.untouched">
+                                            <small  class="text-danger"*ngIf="startDate.errors && startDate.errors.required">
+                                                Data Inicio inválida 
+                                            </small>
+                                        </div>
+                                    </div> 
+                                    <div class="form-group col-sm-6">
+                                        <label for="uname1">Data Final</label>
+                                        <input type="date" [(ngModel)]="creditorGroupData.enddate" name="endDate" class="form-control rounded-0" 
+                                        [class.is-invalid]="endDate.invalid && endDate.touched" #endDate="ngModel" required >
+                                        <div class="md-errors-spacer" [hidden]="endDate.valid || endDate.untouched">
+                                            <small  class="text-danger"*ngIf="endDate.errors && endDate.errors.required">
+                                                Data Final inválida 
+                                            </small>
+                                        </div>
+                                    </div>    
+                                </div>                                                  
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <button type="submit" (click)="backToCreditorGroup()" class="btn btn-info btn-block">Voltar</button>
+                                    </div> 
+                                    <div class="form-group col-sm-6">
+                                        <button type="submit" [disabled]="contractForm.form.invalid" (click)="createCreditorGroup()" class="btn btn-rainti btn-block ">Confirmar</button>                
+                                    </div>  
+                                </div>                                                        
                             </form> 
                         </div>
                     </div>
-                    <hr/>
-                    <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
-                        {{_errorMessage}}
-                    </div> 
-                    <div class="alert alert-primary text-center text-primary" *ngIf="_createdMessage">
-                        {{_createdMessage}}
-                    </div>                                
-                  </div>
+                    <hr/>                                
+                </div>
             </div>
-            <!-- /form card login -->
         </div>
     </div>
 </div>

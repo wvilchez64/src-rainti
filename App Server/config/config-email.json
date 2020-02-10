@@ -2,7 +2,7 @@
 [
     {
         "emailFrom": "no-reply@rainti.com.br",
-        "password": "nr@rainti2020@",
+        "password": "nr@dev@2020",
         "userName": "no-reply",
         "host": "smtp.office365.com",
         "port": 587,

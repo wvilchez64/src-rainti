@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupAddService } from '../group-services/group-add.service';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr'
 
 
 @Component({
@@ -51,7 +52,8 @@ export class GroupAddComponent implements OnInit {
   }
 
   constructor(private _groupAddService: GroupAddService,
-    private _location: Location
+    private _location: Location,
+    private toastr: ToastrService,
   ) { }
 
   ngOnInit() {
@@ -75,7 +77,9 @@ export class GroupAddComponent implements OnInit {
           })
 
         },
-        error => { console.log(error) }
+        error => { console.log(error)
+          this.toastr.error('Erro ao carregar as funcionalidades, por favor recarregue a página.');  
+        }
       )
 
     this._groupAddService.getUserGroupEntities()
@@ -99,7 +103,9 @@ export class GroupAddComponent implements OnInit {
 
           })
         },
-        error => { console.log(error) }
+        error => { console.log(error)
+          this.toastr.error('Erro ao carregar as instituições, por favor recarregue a página.');  
+        }
       )
 
   }
@@ -215,11 +221,13 @@ export class GroupAddComponent implements OnInit {
     this._groupAddService.createGroup(this._detranData)
       .subscribe(
         res => {
-          this._detranSaving = false          
+          this._detranSaving = false 
+          this.toastr.success('Grupo para Detran criado com sucesso!');         
         },
         error => {
           console.log(error)
           this._detranSaving = false
+          this.toastr.error('Erro ao criar grupo para Detran.');     
         }
       )
   }
@@ -254,12 +262,14 @@ export class GroupAddComponent implements OnInit {
       .subscribe(
         res => {
           this._creditorSaving = false 
+          this.toastr.success('Grupo para credora criado com sucesso!');
           //this._router.navigate(['/group-main'])
         },
-        error => {
-          console.log(error)
-          this._creditorSaving = false 
-        }
+        error =>{ 
+        console.log(error)
+        this._creditorSaving = false
+        this.toastr.error('Erro ao criar grupo para credora.');
+      }
       )
   }
 
@@ -293,13 +303,14 @@ export class GroupAddComponent implements OnInit {
         res => {
           
           this._creditorGroupSaving = false 
+          this.toastr.success('Grupo para gestora criado com sucesso!');
           //this._router.navigate(['/group-main'])
         },
         error => {
           console.log(error)
-          this._creditorGroupSaving = false 
+          this._creditorGroupSaving = false
+          this.toastr.error('Erro ao criar grupo para gestora.');
         }
-        
       )
   }
 
@@ -334,12 +345,15 @@ export class GroupAddComponent implements OnInit {
         res => {
           
           this._adminSaving = false 
+          this.toastr.success('Grupo administrador criado com sucesso!');
           //this._router.navigate(['/group-main'])
         },
         error => {
-          console.log(error)
-          this._adminSaving = false 
+        console.log(error);
+        this._adminSaving = false 
+        this.toastr.error('Erro ao criar grupo administrador.');
         }
+        
       )
   }
 

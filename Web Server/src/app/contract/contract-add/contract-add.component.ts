@@ -1,8 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter  } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractAddService } from '../../contract/contract-services/contract-add.service';
 import { Location } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { ToastrService } from 'ngx-toastr'
+import { utilsBr } from 'js-brasil';
+
+
+import { FileUploader } from 'ng2-file-upload';
+import { AuthService } from "../../system-access/system-access-services/auth.service";
+import { Injector } from '@angular/core';
+//import { ContractFileUploadService } from '../../contract/contract-services/contract-file-upload.service';
 
 @Component({
   selector: 'app-contract-add',
@@ -13,6 +21,8 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class ContractAddComponent implements OnInit {
   public cpfcnpjActiveConsumer ='cpf';
   public cpfcnpjActive ='cpf';
+  public MASKS = utilsBr.MASKS;
+
   //ContractData devem ter a ordem das tab da tela e a ordem que sao mostrada na tela
   //ContractData tem campos que nao vao a ser mostrado no resumen, por isso estao de ultimos //special
   _contractLoad = false
@@ -154,118 +164,17 @@ export class ContractAddComponent implements OnInit {
   _buyerType = 'cpf'
   
   dddHasError = true
-  
-  constructor(private _contractAddService: ContractAddService,
-    private _router: Router,
-    private _location: Location
-  ) { }
 
-  validateDetrans(value) {
-    this.detransHasError = false;
-    if (value === 'default') {
-      this.detransHasError = true;
-    } else {
-      this.contractData.detranId = this.findId(this._detrans, value)
-    }
-  }
-  validateCreditors(value) {
-  this.creditorsHasError = false;
-  if (value === 'default') {
-      this.creditorsHasError = true;
-    } else {
-      this.contractData.creditorId = this.findId(this._creditors, value)
-    }
-  }
-  validateBuyerStates(value) {
-    this.buyerStatesHasError = false;
-    if (value === 'default') {
-        this.buyerStatesHasError = true;
-    } else {
-      this.contractData.buyerStateId = this.findId(this._buyerStates, value)
-    }
-  }
-  validatePlateStates(value) {
-    this.plateStatesHasError = false;
-    if (value === 'default') {
-        this.plateStatesHasError = true;
-    } else {
-      this.contractData.plateStateId = this.findId(this._plateStates, value)
-    }
-  }  
-  validateLicensingStates(value) {
-    this.licensingStatesHasError = false;
-    if (value === 'default') {
-        this.licensingStatesHasError = true;
-    } else {
-      this.contractData.licensingStateId = this.findId(this._licensingStates, value)
-    }
-  }  
-  validateAlienTypes(value) {
-    this.alienTypesHasError = false;
-    if (value === 'default') {
-       this.alienTypesHasError = true;
-     } else {
-      this.contractData.alienTypeId = this.findId(this._alienTypes, value)
-     }
-  }
-  validateIndexes(value) {
-    this.indexesHasError = false;
-    if (value === 'default') {
-       this.indexesHasError = true;
-     } else {
-      this.contractData.indexId = this.findId(this._indexes, value)
-     }
-  }
-  validateReleaseStates(value) {
-    this.releaseStatesHasError = false;
-    if (value === 'default') {
-       this.releaseStatesHasError = true;
-     } else {
-      this.contractData.releaseStateId = this.findId(this._releaseStates, value)
-     }
-  }
-  validateSpecies(value) {
-    this.speciesHasError = false;
-    if (value === 'default') {
-       this.speciesHasError = true;
-     } else {
-      this.contractData.specieId = this.findId(this._species, value)
-     }
-  }
-  validateFabricationYears(value) {
-    this.fabricationYearsHasError = false;
-    if (value === 'default') {
-       this.fabricationYearsHasError = true;
-     } 
-  }
-  validateBrands(e, value) {
-    this.brandsHasError = false;
-    if (value === 'default') {
-       this.brandsHasError = true;
-     } else {
-       if (e.type == "change") {
-          this._brandId = this.findId(this._brands, value)
-          this.getModels(this._brandId)
-       }
-     }
-  }  
-  validateModels(e, value) {
-    this.modelsHasError = false;
-    if (value === 'default') {
-       this.modelsHasError = true;
-     } else {
-       if (e.type == "change") {
-          this._modelId = this.findId(this._models, value)
-          this.getModelYears(this._brandId, this._modelId)
-        }
-    }
-  }
-  validateModelYears(value) {
-    this.modelYearsHasError = false;
-    if (value === 'default') {
-       this.modelYearsHasError = true;
-    } 
-  } 
+  staticAlertClosed = false;
+  successMessage: string;
+  
+  constructor(
+    private _contractAddService: ContractAddService,
+    //private _contractFileUploadService: ContractFileUploadService,
+    private _router: Router,
+    private _location: Location,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit() {
     this._detransLoad = true
@@ -443,9 +352,11 @@ export class ContractAddComponent implements OnInit {
   cpfCnpjSelect(origin: string, type: string) {
     if (origin == 'guarantor') {
       this._guarantorType = type
+      this.contractData.guarantorValue = ''
     }
     if (origin == 'buyer') {
       this._buyerType = type
+      this.contractData.buyerValue = ''
     }
   }
  
@@ -511,18 +422,128 @@ export class ContractAddComponent implements OnInit {
   createContract(){
     this.contractData.guarantorType = this._guarantorType
     this.contractData.buyerType = this._buyerType
-    //this._contractLoad = true
+    this._contractLoad = true
     this._contractAddService.createContract(this.contractData)
        .subscribe(
          res => {
           this._createdMessage = 'Contrato Adicionado'
           this._contractLoad = false
+          this.toastr.success('Contrato adicionado com sucesso')
           this._router.navigate(['/contratos'])
         },
          error => {
            this._contractLoad = false
            console.log(error)
-           this._errorMessage = error.error }
+           this._errorMessage ='Erro ao salvar contrato'
+           this.toastr.error('Falha ao registrar contrato')
+          }
+           
          )  
   }
+  validateDetrans(value) {
+    this.detransHasError = false;
+    if (value === 'default') {
+      this.detransHasError = true;
+    } else {
+      this.contractData.detranId = this.findId(this._detrans, value)
+    }
+  }
+  validateCreditors(value) {
+  this.creditorsHasError = false;
+  if (value === 'default') {
+      this.creditorsHasError = true;
+    } else {
+      this.contractData.creditorId = this.findId(this._creditors, value)
+    }
+  }
+  validateBuyerStates(value) {
+    this.buyerStatesHasError = false;
+    if (value === 'default') {
+        this.buyerStatesHasError = true;
+    } else {
+      this.contractData.buyerStateId = this.findId(this._buyerStates, value)
+    }
+  }
+  validatePlateStates(value) {
+    this.plateStatesHasError = false;
+    if (value === 'default') {
+        this.plateStatesHasError = true;
+    } else {
+      this.contractData.plateStateId = this.findId(this._plateStates, value)
+    }
+  }  
+  validateLicensingStates(value) {
+    this.licensingStatesHasError = false;
+    if (value === 'default') {
+        this.licensingStatesHasError = true;
+    } else {
+      this.contractData.licensingStateId = this.findId(this._licensingStates, value)
+    }
+  }  
+  validateAlienTypes(value) {
+    this.alienTypesHasError = false;
+    if (value === 'default') {
+       this.alienTypesHasError = true;
+     } else {
+      this.contractData.alienTypeId = this.findId(this._alienTypes, value)
+     }
+  }
+  validateIndexes(value) {
+    this.indexesHasError = false;
+    if (value === 'default') {
+       this.indexesHasError = true;
+     } else {
+      this.contractData.indexId = this.findId(this._indexes, value)
+     }
+  }
+  validateReleaseStates(value) {
+    this.releaseStatesHasError = false;
+    if (value === 'default') {
+       this.releaseStatesHasError = true;
+     } else {
+      this.contractData.releaseStateId = this.findId(this._releaseStates, value)
+     }
+  }
+  validateSpecies(value) {
+    this.speciesHasError = false;
+    if (value === 'default') {
+       this.speciesHasError = true;
+     } else {
+      this.contractData.specieId = this.findId(this._species, value)
+     }
+  }
+  validateFabricationYears(value) {
+    this.fabricationYearsHasError = false;
+    if (value === 'default') {
+       this.fabricationYearsHasError = true;
+     } 
+  }
+  validateBrands(e, value) {
+    this.brandsHasError = false;
+    if (value === 'default') {
+       this.brandsHasError = true;
+     } else {
+       if (e.type == "change") {
+          this._brandId = this.findId(this._brands, value)
+          this.getModels(this._brandId)
+       }
+     }
+  }  
+  validateModels(e, value) {
+    this.modelsHasError = false;
+    if (value === 'default') {
+       this.modelsHasError = true;
+     } else {
+       if (e.type == "change") {
+          this._modelId = this.findId(this._models, value)
+          this.getModelYears(this._brandId, this._modelId)
+        }
+    }
+  }
+  validateModelYears(value) {
+    this.modelYearsHasError = false;
+    if (value === 'default') {
+       this.modelYearsHasError = true;
+    } 
+  } 
 }

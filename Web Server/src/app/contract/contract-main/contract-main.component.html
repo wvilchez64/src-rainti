@@ -17,8 +17,8 @@
     </div>
   </div>
   <hr/>
-  <div class="row mt-2">    
-      <div class="col-md-4 mb-4" *ngFor="let contract of _contracts | filter: name : searchText"> 
+  <div class="row mt-2" style="padding-top: 10px; height: 650px; overflow-y: scroll; white-space: nowrap;">    
+      <div class="col-md-4 mb-4" *ngFor="let contract of _contracts | filter: searchText"> 
         <div class="card text-center shadow rounded">
           <div class="card-body ">
             <h5 class="card-title ">{{contract.name}}</h5>

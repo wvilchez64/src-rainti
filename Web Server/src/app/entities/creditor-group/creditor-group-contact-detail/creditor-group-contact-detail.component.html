@@ -77,22 +77,16 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <button type="submit" [disabled]="registerForm.form.invalid" (click)="updateCreditorGroupContactById()" class="btn btn-rainti btn-block ">Alterar</button>                
+                                    <button type="submit" (click)="backToCreditorGroupContacts()" class="btn btn-info btn-block">Voltar</button>
                                 </div> 
                                 <div class="col-sm-4">
                                     <button type="submit"  (click)="deleteCreditorGroupContactById()" class="btn btn-danger btn-block ">Excluir</button>                
                                 </div>  
                                 <div class="col-sm-4">
-                                    <button type="submit" (click)="backToCreditorGroupContacts()" class="btn btn-info btn-block">Voltar</button>
+                                    <button type="submit" [disabled]="registerForm.form.invalid" (click)="updateCreditorGroupContactById()" class="btn btn-rainti btn-block ">Alterar</button>                
                                 </div>  
                             </div>                            
                         </div>                             
-                        <div class="alert alert-danger text-center text-danger" *ngIf="_errorMessage">
-                            {{_errorMessage}}
-                        </div>                                  
-                        <div class="alert alert-primary text-center text-primary" *ngIf="_updatedMessage">
-                            {{_updatedMessage}}
-                        </div>  
                     </form>
                 </div>
             </div>
