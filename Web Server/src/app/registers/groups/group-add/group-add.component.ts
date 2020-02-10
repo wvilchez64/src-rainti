@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupAddService } from '../group-services/group-add.service';
 import { Location } from '@angular/common';
-import { ToastrService } from 'ngx-toastr'
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({

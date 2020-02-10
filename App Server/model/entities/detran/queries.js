@@ -11,7 +11,7 @@ const pool = new Pool({
 })
 
 const getDetrans = (req, res) => {
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   let userId = token.subject.userId
 

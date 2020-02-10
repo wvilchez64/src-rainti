@@ -12,7 +12,7 @@ const pool = new Pool({
 
 const getCreditor = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   let userId = token.subject.userId
 
@@ -70,7 +70,7 @@ const getCreditor = (req, res) => {
 
 const getCreditorsGroup = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   let userId = token.subject.userId
 
@@ -119,7 +119,7 @@ const getCreditorsGroup = (req, res) => {
 
 const getDetrans = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   let userId = token.subject.userId
 
