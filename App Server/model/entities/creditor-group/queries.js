@@ -1,5 +1,5 @@
 const Pool = require('pg').Pool
-
+const jwtToken = require('../../../routes/common/jwt-validation')
 const jsonData = require('../../../config/config-database.json');
 
 const pool = new Pool({  
@@ -11,8 +11,27 @@ const pool = new Pool({
 })
 
 const getCreditorGroup = (req, res) =>{
-  
-  const gestora = 3
+
+  let token = jwtToken.verifyToken(req, res)
+
+  let userId = token.subject.userId
+
+  let userEntities = ''
+
+  pool.query('select gp.entityid from groups_relationship gp, accounts acc where acc.userid = $1 and acc.status = 1 and gp.groupsid = acc.groupsid and gp.status = 1', 
+  [userId], (error, result) => {
+    if (error) {
+      console.log(error)
+    } else {
+
+      result.rows.forEach((element) => {
+        userEntities = userEntities + element.entityid + ','
+      })
+      userEntities = userEntities.substr(0, userEntities.length - 1)
+
+      console.log(userEntities)
+
+      const gestora = 3
   pool.query("select  dc.identity as id, et.description as cnpj, " +
              "max(case when dc.datacodeid = 8 then dc.description end) as name, " +   
              "max(case when dc.datacodeid = 8 then dc.description end) as businessname, " +   
@@ -30,6 +49,7 @@ const getCreditorGroup = (req, res) =>{
              "and st.id = sr.idstate " +
              "where et.status = true " +
              "and ty.id  = $1 " +
+             "and et.id in (" + userEntities + ") " +
              "group by dc.identity, et.description " +
              "order by dc.identity",
    [gestora],
@@ -41,6 +61,12 @@ const getCreditorGroup = (req, res) =>{
       res.status(200).json(storedCreditoGroup.rows)
     }
   })
+    }
+  }
+  )
+
+  
+  
 }
 
 const getCreditorGroupById = (req, res) =>{

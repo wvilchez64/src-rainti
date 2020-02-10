@@ -16,4 +16,6 @@ function verifyToken(req, res){
     return payload
 }
 
-module.exports = { verifyToken}
+module.exports = { 
+    verifyToken
+}

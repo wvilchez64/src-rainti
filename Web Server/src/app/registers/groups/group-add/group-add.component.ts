@@ -256,7 +256,10 @@ export class GroupAddComponent implements OnInit {
           this._creditorSaving = false 
           //this._router.navigate(['/group-main'])
         },
-        error => console.log(error)
+        error => {
+          console.log(error)
+          this._creditorSaving = false 
+        }
       )
   }
 
@@ -292,7 +295,11 @@ export class GroupAddComponent implements OnInit {
           this._creditorGroupSaving = false 
           //this._router.navigate(['/group-main'])
         },
-        error => console.log(error)
+        error => {
+          console.log(error)
+          this._creditorGroupSaving = false 
+        }
+        
       )
   }
 
@@ -329,7 +336,10 @@ export class GroupAddComponent implements OnInit {
           this._adminSaving = false 
           //this._router.navigate(['/group-main'])
         },
-        error => console.log(error)
+        error => {
+          console.log(error)
+          this._adminSaving = false 
+        }
       )
   }
 
