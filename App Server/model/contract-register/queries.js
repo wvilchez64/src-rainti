@@ -1,6 +1,6 @@
 const https = require('https');
 const Pool = require('pg').Pool
-
+const jwtToken = require('../../routes/common/jwt-validation')
 const jsonData = require('../../config/config-database.json');
 
 const pool = new Pool({  
@@ -12,40 +12,70 @@ const pool = new Pool({
 })
 
 const getContract = (req, res) =>{
-  const datagroupcodeid = 5;
-  const contrato = 53;
-  const dataContrato = 54;
-  const detran = 88;
-  const nomeFantasia = 8
-  
-  pool.query("select a.idContract as contractRegisterID, d.description as name, b.description as detran, a.contract, a.contractDate " +
-             "from (select a.idContract, " +
-             "max(case when b.id = 88 then a.description end)::int as detranId, " +
-             "max(case when b.id = 53 then a.description end) as contract, " +
-             "max(case when b.id = 54 then a.description end) as contractDate " +
-             "FROM data_contract a " +
-             "inner join data_code b " +
-             "on   a.datacodeid = b.id " +
-             "where b.datagroupcodeid = $1 " +
-             "and   b.id in ($2, $3, $4) " +
-             "group by a.idcontract " +
-             ") as a " +
-             "inner join data_detran b " +
-             "on detranId = b.id " +
-             "inner join contract_relationship c " +
-             "on   a.idcontract = c.id " +
-             "inner join data_creditor d " +
-             "on   c.identity = d.identity " +
-             "where d.datacodeid = $5 " +
-             "order by a.idContract desc",
-   [datagroupcodeid, contrato, dataContrato, detran, nomeFantasia],
-   (error, storedContract) => {
+
+  let token = jwtToken.getPayload(req, res)
+
+  let userId = token.subject.userId
+
+  let userEntities = ''
+
+  pool.query('select gp.entityid from groups_relationship gp, accounts acc where acc.userid = $1 and acc.status = 1 and gp.groupsid = acc.groupsid and gp.status = 1', 
+  [userId], (error, result) => {
     if (error) {
-      console.log(error)     
+      console.log(error)
     } else {
-      res.status(200).json(storedContract.rows)
+
+      result.rows.forEach((element) => {
+        userEntities = userEntities + element.entityid + ','
+      })
+      userEntities = userEntities.substr(0, userEntities.length - 1)
+
+      console.log(userEntities)
+
+      const datagroupcodeid = 5;
+      const contrato = 53;
+      const dataContrato = 54;
+      const detran = 88;
+      const nomeFantasia = 8
+      
+      pool.query("select a.idContract as contractRegisterID, d.description as name, b.description as detran, a.contract, a.contractDate " +
+                 "from (select a.idContract, " +
+                 "max(case when b.id = 88 then a.description end)::int as detranId, " +
+                 "max(case when b.id = 53 then a.description end) as contract, " +
+                 "max(case when b.id = 54 then a.description end) as contractDate " +
+                 "FROM data_contract a " +
+                 "inner join data_code b " +
+                 "on   a.datacodeid = b.id " +
+                 "where b.datagroupcodeid = $1 " +
+                 "and   b.id in ($2, $3, $4) " +
+                 "group by a.idcontract " +
+                 ") as a " +
+                 "inner join data_detran b " +
+                 "on detranId = b.id " +
+                 "inner join contract_relationship c " +
+                 "on   a.idcontract = c.id " +
+                 "inner join data_creditor d " +
+                 "on   c.identity = d.identity " +
+                 "where d.datacodeid = $5 " +
+                 " and c.identity in ("+userEntities+") "+
+                 "order by a.idContract desc",
+       [datagroupcodeid, contrato, dataContrato, detran, nomeFantasia],
+       (error, storedContract) => {
+        if (error) {
+          console.log(error)     
+        } else {
+          res.status(200).json(storedContract.rows)
+        }
+      })
+
+
     }
-  })
+  }
+  )
+
+
+
+
 }
 
 const getContractById = (req, res) =>{
@@ -281,26 +311,52 @@ const deleteContractById = (req, res) =>{
 
 const getCreditors = (req, res) =>{
 
-  const credora = 2;
-  const nomeFantasia = 8;  
-  pool.query("select et.id as id, dc.description as description " +
-             "from data_creditor dc " +
-             "inner join entities et " + 
-             "on dc.identity = et.id " +  
-             "inner join entity_type ty " +  
-             "on et.entitytypeid = ty.id " +  
-             "where et.status = true " +  
-             "and dc.datacodeid = $2 " +
-             "and ty.id = $1 " +
-             "order by et.id ",
-   [credora, nomeFantasia],
-   (error, credoras) => {
+  let token = jwtToken.getPayload(req, res)
+
+  let userId = token.subject.userId
+
+  let userEntities = ''
+
+  pool.query('select gp.entityid from groups_relationship gp, accounts acc where acc.userid = $1 and acc.status = 1 and gp.groupsid = acc.groupsid and gp.status = 1', 
+  [userId], (error, result) => {
     if (error) {
-      console.log(error)     
+      console.log(error)
     } else {
-      res.status(200).json(credoras.rows)
+
+      result.rows.forEach((element) => {
+        userEntities = userEntities + element.entityid + ','
+      })
+      userEntities = userEntities.substr(0, userEntities.length - 1)
+
+      console.log(userEntities)
+
+      const credora = 2;
+      const nomeFantasia = 8;  
+      pool.query("select et.id as id, dc.description as description " +
+                "from data_creditor dc " +
+                "inner join entities et " + 
+                "on dc.identity = et.id " +  
+                "inner join entity_type ty " +  
+                "on et.entitytypeid = ty.id " +  
+                "where et.status = true " + 
+                " and et.id in ("+userEntities+") "+ 
+                "and dc.datacodeid = $2 " +
+                "and ty.id = $1 " +
+                "order by et.id ",
+      [credora, nomeFantasia],
+      (error, credoras) => {
+        if (error) {
+          console.log(error)     
+        } else {
+          res.status(200).json(credoras.rows)
+        }
+      })
     }
-  })
+  }
+  )
+
+
+  
 }
 
 const getCreditorsById = (req, res) =>{  
@@ -329,26 +385,53 @@ const getCreditorsById = (req, res) =>{
 }
 
 const getDetrans = (req, res) =>{
-  const detran = 1;
-  const nome = 1;
-  pool.query("select et.id as id, dc.description as description " +
-             "from data_detran dc " +
-             "inner join entities et " + 
-             "on dc.identity = et.id " +  
-             "inner join entity_type ty " +  
-             "on et.entitytypeid = ty.id " +  
-             "where et.status = true " +  
-             "and dc.datacodeid = $2 " +
-             "and ty.id  = $1 " +
-             "order by et.id ",
-   [detran, nome],
-   (error, detrans) => {
+
+  let token = jwtToken.getPayload(req, res)
+
+  let userId = token.subject.userId
+
+  let userEntities = ''
+
+  pool.query('select gp.entityid from groups_relationship gp, accounts acc where acc.userid = $1 and acc.status = 1 and gp.groupsid = acc.groupsid and gp.status = 1', 
+  [userId], (error, result) => {
     if (error) {
-      console.log(error)     
+      console.log(error)
     } else {
-      res.status(200).json(detrans.rows)
+
+      result.rows.forEach((element) => {
+        userEntities = userEntities + element.entityid + ','
+      })
+      userEntities = userEntities.substr(0, userEntities.length - 1)
+
+      console.log(userEntities)
+      
+      const detran = 1;
+      const nome = 1;
+      pool.query("select et.id as id, dc.description as description " +
+                 "from data_detran dc " +
+                 "inner join entities et " + 
+                 "on dc.identity = et.id " +  
+                 "inner join entity_type ty " +  
+                 "on et.entitytypeid = ty.id " +  
+                 "where et.status = true " +  
+                 " and et.id in ("+userEntities+") "+ 
+                 "and dc.datacodeid = $2 " +
+                 "and ty.id  = $1 " +
+                 "order by et.id ",
+       [detran, nome],
+       (error, detrans) => {
+        if (error) {
+          console.log(error)     
+        } else {
+          res.status(200).json(detrans.rows)
+        }
+      })
     }
-  })
+  }
+  )
+
+
+
 }
 
 

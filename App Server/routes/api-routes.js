@@ -8,6 +8,7 @@ const detran = require ('./entities/detran/api')
 const creditor = require ('./entities/creditor/api')
 const creditorGroup = require ('./entities/creditor-group/api')
 const contract = require ('./contract-register/api')
+const home = require('./home/api')
 
 
 const app = express()
@@ -29,6 +30,8 @@ app.use('/creditor-group', creditorGroup )
 // CONTRACT
 app.use('/contract-register', contract )
 
+// HOME
+app.use('/home', home )
 
 
 module.exports = app

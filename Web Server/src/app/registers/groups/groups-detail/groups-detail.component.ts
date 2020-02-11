@@ -260,21 +260,22 @@ export class GroupsDetailComponent implements OnInit {
       return
     }
     console.log(this._detranData)
-    this._detranSaving = true
+    this._creditorSaving = true
     
     this._route.paramMap.subscribe(
       params =>{
         this._groupDetailService.updateGroup(params.get('id'),this._detranData)
         .subscribe(
           res => {
-            this._detranSaving = false 
+            this._creditorSaving = false 
             this.toastr.success('Alterações salvas com sucesso!'); 
             this.backToGroups();
+            
          
           },
           error => {
             console.log(error)
-            this._detranSaving = false
+            this._creditorSaving = false
             this.toastr.error('Erro ao salvar alterações.');    
           }
         )
@@ -307,19 +308,20 @@ export class GroupsDetailComponent implements OnInit {
       return
     }
     console.log(this._creditorData)
+    this._creditorGroupSaving = true  
     this._route.paramMap.subscribe(
       params =>{
         this._groupDetailService.updateGroup(params.get('id'),this._creditorData)
         .subscribe(
           res => {
-            this._detranSaving = false
+            this._creditorGroupSaving = false
             this.toastr.success('Alterações salvas com sucesso!'); 
             this.backToGroups();
             
           },
           error => {
             console.log(error)
-            this._detranSaving = false
+            this._creditorGroupSaving = false
             this.toastr.error('Erro ao salvar alterações.'); 
           }
         )
@@ -395,18 +397,20 @@ export class GroupsDetailComponent implements OnInit {
       return
     }
     console.log(this._adminData)
+    this._adminSaving = true    
     this._route.paramMap.subscribe(
       params =>{
         this._groupDetailService.updateGroup(params.get('id'),this._adminData)
         .subscribe(
           res => {
-            this._detranSaving = false
+            this._adminSaving = false
             this.toastr.success('Alterações salvas com sucesso!'); 
-            this.backToGroups();          
+            this.backToGroups();   
+            
           },
           error => {
             console.log(error)
-            this._detranSaving = false
+            this._adminSaving = false
             this.toastr.error('Erro ao salvar alterações.'); 
           }
         )

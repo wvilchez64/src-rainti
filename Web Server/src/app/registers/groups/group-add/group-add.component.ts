@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupAddService } from '../group-services/group-add.service';
 import { Location } from '@angular/common';
-import { ToastrService } from 'ngx-toastr'
+import { ToastrService } from 'ngx-toastr';
+
 
 
 @Component({
@@ -267,6 +268,7 @@ export class GroupAddComponent implements OnInit {
         },
         error =>{ 
         console.log(error)
+        this._creditorSaving = false
         this.toastr.error('Erro ao criar grupo para credora.');
       }
       )
@@ -307,6 +309,7 @@ export class GroupAddComponent implements OnInit {
         },
         error => {
           console.log(error)
+          this._creditorGroupSaving = false
           this.toastr.error('Erro ao criar grupo para gestora.');
         }
       )
@@ -348,6 +351,7 @@ export class GroupAddComponent implements OnInit {
         },
         error => {
         console.log(error);
+        this._adminSaving = false 
         this.toastr.error('Erro ao criar grupo administrador.');
         }
         
