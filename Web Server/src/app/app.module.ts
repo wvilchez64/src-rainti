@@ -20,7 +20,7 @@ import { FilterPipe } from './pipes/filter-name.pipe';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
 
-import { FileUploadModule } from 'ng2-file-upload';
+import { FileUploadModule, FileSelectDirective } from 'ng2-file-upload';
 
 import { RegistrarComponent } from './entities/registrar/registrar.component';
 import { DetranContactsComponent } from './entities/detran/detran-contacts/detran-contacts.component';
@@ -141,7 +141,7 @@ import { FirstAccessComponent } from './system-access/first-access/first-access.
     FilterDescriptionPipe,
     UserDetailComponent,
     FilterUserPipe,
-    FirstAccessComponent,
+    FirstAccessComponent
 
   ],
   imports: [

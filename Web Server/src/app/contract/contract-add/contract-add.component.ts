@@ -1,16 +1,21 @@
-import { Component, OnInit, EventEmitter  } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContractAddService } from '../../contract/contract-services/contract-add.service';
 import { Location } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ToastrService } from 'ngx-toastr'
 import { utilsBr } from 'js-brasil';
-
-
-import { FileUploader } from 'ng2-file-upload';
+import { FileUploader, FileUploaderOptions } from 'ng2-file-upload';
 import { AuthService } from "../../system-access/system-access-services/auth.service";
 import { Injector } from '@angular/core';
-//import { ContractFileUploadService } from '../../contract/contract-services/contract-file-upload.service';
+import { networkInterfaces } from 'os';
+import { NgbModalWindow } from '@ng-bootstrap/ng-bootstrap/modal/modal-window';
+import { isNgTemplate } from '@angular/compiler';
+
+/**FileUpload --->**/
+const appServerConfig = require('../../../assets/configs/config-app-server.json')
+const fileUploadUrl = "http://"+appServerConfig.host+":"+appServerConfig.port+"/api/contract-register/file-upload"
+/**<--- FileUpload **/
 
 @Component({
   selector: 'app-contract-add',
@@ -25,6 +30,16 @@ export class ContractAddComponent implements OnInit {
 
   //ContractData devem ter a ordem das tab da tela e a ordem que sao mostrada na tela
   //ContractData tem campos que nao vao a ser mostrado no resumen, por isso estao de ultimos //special
+
+/**FileUpload --->**/
+  fileKey = ''
+  uploader: FileUploader
+  uploadError: boolean = true
+  uploadedCount = 0
+  _hasDocuments = false
+  authService = this.injector.get(AuthService)
+/**<--- FileUpload **/
+
   _contractLoad = false
   _summaryLoad = false
   _creditorsLoad = false
@@ -116,8 +131,9 @@ export class ContractAddComponent implements OnInit {
     alienTypeId: 0,
     indexId: 0,
     releaseStateId: 0,
+    fileKey: null
   }
-  
+
   _errorMessage = ''
   _createdMessage = ''
   _arraySearch = []
@@ -167,16 +183,21 @@ export class ContractAddComponent implements OnInit {
 
   staticAlertClosed = false;
   successMessage: string;
-  
+
+
   constructor(
     private _contractAddService: ContractAddService,
-    //private _contractFileUploadService: ContractFileUploadService,
     private _router: Router,
     private _location: Location,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private injector: Injector
   ) { }
 
   ngOnInit() {
+/**FileUpload --->**/
+    this.getUploader()
+/**<--- FileUpload **/                              
+
     this._detransLoad = true
     this._contractAddService.getDetrans()
     .subscribe(
@@ -341,7 +362,8 @@ export class ContractAddComponent implements OnInit {
           this._modelYears = res
           this._modelYearsLoad = false
         },
-        error => {console.log(error)
+        error => {
+          console.log(error)
           this._modelYearsLoad = false
           this._modelYears = []
           this._errorMessage = error.error 
@@ -365,6 +387,7 @@ export class ContractAddComponent implements OnInit {
   }
 
   createSummary(){
+    this._summaryLoad = true
     let pos = 0
     //Credor
     let _credorResumem = ["Credor: ", "Detran: "]
@@ -398,6 +421,7 @@ export class ContractAddComponent implements OnInit {
                             "Data ultimo pagamento: ", "Data da liberação: ", "UF da liberação: ", "Cidade da liberação: ",
                             "Núm. grupo do consórcio: ", "Núm. cota do consórcio: "]
     this._contrato = this.getSummary(_contratoResumem, pos, '')
+    this._summaryLoad = false
  }
   
   getSummary(summary, pos, newText){
@@ -419,7 +443,75 @@ export class ContractAddComponent implements OnInit {
     this._location.back()
   }
 
+/**FileUpload --->**/
+  
+  getUploader(){
+    this.uploader = new FileUploader({  
+      url: fileUploadUrl, 
+      authToken:  `Bearer ${this.authService.getToken()}`,
+      itemAlias: 'file',
+      headers: [{name: "fileKey", value: this.fileKey}]
+    });
+    this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false};
+    this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+      this.uploadedCount = this.uploadedCount + 1
+      let isLoaded = JSON.parse(response)
+      if (!isLoaded.success) {
+        this.uploadError = true
+      }
+
+      console.log('upload error', isLoaded, this.uploadError)
+      if ((this.uploadedCount == this.uploader.queue.length) 
+      && (this.uploadError == false)) {
+          this.contractData.fileKey = this.fileKey
+          this.createContract()
+      }
+    }; 
+  }
+  
+  onFileSelected(event: EventEmitter<File[]>) {
+    let file: File = event[0];
+    if (typeof file === 'undefined' || file == null) {
+      return 
+    } 
+    Object.keys(event).forEach(function (item) {
+      console.log('---event[item].name--->', event[item].name)
+    })
+  }  
+
+  getFileKey() {
+    let rd = this.contractData.creditorId.toString()
+           + this.contractData.detranId.toString()
+           + ((Math.round((new Date()).getTime() / 1000))
+           + (Math.floor(Math.random() * (999 - 100 + 1)) + 100))
+           .toString()
+    this.fileKey = rd
+    var uo: FileUploaderOptions = {};
+    uo.headers = [{name: "fileKey", value: this.fileKey}]
+    this.uploader.setOptions(uo);
+  }
+  
+  uploadAll(){
+    this._contractLoad = false
+    this.contractData.fileKey = null
+    this.getFileKey()
+    if (this.uploader.queue.length == 0) {
+      this._hasDocuments = false
+    } else {
+      this._hasDocuments = true
+      this.uploadError = false
+      this.uploadedCount = 0
+      this.uploader.queue.forEach (item => {
+        console.log('item', item)
+        item.upload()
+      })
+    }
+    this._contractLoad = true
+  }
+/**<--- FileUpload **/   
+
   createContract(){
+    console.log('contrato')
     this.contractData.guarantorType = this._guarantorType
     this.contractData.buyerType = this._buyerType
     this._contractLoad = true
@@ -430,6 +522,7 @@ export class ContractAddComponent implements OnInit {
           this._contractLoad = false
           this.toastr.success('Contrato adicionado com sucesso')
           this._router.navigate(['/contratos'])
+          this._hasDocuments = true
         },
          error => {
            this._contractLoad = false
@@ -440,6 +533,8 @@ export class ContractAddComponent implements OnInit {
            
          )  
   }
+
+
   validateDetrans(value) {
     this.detransHasError = false;
     if (value === 'default') {

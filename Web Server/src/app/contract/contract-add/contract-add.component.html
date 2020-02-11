@@ -10,11 +10,77 @@
                         <a class="nav-item nav-link" id="nav-veiculo-tab" data-toggle="tab" href="#nav-veiculo" [ngClass]="{'active':_activeTab==='nav-veiculo'}" (click)="nextTab('nav-veiculo')" role="tab" aria-controls="nav-veiculo" aria-selected="false">Veículo</a>
                         <a class="nav-item nav-link" id="nav-devedor-tab" data-toggle="tab" href="#nav-devedor" [ngClass]="{'active':_activeTab==='nav-devedor'}" (click)="nextTab('nav-devedor')" role="tab" aria-controls="nav-devedor" aria-selected="false">Devedor</a>
                         <a class="nav-item nav-link" id="nav-garantidor-tab" data-toggle="tab" href="#nav-garantidor" [ngClass]="{'active':_activeTab==='nav-garantidor'}" (click)="nextTab('nav-garantidor')" role="tab" aria-controls="nav-garantidor" aria-selected="false">Garantidor</a>
-                        <a class="nav-item nav-link" id="nav-contrato-tab" data-toggle="tab" href="#nav-contrato" [ngClass]="{'active':_activeTab==='nav-contrato'}" (click)="nextTab('nav-contrato')" role="tab" aria-controls="nav-contrato" aria-selected="false">Contrato </a>
+                        <a class="nav-item nav-link" id="nav-documento-tab" data-toggle="tab" href="#nav-documento" [ngClass]="{'active':_activeTab==='nav-documento'}" (click)="nextTab('nav-documento')" role="tab" aria-controls="nav-documento" aria-selected="false">Documentos</a>
+                        <a class="nav-item nav-link" id="nav-contrato-tab" data-toggle="tab" href="#nav-contrato" [ngClass]="{'active':_activeTab==='nav-contrato'}" (click)="nextTab('nav-contrato')" role="tab" aria-controls="nav-contrato" aria-selected="false">Contrato</a>
                     </div>
                 </nav>
                 
                 <div class="tab-content" id="nav-tabContent">
+                    <div [ngClass]="{'show active':_activeTab==='nav-documento'}" class="tab-pane fade" id="nav-documento" role="tabpanel" aria-labelledby="nav-documento-tab"> <br>
+                        <form class="form" #documensForm="ngForm">
+                            <div class="form-group"> 
+                                <h6 class="card-title mb-4 mt-1">Seleccionar arquivos</h6>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="file" ng2FileSelect [uploader]="uploader" multiple (onFileSelected)="onFileSelected($event)" />
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group" *ngIf="uploader.queue.length">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="card-title mb-4 mt-1">Selecionados: {{ uploader?.queue?.length }}</h6>
+                                        </div>                   
+                                        <div class="col-sm-3">
+                                            <button type="button" class="btn btn-info btn-s"
+                                                    (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                                                <span class="glyphicon glyphicon-trash"></span> Remover
+                                            </button>
+                                        </div>                   
+                                    </div>                   
+                                </div>
+                                <div class="form-group" *ngIf="uploader.queue.length">
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <h6 class="card-title mb-4 mt-1">Nome</h6>
+                                        </div>                   
+                                        <div class="col-md-12">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr *ngFor="let item of uploader.queue">
+                                                        <td><strong>{{ item?.file?.name }}</strong></td>
+                                                        <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                                                        <td class="text-center">
+                                                            <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                                            <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                                            <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                                        </td>
+                                                        <td nowrap>
+                                                            <button type="button" class="btn btn-info btn-s"
+                                                                    (click)="item.remove()">
+                                                                <span class="glyphicon glyphicon-trash"></span> Remover
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <hr/>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-sm-6"> 
+                                        <button type="submit" [ngClass]="{'active':_activeTab==='nav-garantidor'}" (click)="nextTab('nav-garantidor')" class="btn btn-info btn-block" >Anterior</button>
+                                    </div>
+                                    <div class="col-sm-6">      
+                                        <button type="submit" [ngClass]="{'active':_activeTab==='nav-documento'}" (click)="nextTab('nav-contrato')" class="btn btn-rainti btn-block"> Próximo </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>                 
+                    </div> 
                     <div [ngClass]="{'show active':_activeTab==='nav-credor'}" class="tab-pane fade" id="nav-credor" role="tabpanel" aria-labelledby="nav-credor-tab"> <br>
                         <form class="form" #entitiesForm="ngForm">
                             <div class="form-group">                                        
@@ -23,7 +89,7 @@
                                 </div>                                    
                                 <div class="col" *ngIf="!_detransLoad">                                        
                                     <select class="custom-select" #detran="ngModel" [class.is-invalid]="detransHasError && detran.touched"
-                                    name="detran" [(ngModel)]="contractData.detran" (change)="validateDetrans(detran.value)" (blur)="validateDetrans(detran.value)">                            
+                                        name="detran" [(ngModel)]="contractData.detran" (change)="validateDetrans(detran.value)" (blur)="validateDetrans(detran.value)">                            
                                         <option value="default">--Escolha um Detran</option>
                                         <option *ngFor="let detran of _detrans">{{ detran.description}}</option>
                                     </select>
@@ -524,7 +590,7 @@
                             </div> 
                             <div class="row">
                                 <div class="form-group col-sm-6"> 
-                                    <button type="submit" [ngClass]="{'active':_activeTab==='nav-garantidor'}" (click)="nextTab('nav-devedor')" class="btn btn-info btn-block" >Anterior</button>
+                                    <button type="submit" [ngClass]="{'active':_activeTab==='nav-garantidor'}" (click)="nextTab('nav-documento')" class="btn btn-info btn-block" >Anterior</button>
                                 </div>
                                 <div class="col-sm-6">      
                                     <button type="submit" [ngClass]="{'active':_activeTab==='nav-garantidor'}" (click)="nextTab('nav-contrato')" class="btn btn-rainti btn-block" >Próximo </button>
@@ -824,7 +890,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6"> 
-                                    <button type="submit" [ngClass]="{'active':_activeTab==='nav-contrato'}" (click)="nextTab('nav-garantidor')" class="btn btn-info btn-block" >Anterior</button>                                        </div>
+                                    <button type="submit" [ngClass]="{'active':_activeTab==='nav-contrato'}" (click)="nextTab('nav-documento')" class="btn btn-info btn-block" >Anterior</button>                                        </div>
                                 <div class="col-sm-6">      
                                     <button type="button" data-toggle="modal" class="btn btn-rainti btn-block " (click)="createSummary()" data-target="#staticBackdrop">Confirmar</button>
                                 </div>
@@ -842,7 +908,7 @@
                                         </button>
                                         </div>
                                         <div class="modal-body list-group">
-                                            <a class="list-group-item list-group-item-action flex-column align-items-start active">
+                                            <a class="list-group-item-action flex-column align-items-start active">
                                                 <p>Credor:</p>
                                                 <div class="d-flex w-100 justify-content-between">
                                                     <ul>
@@ -883,11 +949,19 @@
                                                         </li>
                                                     </ul>
                                                 </div>
+                                                <p>Documentos:</p>
+                                                <div class="d-flex w-100 justify-content-between">
+                                                    <ul>
+                                                        <li *ngFor="let item of uploader.queue">
+                                                            {{ item?.file?.name }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal" data-dismiss="modal">Voltar</button>
-                                            <button type="button" class="btn btn-primary" (click)="createContract()" data-dismiss="modal" >Finalizar</button>
+                                            <button type="button" class="btn btn-primary" (click)="uploadAll()" data-dismiss="modal" >Finalizar</button>
                                             <div class="col border text-center btn-outline-secondary" *ngIf="_contractLoad">
                                                 <span class="spinner-border spinner-border" role="status" aria-hidden="true"></span>
                                             </div>
