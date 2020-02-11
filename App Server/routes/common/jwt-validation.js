@@ -1,4 +1,6 @@
+const express =  require('express')
 const jwt = require('jsonwebtoken')
+const router = express.Router()
 
 function getPayload(req, res){
     if(!req.headers.authorization){

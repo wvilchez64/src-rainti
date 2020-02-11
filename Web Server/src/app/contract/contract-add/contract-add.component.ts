@@ -177,6 +177,7 @@ export class ContractAddComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    //window.location.reload()
     this._detransLoad = true
     this._contractAddService.getDetrans()
     .subscribe(

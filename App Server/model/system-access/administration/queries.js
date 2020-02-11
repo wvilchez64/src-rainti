@@ -27,7 +27,7 @@ const getUser = (req, res) => {
 
 const createUser = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   //const userId = token.subject.userId
 
@@ -75,7 +75,7 @@ const createUser = (req, res) => {
 }
 
 const getGroupsDetail = (req, res) => {
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   const userId = parseInt(req.params.id)
 
@@ -101,7 +101,7 @@ const getGroupsDetail = (req, res) => {
 
 const getUserDetail = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   const userId = parseInt(req.params.id)
 
@@ -164,7 +164,7 @@ const getUserForFirstAccess = (req, res) => {
 
 
 const updateUserById = (req, res) => {
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   //const userId = token.subject.userId
 
@@ -245,7 +245,7 @@ const updateUserPasswordById = (req, res) => {
 
 const getGroups = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   const userId = token.subject.userId
 
@@ -285,7 +285,7 @@ const getGroup = (req, res) => {
 // Exibindo os grupos existentes na criação de usuários
 const getGroupsForUsersAdd = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   const userId = token.subject.userId
 
@@ -312,7 +312,7 @@ const getGroupsForUsersAdd = (req, res) => {
 // Exibindo as features existentes na criação de grupos
 const getUserGroupFeatures = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   pool.query(' select f.id as id, '
     + ' f.component as component, '
@@ -338,7 +338,7 @@ const getUserGroupFeatures = (req, res) => {
 
 const getUserGroupFeaturesById = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   let groupsid = parseInt(req.params.id)
 
@@ -372,7 +372,7 @@ const getUserGroupFeaturesById = (req, res) => {
 // Exibindo as features existentes na criação de grupos
 const getUserGroupEntities = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   const userId = token.subject.userId
 
@@ -426,7 +426,7 @@ const getUserGroupEntities = (req, res) => {
 
 const getUserGroupEntitiesById = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   let groupsid = parseInt(req.params.id)
 
@@ -506,7 +506,7 @@ const deleteGroupById = (req, res) => {
 
 const createGroup = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   //const userId = token.subject.userId
 
@@ -552,7 +552,7 @@ const createGroup = (req, res) => {
 
 const updateGroupById = (req, res) => {
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
   //const userId = token.subject.userId
 
@@ -568,24 +568,27 @@ const updateGroupById = (req, res) => {
       try {
         await client.query('BEGIN')
         // groups
-        const groupInsert = await client.query('update groups set status = $1, description = $3 where id = $2',
+        await client.query('update groups set status = $1, description = $3 where id = $2;',
           [userData.planstatus ? 1 : 0, groupsId, userData.planname])
 
         // groups_relationship
         await userData.entities.forEach(element => {
-          client.query('update groups_relationship set status = $1 where entityid = $2 and groupsid = $3',
+          client.query('update groups_relationship set status = $1 where entityid = $2 and groupsid = $3;',
             [element.checked ? 1 : 0, element.entityid, groupsId])
         });
 
         // groups_features
         await userData.features.forEach(element => {
-          client.query('update groups_features set status = $1 where featuresid = $2 and groupsid = $3',
+          client.query('update groups_features set status = $1 where featuresid = $2 and groupsid = $3;',
             [element.checked ? 1 : 0, element.featureid, groupsId])
 
         });
+        
+        console.log("aguardando fucking commit")
+        await client.query('COMMIT;')
+        console.log("Zerei o commit")
 
-        await client.query('COMMIT')
-
+        
         res.status(200).json({ response: "Grupo " + userData.planname + " adicionado" })
 
       } catch (e) {

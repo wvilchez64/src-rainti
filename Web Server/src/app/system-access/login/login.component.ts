@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         res => {
          // console.log(res)
-          sessionStorage.setItem('token',res.token)
+          sessionStorage.setItem('token',res.token)          
           this._router.navigate(['/registrar-contrato'])
         },
         error => {

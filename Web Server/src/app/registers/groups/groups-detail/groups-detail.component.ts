@@ -270,6 +270,7 @@ export class GroupsDetailComponent implements OnInit {
             this._creditorSaving = false 
             this.toastr.success('Alterações salvas com sucesso!'); 
             this.backToGroups();
+            
          
           },
           error => {
@@ -404,7 +405,8 @@ export class GroupsDetailComponent implements OnInit {
           res => {
             this._adminSaving = false
             this.toastr.success('Alterações salvas com sucesso!'); 
-            this.backToGroups();          
+            this.backToGroups();   
+            
           },
           error => {
             console.log(error)

@@ -11,7 +11,9 @@
       <ul class="nav navbar-nav mr-auto" >
         <div class= "row justify-content-lg align-items-center" *ngIf="_authService.loggedIn()">       
           <li class="dropdown px-3"  >
-            <a class="nav-link" class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Registro de Contratos
+            <a class="nav-link" class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"
+            *ngIf="_contractRegister.main"
+            > Registro de Contratos
             <span class="caret"></span></a>
               <ul class="dropdown-menu"  >
                 <li >
@@ -23,28 +25,30 @@
           
           <li class="px-3">
             <div class="dropdown">
-              <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Instituições
+              <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"
+              *ngIf="_entities.main"
+              > Instituições
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                    <li class="dropdown-submenu">
+                    <li class="dropdown-submenu" *ngIf="_entities.detran.main">
                       <a  class="dropdown-item" tabindex="-1">Detrans</a>
                       <ul class="dropdown-menu">
-                        <a class="nav-link px-2 text-dark" routerLink="/detran" routerLinkActive="active">Consultar</a>
-                        <a class="nav-link px-2 text-dark" style="cursor:pointer" (click)="checkDetranAvaiability(content)">Adicionar</a>                         
+                        <a class="nav-link px-2 text-dark" routerLink="/detran" routerLinkActive="active" *ngIf="_entities.detran.view">Consultar</a>
+                        <a class="nav-link px-2 text-dark" style="cursor:pointer" (click)="checkDetranAvaiability(content)" *ngIf="_entities.detran.add">Adicionar</a>                         
                       </ul>
                     </li>
-                    <li class="dropdown-submenu">
+                    <li class="dropdown-submenu" *ngIf="_entities.creditor.main">
                       <a  class="dropdown-item" tabindex="-1">Credoras</a>
                       <ul class="dropdown-menu">
-                        <a class="nav-link px-2 text-dark" routerLink="/credora" routerLinkActive="active">Consultar</a>
-                        <a class="nav-link px-2 text-dark" routerLink="/credor-adicionar" routerLinkActive="active">Adicionar</a>
+                        <a class="nav-link px-2 text-dark" routerLink="/credora" routerLinkActive="active" *ngIf="_entities.creditor.view">Consultar</a>
+                        <a class="nav-link px-2 text-dark" routerLink="/credor-adicionar" routerLinkActive="active"*ngIf="_entities.creditor.add">Adicionar</a>
                       </ul>
                     </li>                     
-                    <li class="dropdown-submenu">
+                    <li class="dropdown-submenu" *ngIf="_entities.creditorGroup.main">
                       <a  class="dropdown-item" tabindex="-1">Gestoras</a>
                       <ul class="dropdown-menu">
-                        <a class="nav-link px-2 text-dark" routerLink="/gestora" routerLinkActive="active">Consultar</a>
-                        <a class="nav-link px-2 text-dark" routerLink="/gestor-adicionar" routerLinkActive="active">Adicionar</a>                      
+                        <a class="nav-link px-2 text-dark" routerLink="/gestora" routerLinkActive="active" *ngIf="_entities.creditorGroup.view">Consultar</a>
+                        <a class="nav-link px-2 text-dark" routerLink="/gestor-adicionar" routerLinkActive="active" *ngIf="_entities.creditorGroup.add">Adicionar</a>                      
                       </ul>
                     </li>  
                   </ul>
@@ -52,38 +56,48 @@
           </li>
           <li class="px-3">
             <div class="dropdown">
-              <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Administração
+              <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"
+              *ngIf="_admin.main"
+              > Administração
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                    <li class="dropdown-submenu">
+                    <li class="dropdown-submenu" *ngIf="_admin.users.main">
                       <a  class="dropdown-item" tabindex="-1">Usuários</a>
                       <ul class="dropdown-menu">
-                        <a class="dropdown-item" routerLink="/usuarios" routerLinkActive="active" >Consultar</a>
-                        <a class="dropdown-item" routerLink="/usuarios-adicionar" routerLinkActive="active" >Adcionar</a>                         
+                        <a class="dropdown-item" routerLink="/usuarios" routerLinkActive="active" *ngIf="_admin.users.view" >Consultar</a>
+                        <a class="dropdown-item" routerLink="/usuarios-adicionar" routerLinkActive="active" *ngIf="_admin.users.add" >Adcionar</a>                         
                       </ul>
                     </li>
-                    <li class="dropdown-submenu">
+                    <li class="dropdown-submenu" *ngIf="_admin.groups.main">
                       <a  class="dropdown-item" tabindex="-1">Grupos</a>
                       <ul class="dropdown-menu">
-                        <a class="dropdown-item" routerLink="/grupos" routerLinkActive="active" >Consultar</a>
-                        <a class="dropdown-item" routerLink="/grupos-adicionar" routerLinkActive="active" >Adicionar</a>                          
+                        <a class="dropdown-item" routerLink="/grupos" routerLinkActive="active" *ngIf="_admin.groups.view" >Consultar</a>
+                        <a class="dropdown-item" routerLink="/grupos-adicionar" routerLinkActive="active" *ngIf="_admin.groups.add">Adicionar</a>                          
                       </ul>
                     </li>                     
                   </ul>
             </div>
           </li>
           <li class="dropdown px-3">
-            <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Relatórios
+            <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"
+            *ngIf="_reports.main"
+            > Relatórios
             <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li>
-                  <a class="nav-link px-2 text-dark" routerLink="/bilhetagem-transacoes" routerLinkActive="active" >Bilhetagem de transações</a>
-                  <a class="nav-link px-2 text-dark" routerLink="/transacoes-financeiras" routerLinkActive="active" >Transações financeira</a>
+                  <a class="nav-link px-2 text-dark" routerLink="/bilhetagem-transacoes" routerLinkActive="active" 
+                  *ngIf="_reports.billing"
+                  >Bilhetagem de transações</a>
+                  <a class="nav-link px-2 text-dark" routerLink="/transacoes-financeiras" routerLinkActive="active" 
+                  *ngIf="_reports.transactions"
+                  >Transações financeira</a>
                 </li>
               </ul>
           </li>  
           <li class="dropdown px-3">
-            <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"> Auditoria
+            <a class="dropdown-toggle" style="cursor:pointer" data-toggle="dropdown" routerLinkActive="active"
+            *ngIf="_audit"
+            > Auditoria
             <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li>

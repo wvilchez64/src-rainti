@@ -1,5 +1,6 @@
 const Pool = require('pg').Pool
 const crypto = require('crypto')
+const jwtToken = require('../../../routes/common/jwt-validation')
 const jwt = require('jsonwebtoken')
 const jsonData = require('../../../config/config-database.json');
 var randomize = require('randomatic');
@@ -73,25 +74,43 @@ const loginUser = (req, res) => {
 }
 
 const getUserRoutes = (req, res) => {
-  let userData = req.body
 
-  let token = jwtToken.verifyToken(req, res)
+  let token = jwtToken.getPayload(req, res)
 
-  let hash = crypto.createHash('md5').update(userData.password).digest("hex")
+  let userId = token.subject.userId
 
-  pool.query('select * from users where username = $1 and passwordmd5 = $2', [userData.userName, hash], (error, loggedUser) => {
-    if (error) {
-      console.log(error)
-      res.status(400).send('Erro ao acessar os dados do usuário')
-    } else if (loggedUser.rowCount == 0) {
-      res.status(401).send('Acesso negado! Usuário ou senha inválidos.')
-    } else {
-      let token = jwt.sign({ subject: { userId: loggedUser.rows[0].id } }, 'secretKey')
-      res.status(200).json({ token })
-    }
-
-  })
+  pool.query(' select f.id as id, '
+    + ' f.component as component, '
+    + ' f.description as featurename '
+    + ' from  '
+    + ' features f, '
+    + ' entity_type_features ef, '
+    + ' entity_type et, '
+    + ' groups_features gf, '
+    + ' accounts acc '
+    + ' where '
+    + ' ef.featuresid = f.id '
+    + ' and ef.entitytypeid = et.id  '
+    + ' and gf.featuresid = f.id'
+    + ' and acc.groupsid = gf.groupsid'
+    + ' and acc.userid = $1'
+    + ' and acc.status =1 '
+    + ' and ef.status = 1 '
+    + ' and gf.status = 1 '
+    + ' group by f.id, f.component , f.description '
+    + ' order by 2,1 ',
+    [userId],
+    (error, storedShowFeaturesForGroup) => {
+      if (error) {
+        console.log(error)
+      } else {
+        res.status(200).json(storedShowFeaturesForGroup.rows)
+      }
+    })
 }
+
+
+
 module.exports = {
   loginUser,
   getUserRoutes,
