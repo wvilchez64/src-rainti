@@ -2,6 +2,8 @@ const https = require('https');
 const Pool = require('pg').Pool
 const jwtToken = require('../../routes/common/jwt-validation')
 const jsonData = require('../../config/config-database.json');
+const path = require('path');
+const multer = require('multer');
 
 const pool = new Pool({  
   user: jsonData.user,
@@ -10,6 +12,49 @@ const pool = new Pool({
   password: jsonData.password,
   port: jsonData.port,
 })
+
+const saveUploadfile  = (req, res) =>{
+    hd = req.headers
+    fileKey = ''
+    Object.keys(hd).forEach(function (item) {
+        if (item == "filekey"){
+            filekey = hd[item]
+        }
+    })
+    let token = jwtToken.verifyToken(req, res)
+    let userId = token.subject.userId
+    filekey = userId
+            + filekey
+    var DIR = './uploads/';
+    const storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, DIR);
+        },
+        filename: (req, file, cb) => {
+        cb(null, filekey + '-' + Date.now() + path.extname(file.originalname));
+        }
+    });
+    var upload = multer({
+        storage: storage
+    }).single('file')
+        upload(req, res, function(err){
+        if (err){
+        res.json({error_code: 1,
+                    err_desc: err});
+        return;
+        }
+        if (!req.file) {
+            console.log("Your request doesn’t have any file");
+            return res.send({
+            success: false
+            })
+        }
+        console.log('Your file has been received successfully');
+        return res.send({
+            success: true
+        })
+    })
+}
 
 const getContract = (req, res) =>{
 
@@ -37,17 +82,23 @@ const getContract = (req, res) =>{
       const dataContrato = 54;
       const detran = 88;
       const nomeFantasia = 8
+      const statusContrato = 97
+      const statusDetran = 96
+      const statusDocumentos = 95
       
-      pool.query("select a.idContract as contractRegisterID, d.description as name, b.description as detran, a.contract, a.contractDate " +
+      pool.query("select a.idContract as contractRegisterID, d.description as name, " + 
+                 "b.description as detran, a.contract, a.status, a.stDetran, a.documents " +
                  "from (select a.idContract, " +
                  "max(case when b.id = 88 then a.description end)::int as detranId, " +
                  "max(case when b.id = 53 then a.description end) as contract, " +
-                 "max(case when b.id = 54 then a.description end) as contractDate " +
+                 "max(case when b.id = 97 then a.description end) as status, " +
+                 "max(case when b.id = 96 then a.description end) as stDetran, " +
+                 "max(case when b.id = 95 then a.description end) as documents " +
                  "FROM data_contract a " +
                  "inner join data_code b " +
                  "on   a.datacodeid = b.id " +
                  "where b.datagroupcodeid = $1 " +
-                 "and   b.id in ($2, $3, $4) " +
+                 "and   b.id in ($2, $3, $4, $6, $7, $8) " +
                  "group by a.idcontract " +
                  ") as a " +
                  "inner join data_detran b " +
@@ -57,9 +108,9 @@ const getContract = (req, res) =>{
                  "inner join data_creditor d " +
                  "on   c.identity = d.identity " +
                  "where d.datacodeid = $5 " +
-                 " and c.identity in ("+userEntities+") "+
                  "order by a.idContract desc",
-       [datagroupcodeid, contrato, dataContrato, detran, nomeFantasia],
+       [datagroupcodeid, contrato, dataContrato, detran, nomeFantasia,
+       statusContrato, statusDetran, statusDocumentos],
        (error, storedContract) => {
         if (error) {
           console.log(error)     
@@ -67,15 +118,8 @@ const getContract = (req, res) =>{
           res.status(200).json(storedContract.rows)
         }
       })
-
-
     }
-  }
-  )
-
-
-
-
+  })
 }
 
 const getContractById = (req, res) =>{
@@ -193,6 +237,15 @@ const createContract = async function (req, res) {
     } else {
       contractDataArray.push(contractData.guarantorValue, 76) // CNPJ
     }
+    contractDataArray.push(contractData.fileKey, 98) // FILE KEY
+    contractDataArray.push('REGISTRADO', 97) // STATUS CONTRATO
+    contractDataArray.push('PENDENTE', 96) // STATUS DETRAN
+    if (contractData.fileKey == null) {
+      contractDataArray.push('PENDENTES', 95) // STATUS DOCUMENTOS
+    } else {
+      contractDataArray.push('ANEXADOS', 95) // STATUS DOCUMENTOS
+    }
+   
     var contractDataValues = []
     var i; 
     for (i = 0; i < contractDataArray.length; i += 2) {
@@ -647,23 +700,25 @@ const getAlienTypes = (req, res) =>{
   }
   
   module.exports = { 
-  getContract, 
-  getContractById, 
-  updateContractById, 
-  createContract,
-  deleteContractById,
-  getDetrans,
-  getDetransById,
-  getCreditors,
-  getCreditorsById,
-  getAlienTypes,
-  getAlienTypesById,
-  getIndexes,
-  getIndexesById,
-  getYears,
-  getSpecies,
-  getSpeciesById,
-  getBrands,
-  getModelsById,
-  getModelYearsByIds
+    getContract, 
+    getContractById,
+    getContractByStatus,
+    updateContractById, 
+    createContract,
+    deleteContractById,
+    getDetrans,
+    getDetransById,
+    getCreditors,
+    getCreditorsById,
+    getAlienTypes,
+    getAlienTypesById,
+    getIndexes,
+    getIndexesById,
+    getYears,
+    getSpecies,
+    getSpeciesById,
+    getBrands,
+    getModelsById,
+    getModelYearsByIds,
+    saveUploadfile,
 }
